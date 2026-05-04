@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+/documents
 
 # next.js
 /.next/
