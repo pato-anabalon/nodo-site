@@ -14,6 +14,7 @@ import {
 
 export const navigation = [
   { label: "Services", href: "/services" },
+  { label: "Plans", href: "/plans" },
   { label: "About", href: "/about" },
   { label: "Case studies", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
@@ -136,3 +137,252 @@ export const placeholderPages = {
       "Selected examples of systems, platforms, and operational improvements will live here as the portfolio grows.",
   },
 };
+
+export type PlanSlug = "nodo-flow" | "nodo-growth" | "nodo-nexus" | "nodo-launch";
+
+export type PlanIntent = "discovery-call" | "quote";
+
+export type Plan = {
+  slug: PlanSlug;
+  name: string;
+  label: string;
+  type: "Digital Growth Partnership" | "One-off Website Build";
+  badge?: string;
+  price: string;
+  priceDetail?: string;
+  contractNote?: string;
+  summary: string;
+  includedFeatures: string[];
+  excludedFeatures?: string[];
+  ctaLabel: string;
+  highlighted?: boolean;
+  tone: "entry" | "growth" | "premium" | "one-off";
+};
+
+export const plansPageContent = {
+  hero: {
+    eyebrow: "Nodo plans",
+    title: "Digital plans built for growth.",
+    subtitle:
+      "Choose the level of digital support your business needs, from a one-off website build to an ongoing growth partnership with strategy, support and AI-powered automations.",
+    copy:
+      "Most businesses do not need more marketing. They need better execution. Nodo helps businesses build, improve and grow their digital presence with clear systems that actually work.",
+  },
+  positioning: {
+    eyebrow: "Partner model",
+    title: "More than a website.",
+    copy:
+      "A website should not be a static asset that gets left behind after launch. At Nodo, we offer both one-off builds and ongoing digital partnership plans designed to keep your business visible, up to date and moving forward.",
+  },
+  pricingNote: "All prices are indicative, GST exclusive, and may vary depending on scope.",
+  launchAlternative: {
+    eyebrow: "One-off option",
+    title: "Need a one-off build instead?",
+    copy:
+      "Nodo Launch is available for businesses that want a polished website delivered once and managed internally after launch. It is a clear option, but the strongest long-term value sits in an ongoing Digital Growth Partnership.",
+  },
+  purchaseOption: {
+    eyebrow: "Long-term value",
+    title: "A flexible model, built for long-term value.",
+    copy:
+      "Our Digital Growth Partnerships are designed for businesses that want ongoing technology support, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
+    note:
+      "If this is something you would like to explore, we are happy to explain how the model works in more detail during a call.",
+  },
+  finalCta: {
+    eyebrow: "Ready when you are",
+    title: "Let's build what's next.",
+    copy:
+      "Whether you need a one-off landing page, a new website or an ongoing digital partner, we can help you find the right plan for your business.",
+  },
+};
+
+export const plans: Plan[] = [
+  {
+    slug: "nodo-flow",
+    name: "Nodo Flow",
+    label: "Best for businesses that want a professional website with ongoing support",
+    type: "Digital Growth Partnership",
+    price: "From NZD 649/month",
+    priceDetail: "Initial build and onboarding investment from NZD 2,500",
+    contractNote: "12-month partnership period",
+    summary:
+      "A strong starting point for businesses that want more than a one-off website, with ongoing updates, support and website care.",
+    includedFeatures: [
+      "Professional website build",
+      "Responsive design",
+      "Essential on-page SEO",
+      "Analytics setup",
+      "Hosting and maintenance support",
+      "Monthly updates",
+      "Small ongoing improvements",
+      "Email support",
+      "Website purchase option after 12 months",
+    ],
+    ctaLabel: "Enquire about Nodo Flow",
+    tone: "entry",
+  },
+  {
+    slug: "nodo-growth",
+    name: "Nodo Growth",
+    badge: "Most Popular",
+    label: "Best for businesses that want consistent digital growth and stronger local visibility",
+    type: "Digital Growth Partnership",
+    price: "From NZD 1,099/month",
+    priceDetail: "Initial build and onboarding investment from NZD 4,500",
+    contractNote: "12-month partnership period",
+    summary:
+      "An ongoing digital growth plan for businesses that want their website to generate more enquiries, leads or bookings over time.",
+    includedFeatures: [
+      "Everything in Nodo Flow",
+      "Local SEO support",
+      "Google Business Profile support",
+      "Conversion-focused improvements",
+      "Landing page or growth updates",
+      "Reporting and roadmap guidance",
+      "Priority support",
+      "Website purchase option after 12 months",
+    ],
+    ctaLabel: "Enquire about Nodo Growth",
+    highlighted: true,
+    tone: "growth",
+  },
+  {
+    slug: "nodo-nexus",
+    name: "Nodo Nexus",
+    label: "Best for businesses that want advanced systems, automation and strategic support",
+    type: "Digital Growth Partnership",
+    price: "From NZD 1,990/month",
+    priceDetail: "Initial build and onboarding investment from NZD 7,500",
+    contractNote: "12-month partnership period",
+    summary:
+      "A premium digital partnership for businesses that want more advanced growth systems, AI-driven workflows and connected digital operations.",
+    includedFeatures: [
+      "Everything in Nodo Growth",
+      "AI-powered automations",
+      "Booking, FAQ or lead handling workflows",
+      "Advanced integrations",
+      "Strategic optimisation support",
+      "Priority turnaround",
+      "Website purchase option after 12 months",
+    ],
+    ctaLabel: "Enquire about Nodo Nexus",
+    tone: "premium",
+  },
+  {
+    slug: "nodo-launch",
+    name: "Nodo Launch",
+    label: "Best for businesses that only need a one-off website build",
+    type: "One-off Website Build",
+    price: "From NZD 5,990",
+    summary:
+      "A one-time website build for businesses that want their site delivered and managed internally after launch.",
+    includedFeatures: [
+      "Website design and development",
+      "Responsive layout",
+      "Essential on-page SEO",
+      "Analytics setup",
+      "Launch support",
+      "Limited post-launch support",
+    ],
+    excludedFeatures: [
+      "Ongoing monthly updates",
+      "Recurring optimisation",
+      "Local SEO support",
+      "Google Business support",
+      "Continuous strategy input",
+    ],
+    ctaLabel: "Enquire about Nodo Launch",
+    tone: "one-off",
+  },
+];
+
+export type PlanComparisonValue = boolean | string;
+
+export type PlanComparisonRow = {
+  feature: string;
+  values: Record<PlanSlug, PlanComparisonValue>;
+};
+
+export const planComparisonRows: PlanComparisonRow[] = [
+  {
+    feature: "Website build",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+  },
+  {
+    feature: "Responsive design",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+  },
+  {
+    feature: "SEO basics",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+  },
+  {
+    feature: "Analytics setup",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+  },
+  {
+    feature: "Monthly support",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "Ongoing updates",
+    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "Local SEO support",
+    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "Google Business Profile support",
+    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "Landing page / growth improvements",
+    values: { "nodo-flow": "Small improvements", "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "AI-powered automations",
+    values: { "nodo-flow": false, "nodo-growth": false, "nodo-nexus": true, "nodo-launch": false },
+  },
+  {
+    feature: "Priority support",
+    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": "Priority turnaround", "nodo-launch": false },
+  },
+  {
+    feature: "Website purchase option",
+    values: {
+      "nodo-flow": "After 12 months",
+      "nodo-growth": "After 12 months",
+      "nodo-nexus": "After 12 months",
+      "nodo-launch": "One-off purchase",
+    },
+  },
+  {
+    feature: "One-off model",
+    values: { "nodo-flow": false, "nodo-growth": false, "nodo-nexus": false, "nodo-launch": true },
+  },
+];
+
+export const plansFaq = [
+  {
+    question: "What is the difference between Nodo Launch and a Digital Growth Partnership?",
+    answer:
+      "Nodo Launch is a one-off website build. Nodo Flow, Nodo Growth and Nodo Nexus are Digital Growth Partnerships that include support, updates and continuous improvement over time.",
+  },
+  {
+    question: "Do the partnership plans include a minimum period?",
+    answer:
+      "Yes. Our Digital Growth Partnerships are structured around a 12-month partnership period so we can build, support and improve the digital system properly over time.",
+  },
+  {
+    question: "Can I buy the website after a partnership plan?",
+    answer:
+      "Yes. After the initial 12-month partnership period, we can discuss a website purchase option. This is best explained in conversation, depending on the site structure and service history.",
+  },
+  {
+    question: "Can the plans be tailored to my business?",
+    answer:
+      "Yes. These plans are our standard starting points, but we can tailor the scope depending on your business goals, timelines and technical requirements.",
+  },
+];

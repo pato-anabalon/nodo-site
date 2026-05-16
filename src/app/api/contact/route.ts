@@ -5,6 +5,9 @@ type ContactPayload = {
   email?: string;
   company?: string;
   message?: string;
+  plan?: string;
+  intent?: string;
+  source?: string;
 };
 
 function isValidEmail(value: string) {
@@ -23,6 +26,9 @@ export async function POST(request: Request) {
   const name = payload.name?.trim() ?? "";
   const email = payload.email?.trim() ?? "";
   const message = payload.message?.trim() ?? "";
+  const plan = payload.plan?.trim() ?? "";
+  const intent = payload.intent?.trim() ?? "";
+  const source = payload.source?.trim() ?? "";
 
   if (!name || !email || !message) {
     return NextResponse.json(
@@ -37,6 +43,11 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
+    metadata: {
+      plan,
+      intent,
+      source,
+    },
     message:
       "Contact request received. Connect this route to an email, CRM, or database provider when ready.",
   });

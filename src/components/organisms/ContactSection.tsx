@@ -3,7 +3,13 @@ import { Container } from "@/components/atoms/Container";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { ContactForm } from "@/components/molecules/ContactForm";
 
-export function ContactSection() {
+type ContactSectionProps = {
+  selectedPlanSlug?: string;
+  intent?: string;
+  source?: string;
+};
+
+export function ContactSection({ selectedPlanSlug, intent, source }: ContactSectionProps) {
   return (
     <main className="relative overflow-hidden bg-nodo-black pt-36">
       <ConstellationBackground className="opacity-65" />
@@ -27,7 +33,7 @@ export function ContactSection() {
             </div>
           </div>
           <div className="rounded-[2rem] border border-white/12 bg-nodo-black/70 p-5 shadow-[0_24px_90px_rgba(0,0,0,0.42)] backdrop-blur-xl sm:p-8">
-            <ContactForm />
+            <ContactForm selectedPlanSlug={selectedPlanSlug} intent={intent} source={source} />
           </div>
         </section>
       </Container>

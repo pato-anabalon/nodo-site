@@ -5,6 +5,11 @@ import { cn } from "@/lib/utils";
 
 type ConstellationBackgroundProps = {
   className?: string;
+  density?: number;
+  fps?: number;
+  interactive?: boolean;
+  maxDevicePixelRatio?: number;
+  maxNodes?: number;
 };
 
 type Node = {
@@ -28,8 +33,10 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-function createNodes(width: number, height: number) {
-  const count = clamp(Math.round((width * height) / 17000), 34, 104);
+function createNodes(width: number, height: number, density: number, maxNodes: number) {
+  const safeDensity = clamp(density, 0.2, 1);
+  const minNodes = Math.round(34 * safeDensity);
+  const count = clamp(Math.round((width * height * safeDensity) / 17000), minNodes, maxNodes);
 
   return Array.from({ length: count }, (_, index): Node => {
     const accent = index % 11 === 0;
@@ -47,7 +54,14 @@ function createNodes(width: number, height: number) {
   });
 }
 
-export function ConstellationBackground({ className }: ConstellationBackgroundProps) {
+export function ConstellationBackground({
+  className,
+  density = 1,
+  fps = 60,
+  interactive = true,
+  maxDevicePixelRatio = 2,
+  maxNodes = 104,
+}: ConstellationBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -65,20 +79,29 @@ export function ConstellationBackground({ className }: ConstellationBackgroundPr
     let nodes: Node[] = [];
     let frame = 0;
     let animationFrame = 0;
+    let lastDraw = 0;
+    let isVisible = true;
+    const frameInterval = 1000 / clamp(fps, 12, 60);
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDevicePixelRatio);
 
       width = rect.width;
       height = rect.height;
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      nodes = createNodes(width, height);
+      nodes = createNodes(width, height, density, maxNodes);
     };
 
-    const draw = () => {
+    const draw = (timestamp = 0) => {
+      if (!reducedMotion.matches && timestamp - lastDraw < frameInterval) {
+        animationFrame = window.requestAnimationFrame(draw);
+        return;
+      }
+
+      lastDraw = timestamp;
       context.clearRect(0, 0, width, height);
 
       const connectionDistance = width < 700 ? 118 : 154;
@@ -144,7 +167,7 @@ export function ConstellationBackground({ className }: ConstellationBackgroundPr
 
       frame += 1;
 
-      if (!reducedMotion.matches) {
+      if (!reducedMotion.matches && isVisible) {
         animationFrame = window.requestAnimationFrame(draw);
       }
     };
@@ -167,25 +190,47 @@ export function ConstellationBackground({ className }: ConstellationBackgroundPr
       resize();
       draw();
     });
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+
+      if (isVisible && !reducedMotion.matches) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = window.requestAnimationFrame(draw);
+      }
+    });
 
     observer.observe(canvas);
-    canvas.addEventListener("pointermove", handlePointerMove);
-    canvas.addEventListener("pointerleave", handlePointerLeave);
+    visibilityObserver.observe(canvas);
+
+    if (interactive) {
+      canvas.addEventListener("pointermove", handlePointerMove);
+      canvas.addEventListener("pointerleave", handlePointerLeave);
+    }
+
     resize();
     draw();
 
     return () => {
       observer.disconnect();
-      canvas.removeEventListener("pointermove", handlePointerMove);
-      canvas.removeEventListener("pointerleave", handlePointerLeave);
+      visibilityObserver.disconnect();
+
+      if (interactive) {
+        canvas.removeEventListener("pointermove", handlePointerMove);
+        canvas.removeEventListener("pointerleave", handlePointerLeave);
+      }
+
       window.cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [density, fps, interactive, maxDevicePixelRatio, maxNodes]);
 
   return (
     <canvas
       ref={canvasRef}
-      className={cn("pointer-events-auto absolute inset-0 h-full w-full", className)}
+      className={cn(
+        "absolute inset-0 h-full w-full",
+        interactive ? "pointer-events-auto" : "pointer-events-none",
+        className,
+      )}
       aria-hidden="true"
     />
   );

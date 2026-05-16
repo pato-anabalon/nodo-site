@@ -22,7 +22,7 @@ export function Hero() {
         gsap.set(".hero-node", { scale: 0, transformOrigin: "center" });
         gsap.set(".hero-node-connected", { scale: 0, transformOrigin: "center" });
         gsap.set(".hero-title span", { yPercent: 105 });
-        gsap.set([".hero-kicker", ".hero-copy", ".hero-cta", ".hero-stat"], {
+        gsap.set([".hero-kicker", ".hero-copy", ".hero-cta"], {
           autoAlpha: 0,
           y: 18,
         });
@@ -57,8 +57,7 @@ export function Hero() {
             ".hero-node-connected",
             { scale: 1, duration: 0.58 },
             0.72,
-          )
-          .to(".hero-stat", { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08 }, "-=0.35");
+          );
 
         const markFloat = gsap.to(".hero-mark", {
           y: -18,
@@ -104,7 +103,7 @@ export function Hero() {
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".hero-kicker", ".hero-title span", ".hero-copy", ".hero-cta", ".hero-stat"], {
+        gsap.set([".hero-kicker", ".hero-title span", ".hero-copy", ".hero-cta"], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0,

@@ -88,6 +88,24 @@ select {
   text-wrap: pretty;
 }
 
+.nodo-animated-tag {
+  background:
+    linear-gradient(115deg, rgba(124, 58, 237, 0.42), rgba(255, 255, 255, 0.08), rgba(232, 48, 207, 0.3)),
+    rgba(5, 5, 5, 0.72);
+  background-size: 220% 100%;
+  animation: nodo-tag-shift 7s ease-in-out infinite alternate;
+}
+
+@keyframes nodo-tag-shift {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
+}
+
 @keyframes nodo-loader {
   0% {
     transform: translateX(-100%) scaleX(0.55);
