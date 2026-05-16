@@ -14,7 +14,11 @@ export function PlansFaq() {
         const isOpen = openQuestion === item.question;
 
         return (
-          <article key={item.question} className="rounded-3xl border border-white/12 bg-white/[0.045]">
+          <article
+            key={item.question}
+            className="rounded-3xl border border-white/12 bg-white/[0.045]"
+            data-state={isOpen ? "open" : "closed"}
+          >
             <button
               type="button"
               className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left text-white sm:px-6"
@@ -28,7 +32,10 @@ export function PlansFaq() {
               }}
             >
               <span className="text-lg font-black leading-tight">{item.question}</span>
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06]">
+              <span
+                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] transition-transform duration-300 motion-reduce:transition-none data-[state=open]:rotate-180"
+                data-state={isOpen ? "open" : "closed"}
+              >
                 {isOpen ? (
                   <Minus aria-hidden="true" className="size-4" />
                 ) : (
@@ -36,11 +43,16 @@ export function PlansFaq() {
                 )}
               </span>
             </button>
-            {isOpen ? (
-              <p className="px-5 pb-5 text-pretty text-base leading-7 text-white/64 sm:px-6">
-                {item.answer}
-              </p>
-            ) : null}
+            <div
+              className="grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none data-[state=closed]:grid-rows-[0fr] data-[state=closed]:opacity-0 data-[state=open]:grid-rows-[1fr] data-[state=open]:opacity-100"
+              data-state={isOpen ? "open" : "closed"}
+            >
+              <div className="min-h-0">
+                <p className="px-5 pb-5 text-pretty text-base leading-7 text-white/64 sm:px-6">
+                  {item.answer}
+                </p>
+              </div>
+            </div>
           </article>
         );
       })}

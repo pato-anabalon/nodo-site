@@ -3,16 +3,20 @@ import { Container } from "@/components/atoms/Container";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 
 type RoutePlaceholderProps = {
+  pageKey: string;
   eyebrow: string;
   title: string;
   description: string;
 };
 
-export function RoutePlaceholder({ eyebrow, title, description }: RoutePlaceholderProps) {
+export function RoutePlaceholder({ pageKey, eyebrow, title, description }: RoutePlaceholderProps) {
   return (
-    <main className="min-h-screen bg-nodo-black pt-36">
+    <main data-testid={`${pageKey}-page-main`} className="min-h-screen bg-nodo-black pt-36">
       <Container>
-        <section className="grid min-h-[62vh] items-end gap-10 border-b border-white/12 pb-16 lg:grid-cols-[1fr_0.7fr]">
+        <section
+          data-testid={`${pageKey}-page-hero-section`}
+          className="grid min-h-[62vh] items-end gap-10 border-b border-white/12 pb-16 lg:grid-cols-[1fr_0.7fr]"
+        >
           <SectionHeading eyebrow={eyebrow} title={title} description={description}>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/contact">Start a project</Button>

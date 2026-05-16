@@ -88,6 +88,7 @@ export function PagePreloader() {
 
   return (
     <div
+      data-testid="site-preloader"
       className={cn(
         "fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-nodo-black transition duration-500 ease-out",
         isLeaving && "pointer-events-none opacity-0",

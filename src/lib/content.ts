@@ -1,13 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Blocks,
-  Bot,
+  Brush,
   Gauge,
   GitBranch,
   Layers3,
   LineChart,
   MousePointer2,
-  Network,
   Sparkles,
   Workflow,
 } from "lucide-react";
@@ -21,35 +20,61 @@ export const navigation = [
 ];
 
 export type Service = {
+  eyebrow: string;
   title: string;
   description: string;
+  highlight: string;
+  deliverables: string[];
+  ctaLabel: string;
+  href: string;
   icon: LucideIcon;
 };
 
 export const services: Service[] = [
   {
-    title: "Digital systems",
+    eyebrow: "Brand foundation",
+    title: "Branding",
     description:
-      "Custom operational tools that remove manual work, reduce friction, and keep teams moving with confidence.",
-    icon: Network,
+      "Positioning, identity direction, and brand systems built to make your business feel sharper, clearer, and more credible at every touchpoint.",
+    highlight: "Clarify how your business looks, sounds, and is remembered.",
+    deliverables: [
+      "Brand positioning direction",
+      "Identity systems and visual language",
+      "Messaging foundations for digital channels",
+    ],
+    ctaLabel: "Discuss branding",
+    href: "/contact?service=branding&source=services-section",
+    icon: Brush,
   },
   {
-    title: "Workflow automation",
+    eyebrow: "Demand generation",
+    title: "Digital Marketing Solutions",
     description:
-      "Connected automations for sales, delivery, reporting, admin, and repeatable processes that should not live in spreadsheets.",
+      "Practical marketing systems that improve your visibility, generate stronger enquiries, and give your business a more consistent growth engine.",
+    highlight: "Turn your digital activity into repeatable traction instead of scattered effort.",
+    deliverables: [
+      "Campaign and channel strategy",
+      "SEO and performance-led content direction",
+      "Conversion improvements across landing experiences",
+    ],
+    ctaLabel: "Plan growth activity",
+    href: "/contact?service=digital-marketing-solutions&source=services-section",
     icon: Workflow,
   },
   {
-    title: "Web platforms",
+    eyebrow: "Digital presence",
+    title: "Website design & development",
     description:
-      "High-performing websites, portals, and client-facing experiences designed to become business infrastructure.",
+      "Premium websites designed and built to look sharp, perform fast, and support the way your business actually sells, communicates, and grows.",
+    highlight: "Build the experience your audience lands on and your business grows through.",
+    deliverables: [
+      "Custom website design and UX structure",
+      "Responsive development in modern web stacks",
+      "Launch-ready performance, CMS, and enquiry flows",
+    ],
+    ctaLabel: "Start a website project",
+    href: "/contact?service=website-design-development&source=services-section",
     icon: Blocks,
-  },
-  {
-    title: "AI-enabled operations",
-    description:
-      "Practical AI layers for routing, summarising, triage, support, and decision support inside real business workflows.",
-    icon: Bot,
   },
 ];
 
@@ -122,7 +147,7 @@ export const placeholderPages = {
     title: "Services",
     eyebrow: "What we build",
     description:
-      "A focused look at Nodo's digital systems, workflow automation, web platforms, and AI-enabled operations.",
+      "A focused look at Nodo's branding, digital marketing solutions, and website design and development services.",
   },
   about: {
     title: "About Nodo",
@@ -135,6 +160,48 @@ export const placeholderPages = {
     eyebrow: "Work in progress",
     description:
       "Selected examples of systems, platforms, and operational improvements will live here as the portfolio grows.",
+  },
+};
+
+export const servicesPageContent = {
+  hero: {
+    eyebrow: "Nodo services",
+    title: "Brand, marketing, and web built to drive sales.",
+    subtitle: "",
+    copy:
+      "Nodo brings together branding, digital marketing solutions, and website design and development to help you build a stronger digital presence.",
+  },
+  positioning: {
+    eyebrow: "Built to connect",
+    title: "Three distinct services. One connected growth system.",
+    copy:
+      "Brand gives your business clarity. Marketing helps you generate momentum. Your website turns that momentum into action. Nodo designs each layer to support the others, so your digital presence feels coherent instead of fragmented.",
+    pillars: [
+      {
+        title: "Brand",
+        description: "Identity and positioning that give your business a clearer edge.",
+      },
+      {
+        title: "Demand",
+        description: "Marketing systems that help you generate visibility, leads, and traction.",
+      },
+      {
+        title: "Build",
+        description: "Web experiences that turn attention into real commercial movement.",
+      },
+    ],
+  },
+  detailSection: {
+    eyebrow: "Service breakdown",
+    title: "Choose the area that needs the most attention right now.",
+    description:
+      "Whether your priority is brand clarity, growth activity, or a better website, Nodo can help you define the right starting point and shape the work around your business goals.",
+  },
+  finalCta: {
+    eyebrow: "Start with the right layer",
+    title: "Need help deciding where to begin?",
+    copy:
+      "You may need sharper positioning first. Or a stronger website. Or a better growth engine. We can help you work out the priority and scope the right next move.",
   },
 };
 
@@ -162,11 +229,10 @@ export type Plan = {
 export const plansPageContent = {
   hero: {
     eyebrow: "Nodo plans",
-    title: "Digital plans built for growth.",
-    subtitle:
-      "Choose the level of digital support your business needs, from a one-off website build to an ongoing growth partnership with strategy, support and AI-powered automations.",
+    title: "Digital plans that keep your business moving.",
+    subtitle: "",
     copy:
-      "Most businesses do not need more marketing. They need better execution. Nodo helps businesses build, improve and grow their digital presence with clear systems that actually work.",
+      "Most businesses do not need more marketing. They need better execution. Nodo helps you improve your digital presence with clear systems that keep working after launch.",
   },
   positioning: {
     eyebrow: "Partner model",

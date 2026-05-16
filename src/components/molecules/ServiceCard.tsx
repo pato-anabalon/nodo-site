@@ -16,7 +16,10 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
       <div className="mb-12 inline-flex size-12 items-center justify-center rounded-2xl bg-nodo-purple text-white shadow-[0_0_32px_rgba(124,58,237,0.42)]">
         <Icon aria-hidden="true" className="size-5" />
       </div>
-      <h3 className="text-2xl font-black tracking-normal text-white">{service.title}</h3>
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-nodo-lavender/82">
+        {service.eyebrow}
+      </p>
+      <h3 className="mt-4 text-2xl font-black tracking-normal text-white">{service.title}</h3>
       <p className="mt-4 text-pretty text-base leading-7 text-white/64">
         {service.description}
       </p>

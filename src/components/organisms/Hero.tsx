@@ -10,6 +10,8 @@ import { Container } from "@/components/atoms/Container";
 
 gsap.registerPlugin(useGSAP);
 
+const heroTaglineWords = ["Clarity.", "Speed.", "Results."];
+
 export function Hero() {
   const root = useRef<HTMLElement>(null);
 
@@ -22,16 +24,19 @@ export function Hero() {
         gsap.set(".hero-node", { scale: 0, transformOrigin: "center" });
         gsap.set(".hero-node-connected", { scale: 0, transformOrigin: "center" });
         gsap.set(".hero-title span", { yPercent: 105 });
-        gsap.set([".hero-kicker", ".hero-copy", ".hero-cta"], {
+        gsap.set(".hero-tagline-word", { yPercent: 105 });
+        gsap.set([".hero-kicker", ".hero-bodycopy", ".hero-cta"], {
           autoAlpha: 0,
           y: 18,
         });
+        gsap.set(".hero-tagline", { autoAlpha: 1, y: 0 });
 
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
         tl.to(".hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
           .to(".hero-title span", { yPercent: 0, duration: 0.85, stagger: 0.08 }, "-=0.25")
-          .to(".hero-copy", { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.25")
+          .to(".hero-tagline-word", { yPercent: 0, duration: 0.8, stagger: 0.08 }, "-=0.25")
+          .to(".hero-bodycopy", { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.35")
           .to(
             ".hero-cta",
             {
@@ -103,11 +108,12 @@ export function Hero() {
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".hero-kicker", ".hero-title span", ".hero-copy", ".hero-cta"], {
+        gsap.set([".hero-kicker", ".hero-title span", ".hero-bodycopy", ".hero-cta"], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0,
         });
+        gsap.set(".hero-tagline-word", { yPercent: 0 });
         gsap.set(".hero-line", { strokeDashoffset: 0 });
         gsap.set([".hero-node", ".hero-node-connected"], { scale: 1 });
       });
@@ -120,6 +126,7 @@ export function Hero() {
   return (
     <section
       ref={root}
+      data-testid="home-hero-section"
       className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
     >
       <ConstellationBackground className="opacity-85" />
@@ -133,10 +140,14 @@ export function Hero() {
             <span className="inline-block shrink-0">Nodo</span>
             <span className="inline-block shrink-0 text-nodo-purple">.</span>
           </h1>
-          <p className="hero-copy mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
-            Clarity. Speed. Results.
+          <p className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
+            {heroTaglineWords.map((word, index) => (
+              <span key={`${word}-${index}`} className="inline-block overflow-hidden align-top">
+                <span className="hero-tagline-word inline-block pr-[0.24em]">{word}</span>
+              </span>
+            ))}
           </p>
-          <p className="hero-copy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68">
+          <p className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68">
             Digital systems for growing businesses that need cleaner workflows, sharper
             platforms, and technology that moves at the pace of the company.
           </p>

@@ -7,7 +7,7 @@ import { ServicesSection } from "@/components/organisms/ServicesSection";
 
 export function LandingPage() {
   return (
-    <main>
+    <main data-testid="home-page-main">
       <Hero />
       <ServicesSection />
       <ProcessSection />

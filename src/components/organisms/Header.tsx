@@ -6,7 +6,10 @@ import { navigation } from "@/lib/content";
 
 export function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-nodo-black/72 backdrop-blur-xl">
+    <header
+      data-testid="site-header"
+      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-nodo-black/72 backdrop-blur-xl"
+    >
       <Container className="flex min-h-20 items-center justify-between gap-5">
         <Link href="/" aria-label="Nodo home">
           <NodoLogo inverted className="scale-90" />

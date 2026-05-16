@@ -157,7 +157,7 @@ export function LaunchPlanCard() {
   }
 
   return (
-    <article className="plan-card relative overflow-visible rounded-[2rem] border border-white/12 bg-white/[0.035] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.22)] lg:p-8 lg:pt-10">
+    <article className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10">
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_70%_20%,rgba(124,58,237,0.18),transparent_34%)]" />
       <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/18 bg-nodo-black px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_14px_34px_rgba(0,0,0,0.28)]">
         One-off build
@@ -165,17 +165,17 @@ export function LaunchPlanCard() {
 
       <div className="relative grid gap-8 lg:grid-cols-[0.75fr_1fr] lg:items-start">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-white/42">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-nodo-purple">
             Alternative path
           </p>
-          <h3 className="mt-4 text-4xl font-black tracking-normal text-white">
+          <h3 className="mt-4 text-4xl font-black tracking-normal text-nodo-black">
             {launchPlan.name}
           </h3>
-          <p className="mt-4 max-w-xl text-pretty text-base leading-7 text-white/64">
+          <p className="mt-4 max-w-xl text-pretty text-base leading-7 text-nodo-ink/68">
             {launchPlan.summary}
           </p>
-          <div className="mt-7 rounded-3xl border border-white/10 bg-nodo-black/50 p-5">
-            <p className="text-sm font-semibold text-white/46">One-time investment</p>
+          <div className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5">
+            <p className="text-sm font-semibold text-white/52">One-time investment</p>
             <p className="mt-2 text-3xl font-black leading-tight text-white">
               {launchPlan.price}
             </p>
@@ -193,16 +193,16 @@ export function LaunchPlanCard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-5">
-            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-lavender">
+          <div className="rounded-3xl border border-black/8 bg-black/[0.02] p-5">
+            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-purple">
               Included
             </h4>
             <div className="mt-5 grid gap-3">
               {launchPlan.includedFeatures.map((feature) => (
-                <div key={feature} className="flex gap-3 text-sm leading-5 text-white/72">
+                <div key={feature} className="flex gap-3 text-sm leading-5 text-nodo-ink/76">
                   <CheckCircle2
                     aria-hidden="true"
-                    className="mt-0.5 size-4 shrink-0 text-nodo-lavender"
+                    className="mt-0.5 size-4 shrink-0 text-nodo-purple"
                   />
                   <span>{feature}</span>
                 </div>
@@ -210,14 +210,14 @@ export function LaunchPlanCard() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-nodo-black/40 p-5">
-            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-white/42">
+          <div className="rounded-3xl border border-black/8 bg-black/[0.04] p-5">
+            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-ink/58">
               Not included in this model
             </h4>
             <div className="mt-5 grid gap-3">
               {launchPlan.excludedFeatures?.map((feature) => (
-                <div key={feature} className="flex gap-3 text-sm leading-5 text-white/38">
-                  <XCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-white/26" />
+                <div key={feature} className="flex gap-3 text-sm leading-5 text-nodo-ink/58">
+                  <XCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-nodo-ink/40" />
                   <span>{feature}</span>
                 </div>
               ))}

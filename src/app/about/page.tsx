@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <RoutePlaceholder {...placeholderPages.about} />;
+  return <RoutePlaceholder pageKey="about" {...placeholderPages.about} />;
 }

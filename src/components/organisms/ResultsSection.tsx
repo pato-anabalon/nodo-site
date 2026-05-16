@@ -7,7 +7,7 @@ import { outcomes, proofPoints } from "@/lib/content";
 
 export function ResultsSection() {
   return (
-    <section className="bg-nodo-black py-24 sm:py-32">
+    <section data-testid="home-results-section" className="bg-nodo-black py-24 sm:py-32">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <ScrollReveal>

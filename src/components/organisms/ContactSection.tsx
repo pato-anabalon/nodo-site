@@ -11,11 +11,14 @@ type ContactSectionProps = {
 
 export function ContactSection({ selectedPlanSlug, intent, source }: ContactSectionProps) {
   return (
-    <main className="relative overflow-hidden bg-nodo-black pt-36">
+    <main data-testid="contact-page-main" className="relative overflow-hidden bg-nodo-black pt-36">
       <ConstellationBackground className="opacity-65" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_30%,rgba(124,58,237,0.18),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(232,48,207,0.08),transparent_26%)]" />
       <Container className="relative z-10">
-        <section className="grid min-h-[76vh] gap-12 border-b border-white/12 pb-20 lg:grid-cols-[0.8fr_1fr]">
+        <section
+          data-testid="contact-page-form-section"
+          className="grid min-h-[76vh] gap-12 border-b border-white/12 pb-20 lg:grid-cols-[0.8fr_1fr]"
+        >
           <div>
             <SectionHeading
               eyebrow="Contact"

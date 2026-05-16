@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 
 export function CTASection() {
   return (
-    <section className="bg-nodo-purple py-20 text-white sm:py-28">
+    <section data-testid="home-cta-section" className="bg-nodo-purple py-20 text-white sm:py-28">
       <Container>
         <ScrollReveal>
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">

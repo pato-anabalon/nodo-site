@@ -66,7 +66,11 @@ export function ProcessSection() {
   );
 
   return (
-    <section ref={root} className="overflow-hidden bg-white py-24 text-nodo-black sm:py-32">
+    <section
+      ref={root}
+      data-testid="home-process-section"
+      className="overflow-hidden bg-white py-24 text-nodo-black sm:py-32"
+    >
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div className="relative">

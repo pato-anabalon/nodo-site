@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesPage() {
-  return <RoutePlaceholder {...placeholderPages["case-studies"]} />;
+  return <RoutePlaceholder pageKey="case-studies" {...placeholderPages["case-studies"]} />;
 }
