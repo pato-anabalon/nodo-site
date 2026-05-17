@@ -89,6 +89,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           plan={plan.slug}
           intent="quote"
           location="plans_grid"
+          dataTestId={`plans-grid-${plan.slug}-button`}
           variant={plan.highlighted ? "primary" : "secondary"}
           className="w-full"
         >
@@ -184,6 +185,7 @@ export function LaunchPlanCard() {
               plan={launchPlan.slug}
               intent="quote"
               location="plans_launch_alternative"
+              dataTestId="plans-launch-alternative-button"
               variant="secondary"
               className="mt-5 w-full"
             >

@@ -78,7 +78,9 @@ export function ServicesPageShowcase() {
                     <Button
                       href={service.href}
                       variant="secondary"
-                      className="w-full justify-between rounded-2xl border-white/12 bg-white/6 px-4 py-3 text-left hover:border-nodo-lavender/55 hover:bg-white/10"
+                      surfaceTone="dark"
+                      dataTestId={`services-showcase-${service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}-button`}
+                      className="w-full justify-between rounded-2xl border-white/18 bg-white/10 px-4 py-3 text-left shadow-[0_10px_28px_rgba(5,5,5,0.18)] hover:-translate-y-0.5 hover:border-nodo-lavender/55 hover:bg-white/14 hover:shadow-[0_16px_34px_rgba(124,58,237,0.14)]"
                       icon={<ArrowRight aria-hidden="true" className="size-4" />}
                     >
                       {service.ctaLabel}

@@ -12,6 +12,51 @@
   --nodo-ink: #161319;
   --nodo-muted: #9c95a8;
   --nodo-line: rgba(255, 255, 255, 0.14);
+  --nodo-header-surface-bg: rgba(5, 5, 5, 0.9);
+  --nodo-header-logo-width: 13.25rem;
+  --nodo-header-action-width: 13.25rem;
+  --nodo-header-logo-height: 5.75rem;
+
+  --cta-dark-primary-bg: var(--nodo-white);
+  --cta-dark-primary-text: var(--nodo-black);
+  --cta-dark-primary-hover-bg: var(--nodo-lavender);
+  --cta-dark-primary-hover-text: var(--nodo-black);
+  --cta-dark-primary-outline: var(--nodo-lavender);
+  --cta-dark-secondary-bg: rgba(255, 255, 255, 0.08);
+  --cta-dark-secondary-text: var(--nodo-white);
+  --cta-dark-secondary-border: rgba(255, 255, 255, 0.18);
+  --cta-dark-secondary-hover-bg: rgba(255, 255, 255, 0.14);
+  --cta-dark-secondary-hover-text: var(--nodo-white);
+  --cta-dark-secondary-hover-border: rgba(196, 181, 253, 0.7);
+  --cta-dark-secondary-outline: var(--nodo-lavender);
+
+  --cta-purple-primary-bg: var(--nodo-white);
+  --cta-purple-primary-text: var(--nodo-black);
+  --cta-purple-primary-hover-bg: #ede9fe;
+  --cta-purple-primary-hover-text: var(--nodo-black);
+  --cta-purple-primary-outline: var(--nodo-white);
+  --cta-purple-secondary-bg: rgba(255, 255, 255, 0.1);
+  --cta-purple-secondary-text: var(--nodo-white);
+  --cta-purple-secondary-border: rgba(255, 255, 255, 0.22);
+  --cta-purple-secondary-hover-bg: rgba(255, 255, 255, 0.22);
+  --cta-purple-secondary-hover-text: var(--nodo-white);
+  --cta-purple-secondary-hover-border: rgba(255, 255, 255, 0.48);
+  --cta-purple-secondary-outline: var(--nodo-white);
+
+  --cta-light-primary-bg: var(--nodo-black);
+  --cta-light-primary-text: var(--nodo-white);
+  --cta-light-primary-border: rgba(5, 5, 5, 0.08);
+  --cta-light-primary-hover-bg: #141414;
+  --cta-light-primary-hover-text: var(--nodo-white);
+  --cta-light-primary-hover-border: rgba(124, 58, 237, 0.5);
+  --cta-light-primary-outline: var(--nodo-purple);
+  --cta-light-secondary-bg: rgba(5, 5, 5, 0.03);
+  --cta-light-secondary-text: var(--nodo-black);
+  --cta-light-secondary-hover-text: var(--nodo-purple);
+  --cta-light-secondary-border: rgba(5, 5, 5, 0.1);
+  --cta-light-secondary-hover-bg: rgba(124, 58, 237, 0.12);
+  --cta-light-secondary-hover-border: rgba(124, 58, 237, 0.32);
+  --cta-light-secondary-outline: var(--nodo-purple);
 }
 
 @theme inline {
@@ -86,6 +131,35 @@ select {
 
 .text-pretty {
   text-wrap: pretty;
+}
+
+.nodo-header-surface {
+  background-color: var(--nodo-header-surface-bg);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.nodo-header-surface-fill {
+  fill: var(--nodo-header-surface-bg);
+}
+
+.nodo-header-top-line {
+  left: var(--nodo-header-logo-width);
+  right: 0;
+}
+
+@media (width >= 64rem) {
+  .nodo-header-top-line {
+    right: var(--nodo-header-action-width);
+  }
+}
+
+.nodo-header-surface-hover:hover {
+  background-color: rgba(5, 5, 5, 0.94);
+}
+
+.nodo-header-cta:hover {
+  background-color: var(--nodo-white);
 }
 
 .nodo-animated-tag {

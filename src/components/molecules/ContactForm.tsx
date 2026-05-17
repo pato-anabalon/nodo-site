@@ -117,6 +117,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
           type="submit"
           disabled={status === "submitting"}
           icon={<Send aria-hidden="true" className="size-4" />}
+          dataTestId="contact-form-submit-button"
         >
           {status === "submitting" ? "Sending" : "Send message"}
         </Button>

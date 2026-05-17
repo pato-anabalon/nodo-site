@@ -11,6 +11,7 @@ type TrackedPlanCtaProps = {
   plan: PlanSlug | "not-selected";
   intent: PlanIntent;
   location: string;
+  dataTestId?: string;
   className?: string;
   variant?: "primary" | "secondary" | "ghost" | "inverted";
 };
@@ -21,6 +22,7 @@ export function TrackedPlanCta({
   plan,
   intent,
   location,
+  dataTestId,
   className,
   variant,
 }: TrackedPlanCtaProps) {
@@ -28,6 +30,7 @@ export function TrackedPlanCta({
     <Button
       href={href}
       variant={variant}
+      dataTestId={dataTestId}
       className={className}
       onClick={() => trackPlansCtaClicked({ plan, intent, location })}
     >

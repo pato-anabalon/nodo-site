@@ -152,10 +152,10 @@ export function Hero() {
             platforms, and technology that moves at the pace of the company.
           </p>
           <div className="relative z-20 mt-9 flex flex-wrap gap-3">
-            <Button href="/contact" className="hero-cta">
-              Start a project
+            <Button href="/contact" className="hero-cta" dataTestId="home-hero-primary-button">
+              Let’s talk
             </Button>
-            <Button href="#services" variant="secondary" className="hero-cta">
+            <Button href="#services" variant="secondary" className="hero-cta" dataTestId="home-hero-secondary-button">
               Explore services
             </Button>
           </div>

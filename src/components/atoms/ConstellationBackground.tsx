@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 type ConstellationBackgroundProps = {
+  backgroundTone?: "dark" | "light";
   className?: string;
   density?: number;
   fps?: number;
@@ -27,7 +28,26 @@ const colors = {
   white: "255, 255, 255",
   purple: "124, 58, 237",
   lavender: "196, 181, 253",
+  ink: "12, 10, 18",
+  charcoal: "18, 16, 24",
 };
+
+const colorSchemes = {
+  dark: {
+    node: colors.white,
+    accentNode: colors.purple,
+    line: colors.white,
+    accentLine: colors.lavender,
+    glow: colors.purple,
+  },
+  light: {
+    node: colors.charcoal,
+    accentNode: colors.purple,
+    line: colors.charcoal,
+    accentLine: colors.purple,
+    glow: colors.purple,
+  },
+} as const;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -55,6 +75,7 @@ function createNodes(width: number, height: number, density: number, maxNodes: n
 }
 
 export function ConstellationBackground({
+  backgroundTone = "dark",
   className,
   density = 1,
   fps = 60,
@@ -82,6 +103,7 @@ export function ConstellationBackground({
     let lastDraw = 0;
     let isVisible = true;
     const frameInterval = 1000 / clamp(fps, 12, 60);
+    const scheme = colorSchemes[backgroundTone];
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -132,14 +154,17 @@ export function ConstellationBackground({
               Math.hypot((node.x + next.x) / 2 - pointer.x, (node.y + next.y) / 2 - pointer.y),
               240,
             );
-            const pointerBoost = pointer.active ? (1 - pointerDistance / 240) * 0.34 : 0;
+            const pointerBoost = pointer.active ? (1 - pointerDistance / 240) * 0.56 : 0;
 
             context.beginPath();
             context.moveTo(node.x, node.y);
             context.lineTo(next.x, next.y);
-            context.strokeStyle = `rgba(${node.accent || next.accent ? colors.lavender : colors.white}, ${
-              strength * 0.24 + pointerBoost
-            })`;
+            const baseAlpha =
+              backgroundTone === "light"
+                ? strength * 1.28 + pointerBoost * 2.18
+                : strength * 0.24 + pointerBoost;
+
+            context.strokeStyle = `rgba(${node.accent || next.accent ? scheme.accentLine : scheme.line}, ${baseAlpha})`;
             context.lineWidth = node.accent || next.accent ? 1.35 : 0.8;
             context.stroke();
           }
@@ -154,13 +179,18 @@ export function ConstellationBackground({
 
         context.beginPath();
         context.arc(node.x, node.y, Math.max(radius, 0.6), 0, Math.PI * 2);
-        context.fillStyle = `rgba(${node.accent ? colors.purple : colors.white}, ${node.alpha})`;
+        const nodeAlpha =
+          backgroundTone === "light" && !node.accent
+            ? Math.min(node.alpha + 0.58, 1)
+            : node.alpha;
+
+        context.fillStyle = `rgba(${node.accent ? scheme.accentNode : scheme.node}, ${nodeAlpha})`;
         context.fill();
 
         if (node.accent) {
           context.beginPath();
           context.arc(node.x, node.y, radius * 2.9, 0, Math.PI * 2);
-          context.fillStyle = `rgba(${colors.purple}, 0.12)`;
+          context.fillStyle = `rgba(${scheme.glow}, 0.12)`;
           context.fill();
         }
       }
@@ -221,7 +251,7 @@ export function ConstellationBackground({
 
       window.cancelAnimationFrame(animationFrame);
     };
-  }, [density, fps, interactive, maxDevicePixelRatio, maxNodes]);
+  }, [backgroundTone, density, fps, interactive, maxDevicePixelRatio, maxNodes]);
 
   return (
     <canvas

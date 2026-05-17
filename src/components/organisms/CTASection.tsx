@@ -16,7 +16,7 @@ export function CTASection() {
                 Build a system that scales with the business.
               </h2>
             </div>
-            <Button href="/contact" variant="inverted">
+            <Button href="/contact" variant="inverted" dataTestId="home-cta-primary-button">
               Start the conversation
             </Button>
           </div>

@@ -19,8 +19,8 @@ export function RoutePlaceholder({ pageKey, eyebrow, title, description }: Route
         >
           <SectionHeading eyebrow={eyebrow} title={title} description={description}>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact">Start a project</Button>
-              <Button href="/" variant="secondary">
+              <Button href="/contact" dataTestId={`${pageKey}-hero-primary-button`}>Let’s talk</Button>
+              <Button href="/" variant="secondary" dataTestId={`${pageKey}-hero-secondary-button`}>
                 Back to home
               </Button>
             </div>

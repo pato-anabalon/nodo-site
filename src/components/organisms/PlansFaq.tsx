@@ -21,6 +21,7 @@ export function PlansFaq() {
           >
             <button
               type="button"
+              data-testid={`plans-faq-toggle-${item.question.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
               className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left text-white sm:px-6"
               aria-expanded={isOpen}
               onClick={() => {

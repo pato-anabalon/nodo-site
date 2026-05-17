@@ -30,7 +30,7 @@ export function ServicesPage() {
           autoAlpha: 0,
           y: 18,
         });
-        gsap.set(".services-hero-card", {
+        gsap.set(".services-hero-visual-part", {
           autoAlpha: 0,
           y: 26,
           scale: 0.98,
@@ -53,7 +53,7 @@ export function ServicesPage() {
             "-=0.2",
           )
           .to(
-            ".services-hero-card",
+            ".services-hero-visual-part",
             {
               autoAlpha: 1,
               y: 0,
@@ -65,18 +65,8 @@ export function ServicesPage() {
             0.35,
           );
 
-        const visualFloat = gsap.to(".services-hero-visual", {
-          y: -14,
-          duration: 4.8,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          paused: true,
-        });
-
         const playIntro = () => {
           tl.play(0);
-          visualFloat.play(0);
         };
 
         if (document.documentElement.dataset.nodoPreloaded === "true") {
@@ -96,7 +86,7 @@ export function ServicesPage() {
           y: 0,
           yPercent: 0,
         });
-        gsap.set(".services-hero-card", { autoAlpha: 1, y: 0, scale: 1 });
+        gsap.set(".services-hero-visual-part", { autoAlpha: 1, y: 0, scale: 1 });
       });
 
       return () => mm.revert();
@@ -112,23 +102,24 @@ export function ServicesPage() {
     >
       <section
         data-testid="services-page-hero-section"
-        className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
+        className="relative flex min-h-screen overflow-hidden bg-white pt-28 text-nodo-black"
       >
         <ConstellationBackground
-          className="opacity-60"
-          density={0.68}
+          backgroundTone="light"
+          className="opacity-18 mix-blend-multiply"
+          density={1}
           fps={34}
           interactive
           maxDevicePixelRatio={1.5}
-          maxNodes={64}
+          maxNodes={104}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.22),transparent_28%),radial-gradient(circle_at_82%_22%,rgba(232,48,207,0.12),transparent_22%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.10),transparent_28%),radial-gradient(circle_at_82%_22%,rgba(232,48,207,0.06),transparent_22%)]" />
         <Container className="relative z-10 grid items-center gap-12 pb-16 pt-10 lg:grid-cols-[1fr_0.78fr]">
           <div>
-            <p className="services-hero-kicker opacity-0 motion-reduce:opacity-100 mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
+            <p className="services-hero-kicker opacity-0 motion-reduce:opacity-100 mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-purple">
               {servicesPageContent.hero.eyebrow}
             </p>
-            <h1 className="services-hero-title opacity-0 motion-reduce:opacity-100 max-w-5xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl">
+            <h1 className="services-hero-title opacity-0 motion-reduce:opacity-100 max-w-5xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-nodo-black sm:text-7xl lg:text-8xl">
               {servicesHeroTitleWords.map((word, index) => (
                 <span
                   key={`${word}-${index}`}
@@ -139,23 +130,27 @@ export function ServicesPage() {
               ))}
             </h1>
             {servicesPageContent.hero.subtitle ? (
-              <p className="services-hero-copy opacity-0 motion-reduce:opacity-100 mt-7 max-w-3xl text-pretty text-xl font-semibold leading-8 text-white/76 sm:text-2xl">
+              <p className="services-hero-copy opacity-0 motion-reduce:opacity-100 mt-7 max-w-3xl text-pretty text-xl font-semibold leading-8 text-nodo-ink/82 sm:text-2xl">
                 {servicesPageContent.hero.subtitle}
               </p>
             ) : null}
-            <p className="services-hero-copy opacity-0 motion-reduce:opacity-100 mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/58">
+            <p className="services-hero-copy opacity-0 motion-reduce:opacity-100 mt-5 max-w-2xl text-pretty text-lg leading-8 text-nodo-ink/68">
               {servicesPageContent.hero.copy}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button
                 href="/contact?source=services-hero"
+                variant="inverted"
+                dataTestId="services-hero-primary-button"
                 className="services-hero-cta opacity-0 motion-reduce:opacity-100"
               >
-                Start a project
+                Let’s talk
               </Button>
               <Button
                 href="#service-breakdown"
                 variant="secondary"
+                surfaceTone="light"
+                dataTestId="services-hero-secondary-button"
                 className="services-hero-cta opacity-0 motion-reduce:opacity-100"
               >
                 Explore the services
@@ -163,23 +158,31 @@ export function ServicesPage() {
             </div>
           </div>
 
-          <div className="services-hero-visual grid gap-4 pb-2 sm:grid-cols-3 lg:grid-cols-1">
-            {servicesPageContent.positioning.pillars.map((pillar, index) => (
-              <div
-                key={pillar.title}
-                className="services-hero-card opacity-0 motion-reduce:opacity-100 rounded-[1.75rem] border border-white/12 bg-white/[0.045] p-5 shadow-[0_20px_80px_rgba(0,0,0,0.22)]"
-              >
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-white/32">
-                  0{index + 1}
+          <div className="services-hero-visual relative flex items-center pb-2">
+            <div className="services-hero-visual-part relative overflow-hidden rounded-[2.2rem] border border-black/8 bg-[linear-gradient(145deg,#f8f4ff_0%,#ffffff_48%,#fbf8ff_100%)] p-4 shadow-[0_28px_90px_rgba(22,19,25,0.12)] opacity-0 motion-reduce:opacity-100 sm:p-5">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.10),transparent_28%),radial-gradient(circle_at_82%_80%,rgba(232,48,207,0.06),transparent_22%)]" />
+              <div className="relative overflow-hidden rounded-[1.7rem] border border-black/8 bg-white">
+                <video
+                  className="aspect-[4/5] w-full object-cover"
+                  src="/videos/brand-strategy-optimized.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  data-testid="services-page-hero-video"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(5,5,5,0.12))]" />
+              </div>
+              <div className="services-hero-visual-part absolute inset-x-8 bottom-8 rounded-[1.4rem] border border-white/35 bg-white/84 px-5 py-4 backdrop-blur-md opacity-0 motion-reduce:opacity-100">
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-nodo-purple">
+                  One digital partner
                 </p>
-                <p className="mt-4 text-2xl font-black text-white">
-                  {pillar.title}
-                </p>
-                <p className="mt-3 text-sm leading-7 text-white/64">
-                  {pillar.description}
+                <p className="mt-2 text-base font-semibold leading-7 text-nodo-ink/78">
+                  Brand clarity, smarter demand generation, and web experiences designed to help you sell better.
                 </p>
               </div>
-            ))}
+            </div>
           </div>
         </Container>
       </section>
@@ -295,12 +298,14 @@ export function ServicesPage() {
                 <Button
                   href="/contact?source=services-final"
                   variant="inverted"
+                  dataTestId="services-final-primary-button"
                 >
-                  Start a project
+                  Let’s talk
                 </Button>
                 <Button
                   href="/plans"
                   variant="secondary"
+                  dataTestId="services-final-secondary-button"
                   icon={<ArrowRight aria-hidden="true" className="size-4" />}
                 >
                   View plans

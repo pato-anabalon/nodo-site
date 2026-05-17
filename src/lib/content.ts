@@ -169,7 +169,12 @@ export const servicesPageContent = {
     title: "Brand, marketing, and web built to drive sales.",
     subtitle: "",
     copy:
-      "Nodo brings together branding, digital marketing solutions, and website design and development to help you build a stronger digital presence.",
+      "Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and converts with more confidence.",
+    highlights: [
+      "Sharper positioning",
+      "More visibility",
+      "Better conversion",
+    ],
   },
   positioning: {
     eyebrow: "Built to connect",
@@ -232,7 +237,12 @@ export const plansPageContent = {
     title: "Digital plans that keep your business moving.",
     subtitle: "",
     copy:
-      "Most businesses do not need more marketing. They need better execution. Nodo helps you improve your digital presence with clear systems that keep working after launch.",
+      "Nodo gives you clearer digital structure, ongoing support, and practical improvements that keep delivering after launch.",
+    highlights: [
+      "One-off or ongoing",
+      "Clear pricing paths",
+      "Built for momentum",
+    ],
   },
   positioning: {
     eyebrow: "Partner model",

@@ -36,6 +36,10 @@ export function PlansPage() {
           autoAlpha: 0,
           y: 18,
         });
+        gsap.set(".plans-hero-chip", {
+          autoAlpha: 0,
+          y: 18,
+        });
         gsap.set(".plans-hero-visual-part", { autoAlpha: 0, y: 24, scale: 0.98 });
 
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
@@ -43,6 +47,17 @@ export function PlansPage() {
         tl.to(".plans-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
           .to(".plans-hero-title span", { yPercent: 0, duration: 0.85, stagger: 0.08 }, "-=0.25")
           .to(".plans-hero-copy", { autoAlpha: 1, y: 0, duration: 0.75, stagger: 0.08 }, "-=0.25")
+          .to(
+            ".plans-hero-chip",
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.55,
+              stagger: 0.08,
+              clearProps: "transform,visibility",
+            },
+            "-=0.3",
+          )
           .to(
             ".plans-hero-cta",
             {
@@ -99,6 +114,7 @@ export function PlansPage() {
           y: 0,
           yPercent: 0,
         });
+        gsap.set(".plans-hero-chip", { autoAlpha: 1, y: 0 });
         gsap.set(".plans-hero-visual-part", { autoAlpha: 1, y: 0, scale: 1 });
       });
 
@@ -118,14 +134,14 @@ export function PlansPage() {
         className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
       >
         <ConstellationBackground
-          className="opacity-64"
+          className="opacity-42"
           density={0.7}
           fps={36}
           interactive
           maxDevicePixelRatio={1.5}
-          maxNodes={68}
+          maxNodes={56}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(124,58,237,0.22),transparent_28%),radial-gradient(circle_at_76%_24%,rgba(232,48,207,0.12),transparent_24%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(124,58,237,0.18),transparent_28%),radial-gradient(circle_at_76%_24%,rgba(232,48,207,0.08),transparent_24%)]" />
         <Container className="relative z-10 grid items-center gap-12 pb-16 pt-10 lg:grid-cols-[1fr_0.78fr]">
           <div>
             <p className="plans-hero-kicker opacity-0 motion-reduce:opacity-100 mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
@@ -149,12 +165,23 @@ export function PlansPage() {
             <p className="plans-hero-copy opacity-0 motion-reduce:opacity-100 mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/58">
               {plansPageContent.hero.copy}
             </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {plansPageContent.hero.highlights.map((item) => (
+                <span
+                  key={item}
+                  className="plans-hero-chip rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-white/74 opacity-0 motion-reduce:opacity-100"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
             <div className="mt-9 flex flex-wrap gap-3">
               <TrackedPlanCta
                 href={contactHref("discovery-call", "plans-hero")}
                 plan="not-selected"
                 intent="discovery-call"
                 location="plans_hero_primary"
+                dataTestId="plans-hero-primary-button"
                 className="plans-hero-cta opacity-0 motion-reduce:opacity-100"
               >
                 Book a discovery call
@@ -164,6 +191,7 @@ export function PlansPage() {
                 plan="not-selected"
                 intent="quote"
                 location="plans_hero_secondary"
+                dataTestId="plans-hero-secondary-button"
                 variant="secondary"
                 className="plans-hero-cta opacity-0 motion-reduce:opacity-100"
               >
@@ -180,51 +208,48 @@ export function PlansPage() {
               Partnership path
             </span>
             <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 absolute inset-x-0 bottom-0 top-5 rounded-[2rem] border border-white/12 bg-nodo-black/42 shadow-[0_30px_110px_rgba(0,0,0,0.32)]" />
-            <div className="absolute inset-x-6 bottom-6 top-16 grid grid-rows-[auto_1fr_auto]">
-              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 grid gap-5">
+            <div className="absolute inset-x-6 bottom-6 top-16 flex flex-col justify-between">
+              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 flex items-center gap-3 text-white/52">
                 {["Launch", "Support", "Improve", "Grow"].map((step, index) => (
-                  <div key={step} className="flex items-center gap-4">
-                    <span className="flex size-12 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-sm font-black text-white">
+                  <div key={step} className="flex min-w-0 flex-1 items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-xs font-black text-white">
                       0{index + 1}
                     </span>
-                    <span className="h-px flex-1 bg-white/14" />
-                    <span className="min-w-24 text-right text-sm font-black uppercase tracking-[0.18em] text-white/64">
+                    <span className="truncate text-xs font-black uppercase tracking-[0.16em] text-white/54">
                       {step}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 flex items-center justify-center self-center text-nodo-lavender">
-                <span className="hidden h-px w-20 bg-nodo-lavender/45 sm:block" />
-                <span className="mx-4 rounded-full border border-nodo-lavender/30 bg-nodo-purple/12 px-4 py-2 text-center text-[0.65rem] font-black uppercase leading-4 tracking-[0.16em] text-nodo-lavender">
-                  From handover to momentum
-                </span>
-                <span className="hidden h-px w-20 bg-nodo-lavender/45 sm:block" />
-              </div>
-
-              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-                <div className="rounded-3xl border border-white/10 bg-nodo-black/55 p-4">
-                  <p className="text-sm font-bold text-white/46">One-off</p>
-                  <p className="mt-2 text-xl font-black text-white">
-                    Static handover
-                  </p>
-                </div>
-                <div className="hidden items-center justify-center text-nodo-lavender lg:flex">
-                  <span className="h-px w-8 bg-nodo-lavender/50" />
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="mx-2 size-5 shrink-0"
+              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 space-y-5">
+                <div className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[0.03]">
+                  <video
+                    className="aspect-[4/3] w-full object-cover"
+                    src="/videos/client-planning-optimized.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    data-testid="plans-page-hero-video"
                   />
-                  <span className="h-px w-8 bg-nodo-lavender/50" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-[8.75rem] top-auto h-24 bg-[linear-gradient(180deg,transparent,rgba(5,5,5,0.18))]" />
                 </div>
-                <div className="rounded-3xl border border-nodo-lavender/40 bg-nodo-purple/20 p-4">
-                  <p className="text-sm font-bold text-nodo-lavender">
-                    Partnership
-                  </p>
-                  <p className="mt-2 text-xl font-black text-white">
-                    Ongoing momentum
-                  </p>
+                <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+                  <div className="rounded-3xl border border-white/10 bg-nodo-black/55 p-4">
+                    <p className="text-sm font-bold text-white/46">One-off</p>
+                    <p className="mt-2 text-xl font-black text-white">Static handover</p>
+                  </div>
+                  <div className="hidden items-center justify-center text-nodo-lavender lg:flex">
+                    <span className="h-px w-8 bg-nodo-lavender/50" />
+                    <ArrowRight aria-hidden="true" className="mx-2 size-5 shrink-0" />
+                    <span className="h-px w-8 bg-nodo-lavender/50" />
+                  </div>
+                  <div className="rounded-3xl border border-nodo-lavender/40 bg-nodo-purple/20 p-4">
+                    <p className="text-sm font-bold text-nodo-lavender">Partnership</p>
+                    <p className="mt-2 text-xl font-black text-white">Ongoing momentum</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -395,6 +420,7 @@ export function PlansPage() {
                   plan="not-selected"
                   intent="quote"
                   location="plans_final_primary"
+                  dataTestId="plans-final-primary-button"
                   variant="inverted"
                 >
                   Request a quote
@@ -404,6 +430,7 @@ export function PlansPage() {
                   plan="not-selected"
                   intent="discovery-call"
                   location="plans_final_secondary"
+                  dataTestId="plans-final-secondary-button"
                   variant="secondary"
                 >
                   Book a discovery call
