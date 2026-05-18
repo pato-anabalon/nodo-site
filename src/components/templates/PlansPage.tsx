@@ -36,10 +36,6 @@ export function PlansPage() {
           autoAlpha: 0,
           y: 18,
         });
-        gsap.set(".plans-hero-chip", {
-          autoAlpha: 0,
-          y: 18,
-        });
         gsap.set(".plans-hero-visual-part", { autoAlpha: 0, y: 24, scale: 0.98 });
 
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
@@ -47,17 +43,6 @@ export function PlansPage() {
         tl.to(".plans-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
           .to(".plans-hero-title span", { yPercent: 0, duration: 0.85, stagger: 0.08 }, "-=0.25")
           .to(".plans-hero-copy", { autoAlpha: 1, y: 0, duration: 0.75, stagger: 0.08 }, "-=0.25")
-          .to(
-            ".plans-hero-chip",
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.55,
-              stagger: 0.08,
-              clearProps: "transform,visibility",
-            },
-            "-=0.3",
-          )
           .to(
             ".plans-hero-cta",
             {
@@ -83,18 +68,8 @@ export function PlansPage() {
           )
           .to(".plans-hero-scroll", { autoAlpha: 1, y: 0, duration: 0.45 }, 0.9);
 
-        const visualFloat = gsap.to(".plans-hero-visual", {
-          y: -14,
-          duration: 4.8,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          paused: true,
-        });
-
         const playIntro = () => {
           tl.play(0);
-          visualFloat.play(0);
         };
 
         if (document.documentElement.dataset.nodoPreloaded === "true") {
@@ -114,7 +89,6 @@ export function PlansPage() {
           y: 0,
           yPercent: 0,
         });
-        gsap.set(".plans-hero-chip", { autoAlpha: 1, y: 0 });
         gsap.set(".plans-hero-visual-part", { autoAlpha: 1, y: 0, scale: 1 });
       });
 
@@ -165,16 +139,6 @@ export function PlansPage() {
             <p className="plans-hero-copy opacity-0 motion-reduce:opacity-100 mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/58">
               {plansPageContent.hero.copy}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {plansPageContent.hero.highlights.map((item) => (
-                <span
-                  key={item}
-                  className="plans-hero-chip rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-white/74 opacity-0 motion-reduce:opacity-100"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
             <div className="mt-9 flex flex-wrap gap-3">
               <TrackedPlanCta
                 href={contactHref("discovery-call", "plans-hero")}
@@ -201,55 +165,43 @@ export function PlansPage() {
           </div>
 
           <div
-            className="plans-hero-visual relative min-h-[440px] pt-5 lg:min-h-[560px]"
+            className="plans-hero-visual relative min-h-[420px] pt-5 lg:min-h-[520px]"
             aria-hidden="true"
           >
             <span className="plans-hero-visual-part nodo-animated-tag opacity-0 motion-reduce:opacity-100 absolute left-1/2 top-0 z-10 -translate-x-1/2 rounded-full border border-white/14 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white shadow-[0_14px_45px_rgba(124,58,237,0.18)]">
               Partnership path
             </span>
             <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 absolute inset-x-0 bottom-0 top-5 rounded-[2rem] border border-white/12 bg-nodo-black/42 shadow-[0_30px_110px_rgba(0,0,0,0.32)]" />
-            <div className="absolute inset-x-6 bottom-6 top-16 flex flex-col justify-between">
-              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 flex items-center gap-3 text-white/52">
+            <div className="absolute inset-x-6 bottom-6 top-16 flex flex-col justify-center gap-7">
+              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 grid gap-3 sm:grid-cols-2">
                 {["Launch", "Support", "Improve", "Grow"].map((step, index) => (
-                  <div key={step} className="flex min-w-0 flex-1 items-center gap-3">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-xs font-black text-white">
+                  <div
+                    key={step}
+                    className="rounded-[1.45rem] border border-white/10 bg-white/[0.045] p-4"
+                  >
+                    <span className="flex size-10 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-xs font-black text-white">
                       0{index + 1}
                     </span>
-                    <span className="truncate text-xs font-black uppercase tracking-[0.16em] text-white/54">
+                    <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-white/54">
                       {step}
-                    </span>
+                    </p>
                   </div>
                 ))}
               </div>
 
-              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 space-y-5">
-                <div className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[0.03]">
-                  <video
-                    className="aspect-[4/3] w-full object-cover"
-                    src="/videos/client-planning-optimized.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    data-testid="plans-page-hero-video"
-                  />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-[8.75rem] top-auto h-24 bg-[linear-gradient(180deg,transparent,rgba(5,5,5,0.18))]" />
+              <div className="plans-hero-visual-part opacity-0 motion-reduce:opacity-100 grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+                <div className="rounded-3xl border border-white/10 bg-nodo-black/55 p-5">
+                  <p className="text-sm font-bold text-white/46">One-off</p>
+                  <p className="mt-2 text-xl font-black text-white">Static handover</p>
                 </div>
-                <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-                  <div className="rounded-3xl border border-white/10 bg-nodo-black/55 p-4">
-                    <p className="text-sm font-bold text-white/46">One-off</p>
-                    <p className="mt-2 text-xl font-black text-white">Static handover</p>
-                  </div>
-                  <div className="hidden items-center justify-center text-nodo-lavender lg:flex">
-                    <span className="h-px w-8 bg-nodo-lavender/50" />
-                    <ArrowRight aria-hidden="true" className="mx-2 size-5 shrink-0" />
-                    <span className="h-px w-8 bg-nodo-lavender/50" />
-                  </div>
-                  <div className="rounded-3xl border border-nodo-lavender/40 bg-nodo-purple/20 p-4">
-                    <p className="text-sm font-bold text-nodo-lavender">Partnership</p>
-                    <p className="mt-2 text-xl font-black text-white">Ongoing momentum</p>
-                  </div>
+                <div className="hidden items-center justify-center text-nodo-lavender lg:flex">
+                  <span className="h-px w-8 bg-nodo-lavender/50" />
+                  <ArrowRight aria-hidden="true" className="mx-2 size-5 shrink-0" />
+                  <span className="h-px w-8 bg-nodo-lavender/50" />
+                </div>
+                <div className="rounded-3xl border border-nodo-lavender/40 bg-nodo-purple/20 p-5">
+                  <p className="text-sm font-bold text-nodo-lavender">Partnership</p>
+                  <p className="mt-2 text-xl font-black text-white">Ongoing momentum</p>
                 </div>
               </div>
             </div>

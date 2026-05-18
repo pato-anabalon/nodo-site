@@ -26,21 +26,39 @@ export function ServicesPage() {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.set(".services-hero-title", { autoAlpha: 1 });
         gsap.set(".services-hero-title span", { yPercent: 105 });
-        gsap.set([".services-hero-kicker", ".services-hero-copy", ".services-hero-cta"], {
-          autoAlpha: 0,
-          y: 18,
-        });
+        gsap.set(
+          [
+            ".services-hero-kicker",
+            ".services-hero-copy",
+            ".services-hero-cta",
+          ],
+          {
+            autoAlpha: 0,
+            y: 18,
+          },
+        );
         gsap.set(".services-hero-visual-part", {
           autoAlpha: 0,
           y: 26,
           scale: 0.98,
         });
 
-        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({
+          paused: true,
+          defaults: { ease: "power3.out" },
+        });
 
         tl.to(".services-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
-          .to(".services-hero-title span", { yPercent: 0, duration: 0.85, stagger: 0.08 }, "-=0.25")
-          .to(".services-hero-copy", { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.25")
+          .to(
+            ".services-hero-title span",
+            { yPercent: 0, duration: 0.85, stagger: 0.08 },
+            "-=0.25",
+          )
+          .to(
+            ".services-hero-copy",
+            { autoAlpha: 1, y: 0, duration: 0.75 },
+            "-=0.25",
+          )
           .to(
             ".services-hero-cta",
             {
@@ -72,7 +90,9 @@ export function ServicesPage() {
         if (document.documentElement.dataset.nodoPreloaded === "true") {
           playIntro();
         } else {
-          window.addEventListener("nodo:preloader-complete", playIntro, { once: true });
+          window.addEventListener("nodo:preloader-complete", playIntro, {
+            once: true,
+          });
         }
 
         return () => {
@@ -81,12 +101,25 @@ export function ServicesPage() {
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".services-hero-kicker", ".services-hero-title", ".services-hero-title span", ".services-hero-copy", ".services-hero-cta"], {
+        gsap.set(
+          [
+            ".services-hero-kicker",
+            ".services-hero-title",
+            ".services-hero-title span",
+            ".services-hero-copy",
+            ".services-hero-cta",
+          ],
+          {
+            autoAlpha: 1,
+            y: 0,
+            yPercent: 0,
+          },
+        );
+        gsap.set(".services-hero-visual-part", {
           autoAlpha: 1,
           y: 0,
-          yPercent: 0,
+          scale: 1,
         });
-        gsap.set(".services-hero-visual-part", { autoAlpha: 1, y: 0, scale: 1 });
       });
 
       return () => mm.revert();
@@ -164,7 +197,7 @@ export function ServicesPage() {
               <div className="relative overflow-hidden rounded-[1.7rem] border border-black/8 bg-white">
                 <video
                   className="aspect-[4/5] w-full object-cover"
-                  src="/videos/brand-strategy-optimized.mp4"
+                  src="/videos/search-tree-animation-optimized.mp4"
                   autoPlay
                   muted
                   loop
@@ -179,7 +212,8 @@ export function ServicesPage() {
                   One digital partner
                 </p>
                 <p className="mt-2 text-base font-semibold leading-7 text-nodo-ink/78">
-                  Brand clarity, smarter demand generation, and web experiences designed to help you sell better.
+                  Brand clarity, smarter demand generation, and web experiences
+                  designed to help you sell better.
                 </p>
               </div>
             </div>

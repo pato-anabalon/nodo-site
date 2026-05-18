@@ -25,9 +25,9 @@ type NativeButtonProps = BaseProps &
 const variants = {
   dark: {
     primary:
-      "bg-[var(--cta-dark-primary-bg)] text-[var(--cta-dark-primary-text)] hover:bg-[var(--cta-dark-primary-hover-bg)] hover:text-[var(--cta-dark-primary-hover-text)] focus-visible:outline-[var(--cta-dark-primary-outline)]",
+      "bg-[var(--cta-dark-primary-bg)] text-[var(--cta-dark-primary-text)] shadow-[0_6px_18px_rgba(5,5,5,0.14)] hover:-translate-y-0.5 hover:bg-[var(--cta-dark-primary-hover-bg)] hover:text-[var(--cta-dark-primary-hover-text)] hover:shadow-[0_12px_28px_rgba(196,181,253,0.16)] focus-visible:outline-[var(--cta-dark-primary-outline)]",
     secondary:
-      "border border-[color:var(--cta-dark-secondary-border)] bg-[var(--cta-dark-secondary-bg)] text-[var(--cta-dark-secondary-text)] hover:border-[color:var(--cta-dark-secondary-hover-border)] hover:bg-[var(--cta-dark-secondary-hover-bg)] hover:text-[var(--cta-dark-secondary-hover-text)] focus-visible:outline-[var(--cta-dark-secondary-outline)]",
+      "border border-[color:var(--cta-dark-secondary-border)] bg-[var(--cta-dark-secondary-bg)] text-[var(--cta-dark-secondary-text)] shadow-[0_4px_14px_rgba(5,5,5,0.08)] hover:-translate-y-0.5 hover:border-[color:var(--cta-dark-secondary-hover-border)] hover:bg-[var(--cta-dark-secondary-hover-bg)] hover:text-[var(--cta-dark-secondary-hover-text)] hover:shadow-[0_12px_28px_rgba(196,181,253,0.12)] focus-visible:outline-[var(--cta-dark-secondary-outline)]",
   },
   purple: {
     primary:
