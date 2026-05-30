@@ -19,13 +19,13 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
           data-testid="contact-page-form-section"
           className="grid min-h-[76vh] gap-12 border-b border-white/12 pb-20 lg:grid-cols-[0.8fr_1fr]"
         >
-          <div>
+          <div data-testid="contact-page-intro">
             <SectionHeading
               eyebrow="Contact"
               title="Tell Nodo what needs to move faster."
               description="Share the workflow, system, platform, or business problem you want to improve. The first step is clarity."
             />
-            <div className="mt-10 grid gap-4 text-sm text-white/62">
+            <div data-testid="contact-page-details" className="mt-10 grid gap-4 text-sm text-white/62">
               <p>
                 <span className="font-semibold text-white">Location:</span> Auckland, New Zealand
               </p>
@@ -35,7 +35,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               </p>
             </div>
           </div>
-          <div className="rounded-[2rem] border border-white/12 bg-nodo-black/70 p-5 shadow-[0_24px_90px_rgba(0,0,0,0.42)] backdrop-blur-xl sm:p-8">
+          <div data-testid="contact-page-form-card" className="rounded-[2rem] border border-white/12 bg-nodo-black/70 p-5 shadow-[0_24px_90px_rgba(0,0,0,0.42)] backdrop-blur-xl sm:p-8">
             <ContactForm selectedPlanSlug={selectedPlanSlug} intent={intent} source={source} />
           </div>
         </section>

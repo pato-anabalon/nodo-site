@@ -132,26 +132,26 @@ export function Hero() {
       <ConstellationBackground className="opacity-85" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(124,58,237,0.20),transparent_30%),linear-gradient(120deg,rgba(232,48,207,0.08),transparent_34%)]" />
       <Container className="relative z-10 grid items-center gap-10 pb-16 pt-10 lg:grid-cols-[0.92fr_1.08fr]">
-        <div className="max-w-3xl">
-          <p className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
+        <div data-testid="home-hero-content" className="max-w-3xl">
+          <p data-testid="home-hero-eyebrow" className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
             Auckland digital systems studio
           </p>
-          <h1 className="hero-title flex flex-nowrap items-baseline overflow-hidden whitespace-nowrap text-[clamp(4.6rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white">
+          <h1 data-testid="home-hero-title" className="hero-title flex flex-nowrap items-baseline overflow-hidden whitespace-nowrap text-[clamp(4.6rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white">
             <span className="inline-block shrink-0">Nodo</span>
             <span className="inline-block shrink-0 text-nodo-purple">.</span>
           </h1>
-          <p className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
+          <p data-testid="home-hero-tagline" className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
             {heroTaglineWords.map((word, index) => (
               <span key={`${word}-${index}`} className="inline-block overflow-hidden align-top">
                 <span className="hero-tagline-word inline-block pr-[0.24em]">{word}</span>
               </span>
             ))}
           </p>
-          <p className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68">
+          <p data-testid="home-hero-copy" className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68">
             Digital systems for growing businesses that need cleaner workflows, sharper
             platforms, and technology that moves at the pace of the company.
           </p>
-          <div className="relative z-20 mt-9 flex flex-wrap gap-3">
+          <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">
             <Button href="/contact" className="hero-cta" dataTestId="home-hero-primary-button">
               Let’s talk
             </Button>
@@ -161,7 +161,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-mark relative min-h-[420px] lg:min-h-[620px]" aria-hidden="true">
+        <div data-testid="home-hero-mark" className="hero-mark relative min-h-[420px] lg:min-h-[620px]" aria-hidden="true">
           <svg
             className="absolute inset-0 h-full w-full overflow-visible"
             viewBox="0 0 680 680"
@@ -204,6 +204,7 @@ export function Hero() {
       </Container>
       <a
         href="#services"
+        data-testid="home-hero-scroll-button"
         className="absolute bottom-5 right-5 z-10 inline-flex size-11 items-center justify-center rounded-full border border-white/18 bg-white/8 text-white"
         aria-label="Scroll to services"
       >

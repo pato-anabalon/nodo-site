@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, Minus } from "lucide-react";
 import { trackPlansComparisonViewed } from "@/lib/analytics";
 import { planComparisonRows, plans, type PlanComparisonValue } from "@/lib/content";
+import { testIdSlug } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -59,9 +60,9 @@ export function PlansComparison() {
   );
 
   return (
-    <div ref={root} className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.045]">
-      <div className="hidden md:block">
-        <table className="w-full table-fixed border-collapse text-left">
+    <div ref={root} data-testid="plans-comparison" className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.045]">
+      <div data-testid="plans-comparison-desktop" className="hidden md:block">
+        <table data-testid="plans-comparison-table" className="w-full table-fixed border-collapse text-left">
           <colgroup>
             <col className="w-[24%]" />
             <col className="w-[19%]" />
@@ -83,7 +84,7 @@ export function PlansComparison() {
           </thead>
           <tbody>
             {planComparisonRows.map((row) => (
-              <tr key={row.feature} className="border-b border-white/8 last:border-b-0">
+              <tr key={row.feature} data-testid={`plans-comparison-row-${testIdSlug(row.feature)}`} className="border-b border-white/8 last:border-b-0">
                 <th className="px-4 py-3 text-sm font-semibold leading-5 text-white/72 lg:px-5">
                   {row.feature}
                 </th>
@@ -98,9 +99,9 @@ export function PlansComparison() {
         </table>
       </div>
 
-      <div className="grid gap-4 p-4 md:hidden">
+      <div data-testid="plans-comparison-mobile" className="grid gap-4 p-4 md:hidden">
         {plans.map((plan) => (
-          <article key={plan.slug} className="rounded-3xl border border-white/10 bg-nodo-black/50 p-5">
+          <article key={plan.slug} data-testid={`plans-comparison-mobile-card-${plan.slug}`} className="rounded-3xl border border-white/10 bg-nodo-black/50 p-5">
             <h3 className="text-xl font-black text-white">{plan.name}</h3>
             <div className="mt-4 grid gap-3">
               {planComparisonRows.map((row) => (

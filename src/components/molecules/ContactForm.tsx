@@ -78,13 +78,13 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-5">
+    <form data-testid="contact-form" onSubmit={handleSubmit} className="grid gap-5">
       <input type="hidden" name="intent" value={selectedIntent} />
       <input type="hidden" name="source" value={trackingSource} />
       {selectedPlan ? <input type="hidden" name="plan" value={selectedPlan.slug} /> : null}
 
       {selectedPlan || selectedIntent !== "general" ? (
-        <div className="rounded-3xl border border-nodo-lavender/30 bg-nodo-purple/15 p-4 text-sm leading-6 text-white/72">
+        <div data-testid="contact-form-context-card" className="rounded-3xl border border-nodo-lavender/30 bg-nodo-purple/15 p-4 text-sm leading-6 text-white/72">
           {selectedPlan ? (
             <p>
               <span className="font-semibold text-white">Selected plan:</span> {selectedPlan.name}
@@ -97,14 +97,15 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
         </div>
       ) : null}
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <TextField label="Name" name="name" autoComplete="name" required />
-        <TextField label="Email" name="email" type="email" autoComplete="email" required />
+      <div data-testid="contact-form-name-email-row" className="grid gap-5 sm:grid-cols-2">
+        <TextField label="Name" name="name" autoComplete="name" data-testid="contact-form-name-field" required />
+        <TextField label="Email" name="email" type="email" autoComplete="email" data-testid="contact-form-email-field" required />
       </div>
-      <TextField label="Company" name="company" autoComplete="organization" />
+      <TextField label="Company" name="company" autoComplete="organization" data-testid="contact-form-company-field" />
       <TextArea
         label="What should we build or improve?"
         name="message"
+        data-testid="contact-form-message-field"
         placeholder={
           selectedPlan
             ? `Tell us what you want to achieve with ${selectedPlan.name}.`
@@ -112,7 +113,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
         }
         required
       />
-      <div className="flex flex-wrap items-center gap-4">
+      <div data-testid="contact-form-actions" className="flex flex-wrap items-center gap-4">
         <Button
           type="submit"
           disabled={status === "submitting"}
@@ -129,6 +130,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
                 : "text-sm font-medium text-red-300"
             }
             role="status"
+            data-testid="contact-form-status-message"
           >
             {message}
           </p>

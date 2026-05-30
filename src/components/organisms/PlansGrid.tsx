@@ -22,6 +22,7 @@ function planTypeLabel(plan: Plan) {
 function PlanCard({ plan }: { plan: Plan }) {
   return (
     <article
+      data-testid={`plans-grid-${plan.slug}-card`}
       className={cn(
         "plan-card group relative flex h-full flex-col overflow-visible rounded-[2rem] border bg-white/[0.045] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.07] sm:p-7 sm:pt-11",
         plan.highlighted
@@ -32,6 +33,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       )}
     >
       <div
+        data-testid={`plans-grid-${plan.slug}-type-tag`}
         className={cn(
           "absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] shadow-[0_14px_34px_rgba(0,0,0,0.28)]",
           plan.highlighted
@@ -43,21 +45,21 @@ function PlanCard({ plan }: { plan: Plan }) {
         {planTypeLabel(plan)}
       </div>
 
-      <div className="flex min-h-10 items-start justify-center gap-3">
+      <div data-testid={`plans-grid-${plan.slug}-badge-row`} className="flex min-h-10 items-start justify-center gap-3">
         {plan.badge ? (
-          <span className="mt-1 rounded-full border border-nodo-pink/40 bg-nodo-pink px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(232,48,207,0.32)]">
+          <span data-testid={`plans-grid-${plan.slug}-badge`} className="mt-1 rounded-full border border-nodo-pink/40 bg-nodo-pink px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(232,48,207,0.32)]">
             {plan.badge}
           </span>
         ) : null}
       </div>
 
       <div className="mt-7">
-        <h3 className="text-3xl font-black tracking-normal text-white">{plan.name}</h3>
-        <p className="mt-3 min-h-16 text-sm leading-6 text-white/62">{plan.label}</p>
+        <h3 data-testid={`plans-grid-${plan.slug}-title`} className="text-3xl font-black tracking-normal text-white">{plan.name}</h3>
+        <p data-testid={`plans-grid-${plan.slug}-label`} className="mt-3 min-h-16 text-sm leading-6 text-white/62">{plan.label}</p>
       </div>
 
-      <div className="mt-7 border-y border-white/12 py-5">
-        <p className="text-2xl font-black leading-tight text-white">{plan.price}</p>
+      <div data-testid={`plans-grid-${plan.slug}-pricing`} className="mt-7 border-y border-white/12 py-5">
+        <p data-testid={`plans-grid-${plan.slug}-price`} className="text-2xl font-black leading-tight text-white">{plan.price}</p>
         {plan.priceDetail ? (
           <p className="mt-2 text-sm leading-6 text-white/46">{plan.priceDetail}</p>
         ) : null}
@@ -66,9 +68,9 @@ function PlanCard({ plan }: { plan: Plan }) {
         ) : null}
       </div>
 
-      <p className="mt-5 text-pretty text-sm leading-6 text-white/68">{plan.summary}</p>
+      <p data-testid={`plans-grid-${plan.slug}-summary`} className="mt-5 text-pretty text-sm leading-6 text-white/68">{plan.summary}</p>
 
-      <div className="mt-6 grid gap-3">
+      <div data-testid={`plans-grid-${plan.slug}-features`} className="mt-6 grid gap-3">
         {plan.includedFeatures.map((feature) => (
           <div key={feature} className="flex gap-3 text-sm leading-5 text-white/72">
             <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-nodo-lavender" />
@@ -141,13 +143,13 @@ export function PlansGrid() {
   );
 
   return (
-    <div ref={root}>
-      <div className="grid gap-5 lg:grid-cols-3">
+    <div ref={root} data-testid="plans-grid">
+      <div data-testid="plans-grid-growth-partnership-cards" className="grid gap-5 lg:grid-cols-3">
         {growthPartnershipPlans.map((plan) => (
           <PlanCard key={plan.slug} plan={plan} />
         ))}
       </div>
-      <p className="mt-5 text-sm text-white/46">{plansPageContent.pricingNote}</p>
+      <p data-testid="plans-grid-pricing-note" className="mt-5 text-sm text-white/46">{plansPageContent.pricingNote}</p>
     </div>
   );
 }
@@ -158,9 +160,9 @@ export function LaunchPlanCard() {
   }
 
   return (
-    <article className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10">
+    <article data-testid="plans-launch-card" className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10">
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_70%_20%,rgba(124,58,237,0.18),transparent_34%)]" />
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/18 bg-nodo-black px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_14px_34px_rgba(0,0,0,0.28)]">
+      <div data-testid="plans-launch-card-type-tag" className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/18 bg-nodo-black px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_14px_34px_rgba(0,0,0,0.28)]">
         One-off build
       </div>
 
@@ -169,13 +171,13 @@ export function LaunchPlanCard() {
           <p className="text-sm font-black uppercase tracking-[0.2em] text-nodo-purple">
             Alternative path
           </p>
-          <h3 className="mt-4 text-4xl font-black tracking-normal text-nodo-black">
+          <h3 data-testid="plans-launch-card-title" className="mt-4 text-4xl font-black tracking-normal text-nodo-black">
             {launchPlan.name}
           </h3>
-          <p className="mt-4 max-w-xl text-pretty text-base leading-7 text-nodo-ink/68">
+          <p data-testid="plans-launch-card-summary" className="mt-4 max-w-xl text-pretty text-base leading-7 text-nodo-ink/68">
             {launchPlan.summary}
           </p>
-          <div className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5">
+          <div data-testid="plans-launch-card-pricing" className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5">
             <p className="text-sm font-semibold text-white/52">One-time investment</p>
             <p className="mt-2 text-3xl font-black leading-tight text-white">
               {launchPlan.price}
@@ -195,7 +197,7 @@ export function LaunchPlanCard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-3xl border border-black/8 bg-black/[0.02] p-5">
+          <div data-testid="plans-launch-card-included" className="rounded-3xl border border-black/8 bg-black/[0.02] p-5">
             <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-purple">
               Included
             </h4>
@@ -212,7 +214,7 @@ export function LaunchPlanCard() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-black/8 bg-black/[0.04] p-5">
+          <div data-testid="plans-launch-card-excluded" className="rounded-3xl border border-black/8 bg-black/[0.04] p-5">
             <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-ink/58">
               Not included in this model
             </h4>

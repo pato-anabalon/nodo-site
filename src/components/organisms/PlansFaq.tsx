@@ -4,24 +4,27 @@ import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { trackPlansFaqOpened } from "@/lib/analytics";
 import { plansFaq } from "@/lib/content";
+import { testIdSlug } from "@/lib/utils";
 
 export function PlansFaq() {
   const [openQuestion, setOpenQuestion] = useState(plansFaq[0]?.question ?? "");
 
   return (
-    <div className="grid gap-3">
+    <div data-testid="plans-faq-list" className="grid gap-3">
       {plansFaq.map((item) => {
         const isOpen = openQuestion === item.question;
+        const slug = testIdSlug(item.question);
 
         return (
           <article
             key={item.question}
+            data-testid={`plans-faq-item-${slug}`}
             className="rounded-3xl border border-white/12 bg-white/[0.045]"
             data-state={isOpen ? "open" : "closed"}
           >
             <button
               type="button"
-              data-testid={`plans-faq-toggle-${item.question.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+              data-testid={`plans-faq-toggle-${slug}`}
               className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left text-white sm:px-6"
               aria-expanded={isOpen}
               onClick={() => {
@@ -45,6 +48,7 @@ export function PlansFaq() {
               </span>
             </button>
             <div
+              data-testid={`plans-faq-panel-${slug}`}
               className="grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none data-[state=closed]:grid-rows-[0fr] data-[state=closed]:opacity-0 data-[state=open]:grid-rows-[1fr] data-[state=open]:opacity-100"
               data-state={isOpen ? "open" : "closed"}
             >

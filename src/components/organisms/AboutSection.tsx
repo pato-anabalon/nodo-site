@@ -6,7 +6,7 @@ export function AboutSection() {
   return (
     <section data-testid="home-about-section" className="bg-white py-24 text-nodo-black sm:py-32">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:items-center">
+        <div data-testid="home-about-layout" className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <ScrollReveal>
             <SectionHeading
               eyebrow="Based in Auckland"
@@ -14,13 +14,13 @@ export function AboutSection() {
               description="Nodo works with growing companies that have reached the point where ad hoc tools, manual processes, and disconnected systems are slowing the team down."
               className="[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
             />
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-nodo-ink/68">
+            <p data-testid="home-about-supporting-copy" className="mt-6 max-w-2xl text-lg leading-8 text-nodo-ink/68">
               The approach is direct: understand the workflow, design a better operating
               system, build it with care, and keep improving it around real usage.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
-            <div className="relative overflow-hidden rounded-[2rem] bg-nodo-black p-6">
+            <div data-testid="home-about-video-card" className="relative overflow-hidden rounded-[2rem] bg-nodo-black p-6">
               <video
                 className="h-auto w-full rounded-[1.5rem] bg-white object-cover"
                 src="/videos/team-discussion-optimized.mp4"

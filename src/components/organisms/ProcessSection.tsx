@@ -72,20 +72,21 @@ export function ProcessSection() {
       className="overflow-hidden bg-white py-24 text-nodo-black sm:py-32"
     >
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="relative">
-            <div className="sticky top-28">
-              <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-nodo-purple">
+        <div data-testid="home-process-layout" className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+          <div data-testid="home-process-intro-column" className="relative">
+            <div data-testid="home-process-intro-panel" className="sticky top-28">
+              <p data-testid="home-process-eyebrow" className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-nodo-purple">
                 How we work
               </p>
-              <h2 className="text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
+              <h2 data-testid="home-process-title" className="text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
                 A system is only useful when the business can feel it.
               </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-nodo-ink/68">
+              <p data-testid="home-process-description" className="mt-6 max-w-xl text-lg leading-8 text-nodo-ink/68">
                 The process starts with clarity, then moves quickly into design, build, and
                 improvement loops that keep the result grounded in daily operations.
               </p>
               <svg
+                data-testid="home-process-orbit"
                 className="process-orbit mt-12 hidden h-64 w-64 overflow-visible lg:block"
                 viewBox="0 0 260 260"
                 fill="none"
@@ -102,15 +103,17 @@ export function ProcessSection() {
               </svg>
             </div>
           </div>
-          <div className="rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
+          <div data-testid="home-process-steps-panel" className="rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
             <SectionHeading
               eyebrow="Operating rhythm"
               title="From bottleneck to business advantage."
               className="mb-8"
             />
+            <div data-testid="home-process-steps-list">
             {processSteps.map((step) => (
               <ProcessStep key={step.title} {...step} />
             ))}
+            </div>
           </div>
         </div>
       </Container>
