@@ -5,7 +5,7 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import { TextArea, TextField } from "@/components/atoms/TextField";
 import { trackContactFormError, trackContactFormSubmitted } from "@/lib/analytics";
-import { plans, type PlanIntent } from "@/lib/content";
+import { allPlanOptions, type PlanIntent } from "@/lib/content";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -28,7 +28,7 @@ function normaliseIntent(value?: string): PlanIntent | "general" {
 export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
-  const selectedPlan = plans.find((plan) => plan.slug === selectedPlanSlug);
+  const selectedPlan = allPlanOptions.find((plan) => plan.slug === selectedPlanSlug);
   const selectedIntent = normaliseIntent(intent);
   const trackingPlan = selectedPlan?.slug ?? "not-selected";
   const trackingSource = source ?? "contact";

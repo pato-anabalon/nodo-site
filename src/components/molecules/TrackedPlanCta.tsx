@@ -14,6 +14,7 @@ type TrackedPlanCtaProps = {
   dataTestId?: string;
   className?: string;
   variant?: "primary" | "secondary" | "ghost" | "inverted";
+  surfaceTone?: "dark" | "purple" | "light";
 };
 
 export function TrackedPlanCta({
@@ -25,11 +26,13 @@ export function TrackedPlanCta({
   dataTestId,
   className,
   variant,
+  surfaceTone,
 }: TrackedPlanCtaProps) {
   return (
     <Button
       href={href}
       variant={variant}
+      surfaceTone={surfaceTone}
       dataTestId={dataTestId}
       className={className}
       onClick={() => trackPlansCtaClicked({ plan, intent, location })}

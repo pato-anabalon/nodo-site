@@ -6,7 +6,9 @@ import {
   GitBranch,
   Layers3,
   LineChart,
+  Megaphone,
   MousePointer2,
+  PackageCheck,
   Sparkles,
   Workflow,
 } from "lucide-react";
@@ -51,7 +53,8 @@ export const services: Service[] = [
     title: "Digital Marketing Solutions",
     description:
       "Practical marketing systems that improve your visibility, generate stronger enquiries, and give your business a more consistent growth engine.",
-    highlight: "Turn your digital activity into repeatable traction instead of scattered effort.",
+    highlight:
+      "Turn your digital activity into repeatable traction instead of scattered effort.",
     deliverables: [
       "Campaign and channel strategy",
       "SEO and performance-led content direction",
@@ -66,7 +69,8 @@ export const services: Service[] = [
     title: "Website design & development",
     description:
       "Premium websites designed and built to look sharp, perform fast, and support the way your business actually sells, communicates, and grows.",
-    highlight: "Build the experience your audience lands on and your business grows through.",
+    highlight:
+      "Build the experience your audience lands on and your business grows through.",
     deliverables: [
       "Custom website design and UX structure",
       "Responsive development in modern web stacks",
@@ -168,31 +172,28 @@ export const servicesPageContent = {
     eyebrow: "Nodo services",
     title: "Brand, marketing, and web built to drive sales.",
     subtitle: "",
-    copy:
-      "Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and converts with more confidence.",
-    highlights: [
-      "Sharper positioning",
-      "More visibility",
-      "Better conversion",
-    ],
+    copy: "Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and converts with more confidence.",
+    highlights: ["Sharper positioning", "More visibility", "Better conversion"],
   },
   positioning: {
     eyebrow: "Built to connect",
     title: "Three distinct services. One connected growth system.",
-    copy:
-      "Brand gives your business clarity. Marketing helps you generate momentum. Your website turns that momentum into action. Nodo designs each layer to support the others, so your digital presence feels coherent instead of fragmented.",
+    copy: "Brand gives your business clarity. Marketing helps you generate momentum. Your website turns that momentum into action. Nodo designs each layer to support the others, so your digital presence feels coherent instead of fragmented.",
     pillars: [
       {
         title: "Brand",
-        description: "Identity and positioning that give your business a clearer edge.",
+        description:
+          "Identity and positioning that give your business a clearer edge.",
       },
       {
         title: "Demand",
-        description: "Marketing systems that help you generate visibility, leads, and traction.",
+        description:
+          "Marketing systems that help you generate visibility, leads, and traction.",
       },
       {
         title: "Build",
-        description: "Web experiences that turn attention into real commercial movement.",
+        description:
+          "Web experiences that turn attention into real commercial movement.",
       },
     ],
   },
@@ -205,17 +206,34 @@ export const servicesPageContent = {
   finalCta: {
     eyebrow: "Start with the right layer",
     title: "Need help deciding where to begin?",
-    copy:
-      "You may need sharper positioning first. Or a stronger website. Or a better growth engine. We can help you work out the priority and scope the right next move.",
+    copy: "You may need sharper positioning first. Or a stronger website. Or a better growth engine. We can help you work out the priority and scope the right next move.",
   },
 };
 
-export type PlanSlug = "nodo-flow" | "nodo-growth" | "nodo-nexus" | "nodo-launch";
+export type PlanSlug =
+  | "nodo-flow"
+  | "nodo-growth"
+  | "nodo-nexus"
+  | "nodo-launch"
+  | "starter-marketing"
+  | "growth-marketing"
+  | "full-digital-marketing"
+  | "brand-starter"
+  | "brand-growth"
+  | "full-brand-launch"
+  | "bundle-start"
+  | "bundle-growth"
+  | "bundle-scale";
+
+export type WebsitePlanSlug = Extract<
+  PlanSlug,
+  "nodo-flow" | "nodo-growth" | "nodo-nexus" | "nodo-launch"
+>;
 
 export type PlanIntent = "discovery-call" | "quote";
 
 export type Plan = {
-  slug: PlanSlug;
+  slug: WebsitePlanSlug;
   name: string;
   label: string;
   type: "Digital Growth Partnership" | "One-off Website Build";
@@ -231,13 +249,84 @@ export type Plan = {
   tone: "entry" | "growth" | "premium" | "one-off";
 };
 
-export const plansPageContent = {
+export type PlansHubCard = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  ctaLabel: string;
+  icon: LucideIcon;
+};
+
+export type CommercialPlan = {
+  slug: PlanSlug;
+  name: string;
+  label: string;
+  category: "Marketing" | "Branding" | "Bundle";
+  model: "Monthly plan" | "One-off project" | "Connected monthly bundle";
+  price: string;
+  summary: string;
+  includedFeatures: string[];
+  ctaLabel: string;
+  highlighted?: boolean;
+};
+
+export const plansHubContent = {
   hero: {
     eyebrow: "Nodo plans",
+    title: "Choose the right digital path.",
+    copy: "Start with the area your business needs most: a stronger website, consistent marketing, sharper branding, or one connected growth system.",
+    highlights: ["Websites", "Marketing", "Branding", "Bundles"],
+  },
+  positioning: {
+    eyebrow: "One system",
+    title:
+      "Brand creates clarity. Marketing creates momentum. Your website turns it into action.",
+    copy: "Nodo plans are structured so each service can stand alone, but the strongest results happen when the pieces work together with one strategy and one operating rhythm.",
+  },
+  finalCta: {
+    eyebrow: "Not sure where to begin?",
+    title: "We can help you choose the right starting point.",
+    copy: "Tell us what you want to improve and we will recommend the plan or bundle that makes the most commercial sense.",
+  },
+};
+
+export const plansHubCards: PlansHubCard[] = [
+  {
+    eyebrow: "Website & growth",
+    title: "Website Plans",
+    description:
+      "For businesses that need a premium website, ongoing support, conversion improvements, and a clearer digital foundation.",
+    href: "/plans/websites",
+    ctaLabel: "Explore website plans",
+    icon: Blocks,
+  },
+  {
+    eyebrow: "Visibility & identity",
+    title: "Marketing & Branding",
+    description:
+      "For businesses that need consistent content, campaigns, brand assets, launch materials, or stronger visual direction.",
+    href: "/plans/marketing-branding",
+    ctaLabel: "Explore marketing & branding",
+    icon: Megaphone,
+  },
+  {
+    eyebrow: "Connected offer",
+    title: "All-in-One Bundles",
+    description:
+      "For businesses that want website, brand, and marketing work aligned under one practical growth system.",
+    href: "/plans/marketing-branding#bundles",
+    ctaLabel: "View bundles",
+    icon: PackageCheck,
+  },
+];
+
+export const plansPageContent = {
+  hero: {
+    eyebrow: "Website plans",
     title: "Digital plans that keep your business moving.",
     subtitle: "",
-    copy:
-      "Nodo gives you clearer digital structure, ongoing support, and practical improvements that keep delivering after launch.",
+    copy: "Nodo gives you clearer digital structure, ongoing support, and practical improvements that keep delivering after launch.",
     highlights: [
       "One-off or ongoing",
       "Clear pricing paths",
@@ -247,29 +336,25 @@ export const plansPageContent = {
   positioning: {
     eyebrow: "Partner model",
     title: "More than a website.",
-    copy:
-      "A website should not be a static asset that gets left behind after launch. At Nodo, we offer both one-off builds and ongoing digital partnership plans designed to keep your business visible, up to date and moving forward.",
+    copy: "A website should not be a static asset that gets left behind after launch. At Nodo, we offer both one-off builds and ongoing digital partnership plans designed to keep your business visible, up to date and moving forward.",
   },
-  pricingNote: "All prices are indicative, GST exclusive, and may vary depending on scope.",
+  pricingNote:
+    "All prices are indicative, GST exclusive, and may vary depending on scope.",
   launchAlternative: {
     eyebrow: "One-off option",
     title: "Need a one-off build instead?",
-    copy:
-      "Nodo Launch is available for businesses that want a polished website delivered once and managed internally after launch. It is a clear option, but the strongest long-term value sits in an ongoing Digital Growth Partnership.",
+    copy: "Nodo Launch is available for businesses that want a polished website delivered once and managed internally after launch. It is a clear option, but the strongest long-term value sits in an ongoing Digital Growth Partnership.",
   },
   purchaseOption: {
     eyebrow: "Long-term value",
     title: "A flexible model, built for long-term value.",
-    copy:
-      "Our Digital Growth Partnerships are designed for businesses that want ongoing technology support, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
-    note:
-      "If this is something you would like to explore, we are happy to explain how the model works in more detail during a call.",
+    copy: "Our Digital Growth Partnerships are designed for businesses that want ongoing technology support, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
+    note: "If this is something you would like to explore, we are happy to explain how the model works in more detail during a call.",
   },
   finalCta: {
     eyebrow: "Ready when you are",
     title: "Let's build what's next.",
-    copy:
-      "Whether you need a one-off landing page, a new website or an ongoing digital partner, we can help you find the right plan for your business.",
+    copy: "Whether you need a one-off landing page, a new website or an ongoing digital partner, we can help you find the right plan for your business.",
   },
 };
 
@@ -277,7 +362,8 @@ export const plans: Plan[] = [
   {
     slug: "nodo-flow",
     name: "Nodo Flow",
-    label: "Best for businesses that want a professional website with ongoing support",
+    label:
+      "Best for businesses that want a professional website with ongoing support",
     type: "Digital Growth Partnership",
     price: "From NZD 649/month",
     priceDetail: "Initial build and onboarding investment from NZD 2,500",
@@ -302,7 +388,8 @@ export const plans: Plan[] = [
     slug: "nodo-growth",
     name: "Nodo Growth",
     badge: "Most Popular",
-    label: "Best for businesses that want consistent digital growth and stronger local visibility",
+    label:
+      "Best for businesses that want consistent digital growth and stronger local visibility",
     type: "Digital Growth Partnership",
     price: "From NZD 1,099/month",
     priceDetail: "Initial build and onboarding investment from NZD 4,500",
@@ -326,7 +413,8 @@ export const plans: Plan[] = [
   {
     slug: "nodo-nexus",
     name: "Nodo Nexus",
-    label: "Best for businesses that want advanced systems, automation and strategic support",
+    label:
+      "Best for businesses that want advanced systems, automation and strategic support",
     type: "Digital Growth Partnership",
     price: "From NZD 1,990/month",
     priceDetail: "Initial build and onboarding investment from NZD 7,500",
@@ -373,57 +461,346 @@ export const plans: Plan[] = [
   },
 ];
 
+export const marketingBrandingPageContent = {
+  hero: {
+    eyebrow: "Marketing & branding plans",
+    title: "Build the clarity and momentum your business needs.",
+    copy: "Nodo helps you shape how your business looks, communicates, and shows up online, with practical plans for brand foundations, marketing activity, and connected launch systems.",
+    highlights: ["Monthly marketing", "One-off branding", "Connected bundles"],
+  },
+  marketing: {
+    eyebrow: "Marketing plans",
+    title: "Consistent digital activity without scattered execution.",
+    description:
+      "Marketing plans are built for visibility, content rhythm, client acquisition, and practical optimisation across the channels that matter.",
+  },
+  branding: {
+    eyebrow: "Branding plans",
+    title: "A sharper identity for every touchpoint.",
+    description:
+      "Branding plans give your business the visual direction, assets, and launch materials needed to look credible and consistent.",
+  },
+  bundles: {
+    eyebrow: "All-in-One bundles",
+    title: "Website, brand, and marketing aligned from the start.",
+    description:
+      "Bundles connect the core layers into one strategy, reducing duplicated effort and making the whole digital presence feel coherent.",
+    note: "Ad spend, printing, paid stock assets, paid software, domain costs, third-party subscriptions, and additional production days are quoted separately unless included in the proposal.",
+  },
+  finalCta: {
+    eyebrow: "Plan the next move",
+    title: "Need the right mix of brand, marketing, and web?",
+    copy: "Share what you are trying to improve and Nodo will help shape a plan that fits your stage, budget, and commercial priority.",
+  },
+};
+
+export const marketingPlans: CommercialPlan[] = [
+  {
+    slug: "starter-marketing",
+    name: "Marketing Starter",
+    label:
+      "Best for businesses that need to stay active and professional online",
+    category: "Marketing",
+    model: "Monthly plan",
+    price: "From NZD 300/month",
+    summary:
+      "A basic monthly plan for businesses that need a consistent presence without running a full campaign system.",
+    includedFeatures: [
+      "Social media posting",
+      "Caption writing",
+      "Story management",
+      "Basic content guidance",
+      "Monthly scheduling",
+    ],
+    ctaLabel: "Enquire about Marketing Starter",
+  },
+  {
+    slug: "growth-marketing",
+    name: "Marketing Growth",
+    label:
+      "Best for businesses that need better content and basic growth activity",
+    category: "Marketing",
+    model: "Monthly plan",
+    price: "From NZD 700/month",
+    summary:
+      "A stronger monthly plan for businesses that need more consistent content, short-form video, and simple campaign support.",
+    includedFeatures: [
+      "Social media management",
+      "Content creation",
+      "Reels and short-form video",
+      "Basic paid ads",
+      "Content strategy",
+      "Analytics and monthly reporting",
+    ],
+    ctaLabel: "Enquire about Marketing Growth",
+    highlighted: true,
+  },
+  {
+    slug: "full-digital-marketing",
+    name: "Full Digital Marketing",
+    label:
+      "Best for businesses focused on stronger campaign execution and lead generation",
+    category: "Marketing",
+    model: "Monthly plan",
+    price: "From NZD 1,500/month",
+    summary:
+      "A complete monthly growth plan for businesses that want stronger campaigns, lead generation, and ongoing optimisation.",
+    includedFeatures: [
+      "Advanced paid advertising",
+      "Content production",
+      "SEO and visibility",
+      "Lead generation campaigns",
+      "Analytics and optimisation",
+      "Ongoing growth support",
+    ],
+    ctaLabel: "Enquire about Full Digital Marketing",
+  },
+];
+
+export const brandingPlans: CommercialPlan[] = [
+  {
+    slug: "brand-starter",
+    name: "Brand Starter",
+    label:
+      "Best for new businesses that need a clean identity and basic launch assets",
+    category: "Branding",
+    model: "One-off project",
+    price: "From NZD 900/month",
+    summary:
+      "A professional starting point with the essential identity assets needed to launch with more consistency.",
+    includedFeatures: [
+      "Logo package",
+      "Brand colours and typography",
+      "Mini brand guide",
+      "Business card design",
+      "Flyer or one-page design",
+      "Email signature",
+      "Social media starter assets",
+    ],
+    ctaLabel: "Enquire about Brand Starter",
+  },
+  {
+    slug: "brand-growth",
+    name: "Brand Growth",
+    label:
+      "Best for businesses that want stronger visual consistency across channels",
+    category: "Branding",
+    model: "One-off project",
+    price: "From NZD 1,500/month",
+    summary:
+      "A more refined identity package with stronger visual direction and editable assets for future marketing.",
+    includedFeatures: [
+      "Everything in Brand Starter",
+      "Enhanced visual direction",
+      "Canva templates",
+      "Expanded social assets",
+      "Improved presentation design",
+      "Additional launch materials",
+    ],
+    ctaLabel: "Enquire about Brand Growth",
+    highlighted: true,
+  },
+  {
+    slug: "full-brand-launch",
+    name: "Full Brand & Launch",
+    label:
+      "Best for businesses preparing to launch seriously, reposition, or scale",
+    category: "Branding",
+    model: "One-off project",
+    price: "From NZD 2,500/month",
+    summary:
+      "A complete brand system covering strategy, positioning, guidelines, launch assets, and digital direction.",
+    includedFeatures: [
+      "Full brand strategy",
+      "Brand positioning",
+      "Tone of voice",
+      "Advanced brand guidelines",
+      "Social media systems",
+      "Presentation and pitch decks",
+      "Packaging or signage direction",
+      "Website visual direction",
+      "Launch campaign assets",
+    ],
+    ctaLabel: "Enquire about Full Brand & Launch",
+  },
+];
+
+export const bundlePlans: CommercialPlan[] = [
+  {
+    slug: "bundle-start",
+    name: "Bundle Start",
+    label:
+      "Best for businesses starting their digital presence with the essentials connected",
+    category: "Bundle",
+    model: "Connected monthly bundle",
+    price: "From NZD 1,999/month",
+    summary:
+      "A launch-ready system that connects an entry website, essential branding, and starter marketing into one setup.",
+    includedFeatures: [
+      "Website Flow",
+      "Brand Start",
+      "Marketing Starter",
+      "One connected setup",
+      "Aligned website, brand, and marketing content",
+    ],
+    ctaLabel: "Enquire about Bundle Start",
+  },
+  {
+    slug: "bundle-growth",
+    name: "Bundle Growth",
+    label:
+      "Best for businesses that want ongoing visibility, better content, and stronger growth support",
+    category: "Bundle",
+    model: "Connected monthly bundle",
+    price: "From NZD 2,999/month",
+    summary:
+      "A stronger partnership combining website growth support, expanded brand assets, monthly marketing, and strategy calls.",
+    includedFeatures: [
+      "Website Growth",
+      "Brand Growth",
+      "Marketing Growth",
+      "Monthly strategy call",
+      "Priority support",
+      "Aligned strategy and visual direction",
+    ],
+    ctaLabel: "Enquire about Bundle Growth",
+    highlighted: true,
+  },
+  {
+    slug: "bundle-scale",
+    name: "Bundle Scale",
+    label:
+      "Best for businesses ready to scale with advanced marketing, brand, and automation support",
+    category: "Bundle",
+    model: "Connected monthly bundle",
+    price: "From NZD 4,499/month",
+    summary:
+      "A premium ecosystem that connects advanced website systems, full brand support, digital marketing, and automation-ready workflows.",
+    includedFeatures: [
+      "Website Nexus",
+      "Full Brand & Launch",
+      "Full Digital Marketing",
+      "Advanced automation support",
+      "Priority turnaround",
+      "Connected digital ecosystem",
+    ],
+    ctaLabel: "Enquire about Bundle Scale",
+  },
+];
+
+export const allPlanOptions = [
+  ...plans,
+  ...marketingPlans,
+  ...brandingPlans,
+  ...bundlePlans,
+] satisfies Array<{ slug: PlanSlug; name: string }>;
+
 export type PlanComparisonValue = boolean | string;
 
 export type PlanComparisonRow = {
   feature: string;
-  values: Record<PlanSlug, PlanComparisonValue>;
+  values: Record<WebsitePlanSlug, PlanComparisonValue>;
 };
 
 export const planComparisonRows: PlanComparisonRow[] = [
   {
     feature: "Website build",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": true,
+    },
   },
   {
     feature: "Responsive design",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": true,
+    },
   },
   {
     feature: "SEO basics",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": true,
+    },
   },
   {
     feature: "Analytics setup",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": true },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": true,
+    },
   },
   {
     feature: "Monthly support",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Ongoing updates",
-    values: { "nodo-flow": true, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Local SEO support",
-    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": false,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Google Business Profile support",
-    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": false,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Landing page / growth improvements",
-    values: { "nodo-flow": "Small improvements", "nodo-growth": true, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": "Small improvements",
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "AI-powered automations",
-    values: { "nodo-flow": false, "nodo-growth": false, "nodo-nexus": true, "nodo-launch": false },
+    values: {
+      "nodo-flow": false,
+      "nodo-growth": false,
+      "nodo-nexus": true,
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Priority support",
-    values: { "nodo-flow": false, "nodo-growth": true, "nodo-nexus": "Priority turnaround", "nodo-launch": false },
+    values: {
+      "nodo-flow": false,
+      "nodo-growth": true,
+      "nodo-nexus": "Priority turnaround",
+      "nodo-launch": false,
+    },
   },
   {
     feature: "Website purchase option",
@@ -436,13 +813,19 @@ export const planComparisonRows: PlanComparisonRow[] = [
   },
   {
     feature: "One-off model",
-    values: { "nodo-flow": false, "nodo-growth": false, "nodo-nexus": false, "nodo-launch": true },
+    values: {
+      "nodo-flow": false,
+      "nodo-growth": false,
+      "nodo-nexus": false,
+      "nodo-launch": true,
+    },
   },
 ];
 
 export const plansFaq = [
   {
-    question: "What is the difference between Nodo Launch and a Digital Growth Partnership?",
+    question:
+      "What is the difference between Nodo Launch and a Digital Growth Partnership?",
     answer:
       "Nodo Launch is a one-off website build. Nodo Flow, Nodo Growth and Nodo Nexus are Digital Growth Partnerships that include support, updates and continuous improvement over time.",
   },

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { PlansPage } from "@/components/templates/PlansPage";
+import { PlansHubPage } from "@/components/templates/PlansHubPage";
 
 export const metadata: Metadata = {
-  title: "Nodo Plans | Website, Growth and Digital Partnership Plans",
+  title: "Nodo Plans | Website, Marketing, Branding and Growth Plans",
   description:
-    "Explore Nodo's website and digital growth plans for New Zealand businesses, including one-off builds and ongoing support plans.",
+    "Choose the right Nodo plan for your business, including website plans, marketing plans, branding packages and connected growth bundles.",
 };
 
 export default function PlansRoute() {
-  return <PlansPage />;
+  return <PlansHubPage />;
 }
