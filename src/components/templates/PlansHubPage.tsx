@@ -1,17 +1,105 @@
-import { ArrowDownRight } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { plansHubCards, plansHubContent } from "@/lib/content";
+"use client";
+
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowDownRight } from 'lucide-react';
+import { Button } from '@/components/atoms/Button';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { plansHubCards, plansHubContent } from '@/lib/content';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+const plansHubHeroTitleWords = plansHubContent.hero.title.split(' ');
 
 export function PlansHubPage() {
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.plans-hub-hero-title', { autoAlpha: 1 });
+        gsap.set('.plans-hub-hero-title-word', { yPercent: 105 });
+        gsap.set(
+          [
+            '.plans-hub-hero-eyebrow',
+            '.plans-hub-hero-copy',
+            '.plans-hub-hero-chip',
+            '.plans-hub-video-frame',
+          ],
+          {
+            autoAlpha: 0,
+            y: 22,
+          },
+        );
+        gsap.set('.plans-hub-video-glow', { autoAlpha: 0, scale: 0.92 });
+        gsap.set('.plans-hub-path-line', { scaleX: 0, transformOrigin: 'left center' });
+        gsap.set('.plans-hub-path-node', { autoAlpha: 0, scale: 0.4 });
+        gsap.set('.plans-hub-path-card', { autoAlpha: 0, y: 34 });
+
+        const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+        heroTl
+          .to('.plans-hub-hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.65 })
+          .to('.plans-hub-hero-title-word', { yPercent: 0, duration: 0.9, stagger: 0.075 }, '-=0.18')
+          .to('.plans-hub-hero-copy', { autoAlpha: 1, y: 0, duration: 0.72 }, '-=0.18')
+          .to('.plans-hub-hero-chip', { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, '-=0.24')
+          .to('.plans-hub-video-glow', { autoAlpha: 1, scale: 1, duration: 0.75 }, '-=0.5')
+          .to('.plans-hub-video-frame', { autoAlpha: 1, y: 0, duration: 0.82 }, '-=0.52');
+
+        const pathTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '[data-testid="plans-hub-positioning-section"]',
+            start: 'top 72%',
+            once: true,
+          },
+          defaults: { ease: 'power3.out' },
+        });
+
+        pathTl
+          .to('.plans-hub-path-line', { scaleX: 1, duration: 0.95 })
+          .to('.plans-hub-path-node', { autoAlpha: 1, scale: 1, duration: 0.42, stagger: 0.12 }, '-=0.62')
+          .to('.plans-hub-path-card', { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.1 }, '-=0.22');
+      });
+
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(
+          [
+            '.plans-hub-hero-eyebrow',
+            '.plans-hub-hero-title',
+            '.plans-hub-hero-title-word',
+            '.plans-hub-hero-copy',
+            '.plans-hub-hero-chip',
+            '.plans-hub-video-frame',
+            '.plans-hub-video-glow',
+            '.plans-hub-path-line',
+            '.plans-hub-path-node',
+            '.plans-hub-path-card',
+          ],
+          {
+            autoAlpha: 1,
+            y: 0,
+            yPercent: 0,
+            scale: 1,
+            scaleX: 1,
+            rotation: 0,
+          },
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: root },
+  );
+
   return (
-    <main
-      data-testid="plans-page-main"
-      className="overflow-hidden bg-nodo-black"
-    >
+    <main ref={root} data-testid="plans-page-main" className="overflow-hidden bg-nodo-black">
       <section
         data-testid="plans-hub-hero-section"
         className="relative flex min-h-[92vh] overflow-hidden bg-nodo-black pt-28"
@@ -29,31 +117,35 @@ export function PlansHubPage() {
           <div data-testid="plans-hub-hero-content">
             <p
               data-testid="plans-hub-hero-eyebrow"
-              className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender"
+              className="plans-hub-hero-eyebrow opacity-0 motion-reduce:opacity-100 mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender"
             >
               {plansHubContent.hero.eyebrow}
             </p>
             <h1
               data-testid="plans-hub-hero-title"
-              className="max-w-5xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl"
+              className="plans-hub-hero-title opacity-0 motion-reduce:opacity-100 max-w-5xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl"
             >
-              {plansHubContent.hero.title}
+              {plansHubHeroTitleWords.map((word, index) => (
+                <span
+                  key={`${word}-${index}`}
+                  className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em] align-top"
+                >
+                  <span className="plans-hub-hero-title-word inline-block pr-[0.22em]">{word}</span>
+                </span>
+              ))}
             </h1>
             <p
               data-testid="plans-hub-hero-copy"
-              className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/62"
+              className="plans-hub-hero-copy opacity-0 motion-reduce:opacity-100 mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/62"
             >
               {plansHubContent.hero.copy}
             </p>
-            <div
-              data-testid="plans-hub-hero-highlights"
-              className="mt-8 flex flex-wrap gap-3"
-            >
+            <div data-testid="plans-hub-hero-highlights" className="mt-8 flex flex-wrap gap-3">
               {plansHubContent.hero.highlights.map((highlight) => (
                 <span
                   key={highlight}
                   data-testid={`plans-hub-hero-highlight-${highlight.toLowerCase()}`}
-                  className="rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
+                  className="plans-hub-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
                 >
                   {highlight}
                 </span>
@@ -62,8 +154,8 @@ export function PlansHubPage() {
           </div>
 
           <div className="relative" data-testid="plans-hub-hero-video-card">
-            <div className="pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.24),transparent_34%),radial-gradient(circle_at_78%_80%,rgba(232,48,207,0.14),transparent_30%)] blur-xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.045] p-3 shadow-[0_30px_110px_rgba(0,0,0,0.32)]">
+            <div className="plans-hub-video-glow pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.24),transparent_34%),radial-gradient(circle_at_78%_80%,rgba(232,48,207,0.14),transparent_30%)] blur-xl" />
+            <div className="plans-hub-video-frame opacity-0 motion-reduce:opacity-100 relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.045] p-3 shadow-[0_30px_110px_rgba(0,0,0,0.32)]">
               <video
                 className="aspect-[4/5] w-full rounded-[1.45rem] object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
                 src="/videos/plans-optimized.mp4"
@@ -86,14 +178,29 @@ export function PlansHubPage() {
       >
         <Container>
           <ScrollReveal>
-            <div className="grid gap-10 lg:grid-cols-[0.72fr_1fr] lg:items-start">
+            <div>
               <SectionHeading
                 eyebrow={plansHubContent.positioning.eyebrow}
                 title={plansHubContent.positioning.title}
                 description={plansHubContent.positioning.copy}
-                className="[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
+                className="max-w-5xl [&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
               />
-              <div className="grid gap-4" data-testid="plans-hub-card-grid">
+              <div data-testid="plans-hub-path-rail" className="relative mt-10 hidden h-10 items-center lg:flex">
+                <div className="plans-hub-path-line h-px w-full bg-nodo-purple/24" />
+                <div className="absolute inset-x-0 flex items-center justify-between">
+                  {plansHubCards.map((card) => (
+                    <span
+                      key={card.href}
+                      data-testid={`plans-hub-path-node-${card.title
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, '-')
+                        .replace(/^-|-$/g, '')}`}
+                      className="plans-hub-path-node size-3 rounded-full border border-nodo-purple/40 bg-white shadow-[0_0_22px_rgba(124,58,237,0.32)]"
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="mt-12 grid items-stretch gap-4 lg:grid-cols-3" data-testid="plans-hub-card-grid">
                 {plansHubCards.map((card) => {
                   const Icon = card.icon;
 
@@ -102,43 +209,37 @@ export function PlansHubPage() {
                       key={card.href}
                       data-testid={`plans-hub-card-${card.title
                         .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-")
-                        .replace(/^-|-$/g, "")}`}
-                      className="group rounded-[1.75rem] border border-black/8 bg-black/[0.025] p-5 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/30 hover:bg-white sm:p-6"
+                        .replace(/[^a-z0-9]+/g, '-')
+                        .replace(/^-|-$/g, '')}`}
+                      className="plans-hub-path-card group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-black/8 bg-black/[0.025] p-5 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/55 hover:bg-white hover:shadow-[0_18px_44px_rgba(124,58,237,0.18)] sm:p-6"
                     >
-                      <div className="flex gap-5">
-                        <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-nodo-purple/20 bg-nodo-purple/10 text-nodo-purple">
-                          <Icon aria-hidden="true" className="size-5" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-purple">
-                            {card.eyebrow}
-                          </p>
-                          <h3 className="mt-2 text-2xl font-black text-nodo-black">
-                            {card.title}
-                          </h3>
-                          <p className="mt-3 text-sm leading-6 text-nodo-ink/68">
-                            {card.description}
-                          </p>
-                          <Button
-                            href={card.href}
-                            variant="primary"
-                            surfaceTone="light"
-                            dataTestId={`plans-hub-card-${card.title
-                              .toLowerCase()
-                              .replace(/[^a-z0-9]+/g, "-")
-                              .replace(/^-|-$/g, "")}-button`}
-                            className="mt-5"
-                            icon={
-                              <ArrowDownRight
-                                aria-hidden="true"
-                                className="size-4"
-                              />
-                            }
-                          >
-                            {card.ctaLabel}
-                          </Button>
-                        </div>
+                      <Icon
+                        aria-hidden="true"
+                        data-testid={`plans-hub-card-${card.title
+                          .toLowerCase()
+                          .replace(/[^a-z0-9]+/g, '-')
+                          .replace(/^-|-$/g, '')}-background-icon`}
+                        className="pointer-events-none absolute -right-3 top-0 z-0 size-28 text-nodo-purple/[0.10] transition duration-300 group-hover:text-nodo-purple/[0.16] sm:size-32"
+                      />
+                      <div className="relative z-10 flex h-full flex-col">
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-purple">
+                          {card.eyebrow}
+                        </p>
+                        <h3 className="mt-2 text-2xl font-black text-nodo-black">{card.title}</h3>
+                        <p className="mt-5 text-sm leading-6 text-nodo-ink/68">{card.description}</p>
+                        <Button
+                          href={card.href}
+                          variant="primary"
+                          surfaceTone="light"
+                          dataTestId={`plans-hub-card-${card.title
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '')}-button`}
+                          className="mt-12"
+                          icon={<ArrowDownRight aria-hidden="true" className="size-4" />}
+                        >
+                          {card.ctaLabel}
+                        </Button>
                       </div>
                     </article>
                   );
@@ -149,10 +250,7 @@ export function PlansHubPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="plans-hub-final-cta-section"
-        className="bg-nodo-purple py-20 text-white sm:py-28"
-      >
+      <section data-testid="plans-hub-final-cta-section" className="bg-nodo-purple py-20 text-white sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -163,9 +261,7 @@ export function PlansHubPage() {
                 <h2 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
                   {plansHubContent.finalCta.title}
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">
-                  {plansHubContent.finalCta.copy}
-                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">{plansHubContent.finalCta.copy}</p>
               </div>
               <Button
                 href="/contact?intent=discovery-call&source=plans-hub-final"

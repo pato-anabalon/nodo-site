@@ -303,7 +303,7 @@ export const plansHubCards: PlansHubCard[] = [
   },
   {
     eyebrow: "Visibility & identity",
-    title: "Marketing & Branding",
+    title: "Marketing & Branding Plans",
     description:
       "For businesses that need consistent content, campaigns, brand assets, launch materials, or stronger visual direction.",
     href: "/plans/marketing-branding",

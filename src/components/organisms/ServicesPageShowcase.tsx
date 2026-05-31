@@ -20,7 +20,7 @@ export function ServicesPageShowcase() {
 
         return (
           <ScrollReveal key={service.title} delay={index * 0.04}>
-            <article data-testid={`services-showcase-card-${slug}`} className="group relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-6 transition duration-300 hover:border-nodo-lavender/45 hover:bg-white/[0.06] sm:p-8 lg:p-10">
+            <article data-testid={`services-showcase-card-${slug}`} className="group relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-6 transition duration-300 hover:border-nodo-purple/55 hover:bg-white/[0.06] hover:shadow-[0_18px_54px_rgba(124,58,237,0.18)] sm:p-8 lg:p-10">
               <div
                 className={cn(
                   "pointer-events-none absolute inset-0 bg-gradient-to-br opacity-90 transition duration-300 group-hover:opacity-100",
@@ -29,8 +29,18 @@ export function ServicesPageShowcase() {
               />
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/28 to-transparent" />
               <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:gap-10">
-                <div data-testid={`services-showcase-card-${slug}-content`} className={cn("space-y-6", isReversed && "lg:order-2")}>
-                  <div className="flex items-start justify-between gap-4">
+                <div data-testid={`services-showcase-card-${slug}-content`} className={cn("relative space-y-6 overflow-hidden", isReversed && "lg:order-2")}>
+                  <span
+                    aria-hidden="true"
+                    data-testid={`services-showcase-card-${slug}-number`}
+                    className={cn(
+                      "pointer-events-none absolute top-[78%] z-0 -translate-y-1/2 text-[6rem] font-black leading-none tracking-normal text-nodo-purple/[0.10] transition duration-300 group-hover:text-nodo-purple/[0.16] sm:text-[7rem]",
+                      isReversed ? "right-0" : "left-0",
+                    )}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="relative z-10 flex items-start justify-between gap-4">
                     <div>
                       <p data-testid={`services-showcase-card-${slug}-eyebrow`} className="text-xs font-semibold uppercase tracking-[0.26em] text-nodo-lavender/90">
                         {service.eyebrow}
@@ -43,13 +53,10 @@ export function ServicesPageShowcase() {
                       <Icon aria-hidden="true" className="size-6" />
                     </div>
                   </div>
-                  <p data-testid={`services-showcase-card-${slug}-description`} className="max-w-2xl text-pretty text-base leading-8 text-white/68 sm:text-lg">
+                  <p data-testid={`services-showcase-card-${slug}-description`} className="relative z-10 max-w-2xl text-pretty text-base leading-8 text-white/68 sm:text-lg">
                     {service.description}
                   </p>
-                  <div data-testid={`services-showcase-card-${slug}-highlight`} className="flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
-                    <span className="text-sm font-medium uppercase tracking-[0.18em] text-white/34">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                  <div data-testid={`services-showcase-card-${slug}-highlight`} className="relative z-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
                     <p className="max-w-xl text-pretty text-sm leading-7 text-white/72 sm:text-base">
                       {service.highlight}
                     </p>

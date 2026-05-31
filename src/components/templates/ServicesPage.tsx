@@ -271,15 +271,18 @@ export function ServicesPage() {
                       <div
                         key={pillar.title}
                         data-testid={`services-page-positioning-pillar-${testIdSlug(pillar.title)}`}
-                        className="rounded-[1.4rem] border border-black/8 bg-black/[0.02] p-4"
+                        className="group relative overflow-hidden rounded-[1.4rem] border border-black/8 bg-black/[0.02] p-4 transition duration-300 hover:border-nodo-purple/55 hover:shadow-[0_18px_44px_rgba(124,58,237,0.18)]"
                       >
-                        <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-nodo-purple">
+                        <p
+                          aria-hidden="true"
+                          className="pointer-events-none absolute -right-1 top-[85%] z-0 -translate-y-1/2 text-[5rem] font-black leading-none tracking-normal text-nodo-purple/[0.10] transition duration-300 group-hover:text-nodo-purple/[0.16]"
+                        >
                           0{index + 1}
                         </p>
-                        <p className="mt-3 text-base font-black text-nodo-black">
+                        <p className="relative z-10 text-base font-black text-nodo-black">
                           {pillar.title}
                         </p>
-                        <p className="mt-2 text-sm leading-6 text-nodo-ink/66">
+                        <p className="relative z-10 mt-2 text-sm leading-6 text-nodo-ink/66">
                           {pillar.description}
                         </p>
                       </div>

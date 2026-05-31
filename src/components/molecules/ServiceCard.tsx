@@ -13,7 +13,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
   return (
     <article
       data-testid={`home-service-card-${slug}`}
-      className="group relative min-h-80 overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.055] p-6 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.08]"
+      className="group relative flex h-full min-h-80 flex-col overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.055] p-6 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.08]"
     >
       <div data-testid={`home-service-card-${slug}-index`} className="absolute right-5 top-5 text-sm font-black text-white/14">
         {String(index + 1).padStart(2, "0")}

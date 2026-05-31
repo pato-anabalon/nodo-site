@@ -21,7 +21,7 @@ export function ServicesSection() {
         </ScrollReveal>
         <div data-testid="home-services-card-grid" className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service, index) => (
-            <ScrollReveal key={service.title} delay={index * 0.04}>
+            <ScrollReveal key={service.title} delay={index * 0.04} className="h-full">
               <ServiceCard service={service} index={index} />
             </ScrollReveal>
           ))}
