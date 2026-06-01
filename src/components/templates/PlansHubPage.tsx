@@ -102,7 +102,7 @@ export function PlansHubPage() {
     <main ref={root} data-testid="plans-page-main" className="overflow-hidden bg-nodo-black">
       <section
         data-testid="plans-hub-hero-section"
-        className="relative flex min-h-[92vh] overflow-hidden bg-nodo-black pt-28"
+        className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
       >
         <ConstellationBackground
           className="opacity-42"

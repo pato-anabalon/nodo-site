@@ -8,6 +8,7 @@ type SectionHeadingProps = {
   align?: "left" | "center";
   children?: ReactNode;
   className?: string;
+  surfaceTone?: "dark" | "light";
 };
 
 export function SectionHeading({
@@ -17,7 +18,10 @@ export function SectionHeading({
   align = "left",
   children,
   className,
+  surfaceTone = "dark",
 }: SectionHeadingProps) {
+  const isLight = surfaceTone === "light";
+
   return (
     <div
       className={cn(
@@ -26,14 +30,14 @@ export function SectionHeading({
         className,
       )}
     >
-      <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-nodo-lavender">
+      <p className={cn("mb-4 text-sm font-semibold uppercase tracking-[0.22em]", isLight ? "text-nodo-purple" : "text-nodo-lavender")}>
         {eyebrow}
       </p>
-      <h2 className="text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-5xl lg:text-6xl">
+      <h2 className={cn("text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-5xl lg:text-6xl", isLight ? "text-nodo-black" : "text-white")}>
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 text-pretty text-lg leading-8 text-white/68">{description}</p>
+        <p className={cn("mt-5 text-pretty text-lg leading-8", isLight ? "text-nodo-ink/68" : "text-white/68")}>{description}</p>
       ) : null}
       {children}
     </div>

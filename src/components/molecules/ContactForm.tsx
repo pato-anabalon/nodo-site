@@ -21,15 +21,35 @@ const intentLabels: Record<PlanIntent | "general", string> = {
   general: "General enquiry",
 };
 
+const MESSAGE_MAX_LENGTH = 1500;
+
 function normaliseIntent(value?: string): PlanIntent | "general" {
   return value === "discovery-call" || value === "quote" ? value : "general";
+}
+
+function getPlanType(plan: (typeof allPlanOptions)[number] | undefined) {
+  if (!plan) {
+    return "";
+  }
+
+  if ("category" in plan && plan.category === "Bundle") {
+    return "All-in-One Bundle";
+  }
+
+  if ("category" in plan && (plan.category === "Marketing" || plan.category === "Branding")) {
+    return "Marketing & Branding";
+  }
+
+  return "Website";
 }
 
 export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [leadMessage, setLeadMessage] = useState("");
   const selectedPlan = allPlanOptions.find((plan) => plan.slug === selectedPlanSlug);
   const selectedIntent = normaliseIntent(intent);
+  const selectedPlanType = getPlanType(selectedPlan);
   const trackingPlan = selectedPlan?.slug ?? "not-selected";
   const trackingSource = source ?? "contact";
 
@@ -56,6 +76,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
       }
 
       form.reset();
+      setLeadMessage("");
       setStatus("success");
       setMessage("Thanks. Nodo will review your message and get back to you soon.");
       trackContactFormSubmitted({
@@ -84,34 +105,109 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
       {selectedPlan ? <input type="hidden" name="plan" value={selectedPlan.slug} /> : null}
 
       {selectedPlan || selectedIntent !== "general" ? (
-        <div data-testid="contact-form-context-card" className="rounded-3xl border border-nodo-lavender/30 bg-nodo-purple/15 p-4 text-sm leading-6 text-white/72">
+        <div data-testid="contact-form-context-card" className="rounded-3xl border border-nodo-purple/18 bg-nodo-purple/[0.06] p-4 text-sm leading-6 text-nodo-ink/66">
           {selectedPlan ? (
             <p>
-              <span className="font-semibold text-white">Selected plan:</span> {selectedPlan.name}
+              <span className="font-semibold text-nodo-black">Selected plan:</span>{" "}
+              {selectedPlan.name}
             </p>
           ) : null}
           <p>
-            <span className="font-semibold text-white">Inquiry type:</span>{" "}
+            <span className="font-semibold text-nodo-black">Inquiry type:</span>{" "}
             {intentLabels[selectedIntent]}
           </p>
         </div>
       ) : null}
 
-      <div data-testid="contact-form-name-email-row" className="grid gap-5 sm:grid-cols-2">
-        <TextField label="Name" name="name" autoComplete="name" data-testid="contact-form-name-field" required />
-        <TextField label="Email" name="email" type="email" autoComplete="email" data-testid="contact-form-email-field" required />
+      {selectedPlan ? (
+        <div data-testid="contact-form-plan-context-fields" className="grid gap-5 sm:grid-cols-2">
+          <TextField
+            label="Plan type"
+            name="planType"
+            value={selectedPlanType}
+            data-testid="contact-form-plan-type-field"
+            readOnly
+            surfaceTone="light"
+          />
+          <TextField
+            label="Plan selected"
+            name="planSelected"
+            value={selectedPlan.name}
+            data-testid="contact-form-plan-selected-field"
+            readOnly
+            surfaceTone="light"
+          />
+        </div>
+      ) : null}
+
+      <div data-testid="contact-form-name-row" className="grid gap-5 sm:grid-cols-2">
+        <TextField
+          label="Name"
+          name="name"
+          autoComplete="given-name"
+          data-testid="contact-form-name-field"
+          required
+          surfaceTone="light"
+        />
+        <TextField
+          label="Last Name"
+          name="lastName"
+          autoComplete="family-name"
+          data-testid="contact-form-last-name-field"
+          required
+          surfaceTone="light"
+        />
       </div>
-      <TextField label="Company" name="company" autoComplete="organization" data-testid="contact-form-company-field" />
+      <div data-testid="contact-form-contact-row" className="grid gap-5 sm:grid-cols-2">
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          data-testid="contact-form-email-field"
+          required
+          surfaceTone="light"
+        />
+        <TextField
+          label="Phone"
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          data-testid="contact-form-phone-field"
+          surfaceTone="light"
+        />
+      </div>
+      <div data-testid="contact-form-company-location-row" className="grid gap-5 sm:grid-cols-2">
+        <TextField
+          label="Company"
+          name="company"
+          autoComplete="organization"
+          data-testid="contact-form-company-field"
+          surfaceTone="light"
+        />
+        <TextField
+          label="City"
+          name="city"
+          autoComplete="address-level2"
+          data-testid="contact-form-city-field"
+          surfaceTone="light"
+        />
+      </div>
       <TextArea
-        label="What should we build or improve?"
+        label="Message"
         name="message"
         data-testid="contact-form-message-field"
+        maxLength={MESSAGE_MAX_LENGTH}
+        value={leadMessage}
+        onChange={(event) => setLeadMessage(event.currentTarget.value)}
         placeholder={
           selectedPlan
             ? `Tell us what you want to achieve with ${selectedPlan.name}.`
             : "Tell us about the workflow, platform, or system you want to create."
         }
+        footer={`${leadMessage.length}/${MESSAGE_MAX_LENGTH}`}
         required
+        surfaceTone="light"
       />
       <div data-testid="contact-form-actions" className="flex flex-wrap items-center gap-4">
         <Button
@@ -119,6 +215,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
           disabled={status === "submitting"}
           icon={<Send aria-hidden="true" className="size-4" />}
           dataTestId="contact-form-submit-button"
+          surfaceTone="light"
         >
           {status === "submitting" ? "Sending" : "Send message"}
         </Button>
@@ -126,8 +223,8 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
           <p
             className={
               status === "success"
-                ? "text-sm font-medium text-nodo-lavender"
-                : "text-sm font-medium text-red-300"
+                ? "text-sm font-medium text-nodo-purple"
+                : "text-sm font-medium text-red-600"
             }
             role="status"
             data-testid="contact-form-status-message"
