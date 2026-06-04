@@ -14,7 +14,7 @@ const inter = Inter({
 
 const defaultTitle = "Nodo | Digital systems for growing businesses";
 const defaultDescription =
-  "Nodo is an Auckland-based digital systems company building workflow automation, web platforms, and AI-enabled operations for growing businesses.";
+  "Nodo helps growing businesses build sharper brands, smarter digital marketing, and high-performing websites that turn clarity into results.";
 const defaultOpenGraphImage = {
   url: "/og/nodo-og-image.png",
   width: 1200,
