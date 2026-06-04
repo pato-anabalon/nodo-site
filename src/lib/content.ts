@@ -16,7 +16,6 @@ import {
 export const navigation = [
   { label: "Services", href: "/services" },
   { label: "Plans", href: "/plans" },
-  { label: "About", href: "/about" },
   { label: "Case studies", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
 ];
@@ -565,7 +564,7 @@ export const brandingPlans: CommercialPlan[] = [
       "Best for new businesses that need a clean identity and basic launch assets",
     category: "Branding",
     model: "One-off project",
-    price: "From NZD 900/month",
+    price: "From NZD 900",
     summary:
       "A professional starting point with the essential identity assets needed to launch with more consistency.",
     includedFeatures: [
@@ -586,7 +585,7 @@ export const brandingPlans: CommercialPlan[] = [
       "Best for businesses that want stronger visual consistency across channels",
     category: "Branding",
     model: "One-off project",
-    price: "From NZD 1,500/month",
+    price: "From NZD 1,500",
     summary:
       "A more refined identity package with stronger visual direction and editable assets for future marketing.",
     includedFeatures: [
@@ -607,7 +606,7 @@ export const brandingPlans: CommercialPlan[] = [
       "Best for businesses preparing to launch seriously, reposition, or scale",
     category: "Branding",
     model: "One-off project",
-    price: "From NZD 2,500/month",
+    price: "From NZD 2,500",
     summary:
       "A complete brand system covering strategy, positioning, guidelines, launch assets, and digital direction.",
     includedFeatures: [

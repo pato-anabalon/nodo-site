@@ -16,6 +16,7 @@
   --nodo-header-logo-width: 13.25rem;
   --nodo-header-action-width: 13.25rem;
   --nodo-header-logo-height: 5.75rem;
+  --blur-sm: 4px;
 
   --cta-dark-primary-bg: var(--nodo-white);
   --cta-dark-primary-text: var(--nodo-black);
@@ -70,6 +71,7 @@
   --color-nodo-pink: var(--nodo-pink);
   --color-nodo-ink: var(--nodo-ink);
   --color-nodo-muted: var(--nodo-muted);
+  --blur-sm: 4px;
   --font-sans: var(--font-inter);
 }
 
