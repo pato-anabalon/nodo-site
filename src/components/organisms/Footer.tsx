@@ -21,7 +21,6 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
   },

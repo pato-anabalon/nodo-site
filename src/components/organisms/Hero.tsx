@@ -12,6 +12,49 @@ gsap.registerPlugin(useGSAP);
 
 const heroTaglineWords = ["Clarity.", "Speed.", "Results."];
 
+type HeroMarkGraphicProps = {
+  className?: string;
+};
+
+function HeroMarkGraphic({ className }: HeroMarkGraphicProps) {
+  return (
+    <svg className={className} viewBox="0 0 680 680" fill="none" aria-hidden="true">
+      <path
+        d="M126 332L294 316L538 284"
+        stroke="white"
+        strokeWidth="10"
+        strokeLinecap="round"
+        strokeDasharray="1"
+        pathLength="1"
+        className="hero-line"
+      />
+      <path
+        d="M294 316L382 94"
+        stroke="white"
+        strokeWidth="10"
+        strokeLinecap="round"
+        strokeDasharray="1"
+        pathLength="1"
+        className="hero-line"
+      />
+      <path
+        d="M294 316L184 590"
+        stroke="white"
+        strokeWidth="10"
+        strokeLinecap="round"
+        strokeDasharray="1"
+        pathLength="1"
+        className="hero-line"
+      />
+      <circle className="hero-node" cx="126" cy="332" r="38" fill="white" />
+      <circle className="hero-node" cx="294" cy="316" r="28" fill="white" />
+      <circle className="hero-node" cx="538" cy="284" r="42" fill="white" />
+      <circle className="hero-node" cx="382" cy="94" r="40" fill="white" />
+      <circle className="hero-node-connected hero-node-pulse" cx="184" cy="590" r="54" fill="#7c3aed" />
+    </svg>
+  );
+}
+
 export function Hero() {
   const root = useRef<HTMLElement>(null);
 
@@ -136,9 +179,12 @@ export function Hero() {
           <p data-testid="home-hero-eyebrow" className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
             Auckland digital systems studio
           </p>
-          <h1 data-testid="home-hero-title" className="hero-title flex flex-nowrap items-baseline overflow-hidden whitespace-nowrap text-[clamp(4.6rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white">
+          <h1 data-testid="home-hero-title" className="hero-title flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white lg:items-baseline">
             <span className="inline-block shrink-0">Nodo</span>
             <span className="inline-block shrink-0 text-nodo-purple">.</span>
+            <HeroMarkGraphic
+              className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden"
+            />
           </h1>
           <p data-testid="home-hero-tagline" className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
             {heroTaglineWords.map((word, index) => (
@@ -161,45 +207,8 @@ export function Hero() {
           </div>
         </div>
 
-        <div data-testid="home-hero-mark" className="hero-mark relative min-h-[420px] lg:min-h-[620px]" aria-hidden="true">
-          <svg
-            className="absolute inset-0 h-full w-full overflow-visible"
-            viewBox="0 0 680 680"
-            fill="none"
-          >
-            <path
-              d="M126 332L294 316L538 284"
-              stroke="white"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeDasharray="1"
-              pathLength="1"
-              className="hero-line"
-            />
-            <path
-              d="M294 316L382 94"
-              stroke="white"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeDasharray="1"
-              pathLength="1"
-              className="hero-line"
-            />
-            <path
-              d="M294 316L184 590"
-              stroke="white"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeDasharray="1"
-              pathLength="1"
-              className="hero-line"
-            />
-            <circle className="hero-node" cx="126" cy="332" r="38" fill="white" />
-            <circle className="hero-node" cx="294" cy="316" r="28" fill="white" />
-            <circle className="hero-node" cx="538" cy="284" r="42" fill="white" />
-            <circle className="hero-node" cx="382" cy="94" r="40" fill="white" />
-            <circle className="hero-node-connected hero-node-pulse" cx="184" cy="590" r="54" fill="#7c3aed" />
-          </svg>
+        <div data-testid="home-hero-mark" className="hero-mark relative hidden min-h-[620px] lg:block" aria-hidden="true">
+          <HeroMarkGraphic className="absolute inset-0 h-full w-full overflow-visible" />
         </div>
       </Container>
       <a

@@ -11,6 +11,7 @@ import { Container } from '@/components/atoms/Container';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { plansHubCards, plansHubContent } from '@/lib/content';
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -145,7 +146,10 @@ export function PlansHubPage() {
                 <span
                   key={highlight}
                   data-testid={`plans-hub-hero-highlight-${highlight.toLowerCase()}`}
-                  className="plans-hub-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
+                  className={cn(
+                    "plans-hub-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72",
+                    highlight === "Bundles" && "hidden sm:inline-flex",
+                  )}
                 >
                   {highlight}
                 </span>
