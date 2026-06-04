@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Nodo",
   },
   description: defaultDescription,
-  metadataBase: new URL("https://nodo.nz"),
+  metadataBase: new URL("https://www.nodo.co.nz"),
   openGraph: {
     title: defaultTitle,
     description: defaultDescription,
