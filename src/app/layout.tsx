@@ -12,20 +12,37 @@ const inter = Inter({
   display: "swap",
 });
 
+const defaultTitle = "Nodo | Digital systems for growing businesses";
+const defaultDescription =
+  "Nodo is an Auckland-based digital systems company building workflow automation, web platforms, and AI-enabled operations for growing businesses.";
+const defaultOpenGraphImage = {
+  url: "/og/nodo-og-image.png",
+  width: 1200,
+  height: 630,
+  alt: "Nodo - Clarity. Speed. Results.",
+};
+
 export const metadata: Metadata = {
   title: {
-    default: "Nodo | Digital systems for growing businesses",
+    default: defaultTitle,
     template: "%s | Nodo",
   },
-  description:
-    "Nodo is an Auckland-based digital systems company building workflow automation, web platforms, and AI-enabled operations for growing businesses.",
+  description: defaultDescription,
   metadataBase: new URL("https://nodo.nz"),
   openGraph: {
-    title: "Nodo",
-    description: "Clarity. Speed. Results. Digital systems for growing businesses.",
+    title: defaultTitle,
+    description: defaultDescription,
+    url: "/",
     siteName: "Nodo",
     locale: "en_NZ",
     type: "website",
+    images: [defaultOpenGraphImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [defaultOpenGraphImage.url],
   },
 };
 
