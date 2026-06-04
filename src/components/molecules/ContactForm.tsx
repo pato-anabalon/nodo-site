@@ -203,7 +203,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
         placeholder={
           selectedPlan
             ? `Tell us what you want to achieve with ${selectedPlan.name}.`
-            : "Tell us about the workflow, platform, or system you want to create."
+            : "Tell us about the brand, digital marketing, or website project you want to create or improve."
         }
         footer={`${leadMessage.length}/${MESSAGE_MAX_LENGTH}`}
         required

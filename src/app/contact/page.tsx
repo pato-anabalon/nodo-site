@@ -4,7 +4,7 @@ import { ContactSection } from "@/components/organisms/ContactSection";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Nodo to discuss a digital system, workflow automation, platform, or operational improvement.",
+    "Contact Nodo to discuss a branding, digital marketing, or website project for your business.",
 };
 
 type ContactPageProps = {
