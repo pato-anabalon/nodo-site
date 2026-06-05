@@ -160,7 +160,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               </p>
             </div>
           </div>
-          <div data-testid="contact-page-form-card" className="contact-page-form-card rounded-[2rem] border border-black/8 bg-white/82 p-5 shadow-[0_24px_90px_rgba(22,19,25,0.10)] backdrop-blur-xl sm:p-8">
+          <div data-testid="contact-page-form-card" className="contact-page-form-card relative overflow-hidden rounded-[2rem] border border-black/8 bg-white/82 p-5 shadow-[0_24px_90px_rgba(22,19,25,0.10)] backdrop-blur-xl sm:p-8">
             <ContactForm selectedPlanSlug={selectedPlanSlug} intent={intent} source={source} />
           </div>
         </section>

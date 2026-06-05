@@ -52,13 +52,23 @@ export async function forwardContactLead(lead: ContactLead): Promise<ContactInte
 }
 
 export function hasCriticalIntegrationFailure(results: ContactIntegrationResults) {
-  const criticalResults = [results.trello, results.email].filter((result) => result.configured);
-
-  if (criticalResults.length === 0) {
+  if (hasAnyIntegrationSuccess(results)) {
     return false;
   }
 
-  return criticalResults.every((result) => !result.ok);
+  const configuredResults = [results.trello, results.email, results.telegram].filter(
+    (result) => result.configured,
+  );
+
+  if (configuredResults.length === 0) {
+    return false;
+  }
+
+  return configuredResults.every((result) => !result.ok);
+}
+
+export function hasAnyIntegrationSuccess(results: ContactIntegrationResults) {
+  return [results.trello, results.email, results.telegram].some((result) => result.ok);
 }
 
 async function createTrelloCard(lead: ContactLead): Promise<IntegrationResult> {

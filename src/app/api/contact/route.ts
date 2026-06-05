@@ -16,6 +16,7 @@ import {
 } from "@/lib/contact-server";
 import {
   forwardContactLead,
+  hasAnyIntegrationSuccess,
   hasCriticalIntegrationFailure,
   type ContactLead,
 } from "@/lib/contact-integrations";
@@ -153,12 +154,14 @@ export async function POST(request: Request) {
   };
 
   const integrations = await forwardContactLead(lead);
+  const leadReceived = hasAnyIntegrationSuccess(integrations);
 
   if (hasCriticalIntegrationFailure(integrations)) {
     return NextResponse.json(
       {
         error: "The lead could not be sent right now. Please try again.",
         metadata: {
+          leadReceived,
           integrations,
         },
       },
@@ -175,6 +178,7 @@ export async function POST(request: Request) {
       intent,
       source,
       attachmentCount: validatedAttachments.attachments.length,
+      leadReceived,
       integrations,
     },
     message: "Contact request received.",
