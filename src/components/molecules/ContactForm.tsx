@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { upload } from '@vercel/blob/client';
+import { uploadPresigned } from '@vercel/blob/client';
 import { Paperclip, Send, X } from 'lucide-react';
 import { Button } from '@/components/atoms/Button';
 import { TextArea, TextField } from '@/components/atoms/TextField';
@@ -368,7 +368,7 @@ async function uploadAttachments(files: File[], submissionId: string): Promise<C
         originalName: file.name
       });
       const filename = getNormalizedAttachmentFilename(fileIndex, file.name);
-      const blob = await upload(pathname, file, {
+      const blob = await uploadPresigned(pathname, file, {
         access: 'public',
         handleUploadUrl: '/api/contact/upload',
         clientPayload: JSON.stringify({

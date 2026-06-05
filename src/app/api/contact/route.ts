@@ -10,8 +10,15 @@ import {
   getStoredContactAttachment,
   hasAttachmentStore,
   sanitizeText,
+  storeContactAttachment,
   validateAttachmentMetadata,
+  validateUploadedMagicNumber,
 } from "@/lib/contact-server";
+import {
+  forwardContactLead,
+  hasCriticalIntegrationFailure,
+  type ContactLead,
+} from "@/lib/contact-integrations";
 
 type ContactPayload = {
   name?: string;
@@ -61,7 +68,7 @@ export async function POST(request: Request) {
   const planSelected = sanitizeText(payload.planSelected, 140);
   const intent = sanitizeText(payload.intent, 80);
   const source = sanitizeText(payload.source, 100);
-  const submissionId = sanitizeText(payload.submissionId, 80);
+  const submissionId = sanitizeText(payload.submissionId, 80) || crypto.randomUUID();
   const formStartedAt = Number(payload.formStartedAt);
   const honeypot = sanitizeText(payload.website, 120);
   const attachments = Array.isArray(payload.attachments) ? payload.attachments : [];
@@ -126,7 +133,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: validatedAttachments.error }, { status: 400 });
   }
 
-  const lead = {
+  const lead: ContactLead = {
+    submissionId,
     name,
     lastName,
     email,
@@ -144,23 +152,18 @@ export async function POST(request: Request) {
     submittedAt: new Date().toISOString(),
   };
 
-  const zapierWebhookUrl = process.env.ZAPIER_CONTACT_WEBHOOK_URL;
+  const integrations = await forwardContactLead(lead);
 
-  if (zapierWebhookUrl) {
-    const zapierResponse = await fetch(zapierWebhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  if (hasCriticalIntegrationFailure(integrations)) {
+    return NextResponse.json(
+      {
+        error: "The lead could not be sent right now. Please try again.",
+        metadata: {
+          integrations,
+        },
       },
-      body: JSON.stringify(lead),
-    });
-
-    if (!zapierResponse.ok) {
-      return NextResponse.json(
-        { error: "The lead could not be sent right now. Please try again." },
-        { status: 502 },
-      );
-    }
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({
@@ -172,10 +175,9 @@ export async function POST(request: Request) {
       intent,
       source,
       attachmentCount: validatedAttachments.attachments.length,
-      zapierForwarded: Boolean(zapierWebhookUrl),
+      integrations,
     },
-    message:
-      "Contact request received. Set ZAPIER_CONTACT_WEBHOOK_URL to forward leads to Zapier.",
+    message: "Contact request received.",
   });
 }
 
@@ -212,9 +214,11 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
       return { error: "One or more attachments are invalid." };
     }
 
-    const stored = await getStoredContactAttachment(submissionId, attachment.pathname);
+    const stored =
+      (await getStoredContactAttachment(submissionId, attachment.pathname)) ??
+      (await validateAttachmentOnDemand(attachment, submissionId));
 
-    if (!stored?.valid) {
+    if (!stored.valid) {
       return { error: "One or more attachments did not pass validation." };
     }
 
@@ -229,4 +233,18 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
   }
 
   return { attachments: validated };
+}
+
+async function validateAttachmentOnDemand(attachment: ContactAttachment, submissionId: string) {
+  const valid = await validateUploadedMagicNumber(attachment.url, attachment.contentType);
+  const storedAttachment = {
+    ...attachment,
+    submissionId,
+    valid,
+    uploadedAt: new Date().toISOString(),
+  };
+
+  await storeContactAttachment(storedAttachment);
+
+  return storedAttachment;
 }

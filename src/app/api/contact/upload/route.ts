@@ -1,5 +1,5 @@
-import { del } from "@vercel/blob";
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { del, issueSignedToken } from "@vercel/blob";
+import { handleUploadPresigned, type HandleUploadPresignedBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
 import {
   CONTACT_ALLOWED_CONTENT_TYPES,
@@ -27,14 +27,14 @@ type UploadClientPayload = {
 };
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as HandleUploadBody;
+  const body = (await request.json()) as HandleUploadPresignedBody;
   const ip = getClientIp(request);
 
   try {
-    const jsonResponse = await handleUpload({
+    const jsonResponse = await handleUploadPresigned({
       body,
       request,
-      onBeforeGenerateToken: async (pathname, clientPayload) => {
+      getSignedToken: async (pathname, clientPayload) => {
         const rateLimit = await checkRateLimit({
           key: `contact:upload-token:${ip}`,
           limit: 30,
@@ -66,10 +66,19 @@ export async function POST(request: Request) {
         }
 
         return {
-          allowedContentTypes: [...CONTACT_ALLOWED_CONTENT_TYPES],
-          addRandomSuffix: true,
-          maximumSizeInBytes: CONTACT_ATTACHMENT_LIMITS.maxSingleFileSize,
-          tokenPayload: JSON.stringify(payload),
+          token: await issueSignedToken({
+            pathname,
+            operations: ["put"],
+            allowedContentTypes: [...CONTACT_ALLOWED_CONTENT_TYPES],
+            maximumSizeInBytes: CONTACT_ATTACHMENT_LIMITS.maxSingleFileSize,
+            validUntil: Date.now() + 5 * 60 * 1000,
+          }),
+          urlOptions: {
+            allowedContentTypes: [...CONTACT_ALLOWED_CONTENT_TYPES],
+            addRandomSuffix: true,
+            maximumSizeInBytes: CONTACT_ATTACHMENT_LIMITS.maxSingleFileSize,
+            tokenPayload: JSON.stringify(payload),
+          },
         };
       },
       onUploadCompleted: async ({ blob, tokenPayload }) => {

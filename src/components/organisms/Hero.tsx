@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ArrowDown } from 'lucide-react';
+import { Button } from '@/components/atoms/Button';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
 
 gsap.registerPlugin(useGSAP);
 
-const heroTaglineWords = ["Clarity.", "Speed.", "Results."];
+const heroTaglineWords = ['Clarity.', 'Speed.', 'Results.'];
 
 type HeroMarkGraphicProps = {
   className?: string;
@@ -62,74 +62,62 @@ export function Hero() {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(".hero-line", { strokeDashoffset: 1 });
-        gsap.set(".hero-node", { scale: 0, transformOrigin: "center" });
-        gsap.set(".hero-node-connected", { scale: 0, transformOrigin: "center" });
-        gsap.set(".hero-title span", { yPercent: 105 });
-        gsap.set(".hero-tagline-word", { yPercent: 105 });
-        gsap.set([".hero-kicker", ".hero-bodycopy", ".hero-cta"], {
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.hero-line', { strokeDashoffset: 1 });
+        gsap.set('.hero-node', { scale: 0, transformOrigin: 'center' });
+        gsap.set('.hero-node-connected', { scale: 0, transformOrigin: 'center' });
+        gsap.set('.hero-title span', { yPercent: 105 });
+        gsap.set('.hero-tagline-word', { yPercent: 105 });
+        gsap.set(['.hero-kicker', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 0,
-          y: 18,
+          y: 18
         });
-        gsap.set(".hero-tagline", { autoAlpha: 1, y: 0 });
+        gsap.set('.hero-tagline', { autoAlpha: 1, y: 0 });
 
-        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
 
-        tl.to(".hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
-          .to(".hero-title span", { yPercent: 0, duration: 0.85, stagger: 0.08 }, "-=0.25")
-          .to(".hero-tagline-word", { yPercent: 0, duration: 0.8, stagger: 0.08 }, "-=0.25")
-          .to(".hero-bodycopy", { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.35")
+        tl.to('.hero-kicker', { autoAlpha: 1, y: 0, duration: 0.7 })
+          .to('.hero-title span', { yPercent: 0, duration: 0.85, stagger: 0.08 }, '-=0.25')
+          .to('.hero-tagline-word', { yPercent: 0, duration: 0.8, stagger: 0.08 }, '-=0.25')
+          .to('.hero-bodycopy', { autoAlpha: 1, y: 0, duration: 0.75 }, '-=0.35')
           .to(
-            ".hero-cta",
+            '.hero-cta',
             {
               autoAlpha: 1,
               y: 0,
               duration: 0.6,
               stagger: 0.08,
-              clearProps: "transform,visibility",
+              clearProps: 'transform,visibility'
             },
-            "-=0.2",
+            '-=0.2'
           )
-          .to(
-            ".hero-line",
-            { strokeDashoffset: 0, duration: 1.1, stagger: 0.12, ease: "power2.inOut" },
-            0.15,
-          )
-          .to(
-            ".hero-node",
-            { scale: 1, transformOrigin: "center", duration: 0.58, stagger: 0.08 },
-            0.34,
-          )
-          .to(
-            ".hero-node-connected",
-            { scale: 1, duration: 0.58 },
-            0.72,
-          );
+          .to('.hero-line', { strokeDashoffset: 0, duration: 1.1, stagger: 0.12, ease: 'power2.inOut' }, 0.15)
+          .to('.hero-node', { scale: 1, transformOrigin: 'center', duration: 0.58, stagger: 0.08 }, 0.34)
+          .to('.hero-node-connected', { scale: 1, duration: 0.58 }, 0.72);
 
-        const markFloat = gsap.to(".hero-mark", {
+        const markFloat = gsap.to('.hero-mark', {
           y: -18,
           rotation: 1.5,
           duration: 4.5,
           repeat: -1,
           yoyo: true,
-          ease: "sine.inOut",
-          paused: true,
+          ease: 'sine.inOut',
+          paused: true
         });
 
         const connectedPulse = gsap.fromTo(
-          ".hero-node-connected",
-          { scale: 1, transformOrigin: "center" },
+          '.hero-node-connected',
+          { scale: 1, transformOrigin: 'center' },
           {
             scale: 28 / 54,
-            transformOrigin: "center",
+            transformOrigin: 'center',
             repeat: -1,
             yoyo: true,
             duration: 1.8,
-            ease: "sine.inOut",
+            ease: 'sine.inOut',
             paused: true,
-            immediateRender: false,
-          },
+            immediateRender: false
+          }
         );
 
         tl.call(() => connectedPulse.restart(true), [], 1.42);
@@ -139,31 +127,31 @@ export function Hero() {
           markFloat.play(0);
         };
 
-        if (document.documentElement.dataset.nodoPreloaded === "true") {
+        if (document.documentElement.dataset.nodoPreloaded === 'true') {
           playIntro();
         } else {
-          window.addEventListener("nodo:preloader-complete", playIntro, { once: true });
+          window.addEventListener('nodo:preloader-complete', playIntro, { once: true });
         }
 
         return () => {
-          window.removeEventListener("nodo:preloader-complete", playIntro);
+          window.removeEventListener('nodo:preloader-complete', playIntro);
         };
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".hero-kicker", ".hero-title span", ".hero-bodycopy", ".hero-cta"], {
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(['.hero-kicker', '.hero-title span', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 1,
           y: 0,
-          yPercent: 0,
+          yPercent: 0
         });
-        gsap.set(".hero-tagline-word", { yPercent: 0 });
-        gsap.set(".hero-line", { strokeDashoffset: 0 });
-        gsap.set([".hero-node", ".hero-node-connected"], { scale: 1 });
+        gsap.set('.hero-tagline-word', { yPercent: 0 });
+        gsap.set('.hero-line', { strokeDashoffset: 0 });
+        gsap.set(['.hero-node', '.hero-node-connected'], { scale: 1 });
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -176,26 +164,36 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(124,58,237,0.20),transparent_30%),linear-gradient(120deg,rgba(232,48,207,0.08),transparent_34%)]" />
       <Container className="relative z-10 grid items-center gap-10 pb-16 pt-10 lg:grid-cols-[0.92fr_1.08fr]">
         <div data-testid="home-hero-content" className="max-w-3xl">
-          <p data-testid="home-hero-eyebrow" className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
+          <p
+            data-testid="home-hero-eyebrow"
+            className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender"
+          >
             Auckland digital systems studio
           </p>
-          <h1 data-testid="home-hero-title" className="hero-title flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white lg:items-baseline">
-            <span className="inline-block shrink-0">Nodo</span>
+          <h1
+            data-testid="home-hero-title"
+            className="hero-title flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white lg:items-baseline"
+          >
+            <span className="inline-block shrink-0">nodo</span>
             <span className="inline-block shrink-0 text-nodo-purple">.</span>
-            <HeroMarkGraphic
-              className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden"
-            />
+            <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
           </h1>
-          <p data-testid="home-hero-tagline" className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
+          <p
+            data-testid="home-hero-tagline"
+            className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl"
+          >
             {heroTaglineWords.map((word, index) => (
               <span key={`${word}-${index}`} className="inline-block overflow-hidden align-top">
                 <span className="hero-tagline-word inline-block pr-[0.24em]">{word}</span>
               </span>
             ))}
           </p>
-          <p data-testid="home-hero-copy" className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68">
-            Digital systems for growing businesses that need cleaner workflows, sharper
-            platforms, and technology that moves at the pace of the company.
+          <p
+            data-testid="home-hero-copy"
+            className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68"
+          >
+            Digital systems for growing businesses that need cleaner workflows, sharper platforms, and technology that
+            moves at the pace of the company.
           </p>
           <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">
             <Button href="/contact" className="hero-cta" dataTestId="home-hero-primary-button">
@@ -207,7 +205,11 @@ export function Hero() {
           </div>
         </div>
 
-        <div data-testid="home-hero-mark" className="hero-mark relative hidden min-h-[620px] lg:block" aria-hidden="true">
+        <div
+          data-testid="home-hero-mark"
+          className="hero-mark relative hidden min-h-[620px] lg:block"
+          aria-hidden="true"
+        >
           <HeroMarkGraphic className="absolute inset-0 h-full w-full overflow-visible" />
         </div>
       </Container>

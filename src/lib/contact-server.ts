@@ -14,9 +14,17 @@ type StoredAttachment = ContactAttachment & {
   uploadedAt: string;
 };
 
+const redisUrl =
+  process.env.UPSTASH_REDIS_REST_URL ?? process.env.UPSTASH_REDIS_KV_REST_API_URL;
+const redisToken =
+  process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.UPSTASH_REDIS_KV_REST_API_TOKEN;
+
 const redis =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    ? Redis.fromEnv()
+  redisUrl && redisToken
+    ? new Redis({
+        url: redisUrl,
+        token: redisToken,
+      })
     : null;
 
 const ATTACHMENT_TTL_SECONDS = 60 * 60;
@@ -113,7 +121,27 @@ export function validateAttachmentMetadata(attachment: ContactAttachment, submis
   const pathnameExtension = getFileExtension(attachment.pathname);
   const filenameExtension = getFileExtension(attachment.filename);
 
-  return Boolean(pathnameExtension && filenameExtension && pathnameExtension === filenameExtension);
+  return Boolean(
+    pathnameExtension &&
+      filenameExtension &&
+      pathnameExtension === filenameExtension &&
+      isMatchingVercelBlobUrl(attachment.url, attachment.pathname),
+  );
+}
+
+export function isMatchingVercelBlobUrl(url: string, pathname: string) {
+  try {
+    const parsedUrl = new URL(url);
+    const urlPathname = decodeURIComponent(parsedUrl.pathname.replace(/^\/+/, ""));
+
+    return (
+      parsedUrl.protocol === "https:" &&
+      parsedUrl.hostname.endsWith(".blob.vercel-storage.com") &&
+      urlPathname === pathname
+    );
+  } catch {
+    return false;
+  }
 }
 
 export async function validateUploadedMagicNumber(url: string, contentType: string) {
