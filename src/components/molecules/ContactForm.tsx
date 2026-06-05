@@ -48,6 +48,9 @@ const MESSAGE_MAX_LENGTH = 1500;
 const LAUNCH_DURATION_MS = 2000;
 const COVER_DURATION_MS = 850;
 const MIN_FLIGHT_DURATION_MS = 700;
+const TEMP_FORCE_FAILURE_TEST = false;
+const TEMP_FAILURE_DURATION_MS = 15000;
+const TEMP_FAILURE_REASON = 'Temporary test mode: simulated delivery failure.';
 
 function normaliseIntent(value?: string): PlanIntent | 'general' {
   return value === 'discovery-call' || value === 'quote' ? value : 'general';
@@ -69,6 +72,31 @@ function getPlanType(plan: (typeof allPlanOptions)[number] | undefined) {
   return 'Website';
 }
 
+function createSubmissionId() {
+  const browserCrypto = globalThis.crypto;
+
+  if (typeof browserCrypto?.randomUUID === 'function') {
+    return browserCrypto.randomUUID();
+  }
+
+  const bytes = new Uint8Array(16);
+
+  if (typeof browserCrypto?.getRandomValues === 'function') {
+    browserCrypto.getRandomValues(bytes);
+  } else {
+    for (let index = 0; index < bytes.length; index += 1) {
+      bytes[index] = Math.floor(Math.random() * 256);
+    }
+  }
+
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
 export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormProps) {
   const rootRef = useRef<HTMLFormElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -77,7 +105,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
   const [message, setMessage] = useState('');
   const [leadMessage, setLeadMessage] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [submissionId] = useState(() => crypto.randomUUID());
+  const [submissionId] = useState(createSubmissionId);
   const [formStartedAt] = useState(() => Date.now().toString());
   const [submittedName, setSubmittedName] = useState('');
   const [failureReason, setFailureReason] = useState('');
@@ -216,12 +244,17 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
     setSubmittedName(firstName || 'there');
     setFlowState('launching');
 
-    const submission = submitContactLead({
-      formData,
-      submissionId,
-      formStartedAt,
-      files: selectedFiles
-    });
+    const submission = TEMP_FORCE_FAILURE_TEST
+      ? wait(TEMP_FAILURE_DURATION_MS).then(() => ({
+          ok: false,
+          reason: TEMP_FAILURE_REASON
+        }))
+      : submitContactLead({
+          formData,
+          submissionId,
+          formStartedAt,
+          files: selectedFiles
+        });
 
     await wait(LAUNCH_DURATION_MS);
     setFlowState('covering');
@@ -433,8 +466,8 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
                 </div>
               ))}
               <p className="text-xs font-semibold text-nodo-ink/46">
-                {selectedFiles.length}/{CONTACT_ATTACHMENT_LIMITS.maxFiles} files,{' '}
-                {formatFileSize(attachmentTotalSize)} selected
+                {selectedFiles.length}/{CONTACT_ATTACHMENT_LIMITS.maxFiles} files, {formatFileSize(attachmentTotalSize)}{' '}
+                selected
               </p>
             </div>
           ) : null}
@@ -453,11 +486,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
             </span>
           </button>
           {message ? (
-            <p
-              className="text-sm font-medium text-red-600"
-              role="status"
-              data-testid="contact-form-status-message"
-            >
+            <p className="text-sm font-medium text-red-600" role="status" data-testid="contact-form-status-message">
               {message}
             </p>
           ) : null}
@@ -478,7 +507,10 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
           )}
           data-testid="contact-form-send-flow"
         >
-          <ContactFlightCanvas active={flowState === 'inFlight' || flowState === 'failure'} failed={flowState === 'failure'} />
+          <ContactFlightCanvas
+            active={flowState === 'inFlight' || flowState === 'failure'}
+            failed={flowState === 'failure'}
+          />
           {flowState === 'inFlight' ? (
             <div className="relative z-10 grid justify-items-center gap-4" role="status" aria-live="polite">
               <div className="inline-flex size-14 items-center justify-center rounded-full border border-white/18 bg-white/10 shadow-[0_18px_70px_rgba(255,255,255,0.16)]">
@@ -684,7 +716,14 @@ function ContactFlightCanvas({ active, failed }: { active: boolean; failed: bool
 
       drawingContext.clearRect(0, 0, width, height);
 
-      const gradient = drawingContext.createRadialGradient(width * 0.72, height * 0.18, 10, width * 0.5, height * 0.5, width);
+      const gradient = drawingContext.createRadialGradient(
+        width * 0.72,
+        height * 0.18,
+        10,
+        width * 0.5,
+        height * 0.5,
+        width
+      );
       gradient.addColorStop(0, 'rgba(196,181,253,0.26)');
       gradient.addColorStop(0.5, 'rgba(124,58,237,0.18)');
       gradient.addColorStop(1, 'rgba(124,58,237,0)');
