@@ -4,7 +4,7 @@ This document summarizes the current architecture and implementation details of 
 
 ## Project Goal
 
-Nodo is an Auckland, New Zealand based company focused on branding, digital marketing, website design/development, and digital systems for growing businesses.
+Nodo is an Auckland, New Zealand based company focused on branding, digital marketing, and website design/development for growing businesses.
 
 The site should feel premium, polished, animated, modern, and commercially sharp. Visible website copy and code naming should stay in English.
 
@@ -12,7 +12,7 @@ Core brand message used across the site:
 
 - `Nodo.`
 - `Clarity. Speed. Results.`
-- `Digital systems for growing businesses`
+- `Brand, marketing, and websites for growing businesses`
 
 ## Repository
 

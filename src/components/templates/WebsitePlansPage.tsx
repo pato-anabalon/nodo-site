@@ -281,7 +281,7 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="Compare"
               title="See what keeps moving after launch."
-              description="The main difference is not the website. It is the operating rhythm around it."
+              description="The main difference is not just the website. It is the ongoing support, visibility work, and conversion improvements around it."
               className="max-w-4xl"
             />
           </ScrollReveal>

@@ -148,6 +148,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               title="Tell Nodo what needs to move faster."
               description="Share the brand, digital marketing, or website project you want to create, improve, or scale. The first step is clarity."
               className="contact-page-heading"
+              headingLevel="h1"
               surfaceTone="light"
             />
             <div data-testid="contact-page-details" className="mt-10 grid gap-4 text-sm text-nodo-ink/66">
@@ -156,7 +157,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               </p>
               <p className="contact-page-detail">
                 <span className="font-semibold text-nodo-black">Focus:</span> Branding, digital
-                marketing, high-performing websites, and connected growth systems.
+                marketing, high-performing websites, and connected growth plans.
               </p>
             </div>
           </div>

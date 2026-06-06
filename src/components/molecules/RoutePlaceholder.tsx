@@ -7,9 +7,10 @@ type RoutePlaceholderProps = {
   eyebrow: string;
   title: string;
   description: string;
+  headingLevel?: "h1" | "h2";
 };
 
-export function RoutePlaceholder({ pageKey, eyebrow, title, description }: RoutePlaceholderProps) {
+export function RoutePlaceholder({ pageKey, eyebrow, title, description, headingLevel = "h2" }: RoutePlaceholderProps) {
   return (
     <main data-testid={`${pageKey}-page-main`} className="min-h-screen bg-nodo-black pt-36">
       <Container>
@@ -17,7 +18,7 @@ export function RoutePlaceholder({ pageKey, eyebrow, title, description }: Route
           data-testid={`${pageKey}-page-hero-section`}
           className="grid min-h-[62vh] items-end gap-10 border-b border-white/12 pb-16 lg:grid-cols-[1fr_0.7fr]"
         >
-          <SectionHeading eyebrow={eyebrow} title={title} description={description}>
+          <SectionHeading eyebrow={eyebrow} title={title} description={description} headingLevel={headingLevel}>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/contact" dataTestId={`${pageKey}-hero-primary-button`}>Let’s talk</Button>
               <Button href="/" variant="secondary" dataTestId={`${pageKey}-hero-secondary-button`}>

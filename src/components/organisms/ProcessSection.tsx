@@ -79,11 +79,11 @@ export function ProcessSection() {
                 How we work
               </p>
               <h2 data-testid="home-process-title" className="text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
-                A system is only useful when the business can feel it.
+                Good digital work should be clear, useful, and easy to act on.
               </h2>
               <p data-testid="home-process-description" className="mt-6 max-w-xl text-lg leading-8 text-nodo-ink/68">
                 The process starts with clarity, then moves quickly into design, build, and
-                improvement loops that keep the result grounded in daily operations.
+                improvement loops that keep the work tied to real customer response.
               </p>
               <svg
                 data-testid="home-process-orbit"
@@ -105,8 +105,8 @@ export function ProcessSection() {
           </div>
           <div data-testid="home-process-steps-panel" className="rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
             <SectionHeading
-              eyebrow="Operating rhythm"
-              title="From bottleneck to business advantage."
+              eyebrow="Working rhythm"
+              title="From unclear direction to stronger digital presence."
               className="mb-8"
             />
             <div data-testid="home-process-steps-list">

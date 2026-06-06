@@ -1,6 +1,6 @@
 # Nodo Site
 
-Premium marketing site for **Nodo**, an Auckland-based company focused on branding, digital marketing, website design/development, and digital systems for growing businesses.
+Premium marketing site for **Nodo**, an Auckland-based company focused on branding, digital marketing, and website design/development for growing businesses.
 
 Created by Pato Anabalon.
 

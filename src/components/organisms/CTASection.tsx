@@ -13,7 +13,7 @@ export function CTASection() {
                 Ready when you are
               </p>
               <h2 data-testid="home-cta-title" className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
-                Build a system that scales with the business.
+                Build the digital presence your next customers can trust.
               </h2>
             </div>
             <Button href="/contact" variant="inverted" dataTestId="home-cta-primary-button">

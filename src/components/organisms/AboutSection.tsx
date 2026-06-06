@@ -10,13 +10,13 @@ export function AboutSection() {
           <ScrollReveal>
             <SectionHeading
               eyebrow="Based in Auckland"
-              title="A technical partner for businesses that are ready to operate better."
-              description="Nodo works with growing companies that have reached the point where ad hoc tools, manual processes, and disconnected systems are slowing the team down."
+              title="A digital growth partner for businesses ready to be seen, trusted, and chosen."
+              description="Nodo works with growing companies that need sharper positioning, more consistent marketing, and a website that supports real commercial growth."
               className="[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
             />
             <p data-testid="home-about-supporting-copy" className="mt-6 max-w-2xl text-lg leading-8 text-nodo-ink/68">
-              The approach is direct: understand the workflow, design a better operating
-              system, build it with care, and keep improving it around real usage.
+              The approach is direct: understand the business, clarify the message,
+              shape the digital presence, and keep improving it around real customer response.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.08}>

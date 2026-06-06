@@ -66,7 +66,7 @@ export function Hero() {
         gsap.set('.hero-line', { strokeDashoffset: 1 });
         gsap.set('.hero-node', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-node-connected', { scale: 0, transformOrigin: 'center' });
-        gsap.set('.hero-title span', { yPercent: 105 });
+        gsap.set('.hero-title-word', { yPercent: 105 });
         gsap.set('.hero-tagline-word', { yPercent: 105 });
         gsap.set(['.hero-kicker', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 0,
@@ -77,7 +77,7 @@ export function Hero() {
         const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
 
         tl.to('.hero-kicker', { autoAlpha: 1, y: 0, duration: 0.7 })
-          .to('.hero-title span', { yPercent: 0, duration: 0.85, stagger: 0.08 }, '-=0.25')
+          .to('.hero-title-word', { yPercent: 0, duration: 0.85, stagger: 0.08 }, '-=0.25')
           .to('.hero-tagline-word', { yPercent: 0, duration: 0.8, stagger: 0.08 }, '-=0.25')
           .to('.hero-bodycopy', { autoAlpha: 1, y: 0, duration: 0.75 }, '-=0.35')
           .to(
@@ -139,7 +139,7 @@ export function Hero() {
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(['.hero-kicker', '.hero-title span', '.hero-bodycopy', '.hero-cta'], {
+        gsap.set(['.hero-kicker', '.hero-title-word', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0
@@ -168,15 +168,22 @@ export function Hero() {
             data-testid="home-hero-eyebrow"
             className="hero-kicker mb-6 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender"
           >
-            Auckland digital systems studio
+            Auckland digital growth studio
           </p>
           <h1
             data-testid="home-hero-title"
-            className="hero-title flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal text-white lg:items-baseline"
+            className="hero-title text-white"
           >
-            <span className="inline-block shrink-0">nodo</span>
-            <span className="inline-block shrink-0 text-nodo-purple">.</span>
-            <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
+            <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
+              <span className="hero-title-word inline-block shrink-0">nodo</span>
+              <span className="hero-title-word inline-block shrink-0 text-nodo-purple">.</span>
+              <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
+            </span>
+            <span className="mt-5 block max-w-2xl overflow-hidden text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
+              <span className="hero-title-word inline-block">
+                Sharper brands, smarter marketing, and websites built to grow
+              </span>
+            </span>
           </h1>
           <p
             data-testid="home-hero-tagline"
@@ -192,8 +199,8 @@ export function Hero() {
             data-testid="home-hero-copy"
             className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68"
           >
-            Digital systems for growing businesses that need cleaner workflows, sharper platforms, and technology that
-            moves at the pace of the company.
+            Nodo helps growing businesses improve how they look, show up online, and turn attention into stronger
+            enquiries.
           </p>
           <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">
             <Button href="/contact" className="hero-cta" dataTestId="home-hero-primary-button">

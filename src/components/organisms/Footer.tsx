@@ -55,7 +55,7 @@ export function Footer() {
                   data-testid="site-footer-description"
                   className="mt-6 text-lg leading-8 text-white/62 md:whitespace-nowrap"
                 >
-                  Digital systems for growing businesses. Built in Auckland, New Zealand.
+                  Brand, marketing, and websites for growing businesses. Built in Auckland, New Zealand.
                 </p>
               </div>
             </div>

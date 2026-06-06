@@ -248,7 +248,7 @@ export function ServicesPage() {
                       Brand / Demand / Build
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-nodo-ink/78">
-                      One connected system designed to help your business look
+                      One connected direction designed to help your business look
                       sharper, generate more demand, and convert more
                       confidently.
                     </p>
