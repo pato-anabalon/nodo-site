@@ -157,7 +157,7 @@ export function ServicesPage() {
               {servicesHeroTitleWords.map((word, index) => (
                 <span
                   key={`${word}-${index}`}
-                  className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em] align-top"
+                  className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
                 >
                   <span className="inline-block pr-[0.22em]">{word}</span>
                 </span>

@@ -83,31 +83,43 @@ export const services: Service[] = [
 
 export const processSteps = [
   {
-    eyebrow: "Diagnose",
-    title: "Map the business reality",
+    eyebrow: "Clarify",
+    title: "Find what is unclear",
     description:
-      "We find the gaps, unclear messages, and high-value moments where stronger brand, marketing, or website work can change the pace.",
+      "We identify the gaps in your message, offer, website, and marketing so the next move is obvious.",
+    output: "Audit",
+    question: "What is unclear and worth fixing first?",
+    result: "A sharper next move",
     icon: MousePointer2,
   },
   {
-    eyebrow: "Design",
-    title: "Shape the direction",
+    eyebrow: "Shape",
+    title: "Turn it into a direction",
     description:
-      "We turn unclear priorities into sharper positioning, cleaner user journeys, and practical creative direction.",
+      "We define the brand, content, user journey, and priorities your business needs to show up with confidence.",
+    output: "Direction",
+    question: "What should the brand, content, and journey say?",
+    result: "A clearer path to launch",
     icon: Layers3,
   },
   {
-    eyebrow: "Build",
-    title: "Move fast with polish",
+    eyebrow: "Launch",
+    title: "Build what customers see",
     description:
-      "We ship polished brand, marketing, and website work with the right balance of speed, craft, and commercial focus.",
+      "We create the brand, website, and marketing assets needed to turn attention into enquiries.",
+    output: "Launch assets",
+    question: "What needs to exist for customers to act?",
+    result: "A visible, usable digital presence",
     icon: GitBranch,
   },
   {
     eyebrow: "Improve",
-    title: "Measure and optimise",
+    title: "Keep momentum moving",
     description:
-      "We keep tuning the work around visibility, feedback, and business outcomes so momentum compounds over time.",
+      "We review performance, feedback, and opportunities so the work keeps getting sharper.",
+    output: "Optimisation",
+    question: "What can be improved after launch?",
+    result: "Better momentum over time",
     icon: Gauge,
   },
 ];

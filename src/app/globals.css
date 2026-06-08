@@ -196,6 +196,151 @@ select {
   }
 }
 
+.process-step-number,
+.process-step-icon,
+.process-step-output,
+.process-step-line {
+  transition-property: background-color, border-color, box-shadow, color, opacity, transform;
+}
+
+.process-step {
+  opacity: 0.82;
+}
+
+.process-step::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  border-radius: 1.35rem;
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.13), transparent 72%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.process-step-active {
+  opacity: 1;
+}
+
+.process-step-active::before {
+  opacity: 1;
+}
+
+.process-step-active .process-step-number {
+  border-color: color-mix(in oklab, var(--nodo-purple) 70%, white);
+  background: var(--nodo-purple);
+  color: var(--nodo-white);
+  box-shadow: 0 0 0 0.45rem rgba(124, 58, 237, 0.16), 0 1.1rem 2.4rem rgba(124, 58, 237, 0.34);
+  transform: translateY(-0.08rem);
+}
+
+.process-step-active .process-step-icon {
+  border-color: rgba(196, 181, 253, 0.62);
+  color: var(--nodo-white);
+  box-shadow: 0 0 0 0.35rem rgba(124, 58, 237, 0.12), 0 1rem 2rem rgba(0, 0, 0, 0.32);
+}
+
+.process-step-active .process-step-output {
+  border-color: rgba(196, 181, 253, 0.46);
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--nodo-lavender);
+}
+
+.process-step-active .process-step-line {
+  background: linear-gradient(180deg, var(--nodo-purple), rgba(255, 255, 255, 0.12));
+  opacity: 1;
+}
+
+.nodo-footer-tagline {
+  position: relative;
+  display: block;
+  height: 1.26em;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.nodo-footer-tagline-word {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: inline-flex;
+  opacity: 0;
+  padding-bottom: 0.18em;
+  white-space: nowrap;
+  transform-origin: left 68%;
+  filter: blur(0.12em);
+  animation: nodo-footer-word-presence 7.35s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: var(--word-delay);
+}
+
+.nodo-footer-tagline-letter {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow:
+    0 0 0.16em color-mix(in oklab, var(--nodo-purple) 52%, transparent),
+    0 0 0.42em color-mix(in oklab, var(--nodo-purple) 28%, transparent);
+  transform-origin: 50% 86%;
+  animation: nodo-footer-letter-lock 7.35s cubic-bezier(0.2, 0.9, 0.22, 1) infinite;
+  animation-delay: var(--letter-delay);
+}
+
+@keyframes nodo-footer-word-presence {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 34%, 0);
+    filter: blur(0.14em);
+  }
+
+  6% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+
+  14%,
+  28% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+
+  31% {
+    opacity: 1;
+    transform: translate3d(0, -5%, 0);
+    filter: blur(0);
+  }
+
+  36%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -58%, 0);
+    filter: blur(0.16em);
+  }
+}
+
+@keyframes nodo-footer-letter-lock {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.72em, 0);
+    filter: blur(0.12em);
+  }
+
+  5%,
+  29% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+
+  35%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -0.56em, 0);
+    filter: blur(0.12em);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -205,4 +350,23 @@ select {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .nodo-footer-tagline-word {
+    animation: none !important;
+    opacity: 0;
+    transform: none;
+    filter: none;
+  }
+
+  .nodo-footer-tagline-word-static {
+    opacity: 1;
+  }
+
+  .nodo-footer-tagline-letter {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
 }

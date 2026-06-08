@@ -179,7 +179,7 @@ export function Hero() {
               <span className="hero-title-word inline-block shrink-0 text-nodo-purple">.</span>
               <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
             </span>
-            <span className="mt-5 block max-w-2xl overflow-hidden text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
+            <span className="mb-[-0.16em] mt-5 block max-w-2xl overflow-hidden pb-[0.16em] text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
               <span className="hero-title-word inline-block">
                 Sharper brands, smarter marketing, and websites built to grow
               </span>

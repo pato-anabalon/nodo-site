@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +13,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ProcessSection() {
   const root = useRef<HTMLElement>(null);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   useGSAP(
     () => {
@@ -20,11 +21,10 @@ export function ProcessSection() {
 
       mm.add(
         {
-          isDesktop: "(min-width: 1024px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { isDesktop, reduceMotion } = context.conditions ?? {};
+          const { reduceMotion } = context.conditions ?? {};
 
           if (reduceMotion) {
             gsap.set(".process-step", { autoAlpha: 1, y: 0 });
@@ -43,20 +43,6 @@ export function ProcessSection() {
               once: true,
             },
           });
-
-          if (isDesktop) {
-            gsap.to(".process-orbit", {
-              rotation: 46,
-              transformOrigin: "center",
-              ease: "none",
-              scrollTrigger: {
-                trigger: root.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1,
-              },
-            });
-          }
         },
       );
 
@@ -65,6 +51,52 @@ export function ProcessSection() {
     { scope: root },
   );
 
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateActiveStep = () => {
+      window.cancelAnimationFrame(frameId);
+
+      frameId = window.requestAnimationFrame(() => {
+        const steps = Array.from(root.current?.querySelectorAll<HTMLElement>(".process-step") ?? []);
+
+        if (!steps.length) {
+          return;
+        }
+
+        const activationLine = window.innerHeight * 0.58;
+        let nextIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        steps.forEach((step, index) => {
+          const rect = step.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const distance = Math.abs(center - activationLine);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            nextIndex = index;
+          }
+        });
+
+        setActiveStepIndex((currentIndex) => (
+          currentIndex === nextIndex ? currentIndex : nextIndex
+        ));
+      });
+    };
+
+    updateActiveStep();
+
+    window.addEventListener("scroll", updateActiveStep, { passive: true });
+    window.addEventListener("resize", updateActiveStep);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", updateActiveStep);
+      window.removeEventListener("resize", updateActiveStep);
+    };
+  }, []);
+
   return (
     <section
       ref={root}
@@ -72,47 +104,53 @@ export function ProcessSection() {
       className="overflow-hidden bg-white py-24 text-nodo-black sm:py-32"
     >
       <Container>
-        <div data-testid="home-process-layout" className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div data-testid="home-process-intro-column" className="relative">
-            <div data-testid="home-process-intro-panel" className="sticky top-28">
+        <div data-testid="home-process-layout" className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
+          <div data-testid="home-process-intro-column" className="relative flex">
+            <div data-testid="home-process-intro-panel" className="flex h-full w-full flex-col">
               <p data-testid="home-process-eyebrow" className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-nodo-purple">
                 How we work
               </p>
               <h2 data-testid="home-process-title" className="text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
-                Good digital work should be clear, useful, and easy to act on.
+                A clear path from idea to momentum.
               </h2>
               <p data-testid="home-process-description" className="mt-6 max-w-xl text-lg leading-8 text-nodo-ink/68">
-                The process starts with clarity, then moves quickly into design, build, and
-                improvement loops that keep the work tied to real customer response.
+                We keep the process simple: understand what matters, shape the direction,
+                launch the work, and keep improving around real customer response.
               </p>
-              <svg
-                data-testid="home-process-orbit"
-                className="process-orbit mt-12 hidden h-64 w-64 overflow-visible lg:block"
-                viewBox="0 0 260 260"
-                fill="none"
-                aria-hidden="true"
+              <div
+                data-testid="home-process-video-frame"
+                className="mt-10 min-h-72 flex-1 overflow-hidden rounded-[1.75rem] border border-black/8 bg-nodo-black shadow-[0_24px_80px_rgba(22,19,25,0.14)]"
               >
-                <path d="M42 122L130 112L206 98" stroke="#050505" strokeWidth="7" strokeLinecap="round" />
-                <path d="M130 112L164 34" stroke="#050505" strokeWidth="7" strokeLinecap="round" />
-                <path d="M130 112L86 224" stroke="#050505" strokeWidth="7" strokeLinecap="round" />
-                <circle cx="42" cy="122" r="18" fill="#050505" />
-                <circle cx="130" cy="112" r="15" fill="#050505" />
-                <circle cx="206" cy="98" r="20" fill="#050505" />
-                <circle cx="164" cy="34" r="20" fill="#050505" />
-                <circle cx="86" cy="224" r="26" fill="#7c3aed" />
-              </svg>
+                <video
+                  data-testid="home-process-video"
+                  className="h-full min-h-72 w-full object-cover"
+                  src="/videos/how-we-work.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onLoadedMetadata={() => window.dispatchEvent(new Event("resize"))}
+                />
+              </div>
             </div>
           </div>
-          <div data-testid="home-process-steps-panel" className="rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
+          <div data-testid="home-process-steps-panel" className="flex h-full flex-col rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
             <SectionHeading
               eyebrow="Working rhythm"
-              title="From unclear direction to stronger digital presence."
-              className="mb-8"
+              title="Four moves. Clear outputs."
+              className="mb-8 shrink-0"
             />
-            <div data-testid="home-process-steps-list">
-            {processSteps.map((step) => (
-              <ProcessStep key={step.title} {...step} />
-            ))}
+            <div data-testid="home-process-steps-list" className="flex flex-1 flex-col justify-between gap-2">
+              {processSteps.map((step, index) => (
+                <ProcessStep
+                  key={step.title}
+                  {...step}
+                  index={index}
+                  isActive={index === activeStepIndex}
+                  isLast={index === processSteps.length - 1}
+                />
+              ))}
             </div>
           </div>
         </div>

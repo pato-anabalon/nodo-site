@@ -3,6 +3,30 @@ import type { Metadata } from "next";
 export const siteUrl = "https://www.nodo.co.nz";
 export const siteName = "Nodo";
 export const legalName = "Nodo Limited";
+export const contactEmail = "contact@nodo.co.nz";
+export const contactPhone = "+64 27 742 3001";
+export type SocialPlatform = "instagram" | "facebook" | "linkedin";
+export type SocialLink = {
+  platform: SocialPlatform;
+  label: string;
+  href?: string;
+};
+
+export const socialLinks: SocialLink[] = [
+  {
+    platform: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/nodo.co.nz/",
+  },
+  {
+    platform: "facebook",
+    label: "Facebook",
+  },
+  {
+    platform: "linkedin",
+    label: "LinkedIn",
+  },
+];
 
 export const defaultSeo = {
   title: "Nodo | Brand, marketing, and websites for growing businesses",
@@ -81,8 +105,8 @@ export function createGlobalStructuredData() {
         logo: absoluteUrl("/brand/nodo-logo-black.png"),
         image: absoluteUrl(defaultSeo.image.url),
         description: defaultSeo.description,
-        email: "contact@nodo.co.nz",
-        telephone: "+64 27 742 3001",
+        email: contactEmail,
+        telephone: contactPhone,
         address: {
           "@type": "PostalAddress",
           streetAddress: "19 Marywil Crescent, Hauraki",
@@ -95,7 +119,9 @@ export function createGlobalStructuredData() {
           "@type": "Country",
           name: "New Zealand",
         },
-        sameAs: ["https://www.instagram.com/nodo.co.nz/"],
+        sameAs: socialLinks
+          .map((link) => link.href)
+          .filter((href): href is string => Boolean(href)),
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Nodo services",
