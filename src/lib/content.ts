@@ -5,7 +5,6 @@ import {
   Gauge,
   GitBranch,
   Layers3,
-  LineChart,
   Megaphone,
   MousePointer2,
   PackageCheck,
@@ -36,11 +35,11 @@ export const services: Service[] = [
     eyebrow: "Brand foundation",
     title: "Branding",
     description:
-      "Positioning, identity direction, and brand systems built to make your business feel sharper, clearer, and more credible at every touchpoint.",
+      "Positioning, identity direction, and brand foundations built to make your business feel sharper, clearer, and more credible at every touchpoint.",
     highlight: "Clarify how your business looks, sounds, and is remembered.",
     deliverables: [
       "Brand positioning direction",
-      "Identity systems and visual language",
+      "Identity direction and visual language",
       "Messaging foundations for digital channels",
     ],
     ctaLabel: "Discuss branding",
@@ -51,7 +50,7 @@ export const services: Service[] = [
     eyebrow: "Demand generation",
     title: "Digital Marketing Solutions",
     description:
-      "Practical marketing systems that improve your visibility, generate stronger enquiries, and give your business a more consistent growth engine.",
+      "Practical marketing support that improves your visibility, generates stronger enquiries, and gives your business a more consistent growth engine.",
     highlight:
       "Turn your digital activity into repeatable traction instead of scattered effort.",
     deliverables: [
@@ -83,65 +82,68 @@ export const services: Service[] = [
 
 export const processSteps = [
   {
-    eyebrow: "Diagnose",
-    title: "Map the business reality",
+    eyebrow: "Clarify",
+    title: "Find what is unclear",
     description:
-      "We find the bottlenecks, handoffs, data gaps, and high-value moments where a better system can change the pace.",
+      "We identify the gaps in your message, offer, website, and marketing so the next move is obvious.",
+    output: "Audit",
+    question: "What is unclear and worth fixing first?",
+    result: "A sharper next move",
     icon: MousePointer2,
   },
   {
-    eyebrow: "Design",
-    title: "Shape the operating model",
+    eyebrow: "Shape",
+    title: "Turn it into a direction",
     description:
-      "We turn messy workflows into crisp interfaces, reliable automations, and architecture that can grow with the company.",
+      "We define the brand, content, user journey, and priorities your business needs to show up with confidence.",
+    output: "Direction",
+    question: "What should the brand, content, and journey say?",
+    result: "A clearer path to launch",
     icon: Layers3,
   },
   {
-    eyebrow: "Build",
-    title: "Move fast with polish",
+    eyebrow: "Launch",
+    title: "Build what customers see",
     description:
-      "We ship production-ready digital systems with the right balance of speed, craft, and maintainability.",
+      "We create the brand, website, and marketing assets needed to turn attention into enquiries.",
+    output: "Launch assets",
+    question: "What needs to exist for customers to act?",
+    result: "A visible, usable digital presence",
     icon: GitBranch,
   },
   {
     eyebrow: "Improve",
-    title: "Measure and optimise",
+    title: "Keep momentum moving",
     description:
-      "We keep tuning the system around usage, feedback, and business outcomes so the work compounds over time.",
+      "We review performance, feedback, and opportunities so the work keeps getting sharper.",
+    output: "Optimisation",
+    question: "What can be improved after launch?",
+    result: "Better momentum over time",
     icon: Gauge,
   },
 ];
 
-export const outcomes = [
-  "Cleaner client experiences",
-  "Fewer disconnected tools",
-  "Less manual admin",
-  "Faster response cycles",
-  "Better visibility across work",
-  "Systems ready for scale",
-];
-
-export const proofPoints = [
+export const resultOutcomes = [
   {
-    label: "Signal",
-    title: "A sharper view of what matters",
+    label: "Trust",
+    title: "Stronger first impression",
     description:
-      "Nodo turns fragmented inputs into a system your team can understand, trust, and act on.",
+      "Your brand and website look more credible from the first visit.",
     icon: Sparkles,
   },
   {
-    label: "Momentum",
-    title: "Speed without operational chaos",
+    label: "Action",
+    title: "Clearer customer action",
     description:
-      "The goal is not just to launch faster. It is to make the business itself move faster.",
-    icon: Gauge,
+      "Visitors understand what you offer, why it matters, and how to take the next step.",
+    icon: MousePointer2,
   },
   {
-    label: "Return",
-    title: "Technology tied to outcomes",
+    label: "Consistency",
+    title: "More consistent presence",
     description:
-      "Every build is anchored to a commercial reason: time saved, revenue unlocked, or friction removed.",
-    icon: LineChart,
+      "Your website, content, and marketing feel connected instead of scattered.",
+    icon: Workflow,
   },
 ];
 
@@ -156,13 +158,13 @@ export const placeholderPages = {
     title: "About Nodo",
     eyebrow: "Auckland, New Zealand",
     description:
-      "Nodo partners with growing businesses to design and build digital systems that create clarity, speed, and measurable results.",
+      "Nodo partners with growing businesses to build sharper brands, smarter marketing, and websites that create clarity, speed, and measurable results.",
   },
   "case-studies": {
     title: "Case Studies",
     eyebrow: "Work in progress",
     description:
-      "Selected examples of systems, platforms, and operational improvements will live here as the portfolio grows.",
+      "Selected examples of brand, marketing, and website improvements will live here as the portfolio grows.",
   },
 };
 
@@ -176,7 +178,7 @@ export const servicesPageContent = {
   },
   positioning: {
     eyebrow: "Built to connect",
-    title: "Three distinct services. One connected growth system.",
+    title: "Three distinct services. One connected growth direction.",
     copy: "Brand gives your business clarity. Marketing helps you generate momentum. Your website turns that momentum into action. Nodo designs each layer to support the others, so your digital presence feels coherent instead of fragmented.",
     pillars: [
       {
@@ -187,7 +189,7 @@ export const servicesPageContent = {
       {
         title: "Demand",
         description:
-          "Marketing systems that help you generate visibility, leads, and traction.",
+          "Marketing activity that helps you generate visibility, leads, and traction.",
       },
       {
         title: "Build",
@@ -274,14 +276,14 @@ export const plansHubContent = {
   hero: {
     eyebrow: "Nodo plans",
     title: "Choose the right digital path.",
-    copy: "Start with the area your business needs most: a stronger website, consistent marketing, sharper branding, or one connected growth system.",
+    copy: "Start with the area your business needs most: a stronger website, consistent marketing, sharper branding, or one connected growth plan.",
     highlights: ["Websites", "Marketing", "Branding", "Bundles"],
   },
   positioning: {
-    eyebrow: "One system",
+    eyebrow: "One direction",
     title:
       "Brand creates clarity. Marketing creates momentum. Your website turns it into action.",
-    copy: "Nodo plans are structured so each service can stand alone, but the strongest results happen when the pieces work together with one strategy and one operating rhythm.",
+    copy: "Nodo plans are structured so each service can stand alone, but the strongest results happen when the pieces work together with one strategy and one commercial direction.",
   },
   finalCta: {
     eyebrow: "Not sure where to begin?",
@@ -313,7 +315,7 @@ export const plansHubCards: PlansHubCard[] = [
     eyebrow: "Connected offer",
     title: "All-in-One Bundles",
     description:
-      "For businesses that want website, brand, and marketing work aligned under one practical growth system.",
+      "For businesses that want website, brand, and marketing work aligned under one practical growth plan.",
     href: "/plans/marketing-branding#bundles",
     ctaLabel: "View bundles",
     icon: PackageCheck,
@@ -325,7 +327,7 @@ export const plansPageContent = {
     eyebrow: "Website plans",
     title: "Digital plans that keep your business moving.",
     subtitle: "",
-    copy: "Nodo gives you clearer digital structure, ongoing support, and practical improvements that keep delivering after launch.",
+    copy: "Nodo gives you a stronger website, ongoing support, and practical improvements that keep delivering after launch.",
     highlights: [
       "One-off or ongoing",
       "Clear pricing paths",
@@ -347,7 +349,7 @@ export const plansPageContent = {
   purchaseOption: {
     eyebrow: "Long-term value",
     title: "A flexible model, built for long-term value.",
-    copy: "Our Digital Growth Partnerships are designed for businesses that want ongoing technology support, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
+    copy: "Our Digital Growth Partnerships are designed for businesses that want ongoing website support and optimisation, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
     note: "If this is something you would like to explore, we are happy to explain how the model works in more detail during a call.",
   },
   finalCta: {
@@ -413,17 +415,17 @@ export const plans: Plan[] = [
     slug: "nodo-nexus",
     name: "Nodo Nexus",
     label:
-      "Best for businesses that want advanced systems, automation and strategic support",
+      "Best for businesses that want advanced website growth and strategic support",
     type: "Digital Growth Partnership",
     price: "From NZD 1,990/month",
     priceDetail: "Initial build and onboarding investment from NZD 7,500",
     contractNote: "12-month partnership period",
     summary:
-      "A premium digital partnership for businesses that want more advanced growth systems, AI-driven workflows and connected digital operations.",
+      "A premium digital partnership for businesses that want stronger website growth, sharper optimisation, and strategic digital support.",
     includedFeatures: [
       "Everything in Nodo Growth",
-      "AI-powered automations",
-      "Booking, FAQ or lead handling workflows",
+      "Advanced conversion support",
+      "Booking, FAQ or lead handling improvements",
       "Advanced integrations",
       "Strategic optimisation support",
       "Priority turnaround",
@@ -464,7 +466,7 @@ export const marketingBrandingPageContent = {
   hero: {
     eyebrow: "Marketing & branding plans",
     title: "Build the clarity and momentum your business needs.",
-    copy: "Nodo helps you shape how your business looks, communicates, and shows up online, with practical plans for brand foundations, marketing activity, and connected launch systems.",
+    copy: "Nodo helps you shape how your business looks, communicates, and shows up online, with practical plans for brand foundations, marketing activity, and connected launch support.",
     highlights: ["Monthly marketing", "One-off branding", "Connected bundles"],
   },
   marketing: {
@@ -503,7 +505,7 @@ export const marketingPlans: CommercialPlan[] = [
     model: "Monthly plan",
     price: "From NZD 300/month",
     summary:
-      "A basic monthly plan for businesses that need a consistent presence without running a full campaign system.",
+      "A basic monthly plan for businesses that need a consistent presence without running a full campaign.",
     includedFeatures: [
       "Social media posting",
       "Caption writing",
@@ -608,13 +610,13 @@ export const brandingPlans: CommercialPlan[] = [
     model: "One-off project",
     price: "From NZD 2,500",
     summary:
-      "A complete brand system covering strategy, positioning, guidelines, launch assets, and digital direction.",
+      "A complete brand package covering strategy, positioning, guidelines, launch assets, and digital direction.",
     includedFeatures: [
       "Full brand strategy",
       "Brand positioning",
       "Tone of voice",
       "Advanced brand guidelines",
-      "Social media systems",
+      "Social media templates",
       "Presentation and pitch decks",
       "Packaging or signage direction",
       "Website visual direction",
@@ -634,7 +636,7 @@ export const bundlePlans: CommercialPlan[] = [
     model: "Connected monthly bundle",
     price: "From NZD 1,999/month",
     summary:
-      "A launch-ready system that connects an entry website, essential branding, and starter marketing into one setup.",
+      "A launch-ready package that connects an entry website, essential branding, and starter marketing into one setup.",
     includedFeatures: [
       "Website Flow",
       "Brand Start",
@@ -669,19 +671,19 @@ export const bundlePlans: CommercialPlan[] = [
     slug: "bundle-scale",
     name: "Bundle Scale",
     label:
-      "Best for businesses ready to scale with advanced marketing, brand, and automation support",
+      "Best for businesses ready to scale with advanced marketing, brand, and website support",
     category: "Bundle",
     model: "Connected monthly bundle",
     price: "From NZD 4,499/month",
     summary:
-      "A premium ecosystem that connects advanced website systems, full brand support, digital marketing, and automation-ready workflows.",
+      "A premium bundle that connects advanced website support, full brand work, and digital marketing.",
     includedFeatures: [
       "Website Nexus",
       "Full Brand & Launch",
       "Full Digital Marketing",
-      "Advanced automation support",
+      "Advanced conversion support",
       "Priority turnaround",
-      "Connected digital ecosystem",
+      "Connected digital direction",
     ],
     ctaLabel: "Enquire about Bundle Scale",
   },
@@ -784,7 +786,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "AI-powered automations",
+    feature: "Advanced conversion support",
     values: {
       "nodo-flow": false,
       "nodo-growth": false,
@@ -831,7 +833,7 @@ export const plansFaq = [
   {
     question: "Do the partnership plans include a minimum period?",
     answer:
-      "Yes. Our Digital Growth Partnerships are structured around a 12-month partnership period so we can build, support and improve the digital system properly over time.",
+      "Yes. Our Digital Growth Partnerships are structured around a 12-month partnership period so we can build, support and improve the website properly over time.",
   },
   {
     question: "Can I buy the website after a partnership plan?",

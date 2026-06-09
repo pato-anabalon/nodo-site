@@ -7,6 +7,7 @@ import { ConstellationBackground } from "@/components/atoms/ConstellationBackgro
 import { Container } from "@/components/atoms/Container";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { ContactForm } from "@/components/molecules/ContactForm";
+import { contactEmail, contactPhone, socialLinks } from "@/lib/seo";
 
 gsap.registerPlugin(useGSAP);
 
@@ -148,6 +149,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               title="Tell Nodo what needs to move faster."
               description="Share the brand, digital marketing, or website project you want to create, improve, or scale. The first step is clarity."
               className="contact-page-heading"
+              headingLevel="h1"
               surfaceTone="light"
             />
             <div data-testid="contact-page-details" className="mt-10 grid gap-4 text-sm text-nodo-ink/66">
@@ -156,8 +158,34 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               </p>
               <p className="contact-page-detail">
                 <span className="font-semibold text-nodo-black">Focus:</span> Branding, digital
-                marketing, high-performing websites, and connected growth systems.
+                marketing, high-performing websites, and connected growth plans.
               </p>
+              <p className="contact-page-detail">
+                <span className="font-semibold text-nodo-black">Email:</span>{" "}
+                <a href={`mailto:${contactEmail}`} className="font-semibold text-nodo-purple transition hover:text-nodo-black">
+                  {contactEmail}
+                </a>
+              </p>
+              <p className="contact-page-detail">
+                <span className="font-semibold text-nodo-black">Phone:</span>{" "}
+                <a href={`tel:${contactPhone.replace(/\s+/g, "")}`} className="font-semibold text-nodo-purple transition hover:text-nodo-black">
+                  {contactPhone}
+                </a>
+              </p>
+              <div className="contact-page-detail flex flex-wrap gap-x-4 gap-y-2">
+                <span className="font-semibold text-nodo-black">Social:</span>
+                {socialLinks.filter((link) => link.href).map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-nodo-purple transition hover:text-nodo-black"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
           <div data-testid="contact-page-form-card" className="contact-page-form-card relative overflow-hidden rounded-[2rem] border border-black/8 bg-white/82 p-5 shadow-[0_24px_90px_rgba(22,19,25,0.10)] backdrop-blur-xl sm:p-8">

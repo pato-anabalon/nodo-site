@@ -157,7 +157,7 @@ export function ServicesPage() {
               {servicesHeroTitleWords.map((word, index) => (
                 <span
                   key={`${word}-${index}`}
-                  className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em] align-top"
+                  className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
                 >
                   <span className="inline-block pr-[0.22em]">{word}</span>
                 </span>
@@ -248,7 +248,7 @@ export function ServicesPage() {
                       Brand / Demand / Build
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-nodo-ink/78">
-                      One connected system designed to help your business look
+                      One connected direction designed to help your business look
                       sharper, generate more demand, and convert more
                       confidently.
                     </p>

@@ -1,5 +1,9 @@
+import type { CSSProperties } from "react";
 import { NodoLogo } from "@/components/atoms/NodoLogo";
+import { FooterContactPanel } from "@/components/molecules/FooterContactPanel";
 import { FooterLinkColumn, type FooterLink } from "@/components/molecules/FooterLinkColumn";
+
+const taglineWords = ["Clarity.", "Speed.", "Results."];
 
 const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
@@ -41,26 +45,50 @@ export function Footer() {
           data-testid="site-footer-main-panel"
           className="overflow-hidden border-y border-white/12 bg-white/[0.035] shadow-[0_30px_110px_rgba(0,0,0,0.34)]"
         >
-          <div className="grid w-full gap-10 px-5 py-10 sm:px-8 md:grid-cols-[70%_30%] md:items-start lg:px-10">
+          <div className="grid w-full gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[35fr_30fr_35fr] lg:items-start lg:px-10">
             <div data-testid="site-footer-brand-block">
               <div>
                 <NodoLogo inverted className="text-white" />
-                <p
+                <div
                   data-testid="site-footer-tagline"
-                  className="mt-7 text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl md:whitespace-nowrap"
+                  className="nodo-footer-tagline mt-7 text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl"
                 >
-                  Clarity. Speed. Results.
-                </p>
+                  <span className="sr-only">Clarity. Speed. Results.</span>
+                  {taglineWords.map((word, wordIndex) => (
+                    <span
+                      key={word}
+                      aria-hidden="true"
+                      className={`nodo-footer-tagline-word${wordIndex === 0 ? " nodo-footer-tagline-word-static" : ""}`}
+                      style={{
+                        "--word-delay": `${wordIndex * 2.45}s`,
+                      } as CSSProperties}
+                    >
+                      {[...word].map((letter, letterIndex) => (
+                        <span
+                          key={`${word}-${letterIndex}`}
+                          className="nodo-footer-tagline-letter"
+                          style={{
+                            "--letter-delay": `${wordIndex * 2.45 + letterIndex * 0.045}s`,
+                          } as CSSProperties}
+                        >
+                          {letter}
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </div>
                 <p
                   data-testid="site-footer-description"
-                  className="mt-6 text-lg leading-8 text-white/62 md:whitespace-nowrap"
+                  className="mt-6 max-w-md text-lg leading-8 text-white/62"
                 >
-                  Digital systems for growing businesses. Built in Auckland, New Zealand.
+                  Brand, marketing, and websites for growing businesses.
                 </p>
               </div>
             </div>
 
-            <div data-testid="site-footer-navigation-row" className="w-full">
+            <FooterContactPanel />
+
+            <div data-testid="site-footer-navigation-row" className="w-full lg:justify-self-end">
               <nav
                 data-testid="site-footer-navigation"
                 className="grid w-full gap-8 sm:grid-cols-3"

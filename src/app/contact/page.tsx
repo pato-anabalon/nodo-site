@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { JsonLdScript } from "@/components/atoms/JsonLdScript";
 import { ContactSection } from "@/components/organisms/ContactSection";
+import { createBreadcrumbStructuredData, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
   description:
     "Contact Nodo to discuss a branding, digital marketing, or website project for your business.",
-};
+  path: "/contact",
+});
 
 type ContactPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -19,10 +22,13 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
   const params = await searchParams;
 
   return (
-    <ContactSection
-      selectedPlanSlug={readSearchParam(params.plan)}
-      intent={readSearchParam(params.intent)}
-      source={readSearchParam(params.source)}
-    />
+    <>
+      <JsonLdScript id="breadcrumb-structured-data" data={createBreadcrumbStructuredData("/contact")} />
+      <ContactSection
+        selectedPlanSlug={readSearchParam(params.plan)}
+        intent={readSearchParam(params.intent)}
+        source={readSearchParam(params.source)}
+      />
+    </>
   );
 }
