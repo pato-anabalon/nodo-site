@@ -5,7 +5,6 @@ import {
   Gauge,
   GitBranch,
   Layers3,
-  LineChart,
   Megaphone,
   MousePointer2,
   PackageCheck,
@@ -124,36 +123,27 @@ export const processSteps = [
   },
 ];
 
-export const outcomes = [
-  "Sharper first impressions",
-  "Clearer brand direction",
-  "More consistent marketing",
-  "Stronger website conversion",
-  "Better local visibility",
-  "More confident enquiries",
-];
-
-export const proofPoints = [
+export const resultOutcomes = [
   {
-    label: "Signal",
-    title: "A sharper view of what matters",
+    label: "Trust",
+    title: "Stronger first impression",
     description:
-      "Nodo turns scattered ideas into a clearer direction your audience can understand, trust, and act on.",
+      "Your brand and website look more credible from the first visit.",
     icon: Sparkles,
   },
   {
-    label: "Momentum",
-    title: "More consistent digital momentum",
+    label: "Action",
+    title: "Clearer customer action",
     description:
-      "The goal is not just to look better. It is to help your business show up with more confidence and consistency.",
-    icon: Gauge,
+      "Visitors understand what you offer, why it matters, and how to take the next step.",
+    icon: MousePointer2,
   },
   {
-    label: "Return",
-    title: "Technology tied to outcomes",
+    label: "Consistency",
+    title: "More consistent presence",
     description:
-      "Every project is anchored to a commercial reason: better trust, stronger enquiries, or clearer growth.",
-    icon: LineChart,
+      "Your website, content, and marketing feel connected instead of scattered.",
+    icon: Workflow,
   },
 ];
 
