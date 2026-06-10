@@ -47,7 +47,6 @@ export const indexableRoutes = [
   { path: "/plans/websites", priority: 0.8 },
   { path: "/plans/marketing-branding", priority: 0.8 },
   { path: "/case-studies", priority: 0.75 },
-  { path: "/about", priority: 0.65 },
   { path: "/contact", priority: 0.65 },
 ] as const;
 
@@ -58,7 +57,6 @@ const breadcrumbLabels: Record<(typeof indexableRoutes)[number]["path"], string>
   "/plans/websites": "Website Plans",
   "/plans/marketing-branding": "Marketing & Branding Plans",
   "/case-studies": "Case Studies",
-  "/about": "About",
   "/contact": "Contact",
 };
 
