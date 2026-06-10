@@ -169,7 +169,7 @@ export function LaunchPlanCard() {
       <div className="relative grid gap-8 lg:grid-cols-[0.75fr_1fr] lg:items-start">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.2em] text-nodo-purple">
-            Alternative path
+            One-off website build
           </p>
           <h3 data-testid="plans-launch-card-title" className="mt-4 text-4xl font-black tracking-normal text-nodo-black">
             {launchPlan.name}
@@ -178,7 +178,7 @@ export function LaunchPlanCard() {
             {launchPlan.summary}
           </p>
           <div data-testid="plans-launch-card-pricing" className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5">
-            <p className="text-sm font-semibold text-white/52">One-time investment</p>
+            <p className="text-sm font-semibold text-white/52">One-time website investment</p>
             <p className="mt-2 text-3xl font-black leading-tight text-white">
               {launchPlan.price}
             </p>

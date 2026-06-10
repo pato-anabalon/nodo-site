@@ -158,7 +158,7 @@ export function WebsitePlansPage() {
                 dataTestId="plans-hero-primary-button"
                 className="plans-hero-cta opacity-0 motion-reduce:opacity-100"
               >
-                Book a discovery call
+                Help me choose a plan
               </TrackedPlanCta>
               <TrackedPlanCta
                 href={contactHref("quote", "plans-hero")}
@@ -217,12 +217,11 @@ export function WebsitePlansPage() {
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(5,5,5,0.18))]" />
                   <div className="absolute bottom-5 left-5 right-5 rounded-[1.35rem] border border-white/30 bg-white/78 px-4 py-4 backdrop-blur-md">
                     <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-nodo-purple">
-                      Partnership model
+                      After go-live
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-nodo-ink/78">
-                      A long-term digital partner gives you more than launch
-                      delivery. It gives you momentum, support, and room to keep
-                      improving after go-live.
+                      The partnership plans keep your website supported,
+                      updated, and improving after launch.
                     </p>
                   </div>
                 </div>
@@ -242,7 +241,7 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="Growth partnerships"
               title="Choose the level of ongoing support your business needs."
-              description="Digital Growth Partnerships are the main way Nodo helps growing businesses keep improving after launch."
+              description="Flow, Growth, and Nexus are for businesses that want more than a website delivered once. They include support, updates, and improvement over time."
             />
           </ScrollReveal>
           <div className="mt-12">
@@ -280,8 +279,8 @@ export function WebsitePlansPage() {
           <ScrollReveal>
             <SectionHeading
               eyebrow="Compare"
-              title="See what keeps moving after launch."
-              description="The main difference is not just the website. It is the ongoing support, visibility work, and conversion improvements around it."
+              title="Compare what happens after launch."
+              description="The biggest difference is what continues after the website goes live: support, updates, visibility work, conversion improvements, and strategic guidance."
               className="max-w-4xl"
             />
           </ScrollReveal>
@@ -335,24 +334,24 @@ export function WebsitePlansPage() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <TrackedPlanCta
-                  href={contactHref("quote", "plans-final")}
+                  href={contactHref("discovery-call", "plans-final")}
                   plan="not-selected"
-                  intent="quote"
+                  intent="discovery-call"
                   location="plans_final_primary"
                   dataTestId="plans-final-primary-button"
                   variant="inverted"
                 >
-                  Request a quote
+                  Help me choose
                 </TrackedPlanCta>
                 <TrackedPlanCta
-                  href={contactHref("discovery-call", "plans-final")}
+                  href={contactHref("quote", "plans-final")}
                   plan="not-selected"
-                  intent="discovery-call"
+                  intent="quote"
                   location="plans_final_secondary"
                   dataTestId="plans-final-secondary-button"
                   variant="secondary"
                 >
-                  Book a discovery call
+                  Request a quote
                 </TrackedPlanCta>
               </div>
             </div>

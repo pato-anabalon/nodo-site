@@ -56,6 +56,17 @@ export function ServicesPageShowcase() {
                   <p data-testid={`services-showcase-card-${slug}-description`} className="relative z-10 max-w-2xl text-pretty text-base leading-8 text-white/68 sm:text-lg">
                     {service.description}
                   </p>
+                  <div
+                    data-testid={`services-showcase-card-${slug}-best-when`}
+                    className="relative z-10 rounded-[1.25rem] border border-white/12 bg-white/[0.055] px-4 py-3"
+                  >
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-lavender">
+                      Best when
+                    </p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-white/72">
+                      {service.bestWhen}
+                    </p>
+                  </div>
                   <div data-testid={`services-showcase-card-${slug}-highlight`} className="relative z-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
                     <p className="max-w-xl text-pretty text-sm leading-7 text-white/72 sm:text-base">
                       {service.highlight}
@@ -89,8 +100,15 @@ export function ServicesPageShowcase() {
                       variant="secondary"
                       surfaceTone="dark"
                       dataTestId={`services-showcase-${slug}-button`}
-                      className="w-full justify-between rounded-2xl border-white/18 bg-white/10 px-4 py-3 text-left shadow-[0_10px_28px_rgba(5,5,5,0.18)] hover:-translate-y-0.5 hover:border-nodo-lavender/55 hover:bg-white/14 hover:shadow-[0_16px_34px_rgba(124,58,237,0.14)]"
-                      icon={<ArrowRight aria-hidden="true" className="size-4" />}
+                      className="w-full justify-between rounded-2xl border-nodo-lavender/35 bg-nodo-purple/88 px-4 py-3 text-left text-white shadow-[0_12px_32px_rgba(124,58,237,0.24)] transition duration-300 hover:-translate-y-0.5 hover:border-nodo-lavender/70 hover:bg-nodo-purple hover:text-white hover:shadow-[0_18px_42px_rgba(124,58,237,0.32)] group-hover:-translate-y-0.5 group-hover:border-nodo-lavender/70 group-hover:bg-nodo-purple group-hover:shadow-[0_18px_42px_rgba(124,58,237,0.32)] motion-reduce:transform-none motion-reduce:transition-none"
+                      icon={
+                        <span
+                          aria-hidden="true"
+                          className="flex size-7 items-center justify-center rounded-full bg-white/16 text-white transition duration-300 group-hover:translate-x-1 group-hover:bg-white/24 group-hover:shadow-[0_0_18px_rgba(255,255,255,0.22)] motion-reduce:transform-none motion-reduce:transition-none"
+                        >
+                          <ArrowRight className="size-4" />
+                        </span>
+                      }
                     >
                       {service.ctaLabel}
                     </Button>

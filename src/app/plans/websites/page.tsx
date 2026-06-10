@@ -4,9 +4,9 @@ import { WebsitePlansPage } from "@/components/templates/WebsitePlansPage";
 import { createBreadcrumbStructuredData, createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Website Plans | Nodo Website and Growth Partnerships",
+  title: "Website Plans | Launch, Support and Ongoing Improvement",
   description:
-    "Explore Nodo's website and digital growth plans for New Zealand businesses, including one-off builds and ongoing support plans.",
+    "Explore Nodo website plans for New Zealand businesses, including one-off builds, monthly support, and ongoing website improvement.",
   path: "/plans/websites",
 });
 

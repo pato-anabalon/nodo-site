@@ -67,7 +67,7 @@ const services = [
       "Brand positioning, identity direction, and messaging foundations for growing businesses.",
   },
   {
-    name: "Digital Marketing Solutions",
+    name: "Digital Marketing",
     description:
       "Digital marketing support for visibility, content direction, campaigns, and lead generation.",
   },

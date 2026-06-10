@@ -1,9 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  ArrowUpRight,
   Blocks,
   Brush,
+  Clapperboard,
   Gauge,
   GitBranch,
+  Instagram,
   Layers3,
   Megaphone,
   MousePointer2,
@@ -23,6 +26,7 @@ export type Service = {
   eyebrow: string;
   title: string;
   description: string;
+  bestWhen: string;
   highlight: string;
   deliverables: string[];
   ctaLabel: string;
@@ -36,6 +40,8 @@ export const services: Service[] = [
     title: "Branding",
     description:
       "Positioning, identity direction, and brand foundations built to make your business feel sharper, clearer, and more credible at every touchpoint.",
+    bestWhen:
+      "Best when your business looks inconsistent, unclear, or hard to explain.",
     highlight: "Clarify how your business looks, sounds, and is remembered.",
     deliverables: [
       "Brand positioning direction",
@@ -47,19 +53,21 @@ export const services: Service[] = [
     icon: Brush,
   },
   {
-    eyebrow: "Demand generation",
-    title: "Digital Marketing Solutions",
+    eyebrow: "Visibility & enquiries",
+    title: "Digital Marketing",
     description:
-      "Practical marketing support that improves your visibility, generates stronger enquiries, and gives your business a more consistent growth engine.",
+      "Practical marketing support that helps the right people find you, understand your value, and take the next step.",
+    bestWhen:
+      "Best when people are not finding you, remembering you, or taking action.",
     highlight:
-      "Turn your digital activity into repeatable traction instead of scattered effort.",
+      "Turn scattered marketing activity into clearer visibility and stronger enquiries.",
     deliverables: [
       "Campaign and channel strategy",
       "SEO and performance-led content direction",
       "Conversion improvements across landing experiences",
     ],
-    ctaLabel: "Plan growth activity",
-    href: "/contact?service=digital-marketing-solutions&source=services-section",
+    ctaLabel: "Plan marketing activity",
+    href: "/contact?service=digital-marketing&source=services-section",
     icon: Workflow,
   },
   {
@@ -67,6 +75,8 @@ export const services: Service[] = [
     title: "Website design & development",
     description:
       "Premium websites designed and built to look sharp, perform fast, and support the way your business actually sells, communicates, and grows.",
+    bestWhen:
+      "Best when your site looks outdated, feels unclear, or is not generating enough enquiries.",
     highlight:
       "Build the experience your audience lands on and your business grows through.",
     deliverables: [
@@ -168,33 +178,142 @@ export const placeholderPages = {
   },
 };
 
+export type CaseStudyWorkCard = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  href?: string;
+  ctaLabel?: string;
+  tags: string[];
+  icon: LucideIcon;
+};
+
+export const caseStudiesPageContent = {
+  hero: {
+    eyebrow: "Selected work",
+    title: "Work that makes businesses easier to trust, find, and choose.",
+    copy: "Selected website redesigns, social media work, and content pieces for New Zealand businesses, starting with a full website transformation for PlasterPro Solution.",
+    highlights: ["Website redesign", "Social media", "Video content"],
+  },
+  featured: {
+    eyebrow: "Featured case study",
+    client: "PlasterPro Solution",
+    href: "https://www.plasterprosolution.co.nz/",
+    industry: "Auckland plastering, painting, gib stopping, and property presentation",
+    headline:
+      "From an outdated Wix site to a high-trust trade website for Auckland property work.",
+    summary:
+      "PlasterPro Solution needed a website that matched the quality of their work. The redesign gave the business clearer service structure, stronger trust signals, better local relevance, and a sharper first impression.",
+    tags: ["Website redesign", "UX", "Copywriting", "SEO structure"],
+    challenge: {
+      title: "The challenge",
+      description:
+        "The old site did not communicate the quality, range, or credibility of the business clearly enough. For a trade business working across Auckland properties, the website needed to feel professional quickly and make it easier for clients to request a quote.",
+    },
+    work: {
+      title: "What changed",
+      points: [
+        "A clearer service architecture for plastering, painting, gib stopping, and property presentation.",
+        "A stronger first impression built around premium finishes and Auckland property work.",
+        "Trust signals through reviews, qualifications, suppliers, project imagery, and clear contact paths.",
+        "More direct copy that helps homeowners, builders, agents, and property managers understand the offer.",
+      ],
+    },
+    outcomes: [
+      "Stronger credibility from the first visit",
+      "Clearer explanation of services",
+      "Better foundation for local SEO",
+      "More visible quote paths",
+    ],
+    comparison: {
+      before: {
+        label: "Before",
+        title: "Old Wix presence",
+        description:
+          "The previous site had weak hierarchy, crowded sections, and limited trust signals for a trade business working across Auckland properties.",
+        imageSrc: "/case-studies/plasterpro-old.png",
+        imageAlt: "Old PlasterPro Solution Wix website screenshot before the Nodo redesign.",
+        videoSrc: "/videos/plasterpro-old-site-480.mp4",
+      },
+      after: {
+        label: "After",
+        title: "Nodo redesign",
+        description:
+          "A sharper website experience built around services, process, projects, reviews, and quote actions.",
+        imageSrc: "/case-studies/plasterpro-new.png",
+        imageAlt: "New PlasterPro Solution website screenshot after the Nodo redesign.",
+        videoSrc: "/videos/plasterpro-new-site-480.mp4",
+      },
+    },
+  },
+  selectedWork: {
+    eyebrow: "More client work",
+    title: "Useful work does not always need a full case study.",
+    copy: "Some projects are ongoing, smaller in scope, or focused on specific content needs. This section keeps those visible without overclaiming results.",
+  },
+  finalCta: {
+    eyebrow: "Have a business that needs this kind of shift?",
+    title: "Tell us what feels unclear, outdated, or inconsistent.",
+    copy: "We can help you decide whether your next move is website, marketing, brand, or content.",
+  },
+};
+
+export const caseStudyWorkCards: CaseStudyWorkCard[] = [
+  {
+    title: "PISNCO",
+    eyebrow: "Social media management",
+    description:
+      "Ongoing social media support focused on rhythm, visual consistency, captions, and brand presence.",
+    href: "https://www.instagram.com/pisnco/",
+    ctaLabel: "View Instagram",
+    tags: ["Social media", "Content planning", "Captions"],
+    icon: Instagram,
+  },
+  {
+    title: "Short-form video pieces",
+    eyebrow: "Video content",
+    description:
+      "Video assets and social pieces created to help businesses explain, promote, launch, or stay visible.",
+    tags: ["Video editing", "Reels", "Content pieces"],
+    icon: Clapperboard,
+  },
+  {
+    title: "Website and content support",
+    eyebrow: "Active work",
+    description:
+      "Smaller improvements across websites, content structure, and digital presence for clients that need practical support.",
+    tags: ["Website support", "Content", "Digital presence"],
+    icon: ArrowUpRight,
+  },
+];
+
 export const servicesPageContent = {
   hero: {
     eyebrow: "Nodo services",
-    title: "Brand, marketing, and web built to drive sales.",
+    title: "Brand, marketing, and websites that help customers choose you.",
     subtitle: "",
-    copy: "Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and converts with more confidence.",
+    copy: "Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and turns that attention into clearer enquiries.",
     highlights: ["Sharper positioning", "More visibility", "Better conversion"],
   },
   positioning: {
     eyebrow: "Built to connect",
-    title: "Three distinct services. One connected growth direction.",
-    copy: "Brand gives your business clarity. Marketing helps you generate momentum. Your website turns that momentum into action. Nodo designs each layer to support the others, so your digital presence feels coherent instead of fragmented.",
+    title: "Three services. One clearer digital presence.",
+    copy: "Brand makes your business easier to recognise and trust. Marketing helps the right people find you and understand your value. Your website turns that attention into enquiries, bookings, or next steps.",
     pillars: [
       {
         title: "Brand",
         description:
-          "Identity and positioning that give your business a clearer edge.",
+          "Make the business easier to recognise and trust.",
       },
       {
-        title: "Demand",
+        title: "Marketing",
         description:
-          "Marketing activity that helps you generate visibility, leads, and traction.",
+          "Help the right people find you and understand your value.",
       },
       {
-        title: "Build",
+        title: "Website",
         description:
-          "Web experiences that turn attention into real commercial movement.",
+          "Turn attention into enquiries, bookings, or next steps.",
       },
     ],
   },
@@ -206,8 +325,8 @@ export const servicesPageContent = {
   },
   finalCta: {
     eyebrow: "Start with the right layer",
-    title: "Need help deciding where to begin?",
-    copy: "You may need sharper positioning first. Or a stronger website. Or a better growth engine. We can help you work out the priority and scope the right next move.",
+    title: "Not sure what your business needs first?",
+    copy: "We can help you identify the highest-impact starting point: brand clarity, marketing momentum, or a stronger website.",
   },
 };
 
@@ -275,20 +394,20 @@ export type CommercialPlan = {
 export const plansHubContent = {
   hero: {
     eyebrow: "Nodo plans",
-    title: "Choose the right digital path.",
-    copy: "Start with the area your business needs most: a stronger website, consistent marketing, sharper branding, or one connected growth plan.",
+    title: "Choose the right plan for what your business needs next.",
+    copy: "Start with the area that needs attention first: a stronger website, clearer brand, more consistent marketing, or one connected plan that brings it all together.",
     highlights: ["Websites", "Marketing", "Branding", "Bundles"],
   },
   positioning: {
     eyebrow: "One direction",
     title:
-      "Brand creates clarity. Marketing creates momentum. Your website turns it into action.",
-    copy: "Nodo plans are structured so each service can stand alone, but the strongest results happen when the pieces work together with one strategy and one commercial direction.",
+      "Brand builds trust. Marketing brings attention. Your website turns it into enquiries.",
+    copy: "Each plan can stand alone, but the strongest results happen when your brand, marketing, and website are working toward the same business goal.",
   },
   finalCta: {
     eyebrow: "Not sure where to begin?",
     title: "We can help you choose the right starting point.",
-    copy: "Tell us what you want to improve and we will recommend the plan or bundle that makes the most commercial sense.",
+    copy: "Tell us what you want to improve and we will recommend the plan or bundle that makes the most sense for your business.",
   },
 };
 
@@ -297,7 +416,7 @@ export const plansHubCards: PlansHubCard[] = [
     eyebrow: "Website & growth",
     title: "Website Plans",
     description:
-      "For businesses that need a premium website, ongoing support, conversion improvements, and a clearer digital foundation.",
+      "Choose this if your website needs to launch, improve, or keep generating enquiries after go-live.",
     href: "/plans/websites",
     ctaLabel: "Explore website plans",
     icon: Blocks,
@@ -306,7 +425,7 @@ export const plansHubCards: PlansHubCard[] = [
     eyebrow: "Visibility & identity",
     title: "Marketing & Branding Plans",
     description:
-      "For businesses that need consistent content, campaigns, brand assets, launch materials, or stronger visual direction.",
+      "Choose this if people need to understand, remember, and trust your business more clearly.",
     href: "/plans/marketing-branding",
     ctaLabel: "Explore marketing & branding",
     icon: Megaphone,
@@ -315,7 +434,7 @@ export const plansHubCards: PlansHubCard[] = [
     eyebrow: "Connected offer",
     title: "All-in-One Bundles",
     description:
-      "For businesses that want website, brand, and marketing work aligned under one practical growth plan.",
+      "Choose this if you want brand, website, and marketing moving in the same direction.",
     href: "/plans/marketing-branding#bundles",
     ctaLabel: "View bundles",
     icon: PackageCheck,
@@ -325,37 +444,37 @@ export const plansHubCards: PlansHubCard[] = [
 export const plansPageContent = {
   hero: {
     eyebrow: "Website plans",
-    title: "Digital plans that keep your business moving.",
+    title: "Website plans for launch, support, and ongoing improvement.",
     subtitle: "",
-    copy: "Nodo gives you a stronger website, ongoing support, and practical improvements that keep delivering after launch.",
+    copy: "Choose a one-off website build or an ongoing partnership that keeps your website updated, supported, and improving after launch.",
     highlights: [
-      "One-off or ongoing",
-      "Clear pricing paths",
-      "Built for momentum",
+      "One-off build available",
+      "Monthly support available",
+      "Built to keep improving",
     ],
   },
   positioning: {
     eyebrow: "Partner model",
-    title: "More than a website.",
-    copy: "A website should not be a static asset that gets left behind after launch. At Nodo, we offer both one-off builds and ongoing digital partnership plans designed to keep your business visible, up to date and moving forward.",
+    title: "A website needs care after launch.",
+    copy: "Your website can keep improving after it goes live: updates, support, SEO basics, conversion improvements, and clearer paths for enquiries. That is what the partnership plans are built for.",
   },
   pricingNote:
     "All prices are indicative, GST exclusive, and may vary depending on scope.",
   launchAlternative: {
     eyebrow: "One-off option",
-    title: "Need a one-off build instead?",
-    copy: "Nodo Launch is available for businesses that want a polished website delivered once and managed internally after launch. It is a clear option, but the strongest long-term value sits in an ongoing Digital Growth Partnership.",
+    title: "Only need the website built once?",
+    copy: "Nodo Launch is for businesses that want a polished website delivered once, then managed internally. It is the right fit if you already have someone to handle updates, content, and future improvements.",
   },
   purchaseOption: {
-    eyebrow: "Long-term value",
-    title: "A flexible model, built for long-term value.",
-    copy: "Our Digital Growth Partnerships are designed for businesses that want ongoing website support and optimisation, not just an initial build. After the first 12 months, clients on Nodo Flow, Nodo Growth and Nodo Nexus can discuss a website purchase option if they wish to change how the partnership works.",
-    note: "If this is something you would like to explore, we are happy to explain how the model works in more detail during a call.",
+    eyebrow: "After 12 months",
+    title: "What happens after the first 12 months?",
+    copy: "Flow, Growth, and Nexus are structured as 12-month partnerships. After that period, we can discuss whether continuing the partnership or exploring a website purchase option makes more sense for your business.",
+    note: "The best option depends on your website structure, service history, and how much support you want after the first year.",
   },
   finalCta: {
     eyebrow: "Ready when you are",
-    title: "Let's build what's next.",
-    copy: "Whether you need a one-off landing page, a new website or an ongoing digital partner, we can help you find the right plan for your business.",
+    title: "Not sure which plan fits?",
+    copy: "Tell us what you need to improve. We will help you choose between a one-off build, an ongoing website partnership, or a connected brand, marketing, and website plan.",
   },
 };
 
@@ -364,13 +483,13 @@ export const plans: Plan[] = [
     slug: "nodo-flow",
     name: "Nodo Flow",
     label:
-      "Best for businesses that want a professional website with ongoing support",
+      "Best for a professional website with monthly care",
     type: "Digital Growth Partnership",
     price: "From NZD 649/month",
     priceDetail: "Initial build and onboarding investment from NZD 2,500",
     contractNote: "12-month partnership period",
     summary:
-      "A strong starting point for businesses that want more than a one-off website, with ongoing updates, support and website care.",
+      "A strong starting point for businesses that want their website built, supported, and kept up to date over time.",
     includedFeatures: [
       "Professional website build",
       "Responsive design",
@@ -382,7 +501,7 @@ export const plans: Plan[] = [
       "Email support",
       "Website purchase option after 12 months",
     ],
-    ctaLabel: "Enquire about Nodo Flow",
+    ctaLabel: "Talk about Flow",
     tone: "entry",
   },
   {
@@ -390,13 +509,13 @@ export const plans: Plan[] = [
     name: "Nodo Growth",
     badge: "Most Popular",
     label:
-      "Best for businesses that want consistent digital growth and stronger local visibility",
+      "Best for more enquiries, stronger visibility, and regular improvements",
     type: "Digital Growth Partnership",
     price: "From NZD 1,099/month",
     priceDetail: "Initial build and onboarding investment from NZD 4,500",
     contractNote: "12-month partnership period",
     summary:
-      "An ongoing digital growth plan for businesses that want their website to generate more enquiries, leads or bookings over time.",
+      "An ongoing website partnership for businesses that want better visibility, clearer customer actions, and more useful enquiries over time.",
     includedFeatures: [
       "Everything in Nodo Flow",
       "Local SEO support",
@@ -407,7 +526,7 @@ export const plans: Plan[] = [
       "Priority support",
       "Website purchase option after 12 months",
     ],
-    ctaLabel: "Enquire about Nodo Growth",
+    ctaLabel: "Talk about Growth",
     highlighted: true,
     tone: "growth",
   },
@@ -415,13 +534,13 @@ export const plans: Plan[] = [
     slug: "nodo-nexus",
     name: "Nodo Nexus",
     label:
-      "Best for businesses that want advanced website growth and strategic support",
+      "Best for advanced optimisation, integrations, and strategic support",
     type: "Digital Growth Partnership",
     price: "From NZD 1,990/month",
     priceDetail: "Initial build and onboarding investment from NZD 7,500",
     contractNote: "12-month partnership period",
     summary:
-      "A premium digital partnership for businesses that want stronger website growth, sharper optimisation, and strategic digital support.",
+      "A premium partnership for businesses that need deeper optimisation, more complex website improvements, and higher-touch strategic support.",
     includedFeatures: [
       "Everything in Nodo Growth",
       "Advanced conversion support",
@@ -431,17 +550,17 @@ export const plans: Plan[] = [
       "Priority turnaround",
       "Website purchase option after 12 months",
     ],
-    ctaLabel: "Enquire about Nodo Nexus",
+    ctaLabel: "Talk about Nexus",
     tone: "premium",
   },
   {
     slug: "nodo-launch",
     name: "Nodo Launch",
-    label: "Best for businesses that only need a one-off website build",
+    label: "Best for businesses that only need the website built once",
     type: "One-off Website Build",
     price: "From NZD 5,990",
     summary:
-      "A one-time website build for businesses that want their site delivered and managed internally after launch.",
+      "A one-time website build for businesses that want the site delivered once, then managed internally after launch.",
     includedFeatures: [
       "Website design and development",
       "Responsive layout",
@@ -457,7 +576,7 @@ export const plans: Plan[] = [
       "Google Business support",
       "Continuous strategy input",
     ],
-    ctaLabel: "Enquire about Nodo Launch",
+    ctaLabel: "Talk about Launch",
     tone: "one-off",
   },
 ];
@@ -705,7 +824,7 @@ export type PlanComparisonRow = {
 
 export const planComparisonRows: PlanComparisonRow[] = [
   {
-    feature: "Website build",
+    feature: "Website design and build",
     values: {
       "nodo-flow": true,
       "nodo-growth": true,
@@ -723,7 +842,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "SEO basics",
+    feature: "Essential SEO setup",
     values: {
       "nodo-flow": true,
       "nodo-growth": true,
@@ -741,7 +860,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "Monthly support",
+    feature: "Monthly website support",
     values: {
       "nodo-flow": true,
       "nodo-growth": true,
@@ -750,7 +869,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "Ongoing updates",
+    feature: "Monthly updates",
     values: {
       "nodo-flow": true,
       "nodo-growth": true,
@@ -759,7 +878,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "Local SEO support",
+    feature: "Local visibility support",
     values: {
       "nodo-flow": false,
       "nodo-growth": true,
@@ -777,7 +896,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "Landing page / growth improvements",
+    feature: "Growth improvements",
     values: {
       "nodo-flow": "Small improvements",
       "nodo-growth": true,
@@ -804,7 +923,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "Website purchase option",
+    feature: "Purchase option",
     values: {
       "nodo-flow": "After 12 months",
       "nodo-growth": "After 12 months",
@@ -813,7 +932,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
-    feature: "One-off model",
+    feature: "One-time build model",
     values: {
       "nodo-flow": false,
       "nodo-growth": false,
@@ -826,23 +945,23 @@ export const planComparisonRows: PlanComparisonRow[] = [
 export const plansFaq = [
   {
     question:
-      "What is the difference between Nodo Launch and a Digital Growth Partnership?",
+      "What is the difference between Nodo Launch and Flow, Growth, or Nexus?",
     answer:
-      "Nodo Launch is a one-off website build. Nodo Flow, Nodo Growth and Nodo Nexus are Digital Growth Partnerships that include support, updates and continuous improvement over time.",
+      "Nodo Launch is a one-off website build. Nodo Flow, Nodo Growth and Nodo Nexus are ongoing website partnerships that include support, updates and improvements after launch.",
   },
   {
     question: "Do the partnership plans include a minimum period?",
     answer:
-      "Yes. Our Digital Growth Partnerships are structured around a 12-month partnership period so we can build, support and improve the website properly over time.",
+      "Yes. Flow, Growth and Nexus are structured around a 12-month partnership period so we can build, support and improve the website properly over time.",
   },
   {
     question: "Can I buy the website after a partnership plan?",
     answer:
-      "Yes. After the initial 12-month partnership period, we can discuss a website purchase option. This is best explained in conversation, depending on the site structure and service history.",
+      "Yes. After the initial 12-month partnership period, we can discuss a website purchase option. The right path depends on the site structure, service history, and how much support you want next.",
   },
   {
     question: "Can the plans be tailored to my business?",
     answer:
-      "Yes. These plans are our standard starting points, but we can tailor the scope depending on your business goals, timelines and technical requirements.",
+      "Yes. These plans are standard starting points. We can tailor the scope depending on your business goals, timeline, support needs, and website requirements.",
   },
 ];
