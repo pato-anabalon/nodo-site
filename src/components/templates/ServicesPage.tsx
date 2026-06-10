@@ -245,7 +245,7 @@ export function ServicesPage() {
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(5,5,5,0.16))]" />
                   <div data-testid="services-page-positioning-video-caption" className="absolute bottom-5 left-5 right-5 rounded-[1.35rem] border border-white/30 bg-white/78 px-4 py-4 backdrop-blur-md">
                     <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-nodo-purple">
-                      Brand / Demand / Build
+                      Brand / Marketing / Website
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-nodo-ink/78">
                       One connected direction designed to help your business look

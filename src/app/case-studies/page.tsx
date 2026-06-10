@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { RoutePlaceholder } from "@/components/molecules/RoutePlaceholder";
-import { placeholderPages } from "@/lib/content";
+import { CaseStudiesPage } from "@/components/templates/CaseStudiesPage";
+import { caseStudiesPageContent } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Case Studies",
-  description: placeholderPages["case-studies"].description,
+  title: "Case Studies | Nodo Client Work",
+  description: caseStudiesPageContent.hero.copy,
   path: "/case-studies",
   noIndex: true,
 });
 
-export default function CaseStudiesPage() {
-  return <RoutePlaceholder pageKey="case-studies" {...placeholderPages["case-studies"]} />;
+export default function CaseStudiesPageRoute() {
+  return <CaseStudiesPage />;
 }
