@@ -1,6 +1,6 @@
-import { Button } from "@/components/atoms/Button";
 import { Container } from "@/components/atoms/Container";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 
 export function CTASection() {
   return (
@@ -16,9 +16,16 @@ export function CTASection() {
                 Build the digital presence your next customers can trust.
               </h2>
             </div>
-            <Button href="/contact" variant="inverted" dataTestId="home-cta-primary-button">
+            <TrackedCtaButton
+              href="/contact"
+              label="Start the conversation"
+              event="homepage"
+              location="home_final_cta"
+              variant="inverted"
+              dataTestId="home-cta-primary-button"
+            >
               Start the conversation
-            </Button>
+            </TrackedCtaButton>
           </div>
         </ScrollReveal>
       </Container>

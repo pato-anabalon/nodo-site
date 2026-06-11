@@ -51,3 +51,25 @@ export function trackContactFormError({
 }) {
   track("Contact Form Error", { plan, intent, source, reason });
 }
+
+export function trackHomepageCtaClicked({
+  label,
+  location,
+  href,
+}: {
+  label: string;
+  location: string;
+  href: string;
+}) {
+  track("Homepage CTA Clicked", { label, location, href });
+}
+
+export function trackNotFoundCtaClicked({
+  label,
+  href,
+}: {
+  label: string;
+  href: string;
+}) {
+  track("404 CTA Clicked", { label, href });
+}
