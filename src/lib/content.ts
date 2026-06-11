@@ -84,8 +84,8 @@ export const services: Service[] = [
       "Responsive development in modern web stacks",
       "Launch-ready performance, CMS, and enquiry flows",
     ],
-    ctaLabel: "Start a website project",
-    href: "/contact?service=website-design-development&source=services-section",
+    ctaLabel: "Explore website design",
+    href: "/services/website-design-auckland",
     icon: Blocks,
   },
 ];
@@ -327,6 +327,148 @@ export const servicesPageContent = {
     eyebrow: "Start with the right layer",
     title: "Not sure what your business needs first?",
     copy: "We can help you identify the highest-impact starting point: brand clarity, marketing momentum, or a stronger website.",
+  },
+};
+
+export const websiteDesignAucklandPageContent = {
+  hero: {
+    eyebrow: "Website design Auckland",
+    title:
+      "Websites for Auckland businesses that need to look credible and win better enquiries.",
+    subtitle:
+      "Custom website design, redesigns, and launch-ready builds for service businesses that need customers to understand, trust, and contact them faster.",
+    copy:
+      "Nodo designs and builds websites that make your offer clearer, your business easier to trust, and your next enquiry easier to start.",
+    highlights: [
+      "Custom website design",
+      "Website redesigns",
+      "Built in Auckland",
+    ],
+  },
+  intro: {
+    eyebrow: "What the page needs to do",
+    title:
+      "A good website should make the next decision easier for your customer.",
+    copy:
+      "Most people do not read every section. They scan for credibility, relevance, proof, and a simple next step. We structure your website around those decisions so visitors can quickly understand what you do, why it matters, and how to get in touch.",
+    points: [
+      "Explain your services without making people work for the answer.",
+      "Show enough proof to reduce doubt before someone contacts you.",
+      "Create clear paths for quotes, bookings, calls, and enquiries.",
+    ],
+  },
+  problems: {
+    eyebrow: "Common reasons to redesign",
+    title: "Signs your current website is costing you trust.",
+    items: [
+      {
+        title: "It looks older than the business behind it",
+        copy:
+          "If the website feels outdated, customers may assume the service, process, or reliability is outdated too.",
+      },
+      {
+        title: "People cannot quickly understand what you offer",
+        copy:
+          "Clear structure matters. Visitors should not need to dig through the site to know whether you can help them.",
+      },
+      {
+        title: "The site gets visits but not enough enquiries",
+        copy:
+          "A website needs stronger calls to action, better proof, and a cleaner journey from interest to contact.",
+      },
+    ],
+  },
+  process: {
+    eyebrow: "How we build",
+    title: "A clear website process from direction to launch.",
+    steps: [
+      {
+        title: "Clarify the offer",
+        copy:
+          "We define what the website needs to communicate, who it needs to persuade, and what action matters most.",
+      },
+      {
+        title: "Structure the journey",
+        copy:
+          "We map the pages, sections, proof points, and enquiry paths customers need before they feel ready to act.",
+      },
+      {
+        title: "Design and build",
+        copy:
+          "We create a responsive website that looks sharp, loads well, and supports the way your business sells.",
+      },
+      {
+        title: "Launch and improve",
+        copy:
+          "We prepare the site for launch with SEO basics, analytics, contact flows, and a path for future improvements.",
+      },
+    ],
+  },
+  included: {
+    eyebrow: "What is included",
+    title: "Website design that covers more than the visual layer.",
+    items: [
+      "Website strategy and page structure",
+      "UX writing and content hierarchy",
+      "Custom responsive interface design",
+      "Modern website development",
+      "Basic technical SEO setup",
+      "Contact forms and enquiry paths",
+      "Performance-minded implementation",
+      "Launch support and next-step recommendations",
+    ],
+  },
+  proof: {
+    eyebrow: "Featured redesign",
+    title: "PlasterPro Solution needed a website that matched the quality of their Auckland property work.",
+    copy:
+      "The redesign replaced an outdated Wix presence with a sharper website built around services, process, project proof, reviews, and quote actions.",
+    bullets: [
+      "Clearer service structure for Auckland plastering and painting work.",
+      "Stronger first impression for property owners and commercial enquiries.",
+      "More direct paths to request a quote from the site.",
+    ],
+    href: "/case-studies",
+    ctaLabel: "View the case study",
+    imageSrc: "/case-studies/plasterpro-new.png",
+    imageAlt:
+      "New PlasterPro Solution website screenshot after the Nodo redesign.",
+  },
+  plans: {
+    eyebrow: "Project paths",
+    title: "Choose a one-off build or an ongoing website partnership.",
+    copy:
+      "Some businesses need a polished website launched once. Others need ongoing support, updates, SEO basics, and conversion improvements after launch. Nodo can help you choose the right path.",
+    primaryCta: "Explore website plans",
+    secondaryCta: "Talk about a website",
+  },
+  faq: [
+    {
+      question: "Do you only build websites for Auckland businesses?",
+      answer:
+        "Nodo is based in Auckland and works with New Zealand businesses. Auckland is our local market, but we can support businesses across the country.",
+    },
+    {
+      question: "Can you redesign an existing website?",
+      answer:
+        "Yes. A redesign is often the best option when the current site looks outdated, feels unclear, or no longer reflects the quality of the business.",
+    },
+    {
+      question: "Do you handle the website copy and structure?",
+      answer:
+        "Yes. We help shape the page structure, content hierarchy, and UX writing so visitors can understand the business and take action more easily.",
+    },
+    {
+      question: "Can the website keep improving after launch?",
+      answer:
+        "Yes. Nodo offers ongoing website partnerships for updates, support, SEO basics, and conversion improvements after the first launch.",
+    },
+  ],
+  finalCta: {
+    eyebrow: "Start with clarity",
+    title: "Need a website that makes your business easier to choose?",
+    copy:
+      "Tell us what your current site is not doing well. We will help you decide whether you need a redesign, a new build, or an ongoing website partnership.",
   },
 };
 

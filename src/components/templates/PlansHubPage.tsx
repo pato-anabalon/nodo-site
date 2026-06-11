@@ -8,14 +8,16 @@ import { ArrowDownRight } from 'lucide-react';
 import { Button } from '@/components/atoms/Button';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
 import { Container } from '@/components/atoms/Container';
+import { MetaChip } from '@/components/atoms/MetaChip';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { plansHubCards, plansHubContent } from '@/lib/content';
-import { cn } from '@/lib/utils';
+import { testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const plansHubHeroTitleWords = plansHubContent.hero.title.split(' ');
+const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
 
 export function PlansHubPage() {
   const root = useRef<HTMLElement>(null);
@@ -142,18 +144,26 @@ export function PlansHubPage() {
               {plansHubContent.hero.copy}
             </p>
             <div data-testid="plans-hub-hero-highlights" className="mt-8 flex flex-wrap gap-3">
-              {plansHubContent.hero.highlights.map((highlight) => (
-                <span
-                  key={highlight}
-                  data-testid={`plans-hub-hero-highlight-${highlight.toLowerCase()}`}
-                  className={cn(
-                    "plans-hub-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72",
-                    highlight === "Bundles" && "hidden sm:inline-flex",
-                  )}
-                >
-                  {highlight}
-                </span>
-              ))}
+              {plansHubContent.hero.highlights.map((highlight, index) => {
+                const chip = (
+                  <MetaChip
+                    accent={heroChipAccents[index % heroChipAccents.length]}
+                    className="plans-hub-hero-chip opacity-0 motion-reduce:opacity-100"
+                    dataTestId={`plans-hub-hero-highlight-${testIdSlug(highlight)}`}
+                    tone="dark"
+                  >
+                    {highlight}
+                  </MetaChip>
+                );
+
+                return highlight === "Bundles" ? (
+                  <span key={highlight} className="hidden sm:inline-flex">
+                    {chip}
+                  </span>
+                ) : (
+                  <span key={highlight}>{chip}</span>
+                );
+              })}
             </div>
           </div>
 

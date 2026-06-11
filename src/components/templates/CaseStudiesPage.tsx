@@ -8,6 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
+import { MetaChip } from "@/components/atoms/MetaChip";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { caseStudiesPageContent, caseStudyWorkCards } from "@/lib/content";
@@ -16,6 +17,7 @@ import { testIdSlug } from "@/lib/utils";
 gsap.registerPlugin(useGSAP);
 
 const heroTitleWords = caseStudiesPageContent.hero.title.split(" ");
+const heroChipAccents = ["purple", "lavender", "pink"] as const;
 const showSelectedWorkSection = false;
 
 function BrowserSlot({
@@ -444,13 +446,16 @@ export function CaseStudiesPage() {
               data-testid="case-studies-hero-highlights"
               className="mt-8 flex flex-wrap gap-3"
             >
-              {hero.highlights.map((highlight) => (
-                <span
+              {hero.highlights.map((highlight, index) => (
+                <MetaChip
                   key={highlight}
-                  className="case-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
+                  accent={heroChipAccents[index % heroChipAccents.length]}
+                  className="case-hero-chip opacity-0 motion-reduce:opacity-100"
+                  dataTestId={`case-studies-hero-highlight-${testIdSlug(highlight)}`}
+                  tone="dark"
                 >
                   {highlight}
-                </span>
+                </MetaChip>
               ))}
             </div>
           </div>

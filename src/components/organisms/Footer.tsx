@@ -10,6 +10,7 @@ const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
     title: "Explore",
     links: [
       { label: "Services", href: "/services" },
+      { label: "Website design Auckland", href: "/services/website-design-auckland" },
       { label: "Plans", href: "/plans" },
       { label: "Case studies", href: "/case-studies" },
     ],

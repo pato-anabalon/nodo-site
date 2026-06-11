@@ -43,6 +43,7 @@ export const defaultSeo = {
 export const indexableRoutes = [
   { path: "/", priority: 1 },
   { path: "/services", priority: 0.9 },
+  { path: "/services/website-design-auckland", priority: 0.82 },
   { path: "/plans", priority: 0.85 },
   { path: "/plans/websites", priority: 0.8 },
   { path: "/plans/marketing-branding", priority: 0.8 },
@@ -53,6 +54,7 @@ export const indexableRoutes = [
 const breadcrumbLabels: Record<(typeof indexableRoutes)[number]["path"], string> = {
   "/": "Home",
   "/services": "Services",
+  "/services/website-design-auckland": "Website Design Auckland",
   "/plans": "Plans",
   "/plans/websites": "Website Plans",
   "/plans/marketing-branding": "Marketing & Branding Plans",
@@ -83,6 +85,13 @@ type PageMetadataInput = {
   description: string;
   path: string;
   noIndex?: boolean;
+};
+
+type ServiceStructuredDataInput = {
+  name: string;
+  description: string;
+  path: string;
+  serviceType: string;
 };
 
 export function absoluteUrl(path: string) {
@@ -178,6 +187,39 @@ export function createBreadcrumbStructuredData(path: (typeof indexableRoutes)[nu
       name: item.name,
       item: item.item,
     })),
+  };
+}
+
+export function createServiceStructuredData({
+  name,
+  description,
+  path,
+  serviceType,
+}: ServiceStructuredDataInput) {
+  const serviceUrl = absoluteUrl(path);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${serviceUrl}#service`,
+    name,
+    description,
+    serviceType,
+    url: serviceUrl,
+    provider: {
+      "@id": `${siteUrl}/#professionalservice`,
+      name: siteName,
+    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Auckland",
+      },
+      {
+        "@type": "Country",
+        name: "New Zealand",
+      },
+    ],
   };
 }
 
