@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const siteUrl = "https://www.nodo.co.nz";
 export const siteName = "Nodo";
 export const legalName = "Nodo Limited";
+export const nzbn = "9429053399663";
 export const contactEmail = "contact@nodo.co.nz";
 export const contactPhone = "+64 27 742 3001";
 export type SocialPlatform = "instagram" | "facebook" | "linkedin";
@@ -21,6 +22,7 @@ export const socialLinks: SocialLink[] = [
   {
     platform: "facebook",
     label: "Facebook",
+    href: "https://www.facebook.com/nodo.co.nz",
   },
   {
     platform: "linkedin",
@@ -80,6 +82,17 @@ const services = [
   },
 ];
 
+const businessExpertise = [
+  "Brand strategy",
+  "Branding",
+  "Digital marketing",
+  "Website design",
+  "Website development",
+  "Website redesign",
+  "Local SEO",
+  "Conversion-focused websites",
+];
+
 type PageMetadataInput = {
   title: string;
   description: string;
@@ -110,12 +123,28 @@ export function createGlobalStructuredData() {
         "@id": businessId,
         name: siteName,
         legalName,
+        alternateName: legalName,
+        identifier: {
+          "@type": "PropertyValue",
+          propertyID: "NZBN",
+          value: nzbn,
+        },
+        slogan: "Brand, marketing, and websites for growing businesses.",
         url: siteUrl,
         logo: absoluteUrl("/brand/nodo-logo-black.png"),
         image: absoluteUrl(defaultSeo.image.url),
         description: defaultSeo.description,
         email: contactEmail,
         telephone: contactPhone,
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer enquiries",
+          email: contactEmail,
+          telephone: contactPhone,
+          url: absoluteUrl("/contact"),
+          areaServed: "NZ",
+          availableLanguage: ["en-NZ", "en"],
+        },
         address: {
           "@type": "PostalAddress",
           streetAddress: "19 Marywil Crescent, Hauraki",
@@ -124,10 +153,17 @@ export function createGlobalStructuredData() {
           postalCode: "0627",
           addressCountry: "New Zealand",
         },
-        areaServed: {
-          "@type": "Country",
-          name: "New Zealand",
-        },
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Auckland",
+          },
+          {
+            "@type": "Country",
+            name: "New Zealand",
+          },
+        ],
+        knowsAbout: businessExpertise,
         sameAs: socialLinks
           .map((link) => link.href)
           .filter((href): href is string => Boolean(href)),
