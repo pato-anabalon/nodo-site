@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { CheckCircle2 } from "lucide-react";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
+import { MetaChip } from "@/components/atoms/MetaChip";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { TrackedPlanCta } from "@/components/molecules/TrackedPlanCta";
@@ -17,11 +18,12 @@ import {
   plansPageContent,
   type CommercialPlan,
 } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { cn, testIdSlug } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
 const marketingHeroTitleWords = marketingBrandingPageContent.hero.title.split(" ");
+const heroChipAccents = ["purple", "lavender", "pink"] as const;
 
 function contactHref(plan: CommercialPlan["slug"], source: string) {
   return `/contact?plan=${plan}&intent=quote&source=${source}`;
@@ -282,14 +284,16 @@ export function MarketingBrandingPlansPage() {
               {marketingBrandingPageContent.hero.copy}
             </p>
             <div data-testid="marketing-branding-hero-highlights" className="mt-8 flex flex-wrap gap-3">
-              {marketingBrandingPageContent.hero.highlights.map((highlight) => (
-                <span
+              {marketingBrandingPageContent.hero.highlights.map((highlight, index) => (
+                <MetaChip
                   key={highlight}
-                  data-testid={`marketing-branding-hero-highlight-${highlight.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
-                  className="marketing-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
+                  accent={heroChipAccents[index % heroChipAccents.length]}
+                  className="marketing-hero-chip opacity-0 motion-reduce:opacity-100"
+                  dataTestId={`marketing-branding-hero-highlight-${testIdSlug(highlight)}`}
+                  tone="dark"
                 >
                   {highlight}
-                </span>
+                </MetaChip>
               ))}
             </div>
           </div>

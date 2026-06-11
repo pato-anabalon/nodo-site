@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ArrowDown } from "lucide-react";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
+import { MetaChip } from "@/components/atoms/MetaChip";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { TrackedPlanCta } from "@/components/molecules/TrackedPlanCta";
@@ -13,10 +14,12 @@ import { PlansComparison } from "@/components/organisms/PlansComparison";
 import { PlansFaq } from "@/components/organisms/PlansFaq";
 import { LaunchPlanCard, PlansGrid } from "@/components/organisms/PlansGrid";
 import { plansPageContent } from "@/lib/content";
+import { testIdSlug } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
 const plansHeroTitleWords = plansPageContent.hero.title.split(" ");
+const heroChipAccents = ["purple", "lavender", "pink"] as const;
 
 function contactHref(intent: "discovery-call" | "quote", source: string) {
   return `/contact?intent=${intent}&source=${source}`;
@@ -139,14 +142,16 @@ export function WebsitePlansPage() {
               {plansPageContent.hero.copy}
             </p>
             <div data-testid="website-plans-hero-highlights" className="mt-8 flex flex-wrap gap-3">
-              {plansPageContent.hero.highlights.map((highlight) => (
-                <span
+              {plansPageContent.hero.highlights.map((highlight, index) => (
+                <MetaChip
                   key={highlight}
-                  data-testid={`website-plans-hero-highlight-${highlight.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
-                  className="plans-hero-chip opacity-0 motion-reduce:opacity-100 rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-sm font-semibold text-white/72"
+                  accent={heroChipAccents[index % heroChipAccents.length]}
+                  className="plans-hero-chip opacity-0 motion-reduce:opacity-100"
+                  dataTestId={`website-plans-hero-highlight-${testIdSlug(highlight)}`}
+                  tone="dark"
                 >
                   {highlight}
-                </span>
+                </MetaChip>
               ))}
             </div>
             <div className="mt-9 flex flex-wrap gap-3">
