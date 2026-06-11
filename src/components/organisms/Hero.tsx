@@ -4,9 +4,9 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ArrowDown } from 'lucide-react';
-import { Button } from '@/components/atoms/Button';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
 import { Container } from '@/components/atoms/Container';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 
 gsap.registerPlugin(useGSAP);
 
@@ -203,12 +203,27 @@ export function Hero() {
             enquiries.
           </p>
           <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">
-            <Button href="/contact" className="hero-cta" dataTestId="home-hero-primary-button">
+            <TrackedCtaButton
+              href="/contact"
+              label="Let's talk"
+              event="homepage"
+              location="home_hero"
+              className="hero-cta"
+              dataTestId="home-hero-primary-button"
+            >
               Let’s talk
-            </Button>
-            <Button href="#services" variant="secondary" className="hero-cta" dataTestId="home-hero-secondary-button">
+            </TrackedCtaButton>
+            <TrackedCtaButton
+              href="#services"
+              label="Explore services"
+              event="homepage"
+              location="home_hero"
+              variant="secondary"
+              className="hero-cta"
+              dataTestId="home-hero-secondary-button"
+            >
               Explore services
-            </Button>
+            </TrackedCtaButton>
           </div>
         </div>
 
