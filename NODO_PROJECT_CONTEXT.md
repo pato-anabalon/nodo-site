@@ -112,6 +112,7 @@ Implemented routes:
 
 - `/`
 - `/services`
+- `/services/website-design-auckland`
 - `/about`
 - `/case-studies`
 - `/contact`
@@ -126,6 +127,7 @@ Route files:
 ```bash
 src/app/page.tsx
 src/app/services/page.tsx
+src/app/services/website-design-auckland/page.tsx
 src/app/about/page.tsx
 src/app/case-studies/page.tsx
 src/app/contact/page.tsx
@@ -136,7 +138,7 @@ src/app/api/contact/route.ts
 src/app/api/contact/upload/route.ts
 ```
 
-`/about` and `/case-studies` still use `RoutePlaceholder`. `/services`, `/contact`, and the plans pages have custom UI.
+`/about` still uses `RoutePlaceholder` and is intentionally `noIndex` until a real trust page is ready. `/case-studies` has a custom PlasterPro-focused page, is indexable, and is included in the sitemap.
 
 ## Component Architecture
 
@@ -167,6 +169,7 @@ src/components/templates
 - `ProofPoint.tsx`: home results proof card.
 - `RoutePlaceholder.tsx`: temporary placeholder page layout.
 - `ServiceCard.tsx`: home service card.
+- `TrackedCtaButton.tsx`: shared CTA wrapper for Vercel Analytics events on homepage and 404 CTAs.
 - `TrackedPlanCta.tsx`: plan CTA link with analytics query metadata.
 
 ### Organisms
@@ -176,6 +179,7 @@ src/components/templates
 - `Hero.tsx`: home hero with GSAP intro and constellation background.
 - `PagePreloader.tsx`: one-time session preloader.
 - `ContactSection.tsx`: contact page layout and animation wrapper.
+- `HomeProofSection.tsx`: compact home proof band linking the PlasterPro transformation to `/case-studies`.
 - `ServicesSection.tsx`, `ProcessSection.tsx`, `ResultsSection.tsx`, `AboutSection.tsx`, `CTASection.tsx`: home sections.
 - `ServicesPageShowcase.tsx`: services detail cards.
 - `PlansGrid.tsx`, `PlansComparison.tsx`, `PlansFaq.tsx`: plan page UI blocks.
@@ -603,6 +607,15 @@ Footer dynamic test IDs:
 - `home-hero-actions`
 - `home-hero-mark`
 - `home-hero-scroll-button`
+- `home-proof-section`
+- `home-proof-layout`
+- `home-proof-content`
+- `home-proof-eyebrow`
+- `home-proof-title`
+- `home-proof-copy`
+- `home-proof-points`
+- `home-proof-case-study-button`
+- `home-proof-visual`
 - `home-services-section`
 - `home-services-card-grid`
 - `home-process-section`
@@ -616,9 +629,7 @@ Footer dynamic test IDs:
 - `home-process-steps-panel`
 - `home-process-steps-list`
 - `home-results-section`
-- `home-results-outcomes-layout`
-- `home-results-outcome-grid`
-- `home-proof-point-grid`
+- `home-results-card-grid`
 - `home-about-section`
 - `home-about-layout`
 - `home-about-supporting-copy`
@@ -642,12 +653,11 @@ Home dynamic test IDs:
 - `home-process-step-<step-slug>-eyebrow`
 - `home-process-step-<step-slug>-title`
 - `home-process-step-<step-slug>-description`
-- `home-results-outcome-<outcome-slug>`
-- `home-proof-point-<proof-slug>`
-- `home-proof-point-<proof-slug>-icon`
-- `home-proof-point-<proof-slug>-label`
-- `home-proof-point-<proof-slug>-title`
-- `home-proof-point-<proof-slug>-description`
+- `home-result-card-<result-slug>`
+- `home-result-card-<result-slug>-icon`
+- `home-result-card-<result-slug>-label`
+- `home-result-card-<result-slug>-title`
+- `home-result-card-<result-slug>-description`
 
 ### Services Page
 
@@ -827,7 +837,8 @@ Plans dynamic test IDs:
 Currently used by:
 
 - `/about`
-- `/case-studies`
+
+`/case-studies` previously used placeholder UI. It now renders a custom `CaseStudiesPage`.
 
 ## Data And Content Model
 

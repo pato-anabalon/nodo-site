@@ -16,7 +16,7 @@ export function RoutePlaceholder({ pageKey, eyebrow, title, description, heading
       <Container>
         <section
           data-testid={`${pageKey}-page-hero-section`}
-          className="grid min-h-[62vh] items-end gap-10 border-b border-white/12 pb-16 lg:grid-cols-[1fr_0.7fr]"
+          className="grid min-h-[62vh] items-center gap-10 border-b border-white/12 pb-16 lg:grid-cols-[1fr_0.7fr]"
         >
           <SectionHeading eyebrow={eyebrow} title={title} description={description} headingLevel={headingLevel}>
             <div className="mt-8 flex flex-wrap gap-3">

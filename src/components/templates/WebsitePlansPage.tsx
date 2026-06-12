@@ -33,8 +33,8 @@ export function WebsitePlansPage() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".plans-hero-title-word", { yPercent: 135 });
         gsap.set(".plans-hero-title", { autoAlpha: 1 });
-        gsap.set(".plans-hero-title span", { yPercent: 105 });
         gsap.set([".plans-hero-kicker", ".plans-hero-copy", ".plans-hero-cta", ".plans-hero-chip", ".plans-hero-scroll"], {
           autoAlpha: 0,
           y: 22,
@@ -43,7 +43,7 @@ export function WebsitePlansPage() {
         const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
         tl.to(".plans-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.65 })
-          .to(".plans-hero-title span", { yPercent: 0, duration: 0.9, stagger: 0.075 }, "-=0.18")
+          .to(".plans-hero-title-word", { yPercent: 0, duration: 0.9, stagger: 0.075 }, "-=0.18")
           .to(".plans-hero-copy", { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.08 }, "-=0.18")
           .to(".plans-hero-chip", { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, "-=0.25")
           .to(
@@ -75,7 +75,7 @@ export function WebsitePlansPage() {
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".plans-hero-kicker", ".plans-hero-title", ".plans-hero-title span", ".plans-hero-copy", ".plans-hero-cta", ".plans-hero-chip", ".plans-hero-scroll"], {
+        gsap.set([".plans-hero-kicker", ".plans-hero-title", ".plans-hero-title-word", ".plans-hero-copy", ".plans-hero-cta", ".plans-hero-chip", ".plans-hero-scroll"], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0,
@@ -123,7 +123,7 @@ export function WebsitePlansPage() {
                   key={`${word}-${index}`}
                   className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
                 >
-                  <span className="inline-block pr-[0.22em]">{word}</span>
+                  <span className="plans-hero-title-word inline-block pr-[0.22em]">{word}</span>
                 </span>
               ))}
             </h1>

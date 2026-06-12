@@ -94,7 +94,7 @@ function HeroTransformationPanel() {
   return (
     <div
       data-testid="case-studies-hero-proof-panel"
-      className="case-hero-proof-panel relative min-h-[28rem] opacity-0 [perspective:1200px] motion-reduce:opacity-100 lg:mb-24 xl:mb-32"
+      className="case-hero-proof-panel relative min-h-[28rem] opacity-0 [perspective:1200px] motion-reduce:opacity-100"
     >
       <div className="pointer-events-none absolute -inset-5 rounded-[2.5rem] bg-[radial-gradient(circle_at_28%_22%,rgba(124,58,237,0.26),transparent_32%),radial-gradient(circle_at_78%_76%,rgba(232,48,207,0.14),transparent_28%)] blur-xl" />
       <div className="case-hero-proof-item case-hero-carousel-card case-hero-carousel-before absolute left-0 top-4 w-[74%] overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-3 opacity-0 shadow-[0_22px_80px_rgba(0,0,0,0.24)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform motion-reduce:opacity-100 sm:top-0">
@@ -203,8 +203,8 @@ export function CaseStudiesPage() {
         };
 
         gsap.set(".case-hero-eyebrow", { autoAlpha: 0, y: 18 });
+        gsap.set(".case-hero-title-word", { yPercent: 135, rotation: 2 });
         gsap.set(".case-hero-title", { autoAlpha: 1 });
-        gsap.set(".case-hero-title-word", { yPercent: 112, rotation: 2 });
         gsap.set([".case-hero-copy", ".case-hero-chip"], {
           autoAlpha: 0,
           y: 18,
@@ -413,7 +413,7 @@ export function CaseStudiesPage() {
           maxNodes={64}
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.14),rgba(5,5,5,0.76))]" />
-        <Container className="relative z-10 grid items-end gap-12 pb-16 pt-16 lg:grid-cols-[1fr_0.72fr]">
+        <Container className="relative z-10 grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[1fr_0.72fr]">
           <div data-testid="case-studies-hero-content">
             <p
               data-testid="case-studies-hero-eyebrow"

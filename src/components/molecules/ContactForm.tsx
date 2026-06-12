@@ -477,10 +477,10 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
             ref={submitButtonRef}
             type="submit"
             disabled={isSending}
-            className="contact-submit-button inline-flex min-h-11 w-[10.25rem] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full border border-[color:var(--cta-light-primary-border)] bg-[var(--cta-light-primary-bg)] px-5 py-2.5 text-sm font-semibold leading-none text-[var(--cta-light-primary-text)] shadow-[0_6px_18px_rgba(5,5,5,0.10)] transition duration-200 hover:-translate-y-0.5 hover:border-[color:var(--cta-light-primary-hover-border)] hover:bg-[var(--cta-light-primary-hover-bg)] hover:text-[var(--cta-light-primary-hover-text)] hover:shadow-[0_12px_28px_rgba(124,58,237,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cta-light-primary-outline)] disabled:cursor-default"
+            className="contact-submit-button inline-flex min-h-11 w-[12.5rem] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full border border-[color:var(--cta-light-primary-border)] bg-[var(--cta-light-primary-bg)] px-5 py-2.5 text-sm font-semibold leading-none text-[var(--cta-light-primary-text)] shadow-[0_6px_18px_rgba(5,5,5,0.10)] transition duration-200 hover:-translate-y-0.5 hover:border-[color:var(--cta-light-primary-hover-border)] hover:bg-[var(--cta-light-primary-hover-bg)] hover:text-[var(--cta-light-primary-hover-text)] hover:shadow-[0_12px_28px_rgba(124,58,237,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--cta-light-primary-outline)] disabled:cursor-default"
             data-testid="contact-form-submit-button"
           >
-            <span className="contact-submit-label whitespace-nowrap">Send message</span>
+            <span className="contact-submit-label whitespace-nowrap">Send project details</span>
             <span className="contact-submit-plane inline-flex shrink-0 items-center justify-center">
               <Send aria-hidden="true" className="size-4" />
             </span>

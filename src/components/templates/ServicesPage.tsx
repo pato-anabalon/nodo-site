@@ -25,8 +25,8 @@ export function ServicesPage() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".services-hero-title-word", { yPercent: 135 });
         gsap.set(".services-hero-title", { autoAlpha: 1 });
-        gsap.set(".services-hero-title span", { yPercent: 105 });
         gsap.set(
           [
             ".services-hero-kicker",
@@ -51,7 +51,7 @@ export function ServicesPage() {
 
         tl.to(".services-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.7 })
           .to(
-            ".services-hero-title span",
+            ".services-hero-title-word",
             { yPercent: 0, duration: 0.85, stagger: 0.08 },
             "-=0.25",
           )
@@ -106,7 +106,7 @@ export function ServicesPage() {
           [
             ".services-hero-kicker",
             ".services-hero-title",
-            ".services-hero-title span",
+            ".services-hero-title-word",
             ".services-hero-copy",
             ".services-hero-cta",
           ],
@@ -159,7 +159,7 @@ export function ServicesPage() {
                   key={`${word}-${index}`}
                   className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
                 >
-                  <span className="inline-block pr-[0.22em]">{word}</span>
+                  <span className="services-hero-title-word inline-block pr-[0.22em]">{word}</span>
                 </span>
               ))}
             </h1>

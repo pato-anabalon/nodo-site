@@ -66,8 +66,9 @@ export function Hero() {
         gsap.set('.hero-line', { strokeDashoffset: 1 });
         gsap.set('.hero-node', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-node-connected', { scale: 0, transformOrigin: 'center' });
-        gsap.set('.hero-title-word', { yPercent: 105 });
-        gsap.set('.hero-tagline-word', { yPercent: 105 });
+        gsap.set('.hero-title-word', { yPercent: 135 });
+        gsap.set('.hero-tagline-word', { yPercent: 135 });
+        gsap.set('.hero-title', { autoAlpha: 1 });
         gsap.set(['.hero-kicker', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 0,
           y: 18
@@ -139,7 +140,7 @@ export function Hero() {
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(['.hero-kicker', '.hero-title-word', '.hero-bodycopy', '.hero-cta'], {
+        gsap.set(['.hero-kicker', '.hero-title', '.hero-title-word', '.hero-tagline', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0
@@ -172,7 +173,7 @@ export function Hero() {
           </p>
           <h1
             data-testid="home-hero-title"
-            className="hero-title text-white"
+            className="hero-title opacity-0 motion-reduce:opacity-100 text-white"
           >
             <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
               <span className="hero-title-word inline-block shrink-0">nodo</span>
@@ -187,7 +188,7 @@ export function Hero() {
           </h1>
           <p
             data-testid="home-hero-tagline"
-            className="hero-tagline mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl"
+            className="hero-tagline opacity-0 motion-reduce:opacity-100 mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl"
           >
             {heroTaglineWords.map((word, index) => (
               <span key={`${word}-${index}`} className="inline-block overflow-hidden align-top">

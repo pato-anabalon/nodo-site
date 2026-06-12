@@ -213,8 +213,8 @@ export function MarketingBrandingPlansPage() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".marketing-hero-title-word", { yPercent: 135 });
         gsap.set(".marketing-hero-title", { autoAlpha: 1 });
-        gsap.set(".marketing-hero-title-word", { yPercent: 105 });
         gsap.set([".marketing-hero-kicker", ".marketing-hero-copy", ".marketing-hero-chip"], {
           autoAlpha: 0,
           y: 22,
