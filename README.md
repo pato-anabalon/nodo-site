@@ -57,6 +57,7 @@ npm run start
 
 - `/`
 - `/services`
+- `/services/website-design-auckland`
 - `/about`
 - `/case-studies`
 - `/contact`
@@ -66,7 +67,7 @@ npm run start
 - `/api/contact`
 - `/api/contact/upload`
 
-`/about` and `/case-studies` currently use placeholder page UI. The home, services, contact, and plans pages have custom layouts.
+`/about` currently uses placeholder page UI and is kept out of the index until it is ready. `/case-studies` has a custom PlasterPro-focused page and is included in the sitemap.
 
 ## Architecture
 
