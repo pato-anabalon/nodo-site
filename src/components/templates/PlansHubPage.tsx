@@ -27,8 +27,8 @@ export function PlansHubPage() {
       const mm = gsap.matchMedia();
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.plans-hub-hero-title-word', { yPercent: 135 });
         gsap.set('.plans-hub-hero-title', { autoAlpha: 1 });
-        gsap.set('.plans-hub-hero-title-word', { yPercent: 105 });
         gsap.set(
           [
             '.plans-hub-hero-eyebrow',
