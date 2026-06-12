@@ -27,6 +27,7 @@ export const socialLinks: SocialLink[] = [
   {
     platform: "linkedin",
     label: "LinkedIn",
+    href: "https://www.linkedin.com/company/nodonz/",
   },
 ];
 

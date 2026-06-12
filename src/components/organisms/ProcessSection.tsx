@@ -14,6 +14,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export function ProcessSection() {
   const root = useRef<HTMLElement>(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [shouldRenderVideo, setShouldRenderVideo] = useState(false);
 
   useGSAP(
     () => {
@@ -50,6 +51,21 @@ export function ProcessSection() {
     },
     { scope: root },
   );
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const updateVideoRendering = () => {
+      setShouldRenderVideo(desktopQuery.matches);
+    };
+
+    updateVideoRendering();
+
+    desktopQuery.addEventListener("change", updateVideoRendering);
+
+    return () => {
+      desktopQuery.removeEventListener("change", updateVideoRendering);
+    };
+  }, []);
 
   useEffect(() => {
     let frameId = 0;
@@ -117,22 +133,24 @@ export function ProcessSection() {
                 We keep the process simple: understand what matters, shape the direction,
                 launch the work, and keep improving around real customer response.
               </p>
-              <div
-                data-testid="home-process-video-frame"
-                className="mt-10 min-h-72 flex-1 overflow-hidden rounded-[1.75rem] border border-black/8 bg-nodo-black shadow-[0_24px_80px_rgba(22,19,25,0.14)]"
-              >
-                <video
-                  data-testid="home-process-video"
-                  className="h-full min-h-72 w-full object-cover"
-                  src="/videos/how-we-work.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  onLoadedMetadata={() => window.dispatchEvent(new Event("resize"))}
-                />
-              </div>
+              {shouldRenderVideo ? (
+                <div
+                  data-testid="home-process-video-frame"
+                  className="mt-10 min-h-72 flex-1 overflow-hidden rounded-[1.75rem] border border-black/8 bg-nodo-black shadow-[0_24px_80px_rgba(22,19,25,0.14)]"
+                >
+                  <video
+                    data-testid="home-process-video"
+                    className="h-full min-h-72 w-full object-cover"
+                    src="/videos/how-we-work.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={() => window.dispatchEvent(new Event("resize"))}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
           <div data-testid="home-process-steps-panel" className="flex h-full flex-col rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8">
