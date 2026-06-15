@@ -17,6 +17,10 @@ type TrackedPlanCtaProps = {
   surfaceTone?: "dark" | "purple" | "light";
 };
 
+function trackingLabel(children: ReactNode) {
+  return typeof children === "string" ? children : "Plan CTA";
+}
+
 export function TrackedPlanCta({
   children,
   href,
@@ -35,7 +39,7 @@ export function TrackedPlanCta({
       surfaceTone={surfaceTone}
       dataTestId={dataTestId}
       className={className}
-      onClick={() => trackPlansCtaClicked({ plan, intent, location })}
+      onClick={() => trackPlansCtaClicked({ plan, intent, location, href, label: trackingLabel(children) })}
     >
       {children}
     </Button>

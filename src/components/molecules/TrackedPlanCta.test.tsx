@@ -24,6 +24,8 @@ describe("TrackedPlanCta", () => {
       plan: "flow",
       intent: "quote",
       location: "plans_grid",
+      href: "/contact?plan=flow",
+      label: "Choose Flow",
     });
   });
 });

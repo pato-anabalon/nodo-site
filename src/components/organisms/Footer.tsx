@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { NodoLogo } from "@/components/atoms/NodoLogo";
+import { AnalyticsPreferencesButton } from "@/components/molecules/AnalyticsPreferencesButton";
 import { FooterContactPanel } from "@/components/molecules/FooterContactPanel";
 import { FooterLinkColumn, type FooterLink } from "@/components/molecules/FooterLinkColumn";
 
@@ -108,7 +109,10 @@ export function Footer() {
           className="flex w-full flex-col gap-3 px-5 pt-6 text-xs font-semibold uppercase tracking-[0.18em] text-white/34 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"
         >
           <p data-testid="site-footer-location">Built in Auckland, New Zealand.</p>
-          <p data-testid="site-footer-copyright">© {year} Nodo.</p>
+          <div className="flex flex-col gap-3 sm:items-end">
+            <AnalyticsPreferencesButton />
+            <p data-testid="site-footer-copyright">© {year} Nodo.</p>
+          </div>
         </div>
       </div>
     </footer>

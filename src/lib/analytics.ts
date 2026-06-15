@@ -1,21 +1,43 @@
 "use client";
 
 import { track } from "@vercel/analytics";
+import { hasAnalyticsConsent } from "@/lib/analytics-consent";
 import type { PlanIntent, PlanSlug } from "@/lib/content";
 
 type NullablePlan = PlanSlug | "not-selected";
 type TrackingSource = "plans" | "plans-hero" | "plans-final" | "contact" | string;
+type DataLayerValue = string | number | boolean | null | undefined;
+type DataLayerEvent = Record<string, DataLayerValue>;
+
+declare global {
+  interface Window {
+    dataLayer?: DataLayerEvent[];
+  }
+}
+
+function pushGtmEvent(event: string, params: DataLayerEvent) {
+  if (typeof window === "undefined" || !hasAnalyticsConsent() || !Array.isArray(window.dataLayer)) {
+    return;
+  }
+
+  window.dataLayer.push({ event, ...params });
+}
 
 export function trackPlansCtaClicked({
   plan,
   intent,
   location,
+  href,
+  label,
 }: {
   plan: NullablePlan;
   intent: PlanIntent;
   location: string;
+  href?: string;
+  label?: string;
 }) {
   track("Plans CTA Clicked", { plan, intent, location });
+  pushGtmEvent("nodo_cta_click", { plan, intent, location, href, label });
 }
 
 export function trackPlansComparisonViewed() {
@@ -36,6 +58,7 @@ export function trackContactFormSubmitted({
   source: TrackingSource;
 }) {
   track("Contact Form Submitted", { plan, intent, source });
+  pushGtmEvent("generate_lead", { plan, intent, source, form_id: "contact" });
 }
 
 export function trackContactFormError({
@@ -62,6 +85,7 @@ export function trackHomepageCtaClicked({
   href: string;
 }) {
   track("Homepage CTA Clicked", { label, location, href });
+  pushGtmEvent("nodo_cta_click", { label, location, href });
 }
 
 export function trackNotFoundCtaClicked({
