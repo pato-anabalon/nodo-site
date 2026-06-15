@@ -46,6 +46,7 @@ develop
 - `@vercel/blob`
 - `@upstash/redis`
 - Vercel Analytics
+- Google Tag Manager for Google Ads/GA4 campaign measurement
 - Font: Inter via `next/font/google`
 
 Useful scripts:
@@ -79,6 +80,7 @@ The shell renders:
 3. route content
 4. `Footer`
 5. Vercel `Analytics`
+6. GTM consent manager when `NEXT_PUBLIC_GTM_ID` is configured
 
 Global metadata lives in `layout.tsx`. The canonical metadata base is:
 
@@ -171,6 +173,8 @@ src/components/templates
 - `ServiceCard.tsx`: home service card.
 - `TrackedCtaButton.tsx`: shared CTA wrapper for Vercel Analytics events on homepage and 404 CTAs.
 - `TrackedPlanCta.tsx`: plan CTA link with analytics query metadata.
+- `AnalyticsConsentManager.tsx`: client-side Google Tag Manager consent banner and loader.
+- `AnalyticsPreferencesButton.tsx`: footer control for reopening analytics preferences.
 
 ### Organisms
 
@@ -540,6 +544,7 @@ Telegram:
 Required storage/integration environment variables:
 
 ```text
+NEXT_PUBLIC_GTM_ID
 BLOB_READ_WRITE_TOKEN
 BLOB_STORE_ID
 BLOB_WEBHOOK_PUBLIC_KEY
@@ -587,6 +592,10 @@ The project uses `data-testid` extensively to make browser verification and regr
 - `site-footer-legal-row`
 - `site-footer-location`
 - `site-footer-copyright`
+- `analytics-preferences-button`
+- `analytics-consent-banner`
+- `analytics-consent-accept-button`
+- `analytics-consent-decline-button`
 
 Footer dynamic test IDs:
 

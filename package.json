@@ -7,11 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@next/third-parties": "^16.2.9",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.4.0",
@@ -25,11 +29,18 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4.1.7",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "eslint": "^9.27.0",
     "eslint-config-next": "^16.0.0",
+    "jest": "^30.4.2",
+    "jest-axe": "^10.0.0",
+    "jest-environment-jsdom": "^30.4.1",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   }

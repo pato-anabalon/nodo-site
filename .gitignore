@@ -4,6 +4,8 @@
 
 # next.js
 /.next/
+/coverage/
+/public/audit360/
 /out/
 
 # production
@@ -29,8 +31,6 @@ pnpm-debug.log*
 
 # vercel
 .vercel
-
-# vercel
 .codex
 
 # typescript

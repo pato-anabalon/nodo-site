@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { JsonLdScript } from "@/components/atoms/JsonLdScript";
+import { AnalyticsConsentManager } from "@/components/molecules/AnalyticsConsentManager";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 import { PagePreloader } from "@/components/organisms/PagePreloader";
@@ -54,6 +55,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <AnalyticsConsentManager />
         <Analytics />
       </body>
     </html>

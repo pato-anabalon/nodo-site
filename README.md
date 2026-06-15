@@ -21,6 +21,7 @@ Created by Pato Anabalon.
 - GSAP with `@gsap/react`
 - Lucide icons
 - Vercel Analytics
+- Google Tag Manager for Google Ads/GA4 campaign measurement
 - Vercel Blob for contact form attachments
 - Upstash Redis for rate limiting and upload validation state
 - Trello, Resend, and Telegram direct contact form integrations
@@ -87,6 +88,7 @@ The app shell is defined in [`src/app/layout.tsx`](./src/app/layout.tsx) and ren
 3. route content
 4. `Footer`
 5. Vercel `Analytics`
+6. GTM consent manager when `NEXT_PUBLIC_GTM_ID` is configured
 
 Global styles and design tokens live in [`src/app/globals.css`](./src/app/globals.css).
 
@@ -127,6 +129,12 @@ contact/YYYY-MM-DD/<submission-id>/file-1.ext
 Vercel Blob may add a random suffix to the stored object name.
 
 ## Required Environment Variables
+
+Campaign measurement:
+
+```bash
+NEXT_PUBLIC_GTM_ID=
+```
 
 File attachments and upload validation:
 
