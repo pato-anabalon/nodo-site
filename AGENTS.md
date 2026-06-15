@@ -43,4 +43,4 @@ Pull requests should include a concise summary, verification commands run, scree
 
 ## Agent-Specific Notes
 
-Start with `README.md`, `NODO_PROJECT_CONTEXT.md`, and `SEO_WORKLOG.md` before broad exploration. Do not invent proof, testimonials, or metrics. Keep `/about` `noIndex` until real content exists, and keep `/plans` focused on `Flow`, `Growth`, and `Nexus` before `Launch`.
+Start with `README.md`, `docs/NODO_PROJECT_CONTEXT.md`, and `docs/SEO_WORKLOG.md` before broad exploration. Do not invent proof, testimonials, or metrics. Keep `/about` `noIndex` until real content exists, and keep `/plans` focused on `Flow`, `Growth`, and `Nexus` before `Launch`.

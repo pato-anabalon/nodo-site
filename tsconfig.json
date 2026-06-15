@@ -29,5 +29,13 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "coverage",
+    "jest.config.mjs",
+    "jest.setup.ts",
+    "src/test",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }
