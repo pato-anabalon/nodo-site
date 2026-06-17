@@ -5,12 +5,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
 import { MetaChip } from "@/components/atoms/MetaChip";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { caseStudiesPageContent, caseStudyWorkCards } from "@/lib/content";
 import { testIdSlug } from "@/lib/utils";
 
@@ -501,8 +501,11 @@ export function CaseStudiesPage() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <Button
+                  <TrackedCtaButton
                     href={featured.href}
+                    label="View live site"
+                    location="case_studies_plasterpro"
+                    route="/case-studies"
                     target="_blank"
                     rel="noreferrer"
                     dataTestId="case-studies-plasterpro-live-site-button"
@@ -515,7 +518,7 @@ export function CaseStudiesPage() {
                     }
                   >
                     View live site
-                  </Button>
+                  </TrackedCtaButton>
                 </div>
               </div>
 
@@ -643,8 +646,11 @@ export function CaseStudiesPage() {
                       </div>
                       {card.href && card.ctaLabel ? (
                         <div className="mt-auto pt-8">
-                          <Button
+                          <TrackedCtaButton
                             href={card.href}
+                            label={card.ctaLabel}
+                            location={`case_studies_work_card_${slug}`}
+                            route="/case-studies"
                             target="_blank"
                             rel="noreferrer"
                             variant="inverted"
@@ -653,7 +659,7 @@ export function CaseStudiesPage() {
                             icon={<ArrowUpRight aria-hidden="true" className="size-4" />}
                           >
                             {card.ctaLabel}
-                          </Button>
+                          </TrackedCtaButton>
                         </div>
                       ) : null}
                     </article>
@@ -683,13 +689,16 @@ export function CaseStudiesPage() {
                   {finalCta.copy}
                 </p>
               </div>
-              <Button
+              <TrackedCtaButton
                 href="/contact?intent=project&source=case-studies-final"
+                label="Talk about your project"
+                location="case_studies_final"
+                route="/case-studies"
                 variant="inverted"
                 dataTestId="case-studies-final-button"
               >
                 Talk about your project
-              </Button>
+              </TrackedCtaButton>
             </div>
           </ScrollReveal>
         </Container>

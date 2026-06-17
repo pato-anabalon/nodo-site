@@ -2,17 +2,20 @@
 
 import type { ReactNode } from "react";
 import { Button } from "@/components/atoms/Button";
-import { trackHomepageCtaClicked, trackNotFoundCtaClicked } from "@/lib/analytics";
+import { trackCtaClicked, trackHomepageCtaClicked, trackNotFoundCtaClicked } from "@/lib/analytics";
 
 type TrackedCtaButtonProps = {
   children: ReactNode;
   href: string;
   label: string;
-  event: "homepage" | "not-found";
+  event?: "cta" | "homepage" | "not-found";
   location?: string;
+  route?: string;
   className?: string;
   dataTestId?: string;
   icon?: ReactNode;
+  rel?: string;
+  target?: string;
   variant?: "primary" | "secondary" | "ghost" | "inverted";
   surfaceTone?: "dark" | "purple" | "light";
 };
@@ -21,8 +24,9 @@ export function TrackedCtaButton({
   children,
   href,
   label,
-  event,
+  event = "cta",
   location,
+  route,
   ...buttonProps
 }: TrackedCtaButtonProps) {
   return (
@@ -38,7 +42,17 @@ export function TrackedCtaButton({
           return;
         }
 
-        trackNotFoundCtaClicked({ label, href });
+        if (event === "not-found") {
+          trackNotFoundCtaClicked({ label, href });
+          return;
+        }
+
+        trackCtaClicked({
+          label,
+          location: location ?? "site",
+          href,
+          route,
+        });
       }}
       {...buttonProps}
     >

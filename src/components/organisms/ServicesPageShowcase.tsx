@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { services } from "@/lib/content";
 import { cn, testIdSlug } from "@/lib/utils";
@@ -95,8 +95,11 @@ export function ServicesPageShowcase() {
                     ))}
                   </ul>
                   <div className="mt-8 border-t border-white/10 pt-6">
-                    <Button
+                    <TrackedCtaButton
                       href={service.href}
+                      label={service.ctaLabel}
+                      location={`services_showcase_${slug}`}
+                      route="/services"
                       variant="secondary"
                       surfaceTone="dark"
                       dataTestId={`services-showcase-${slug}-button`}
@@ -111,7 +114,7 @@ export function ServicesPageShowcase() {
                       }
                     >
                       {service.ctaLabel}
-                    </Button>
+                    </TrackedCtaButton>
                   </div>
                 </div>
               </div>

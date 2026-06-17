@@ -3,7 +3,7 @@ import { LandingPage } from "@/components/templates/LandingPage";
 import { createPageMetadata, defaultSeo } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Nodo | Brand, Marketing, and Websites for Growing Businesses",
+  title: "Nodo | Website Design, Marketing and Branding in Auckland",
   description: defaultSeo.description,
   path: "/",
 });

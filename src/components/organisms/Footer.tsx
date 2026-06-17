@@ -83,7 +83,7 @@ export function Footer() {
                   data-testid="site-footer-description"
                   className="mt-6 max-w-md text-lg leading-8 text-white/62"
                 >
-                  Brand, marketing, and websites for growing businesses.
+                  Website design, marketing, and branding for Auckland service businesses.
                 </p>
               </div>
             </div>

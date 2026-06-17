@@ -12,7 +12,7 @@ export function ResultsSection() {
           <SectionHeading
             eyebrow="What improves"
             title="The work should make your business easier to trust, understand, and choose."
-            description="Nodo focuses on the visible improvements that matter to growing businesses: clearer positioning, stronger first impressions, better enquiries, and a digital presence that feels consistent."
+            description="Nodo focuses on the visible improvements that matter to Auckland service businesses: clearer positioning, stronger first impressions, better enquiries, and a digital presence that feels consistent."
             className="max-w-4xl"
           />
         </ScrollReveal>

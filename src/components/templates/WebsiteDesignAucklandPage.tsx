@@ -10,13 +10,13 @@ import {
   Search,
   ShieldCheck,
 } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
 import { MetaChip } from "@/components/atoms/MetaChip";
 import { NodoLogo } from "@/components/atoms/NodoLogo";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { websiteDesignAucklandPageContent } from "@/lib/content";
 import { cn, testIdSlug } from "@/lib/utils";
 
@@ -145,19 +145,25 @@ export function WebsiteDesignAucklandPage() {
               ))}
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button
+              <TrackedCtaButton
                 href="/contact?service=website-design-auckland&source=website-design-auckland-hero"
+                label="Talk about a website"
+                location="website_design_auckland_hero"
+                route="/services/website-design-auckland"
                 dataTestId="website-design-auckland-hero-primary-button"
               >
                 Talk about a website
-              </Button>
-              <Button
+              </TrackedCtaButton>
+              <TrackedCtaButton
                 href="/plans/websites"
+                label="View website plans"
+                location="website_design_auckland_hero"
+                route="/services/website-design-auckland"
                 variant="secondary"
                 dataTestId="website-design-auckland-hero-secondary-button"
               >
                 View website plans
-              </Button>
+              </TrackedCtaButton>
             </div>
           </div>
 
@@ -435,13 +441,16 @@ export function WebsiteDesignAucklandPage() {
                   ))}
                 </ul>
                 <div className="mt-8">
-                  <Button
+                  <TrackedCtaButton
                     href={content.proof.href}
+                    label={content.proof.ctaLabel}
+                    location="website_design_auckland_proof"
+                    route="/services/website-design-auckland"
                     variant="inverted"
                     dataTestId="website-design-auckland-proof-button"
                   >
                     {content.proof.ctaLabel}
-                  </Button>
+                  </TrackedCtaButton>
                 </div>
               </div>
             </ScrollReveal>
@@ -468,19 +477,25 @@ export function WebsiteDesignAucklandPage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button
+                <TrackedCtaButton
                   href="/plans/websites"
+                  label={content.plans.primaryCta}
+                  location="website_design_auckland_plans"
+                  route="/services/website-design-auckland"
                   dataTestId="website-design-auckland-plans-primary-button"
                 >
                   {content.plans.primaryCta}
-                </Button>
-                <Button
+                </TrackedCtaButton>
+                <TrackedCtaButton
                   href="/contact?service=website-design-auckland&source=website-design-auckland-plans"
+                  label={content.plans.secondaryCta}
+                  location="website_design_auckland_plans"
+                  route="/services/website-design-auckland"
                   variant="secondary"
                   dataTestId="website-design-auckland-plans-secondary-button"
                 >
                   {content.plans.secondaryCta}
-                </Button>
+                </TrackedCtaButton>
               </div>
             </div>
           </ScrollReveal>
@@ -580,13 +595,16 @@ export function WebsiteDesignAucklandPage() {
                   {content.finalCta.copy}
                 </p>
               </div>
-              <Button
+              <TrackedCtaButton
                 href="/contact?service=website-design-auckland&source=website-design-auckland-final"
+                label="Start the conversation"
+                location="website_design_auckland_final"
+                route="/services/website-design-auckland"
                 variant="inverted"
                 dataTestId="website-design-auckland-final-button"
               >
                 Start the conversation
-              </Button>
+              </TrackedCtaButton>
             </div>
           </ScrollReveal>
         </Container>

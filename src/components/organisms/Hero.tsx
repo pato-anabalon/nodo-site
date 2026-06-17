@@ -200,7 +200,7 @@ export function Hero() {
             data-testid="home-hero-copy"
             className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68"
           >
-            Nodo helps growing businesses improve how they look, show up online, and turn attention into stronger
+            Nodo helps Auckland service businesses improve how they look, show up online, and turn attention into stronger
             enquiries.
           </p>
           <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">

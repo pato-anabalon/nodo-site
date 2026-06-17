@@ -1,6 +1,7 @@
 import { track } from "@vercel/analytics";
 import { ANALYTICS_CONSENT_STORAGE_KEY } from "@/lib/analytics-consent";
 import {
+  trackCtaClicked,
   trackContactFormError,
   trackContactFormSubmitted,
   trackHomepageCtaClicked,
@@ -22,14 +23,21 @@ describe("analytics", () => {
     trackPlansFaqOpened("Question?");
     trackContactFormSubmitted({ plan: "not-selected", intent: "general", source: "contact" });
     trackContactFormError({ plan: "not-selected", intent: "general", source: "contact", reason: "failed" });
+    trackCtaClicked({ label: "Talk", location: "services_final", href: "/contact", route: "/services" });
     trackHomepageCtaClicked({ label: "Talk", location: "hero", href: "/contact" });
     trackNotFoundCtaClicked({ label: "Home", href: "/" });
 
-    expect(track).toHaveBeenCalledTimes(7);
+    expect(track).toHaveBeenCalledTimes(8);
     expect(track).toHaveBeenCalledWith("Plans CTA Clicked", {
       plan: "flow",
       intent: "quote",
       location: "plans",
+    });
+    expect(track).toHaveBeenCalledWith("CTA Clicked", {
+      label: "Talk",
+      location: "services_final",
+      href: "/contact",
+      route: "/services",
     });
   });
 
@@ -37,6 +45,7 @@ describe("analytics", () => {
     window.dataLayer = [];
 
     trackContactFormSubmitted({ plan: "not-selected", intent: "general", source: "contact" });
+    trackCtaClicked({ label: "Talk", location: "services_final", href: "/contact", route: "/services" });
     trackHomepageCtaClicked({ label: "Talk", location: "hero", href: "/contact" });
 
     expect(window.dataLayer).toEqual([]);
@@ -63,6 +72,7 @@ describe("analytics", () => {
       label: "Start with Growth",
     });
     trackHomepageCtaClicked({ label: "Let's talk", location: "hero", href: "/contact" });
+    trackCtaClicked({ label: "Book a discovery call", location: "plans_hub_final", href: "/contact?source=plans", route: "/plans" });
     trackPlansFaqOpened("Question?");
 
     expect(window.dataLayer).toEqual([
@@ -86,6 +96,13 @@ describe("analytics", () => {
         label: "Let's talk",
         location: "hero",
         href: "/contact",
+      },
+      {
+        event: "nodo_cta_click",
+        label: "Book a discovery call",
+        location: "plans_hub_final",
+        href: "/contact?source=plans",
+        route: "/plans",
       },
     ]);
   });

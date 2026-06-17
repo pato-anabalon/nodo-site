@@ -5,8 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Button } from "@/components/atoms/Button";
 import { NodoLogo } from "@/components/atoms/NodoLogo";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { navigation } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -321,13 +321,16 @@ export function Header() {
             </svg>
           </span>
           <div className="nodo-header-surface flex h-[var(--nodo-header-logo-height)] w-[var(--nodo-header-action-width)] items-center justify-center rounded-bl-[2.1rem] px-7 py-4 shadow-[0_18px_38px_rgba(5,5,5,0.18)]">
-            <Button
+            <TrackedCtaButton
               href="/contact"
+              label="Let's talk"
+              location="site_header"
+              route={pathname}
               surfaceTone="dark"
               dataTestId="site-header-contact-button"
             >
               Let’s talk
-            </Button>
+            </TrackedCtaButton>
           </div>
         </div>
       </div>

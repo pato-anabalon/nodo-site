@@ -13,6 +13,7 @@ describe("RootLayout", () => {
     expect(screen.getByText("Page content")).toBeInTheDocument();
     expect(screen.getByTestId("site-header")).toBeInTheDocument();
     expect(screen.getByTestId("site-footer")).toBeInTheDocument();
+    expect(document.documentElement).toHaveAttribute("lang", "en-NZ");
   });
 
   it("should expose global metadata", () => {

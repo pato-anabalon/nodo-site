@@ -302,6 +302,27 @@ Recommended next actions:
   - `branding-auckland` third, unless Nodo has brand identity examples ready sooner.
 - Re-check visual QA in browser after each design-heavy change.
 
+## Audit360 v2 Implementation Notes
+
+Reviewed source:
+
+- `public/audit360/Nodo-Audit-360-v2.html`
+
+Implemented from Audit360 v2:
+
+- Changed the root HTML language from `en` to `en-NZ`.
+- Added immutable one-year cache headers for `/videos/:path*`; publish renamed video files when replacing assets.
+- Expanded CTA instrumentation beyond home, plans, contact form, and 404 CTAs so high-intent CTAs across services, website design Auckland, plans hub, case studies, header, and placeholders use the shared tracking wrapper.
+- Repositioned global SEO/copy away from the generic `for growing businesses` wording toward `Auckland service businesses`.
+
+Validated but not implemented:
+
+- `/blog`: keep as 404 until there are multiple real articles and a sustainable NZ query/content angle. Do not ship an empty stub.
+- Google Business Profile, own-name SERP, reviews, review velocity, backlinks, and local citations: business/off-page actions, not repo-only changes.
+- Founder-led `/about`: still needs approved founder story, photo or visual direction, and LinkedIn/person details before making the page indexable.
+- Testimonials, aggregate ratings, and proof expansion: only add once real client quotes, review data, or supported metrics exist.
+- Booking embed: wait for a confirmed booking provider/URL before adding Cal.com or similar.
+
 ## Audit360 And 90-Day Plan To-Do
 
 These items are intentionally parked until the business/content material is ready. Do not implement placeholder proof, fake metrics, or thin content just to satisfy the audit.

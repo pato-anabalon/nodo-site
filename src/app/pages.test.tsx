@@ -57,7 +57,7 @@ describe("App Router pages", () => {
   });
 
   it("should expose expected metadata", () => {
-    expect(homeMetadata.title).toBe("Nodo | Brand, Marketing, and Websites for Growing Businesses");
+    expect(homeMetadata.title).toBe("Nodo | Website Design, Marketing and Branding in Auckland");
     expect(contactMetadata.title).toBe("Contact");
     expect(aboutMetadata.robots).toEqual({ index: false, follow: true });
   });

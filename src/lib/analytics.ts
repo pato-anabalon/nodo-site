@@ -40,6 +40,21 @@ export function trackPlansCtaClicked({
   pushGtmEvent("nodo_cta_click", { plan, intent, location, href, label });
 }
 
+export function trackCtaClicked({
+  label,
+  location,
+  href,
+  route,
+}: {
+  label: string;
+  location: string;
+  href: string;
+  route?: string;
+}) {
+  track("CTA Clicked", { label, location, href, route });
+  pushGtmEvent("nodo_cta_click", { label, location, href, route });
+}
+
 export function trackPlansComparisonViewed() {
   track("Plans Comparison Viewed", { location: "plans_comparison" });
 }

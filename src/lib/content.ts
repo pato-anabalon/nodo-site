@@ -168,7 +168,7 @@ export const placeholderPages = {
     title: "About Nodo",
     eyebrow: "Auckland, New Zealand",
     description:
-      "Nodo partners with growing businesses to build sharper brands, smarter marketing, and websites that create clarity, speed, and measurable results.",
+      "Nodo partners with Auckland service businesses to build sharper brands, smarter marketing, and websites that create clarity, speed, and measurable results.",
   },
   "case-studies": {
     title: "Case Studies",
