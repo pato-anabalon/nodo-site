@@ -1,15 +1,35 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { trackHomepageCtaClicked, trackNotFoundCtaClicked } from "@/lib/analytics";
+import { trackCtaClicked, trackHomepageCtaClicked, trackNotFoundCtaClicked } from "@/lib/analytics";
 import { renderWithProviders } from "@/test/render";
 import { TrackedCtaButton } from "./TrackedCtaButton";
 
 jest.mock("@/lib/analytics", () => ({
+  trackCtaClicked: jest.fn(),
   trackHomepageCtaClicked: jest.fn(),
   trackNotFoundCtaClicked: jest.fn(),
 }));
 
 describe("TrackedCtaButton", () => {
+  it("should track general CTA clicks", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(
+      <TrackedCtaButton href="/contact" label="Talk" location="services_final" route="/services">
+        Talk
+      </TrackedCtaButton>,
+    );
+
+    await user.click(screen.getByRole("link", { name: /talk/i }));
+
+    expect(trackCtaClicked).toHaveBeenCalledWith({
+      label: "Talk",
+      location: "services_final",
+      href: "/contact",
+      route: "/services",
+    });
+  });
+
   it("should track homepage CTA clicks", async () => {
     const user = userEvent.setup();
 

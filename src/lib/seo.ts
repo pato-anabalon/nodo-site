@@ -32,14 +32,14 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const defaultSeo = {
-  title: "Nodo | Brand, marketing, and websites for growing businesses",
+  title: "Nodo | Website Design, Marketing and Branding in Auckland",
   description:
-    "Nodo helps growing businesses build sharper brands, smarter digital marketing, and high-performing websites that turn attention into stronger enquiries.",
+    "Nodo helps Auckland service businesses build sharper brands, smarter marketing, and websites that turn trust into stronger enquiries.",
   image: {
     url: "/og/nodo-og-image.png",
     width: 1200,
     height: 630,
-    alt: "Nodo - Clarity. Speed. Results.",
+    alt: "Nodo - website design, marketing and branding in Auckland.",
   },
 };
 
@@ -69,7 +69,7 @@ const services = [
   {
     name: "Branding",
     description:
-      "Brand positioning, identity direction, and messaging foundations for growing businesses.",
+      "Brand positioning, identity direction, and messaging foundations for Auckland service businesses.",
   },
   {
     name: "Digital Marketing",
@@ -130,7 +130,7 @@ export function createGlobalStructuredData() {
           propertyID: "NZBN",
           value: nzbn,
         },
-        slogan: "Brand, marketing, and websites for growing businesses.",
+        slogan: "Website design, marketing, and branding for Auckland service businesses.",
         url: siteUrl,
         logo: absoluteUrl("/brand/nodo-logo-black.png"),
         image: absoluteUrl(defaultSeo.image.url),

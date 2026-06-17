@@ -5,12 +5,12 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDownRight } from 'lucide-react';
-import { Button } from '@/components/atoms/Button';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
 import { Container } from '@/components/atoms/Container';
 import { MetaChip } from '@/components/atoms/MetaChip';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 import { plansHubCards, plansHubContent } from '@/lib/content';
 import { testIdSlug } from '@/lib/utils';
 
@@ -241,8 +241,11 @@ export function PlansHubPage() {
                         </p>
                         <h3 className="mt-2 text-2xl font-black text-nodo-black">{card.title}</h3>
                         <p className="mt-5 text-sm leading-6 text-nodo-ink/68">{card.description}</p>
-                        <Button
+                        <TrackedCtaButton
                           href={card.href}
+                          label={card.ctaLabel}
+                          location={`plans_hub_card_${testIdSlug(card.title)}`}
+                          route="/plans"
                           variant="primary"
                           surfaceTone="light"
                           dataTestId={`plans-hub-card-${card.title
@@ -253,7 +256,7 @@ export function PlansHubPage() {
                           icon={<ArrowDownRight aria-hidden="true" className="size-4" />}
                         >
                           {card.ctaLabel}
-                        </Button>
+                        </TrackedCtaButton>
                       </div>
                     </article>
                   );
@@ -277,13 +280,16 @@ export function PlansHubPage() {
                 </h2>
                 <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">{plansHubContent.finalCta.copy}</p>
               </div>
-              <Button
+              <TrackedCtaButton
                 href="/contact?intent=discovery-call&source=plans-hub-final"
+                label="Book a discovery call"
+                location="plans_hub_final"
+                route="/plans"
                 variant="inverted"
                 dataTestId="plans-hub-final-button"
               >
                 Book a discovery call
-              </Button>
+              </TrackedCtaButton>
             </div>
           </ScrollReveal>
         </Container>

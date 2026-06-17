@@ -1,6 +1,6 @@
-import { Button } from "@/components/atoms/Button";
 import { Container } from "@/components/atoms/Container";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 
 type RoutePlaceholderProps = {
   pageKey: string;
@@ -20,10 +20,25 @@ export function RoutePlaceholder({ pageKey, eyebrow, title, description, heading
         >
           <SectionHeading eyebrow={eyebrow} title={title} description={description} headingLevel={headingLevel}>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact" dataTestId={`${pageKey}-hero-primary-button`}>Let’s talk</Button>
-              <Button href="/" variant="secondary" dataTestId={`${pageKey}-hero-secondary-button`}>
+              <TrackedCtaButton
+                href="/contact"
+                label="Let's talk"
+                location={`${pageKey}_placeholder`}
+                route={`/${pageKey}`}
+                dataTestId={`${pageKey}-hero-primary-button`}
+              >
+                Let’s talk
+              </TrackedCtaButton>
+              <TrackedCtaButton
+                href="/"
+                label="Back to home"
+                location={`${pageKey}_placeholder`}
+                route={`/${pageKey}`}
+                variant="secondary"
+                dataTestId={`${pageKey}-hero-secondary-button`}
+              >
                 Back to home
-              </Button>
+              </TrackedCtaButton>
             </div>
           </SectionHeading>
           <div className="relative min-h-72 overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.04] p-6">

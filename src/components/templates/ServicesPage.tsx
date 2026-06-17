@@ -8,7 +8,7 @@ import { ConstellationBackground } from "@/components/atoms/ConstellationBackgro
 import { Container } from "@/components/atoms/Container";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { Button } from "@/components/atoms/Button";
+import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { ServicesPageShowcase } from "@/components/organisms/ServicesPageShowcase";
 import { servicesPageContent } from "@/lib/content";
 import { testIdSlug } from "@/lib/utils";
@@ -172,23 +172,29 @@ export function ServicesPage() {
               {servicesPageContent.hero.copy}
             </p>
             <div data-testid="services-page-hero-actions" className="mt-9 flex flex-wrap gap-3">
-              <Button
+              <TrackedCtaButton
                 href="/contact?source=services-hero"
+                label="Let's talk"
+                location="services_hero"
+                route="/services"
                 variant="inverted"
                 dataTestId="services-hero-primary-button"
                 className="services-hero-cta opacity-0 motion-reduce:opacity-100"
               >
                 Let’s talk
-              </Button>
-              <Button
+              </TrackedCtaButton>
+              <TrackedCtaButton
                 href="#service-breakdown"
+                label="Explore the services"
+                location="services_hero"
+                route="/services"
                 variant="secondary"
                 surfaceTone="light"
                 dataTestId="services-hero-secondary-button"
                 className="services-hero-cta opacity-0 motion-reduce:opacity-100"
               >
                 Explore the services
-              </Button>
+              </TrackedCtaButton>
             </div>
           </div>
 
@@ -334,21 +340,27 @@ export function ServicesPage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button
+                <TrackedCtaButton
                   href="/contact?source=services-final"
+                  label="Let's talk"
+                  location="services_final"
+                  route="/services"
                   variant="inverted"
                   dataTestId="services-final-primary-button"
                 >
                   Let’s talk
-                </Button>
-                <Button
+                </TrackedCtaButton>
+                <TrackedCtaButton
                   href="/plans"
+                  label="View plans"
+                  location="services_final"
+                  route="/services"
                   variant="secondary"
                   dataTestId="services-final-secondary-button"
                   icon={<ArrowRight aria-hidden="true" className="size-4" />}
                 >
                   View plans
-                </Button>
+                </TrackedCtaButton>
               </div>
             </div>
           </ScrollReveal>
