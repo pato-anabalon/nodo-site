@@ -168,6 +168,7 @@ src/components/templates
 - `AboutClientFocusButton.tsx`: reusable client selector with off-side neon icon, active state, and timed progress bar.
 - `AboutPhilosophyCard.tsx`: reusable Nodo philosophy card with compact mobile and editorial desktop layouts.
 - `AboutValueSignalCard.tsx`: reusable value card with mobile constellation treatment and desktop scroll-signal composition.
+- `CaseStudyOutcomeCard.tsx`: reusable dark-surface outcome card with qualitative result copy, icon, and editorial numbering.
 - `ContactForm.tsx`: contact form, attachment UI, submission animation, upload orchestration, and contact API call.
 - `FooterLinkColumn.tsx`: footer column and link rendering.
 - `ProcessStep.tsx`: home process step row.

@@ -4,12 +4,19 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  MapPinned,
+  MessageSquareText,
+  MousePointerClick,
+  ShieldCheck,
+} from "lucide-react";
 import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
 import { Container } from "@/components/atoms/Container";
 import { MetaChip } from "@/components/atoms/MetaChip";
 import { ScrollReveal } from "@/components/atoms/ScrollReveal";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { CaseStudyOutcomeCard } from "@/components/molecules/CaseStudyOutcomeCard";
 import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
 import { caseStudiesPageContent, caseStudyWorkCards } from "@/lib/content";
 import { testIdSlug } from "@/lib/utils";
@@ -18,6 +25,12 @@ gsap.registerPlugin(useGSAP);
 
 const heroTitleWords = caseStudiesPageContent.hero.title.split(" ");
 const heroChipAccents = ["purple", "lavender", "pink"] as const;
+const outcomeIcons = [
+  ShieldCheck,
+  MessageSquareText,
+  MapPinned,
+  MousePointerClick,
+] as const;
 const showSelectedWorkSection = false;
 
 function BrowserSlot({
@@ -96,9 +109,9 @@ function HeroTransformationPanel() {
       data-testid="case-studies-hero-proof-panel"
       className="case-hero-proof-panel relative min-h-[28rem] opacity-0 [perspective:1200px] motion-reduce:opacity-100"
     >
-      <div className="pointer-events-none absolute -inset-5 rounded-[2.5rem] bg-[radial-gradient(circle_at_28%_22%,rgba(124,58,237,0.26),transparent_32%),radial-gradient(circle_at_78%_76%,rgba(232,48,207,0.14),transparent_28%)] blur-xl" />
-      <div className="case-hero-proof-item case-hero-carousel-card case-hero-carousel-before absolute left-0 top-4 w-[74%] overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-3 opacity-0 shadow-[0_22px_80px_rgba(0,0,0,0.24)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform motion-reduce:opacity-100 sm:top-0">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[1.1rem] bg-white/6">
+      <div className="pointer-events-none absolute -inset-5 rounded-[2.5rem] bg-[radial-gradient(circle_at_28%_22%,rgba(124,58,237,0.2),transparent_32%),radial-gradient(circle_at_78%_76%,rgba(232,48,207,0.12),transparent_28%)] blur-xl" />
+      <div className="case-hero-proof-item case-hero-carousel-card case-hero-carousel-before absolute left-0 top-4 w-[74%] overflow-hidden rounded-[1.5rem] border border-black/10 bg-[#f3f1f7] p-3 opacity-0 shadow-[0_22px_80px_rgba(22,19,25,0.14)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform motion-reduce:opacity-100 sm:top-0">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[1.1rem] bg-black/5">
           <Image
             src={before.imageSrc}
             alt={before.imageAlt}
@@ -106,14 +119,14 @@ function HeroTransformationPanel() {
             sizes="(min-width: 1024px) 34vw, 72vw"
             className="object-cover object-top grayscale"
           />
-          <div className="absolute inset-0 bg-nodo-black/8" />
+          <div className="absolute inset-0 bg-white/8" />
         </div>
-        <span className="mt-3 inline-flex rounded-full border border-white/12 bg-white/[0.055] px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.16em] text-white/54">
+        <span className="mt-3 inline-flex rounded-full border border-black/10 bg-white px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.16em] text-nodo-ink/52">
           Wix before
         </span>
       </div>
 
-      <div className="case-hero-proof-item case-hero-carousel-card case-hero-carousel-after absolute bottom-0 right-0 w-[86%] overflow-hidden rounded-[1.75rem] border border-nodo-lavender/36 bg-white p-3 opacity-0 shadow-[0_28px_100px_rgba(124,58,237,0.28)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform motion-reduce:opacity-100">
+      <div className="case-hero-proof-item case-hero-carousel-card case-hero-carousel-after absolute bottom-0 right-0 w-[86%] overflow-hidden rounded-[1.75rem] border border-nodo-lavender/36 bg-[#f3f1f7] p-3 opacity-0 shadow-[0_28px_100px_rgba(124,58,237,0.28)] [backface-visibility:hidden] [transform-style:preserve-3d] will-change-transform motion-reduce:opacity-100">
         <div className="relative aspect-[16/10] overflow-hidden rounded-[1.25rem] bg-white">
           <Image
             src={after.imageSrc}
@@ -402,28 +415,29 @@ export function CaseStudiesPage() {
     <main ref={root} data-testid="case-studies-page-main" className="overflow-hidden bg-nodo-black">
       <section
         data-testid="case-studies-hero-section"
-        className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
+        className="relative flex min-h-screen overflow-hidden border-b border-black/8 bg-white pt-28 text-nodo-black"
       >
         <ConstellationBackground
-          className="opacity-55"
+          backgroundTone="light"
+          className="opacity-18 mix-blend-multiply"
           density={0.72}
           fps={34}
           interactive
           maxDevicePixelRatio={1.5}
           maxNodes={64}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.14),rgba(5,5,5,0.76))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.10),transparent_28%),radial-gradient(circle_at_82%_22%,rgba(232,48,207,0.06),transparent_22%)]" />
         <Container className="relative z-10 grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[1fr_0.72fr]">
           <div data-testid="case-studies-hero-content">
             <p
               data-testid="case-studies-hero-eyebrow"
-              className="case-hero-eyebrow mb-5 opacity-0 motion-reduce:opacity-100 text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender"
+              className="case-hero-eyebrow mb-5 text-sm font-black uppercase tracking-[0.24em] text-nodo-purple opacity-0 motion-reduce:opacity-100"
             >
               {hero.eyebrow}
             </p>
             <h1
               data-testid="case-studies-hero-title"
-              className="case-hero-title max-w-6xl opacity-0 motion-reduce:opacity-100 text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl"
+              className="case-hero-title max-w-6xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-nodo-black opacity-0 motion-reduce:opacity-100 sm:text-7xl lg:text-8xl"
             >
               {heroTitleWords.map((word, index) => (
                 <span
@@ -438,7 +452,7 @@ export function CaseStudiesPage() {
             </h1>
             <p
               data-testid="case-studies-hero-copy"
-              className="case-hero-copy mt-6 max-w-2xl opacity-0 motion-reduce:opacity-100 text-pretty text-lg leading-8 text-white/66"
+              className="case-hero-copy mt-6 max-w-2xl text-pretty text-lg leading-8 text-nodo-ink/66 opacity-0 motion-reduce:opacity-100"
             >
               {hero.copy}
             </p>
@@ -452,7 +466,7 @@ export function CaseStudiesPage() {
                   accent={heroChipAccents[index % heroChipAccents.length]}
                   className="case-hero-chip opacity-0 motion-reduce:opacity-100"
                   dataTestId={`case-studies-hero-highlight-${testIdSlug(highlight)}`}
-                  tone="dark"
+                  tone="light"
                 >
                   {highlight}
                 </MetaChip>
@@ -575,15 +589,13 @@ export function CaseStudiesPage() {
               data-testid="case-studies-plasterpro-outcomes"
               className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
-              {featured.outcomes.map((outcome) => (
-                <div
+              {featured.outcomes.map((outcome, index) => (
+                <CaseStudyOutcomeCard
                   key={outcome}
-                  className="rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-5"
-                >
-                  <p className="text-sm font-semibold leading-6 text-white/74">
-                    {outcome}
-                  </p>
-                </div>
+                  icon={outcomeIcons[index % outcomeIcons.length]}
+                  index={index}
+                  outcome={outcome}
+                />
               ))}
             </div>
           </ScrollReveal>
