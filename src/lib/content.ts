@@ -1,24 +1,37 @@
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowUpRight,
+  BadgeCheck,
   Blocks,
+  BriefcaseBusiness,
   Brush,
+  Building2,
   Clapperboard,
+  Compass,
   Gauge,
   GitBranch,
+  Handshake,
   Instagram,
+  KeyRound,
   Layers3,
+  Lightbulb,
+  LineChart,
   Megaphone,
   MousePointer2,
   PackageCheck,
+  House,
   Sparkles,
+  Target,
+  Wrench,
   Workflow,
+  Zap,
 } from "lucide-react";
 
 export const navigation = [
   { label: "Services", href: "/services" },
   { label: "Plans", href: "/plans" },
   { label: "Case studies", href: "/case-studies" },
+  { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -175,6 +188,208 @@ export const placeholderPages = {
     eyebrow: "Work in progress",
     description:
       "Selected examples of brand, marketing, and website improvements will live here as the portfolio grows.",
+  },
+};
+
+export type AboutValue = {
+  name: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export type AboutService = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export type AboutPhilosophyStep = {
+  word: string;
+  line: string;
+};
+
+export type AboutClient = {
+  name: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const aboutPageContent = {
+  hero: {
+    eyebrow: "About Nodo",
+    title: "Connecting businesses, people and ideas.",
+    copy:
+      "Nodo is a creative agency in Auckland helping service businesses build sharper brands, better websites, and a more consistent digital presence.",
+    highlights: ["Branding", "Websites", "Digital presence"],
+    primaryCta: "Let's talk",
+    secondaryCta: "View our work",
+  },
+  story: {
+    eyebrow: "Our story",
+    title: "A clearer way to build a digital presence.",
+    copy:
+      "Nodo was created from the belief that many businesses do not need more noise. They need direction, consistency, and a professional image that reflects who they are and where they want to go.",
+    support:
+      "We shape that foundation through brand direction, website development, and strategic digital communication built around trust and long-term growth.",
+  },
+  positioning: {
+    eyebrow: "Positioning",
+    title: "Not a traditional agency. A strategic partner.",
+    copy:
+      "We work beside small and medium-sized businesses that value clarity, quality, and long-term relationships. Every project starts with understanding the business, the audience, and the direction the brand needs to move in.",
+  },
+  philosophy: {
+    eyebrow: "Brand philosophy",
+    title: "Connect. Build. Grow.",
+    steps: [
+      {
+        word: "Connect",
+        line: "Understand the business, the people, and the opportunity.",
+      },
+      {
+        word: "Build",
+        line: "Create the brand, website, and digital foundations with purpose.",
+      },
+      {
+        word: "Grow",
+        line: "Keep improving with clearer communication and stronger momentum.",
+      },
+    ] satisfies AboutPhilosophyStep[],
+  },
+  missionVision: [
+    {
+      label: "Mission",
+      title: "Build trust, consistency, and sustainable growth.",
+      copy:
+        "To help businesses connect more effectively with their customers through branding, websites, and digital communication systems.",
+    },
+    {
+      label: "Vision",
+      title: "A leading creative agency for modern digital presence.",
+      copy:
+        "To become a leading creative agency in New Zealand for businesses seeking a consistent, strategic, and professional presence.",
+    },
+    {
+      label: "Purpose",
+      title: "Connect businesses, people, and ideas.",
+      copy:
+        "To build brands with direction and purpose, so businesses can present themselves with clarity and confidence.",
+    },
+  ],
+  services: [
+    {
+      title: "Branding",
+      description:
+        "Visual identities and brand foundations that reflect the essence of a business and build trust with its audience.",
+      icon: Brush,
+    },
+    {
+      title: "Website Development",
+      description:
+        "Modern, functional, and user-friendly websites designed to support business growth.",
+      icon: Blocks,
+    },
+    {
+      title: "Digital Presence",
+      description:
+        "Content, design, and communication that keep the business consistent across digital platforms.",
+      icon: Megaphone,
+    },
+    {
+      title: "Ongoing Support",
+      description:
+        "Continued guidance, maintenance, and improvements as the business evolves.",
+      icon: PackageCheck,
+    },
+  ] satisfies AboutService[],
+  values: [
+    {
+      name: "Connection",
+      description:
+        "The strongest brands are built through genuine relationships and meaningful collaboration.",
+      icon: Handshake,
+    },
+    {
+      name: "Clarity",
+      description:
+        "Effective communication begins with simple, honest, and consistent messaging.",
+      icon: Compass,
+    },
+    {
+      name: "Creativity",
+      description:
+        "We combine design, strategy, and functionality to create work with real value.",
+      icon: Lightbulb,
+    },
+    {
+      name: "Commitment",
+      description:
+        "We treat every project as if it were our own, taking pride in the work we deliver.",
+      icon: BadgeCheck,
+    },
+    {
+      name: "Growth",
+      description:
+        "Businesses evolve, markets change, and brands must continue to grow alongside them.",
+      icon: LineChart,
+    },
+    {
+      name: "Speed",
+      description:
+        "Momentum matters. We move with focus, clear priorities, and practical execution so businesses can launch, learn, and improve without unnecessary delays.",
+      icon: Zap,
+    },
+    {
+      name: "Results",
+      description:
+        "Good design has to create movement. We measure success by the clarity, trust, enquiries, and long-term value the work helps create.",
+      icon: Target,
+    },
+  ] satisfies AboutValue[],
+  clients: [
+    {
+      name: "Emerging brands and growing businesses",
+      description:
+        "Build the brand, website, and digital foundation your next stage needs, with clearer positioning, stronger credibility, and systems ready to grow with you.",
+      icon: Sparkles,
+    },
+    {
+      name: "Construction companies",
+      description:
+        "Turn proven workmanship into visible trust with a professional brand, project-led website, and clearer paths for new residential and commercial enquiries.",
+      icon: Building2,
+    },
+    {
+      name: "Trade and service businesses",
+      description:
+        "Help local customers understand your services, trust your expertise, and request the right job through a sharper and easier-to-use digital presence.",
+      icon: Wrench,
+    },
+    {
+      name: "Property management companies",
+      description:
+        "Bring services, communication, and credibility into one consistent digital presence that reassures property owners, tenants, and business partners.",
+      icon: KeyRound,
+    },
+    {
+      name: "Real estate professionals",
+      description:
+        "Build a recognisable personal or agency brand that presents property professionally and keeps you memorable before, during, and after each transaction.",
+      icon: House,
+    },
+    {
+      name: "Professional service providers",
+      description:
+        "Translate complex expertise into clear positioning, credible content, and a polished website that gives prospective clients confidence to make contact.",
+      icon: BriefcaseBusiness,
+    },
+  ] satisfies AboutClient[],
+  closing: {
+    eyebrow: "Looking forward",
+    title: "To create, we need to talk.",
+    copy:
+      "The best brands are built when people, ideas, and businesses are meaningfully connected. Nodo creates digital experiences and brand foundations that help businesses grow with clarity, confidence, and purpose.",
+    cta: "Let's talk",
   },
 };
 
@@ -511,6 +726,16 @@ export type Plan = {
   tone: "entry" | "growth" | "premium" | "one-off";
 };
 
+export type PlanCadenceItem = {
+  planSlug: WebsitePlanSlug;
+  eyebrow: string;
+  term: string;
+  points: {
+    label: string;
+    description: string;
+  }[];
+};
+
 export type PlansHubCard = {
   eyebrow: string;
   title: string;
@@ -588,17 +813,17 @@ export const plansPageContent = {
     eyebrow: "Website plans",
     title: "Website plans for launch, support, and ongoing improvement.",
     subtitle: "",
-    copy: "Choose a one-off website build or an ongoing partnership that keeps your website updated, supported, and improving after launch.",
+    copy: "Choose a one-off website build or an ongoing partnership that keeps your website updated, supported, and improving for search, AI discovery, and real enquiries after launch.",
     highlights: [
       "One-off build available",
       "Monthly support available",
-      "Built to keep improving",
+      "SEO + AI discovery ready",
     ],
   },
   positioning: {
     eyebrow: "Partner model",
     title: "A website needs care after launch.",
-    copy: "Your website can keep improving after it goes live: updates, support, SEO basics, conversion improvements, and clearer paths for enquiries. That is what the partnership plans are built for.",
+    copy: "Your website can keep improving after it goes live: updates, support, SEO foundations, local visibility, AI search/GEO readiness, conversion improvements, and clearer paths for enquiries. That is what the partnership plans are built for.",
   },
   pricingNote:
     "All prices are indicative, GST exclusive, and may vary depending on scope.",
@@ -636,6 +861,7 @@ export const plans: Plan[] = [
       "Professional website build",
       "Responsive design",
       "Essential on-page SEO",
+      "AI search/GEO-ready content structure",
       "Analytics setup",
       "Hosting and maintenance support",
       "Monthly updates",
@@ -662,6 +888,7 @@ export const plans: Plan[] = [
       "Everything in Nodo Flow",
       "Local SEO support",
       "Google Business Profile support",
+      "AI search/GEO visibility basics",
       "Conversion-focused improvements",
       "Landing page or growth updates",
       "Reporting and roadmap guidance",
@@ -685,6 +912,7 @@ export const plans: Plan[] = [
       "A premium partnership for businesses that need deeper optimisation, more complex website improvements, and higher-touch strategic support.",
     includedFeatures: [
       "Everything in Nodo Growth",
+      "Advanced AI search/GEO optimisation",
       "Advanced conversion support",
       "Booking, FAQ or lead handling improvements",
       "Advanced integrations",
@@ -707,6 +935,7 @@ export const plans: Plan[] = [
       "Website design and development",
       "Responsive layout",
       "Essential on-page SEO",
+      "AI search/GEO-ready page structure",
       "Analytics setup",
       "Launch support",
       "Limited post-launch support",
@@ -715,11 +944,123 @@ export const plans: Plan[] = [
       "Ongoing monthly updates",
       "Recurring optimisation",
       "Local SEO support",
+      "Ongoing AI search/GEO optimisation",
       "Google Business support",
       "Continuous strategy input",
     ],
     ctaLabel: "Talk about Launch",
     tone: "one-off",
+  },
+];
+
+export const planCadenceItems: PlanCadenceItem[] = [
+  {
+    planSlug: "nodo-flow",
+    eyebrow: "Plan cadence",
+    term: "12 months",
+    points: [
+      {
+        label: "First 90 days",
+        description:
+          "Build, onboarding, analytics, SEO structure, and the first improvement roadmap.",
+      },
+      {
+        label: "Monthly cadence",
+        description:
+          "Updates, maintenance, small improvements, and support to keep the site current.",
+      },
+      {
+        label: "What gets reported",
+        description:
+          "Website health, enquiry signals, traffic basics, completed updates, and next actions.",
+      },
+      {
+        label: "What improves over time",
+        description:
+          "Content clarity, service pages, local relevance, trust signals, and enquiry paths.",
+      },
+    ],
+  },
+  {
+    planSlug: "nodo-growth",
+    eyebrow: "Plan cadence",
+    term: "12 months",
+    points: [
+      {
+        label: "First 90 days",
+        description:
+          "Flow setup plus local visibility, Google Business support, and conversion priorities.",
+      },
+      {
+        label: "Monthly cadence",
+        description:
+          "Optimisation, landing page or growth updates, reporting, and roadmap guidance.",
+      },
+      {
+        label: "What gets reported",
+        description:
+          "Visibility progress, enquiries, content opportunities, Google Business activity, and priorities.",
+      },
+      {
+        label: "What improves over time",
+        description:
+          "Local search presence, AI search/GEO basics, conversion paths, and campaign-ready pages.",
+      },
+    ],
+  },
+  {
+    planSlug: "nodo-nexus",
+    eyebrow: "Plan cadence",
+    term: "12 months",
+    points: [
+      {
+        label: "First 90 days",
+        description:
+          "Growth setup plus advanced optimisation planning, integrations, and strategic direction.",
+      },
+      {
+        label: "Monthly cadence",
+        description:
+          "Priority optimisation, technical improvements, conversion work, strategic reviews, and faster support.",
+      },
+      {
+        label: "What gets reported",
+        description:
+          "Visibility work, conversion priorities, integration progress, support activity, and next steps.",
+      },
+      {
+        label: "What improves over time",
+        description:
+          "AI search/GEO, lead handling, booking or FAQ flows, integrations, and key user journeys.",
+      },
+    ],
+  },
+  {
+    planSlug: "nodo-launch",
+    eyebrow: "Launch path",
+    term: "One-off",
+    points: [
+      {
+        label: "Launch sprint",
+        description:
+          "A focused build from approved scope to a working launch-ready website.",
+      },
+      {
+        label: "Go-live handover",
+        description:
+          "Launch support, analytics, basic SEO structure, and handover direction.",
+      },
+      {
+        label: "What gets delivered",
+        description:
+          "Completed website, responsive pages, launch checks, tracking, and agreed scope.",
+      },
+      {
+        label: "What can improve next",
+        description:
+          "Future content, local visibility, conversion improvements, or ongoing support.",
+      },
+    ],
   },
 ];
 
@@ -790,6 +1131,7 @@ export const marketingPlans: CommercialPlan[] = [
       "Social media management",
       "Content creation",
       "Reels and short-form video",
+      "AI search/GEO topic guidance",
       "Basic paid ads",
       "Content strategy",
       "Analytics and monthly reporting",
@@ -811,6 +1153,7 @@ export const marketingPlans: CommercialPlan[] = [
       "Advanced paid advertising",
       "Content production",
       "SEO and visibility",
+      "AI search/GEO content direction",
       "Lead generation campaigns",
       "Analytics and optimisation",
       "Ongoing growth support",
@@ -876,6 +1219,7 @@ export const brandingPlans: CommercialPlan[] = [
       "Full brand strategy",
       "Brand positioning",
       "Tone of voice",
+      "AI search/GEO message direction",
       "Advanced brand guidelines",
       "Social media templates",
       "Presentation and pitch decks",
@@ -922,6 +1266,7 @@ export const bundlePlans: CommercialPlan[] = [
       "Brand Growth",
       "Marketing Growth",
       "Monthly strategy call",
+      "AI search/GEO visibility direction",
       "Priority support",
       "Aligned strategy and visual direction",
     ],
@@ -942,6 +1287,7 @@ export const bundlePlans: CommercialPlan[] = [
       "Website Nexus",
       "Full Brand & Launch",
       "Full Digital Marketing",
+      "Advanced AI search/GEO visibility support",
       "Advanced conversion support",
       "Priority turnaround",
       "Connected digital direction",
@@ -993,6 +1339,15 @@ export const planComparisonRows: PlanComparisonRow[] = [
     },
   },
   {
+    feature: "AI search/GEO-ready structure",
+    values: {
+      "nodo-flow": true,
+      "nodo-growth": true,
+      "nodo-nexus": true,
+      "nodo-launch": true,
+    },
+  },
+  {
     feature: "Analytics setup",
     values: {
       "nodo-flow": true,
@@ -1035,6 +1390,15 @@ export const planComparisonRows: PlanComparisonRow[] = [
       "nodo-growth": true,
       "nodo-nexus": true,
       "nodo-launch": false,
+    },
+  },
+  {
+    feature: "AI search/GEO visibility support",
+    values: {
+      "nodo-flow": "Foundation",
+      "nodo-growth": "Visibility basics",
+      "nodo-nexus": "Advanced optimisation",
+      "nodo-launch": "Launch-ready structure",
     },
   },
   {

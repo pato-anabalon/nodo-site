@@ -15,7 +15,20 @@ gsap.registerPlugin(useGSAP);
 const PAGE_TOP_VISIBILITY_Y = 8;
 const HEADER_HOVER_ZONE_HEIGHT = 92;
 const NAVBAR_REVEAL_UP_SCROLL_DISTANCE = 72;
+const desktopNavigation = [{ label: "Home", href: "/" }, ...navigation];
 const mobileNavigation = [{ label: "Home", href: "/" }, ...navigation];
+const plansDropdownLinks = [
+  {
+    label: "Website Plans",
+    href: "/plans/websites",
+    description: "Website builds, support, and ongoing improvement.",
+  },
+  {
+    label: "Marketing & Branding",
+    href: "/plans/marketing-branding",
+    description: "Visibility, identity, and connected launch support.",
+  },
+];
 
 export function Header() {
   const root = useRef<HTMLElement>(null);
@@ -27,7 +40,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const activeHref =
-    navigation.find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
+    desktopNavigation.find((item) => pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`)))
       ?.href ?? null;
   const indicatorHref = previewHref ?? activeHref;
 
@@ -281,9 +294,67 @@ export function Header() {
               width: indicator.width,
             }}
           />
-          {navigation.map((item) => {
+          {desktopNavigation.map((item) => {
             const isActive = item.href === activeHref;
             const isPreviewingAnotherItem = Boolean(previewHref && previewHref !== activeHref);
+            const isPlansItem = item.href === "/plans";
+
+            if (isPlansItem) {
+              return (
+                <div
+                  key={item.href}
+                  className="group/plans relative z-20"
+                  onFocus={() => setPreviewHref(item.href)}
+                  onMouseEnter={() => setPreviewHref(item.href)}
+                >
+                  <Link
+                    href={item.href}
+                    ref={(element) => {
+                      navItemRefs.current[item.href] = element;
+                    }}
+                    aria-current={isActive ? "page" : undefined}
+                    aria-haspopup="true"
+                    data-testid="site-header-desktop-plans-link"
+                    onClick={() => setPreviewHref(item.href)}
+                    className={cn(
+                      "relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 active:scale-[0.98]",
+                      isActive && isPreviewingAnotherItem && "text-nodo-lavender",
+                      isActive && !isPreviewingAnotherItem && "text-white",
+                      !isActive && "text-white/64 hover:text-white",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                  <div
+                    data-testid="site-header-plans-dropdown"
+                    className="pointer-events-none absolute left-1/2 top-full z-30 w-[21rem] -translate-x-1/2 pt-4 opacity-0 transition duration-200 group-hover/plans:pointer-events-auto group-hover/plans:translate-y-0 group-hover/plans:opacity-100 group-focus-within/plans:pointer-events-auto group-focus-within/plans:translate-y-0 group-focus-within/plans:opacity-100"
+                  >
+                    <div className="rounded-[1.35rem] border border-white/12 bg-nodo-black/94 p-2 text-white shadow-[0_26px_80px_rgba(0,0,0,0.34)] backdrop-blur-md">
+                      {plansDropdownLinks.map((link) => {
+                        const isSubActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
+
+                        return (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            aria-current={isSubActive ? "page" : undefined}
+                            data-testid={`site-header-plans-dropdown-${link.label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                            onClick={() => setPreviewHref(item.href)}
+                            className={cn(
+                              "block rounded-[1rem] border border-transparent px-4 py-3 text-left transition duration-200 hover:border-white/10 hover:bg-white/[0.075] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nodo-lavender",
+                              isSubActive && "bg-white/[0.095] text-white",
+                            )}
+                          >
+                            <span className="block text-sm font-black text-white">{link.label}</span>
+                            <span className="mt-1 block text-xs leading-5 text-white/52">{link.description}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
 
             return (
               <Link

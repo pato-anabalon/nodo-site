@@ -286,7 +286,6 @@ Recommended next actions:
 ## Known Pending Items
 
 - Create/complete a Google Business Profile.
-- Finish `/about` before making it indexable.
 - Complete and re-enable the hidden selected-work section in `/case-studies`.
 - Gather missing PlasterPro/PISNCO/video client material.
 - Gather testimonials, client quotes, reviews, or measurable outcomes that can be used honestly.
@@ -301,6 +300,14 @@ Recommended next actions:
   - `digital-marketing-auckland` second, once there is enough social/content proof to support the page.
   - `branding-auckland` third, unless Nodo has brand identity examples ready sooner.
 - Re-check visual QA in browser after each design-heavy change.
+- AI search/GEO/local visibility is now treated as part of Nodo's real offer, not a future-only claim:
+  - Flow and Launch include AI search/GEO-ready website structure.
+  - Growth includes AI search/GEO visibility basics.
+  - Nexus includes advanced AI search/GEO optimisation.
+  - Marketing and connected bundles can include AI search/GEO topic, content, or visibility direction where relevant.
+- `/plans/websites` now includes a plan cadence section after the Launch option: Flow, Growth, and Nexus cover first 90 days, monthly cadence, reporting, and ongoing improvements; Launch uses a separate fast delivery path with sprint, handover, deliverables, and next-step support.
+- `/about` now has a custom premium/editorial Nodo story page and is indexable; founder/person schema can be considered later if approved founder material becomes available.
+- Plan the blog/content hub after the AI search/GEO plan updates are implemented; the blog should educate business owners and support future acquisition, not launch as thin placeholder content.
 
 ## Audit360 v2 Implementation Notes
 
@@ -317,9 +324,9 @@ Implemented from Audit360 v2:
 
 Validated but not implemented:
 
-- `/blog`: keep as 404 until there are multiple real articles and a sustainable NZ query/content angle. Do not ship an empty stub.
+- `/blog`: keep as 404 until the planned content hub implementation starts. The intent is to build it after the AI search/GEO plan updates, with useful owner-facing guidance and a sustainable NZ query/content angle.
 - Google Business Profile, own-name SERP, reviews, review velocity, backlinks, and local citations: business/off-page actions, not repo-only changes.
-- Founder-led `/about`: still needs approved founder story, photo or visual direction, and LinkedIn/person details before making the page indexable.
+- Founder/person expansion for `/about`: still needs approved founder story, photo or visual direction, and LinkedIn/person details before adding person-specific schema or a founder-led section.
 - Testimonials, aggregate ratings, and proof expansion: only add once real client quotes, review data, or supported metrics exist.
 - Booking embed: wait for a confirmed booking provider/URL before adding Cal.com or similar.
 
@@ -333,10 +340,10 @@ These items are intentionally parked until the business/content material is read
   - Create/complete the Nodo GBP.
   - Add the public profile/map URL to the project only after it exists and is confirmed.
   - Start collecting real reviews after the GBP is ready.
-- Founder-led `/about`:
+- Future founder-led `/about` expansion:
   - Gather founder/person details, photo or approved visual direction, story, credibility points, and what Nodo stands for.
-  - Build `/about` as a real trust page.
-  - Keep `/about` `noIndex` until it is complete.
+  - Add founder/person content only when the material is approved.
+  - Keep the current `/about` indexable unless a future content issue requires review.
 - Case studies and proof:
   - Strengthen PlasterPro with testimonials, project details, extra screenshots, before/after material, or measurable outcomes if available.
   - Gather PISNCO social media examples and context before re-enabling the selected-work section.
@@ -368,7 +375,7 @@ These items are intentionally parked until the business/content material is read
 - `README.md` and `NODO_PROJECT_CONTEXT.md` no longer describe `/case-studies` as a placeholder.
 - `README.md` and `NODO_PROJECT_CONTEXT.md` include `/services/website-design-auckland`.
 - `NODO_PROJECT_CONTEXT.md` documents the new `HomeProofSection`, `TrackedCtaButton`, `home-proof-*` selectors, and current `home-result-card-*` selectors.
-- The only current `RoutePlaceholder` route documented is `/about`; `/case-studies` is documented as a custom `CaseStudiesPage`.
+- `/about` and `/case-studies` are documented as custom pages; no public content route should be treated as a current `RoutePlaceholder` without verifying the repo.
 
 ## Verification Commands
 

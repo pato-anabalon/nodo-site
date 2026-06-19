@@ -75,6 +75,22 @@
   --font-sans: var(--font-inter);
 }
 
+@keyframes about-client-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.about-client-progress {
+  animation-name: about-client-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -68,7 +68,7 @@ npm run start
 - `/api/contact`
 - `/api/contact/upload`
 
-`/about` currently uses placeholder page UI and is kept out of the index until it is ready. `/case-studies` has a custom PlasterPro-focused page and is included in the sitemap.
+`/about` has a custom Nodo story page and is included in the sitemap. `/case-studies` has a custom PlasterPro-focused page and is included in the sitemap.
 
 ## Architecture
 
@@ -100,6 +100,20 @@ Global styles and design tokens live in [`src/app/globals.css`](./src/app/global
 - Major sections use stable `data-testid` hooks for browser verification and regression checks.
 - GSAP animations should respect `prefers-reduced-motion`.
 - The local UI/UX skill lives at `.codex/skills/ui-ux-pro-max/SKILL.md`; use it for design reviews, layout improvements, visual hierarchy, and accessibility checks.
+
+Visual QA screenshots can be captured with:
+
+```bash
+npm run qa:visual -- /about --name about
+```
+
+The script skips the one-time preloader, hides the analytics consent banner for that QA session, scrolls the page to trigger reveal animations, and writes desktop/mobile screenshots to `/private/tmp`.
+
+Pinned scroll states can be captured at a specific point in their journey:
+
+```bash
+npm run qa:visual -- /about --name values-middle --viewport desktop --focus-test-id about-values-section --scroll-progress 0.5
+```
 
 See [`NODO_PROJECT_CONTEXT.md`](./NODO_PROJECT_CONTEXT.md) for the full `data-testid` map and responsive architecture notes.
 

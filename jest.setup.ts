@@ -165,6 +165,7 @@ jest.mock("gsap", () => ({
       add: jest.fn().mockReturnThis(),
       call: jest.fn().mockReturnThis(),
       from: jest.fn().mockReturnThis(),
+      fromTo: jest.fn().mockReturnThis(),
       set: jest.fn().mockReturnThis(),
       to: jest.fn().mockReturnThis(),
       play: jest.fn().mockReturnThis(),

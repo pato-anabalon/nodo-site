@@ -4,10 +4,16 @@ import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { trackPlansFaqOpened } from "@/lib/analytics";
 import { plansFaq } from "@/lib/content";
+import { cn } from "@/lib/utils";
 import { testIdSlug } from "@/lib/utils";
 
-export function PlansFaq() {
+type PlansFaqProps = {
+  tone?: "dark" | "light";
+};
+
+export function PlansFaq({ tone = "dark" }: PlansFaqProps) {
   const [openQuestion, setOpenQuestion] = useState(plansFaq[0]?.question ?? "");
+  const isLight = tone === "light";
 
   return (
     <div data-testid="plans-faq-list" className="grid gap-3">
@@ -19,13 +25,21 @@ export function PlansFaq() {
           <article
             key={item.question}
             data-testid={`plans-faq-item-${slug}`}
-            className="rounded-3xl border border-white/12 bg-white/[0.045]"
+            className={cn(
+              "rounded-3xl border",
+              isLight
+                ? "border-black/8 bg-white shadow-[0_18px_60px_rgba(22,19,25,0.08)]"
+                : "border-white/12 bg-white/[0.045]",
+            )}
             data-state={isOpen ? "open" : "closed"}
           >
             <button
               type="button"
               data-testid={`plans-faq-toggle-${slug}`}
-              className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left text-white sm:px-6"
+              className={cn(
+                "flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6",
+                isLight ? "text-nodo-black" : "text-white",
+              )}
               aria-expanded={isOpen}
               onClick={() => {
                 setOpenQuestion(isOpen ? "" : item.question);
@@ -37,7 +51,12 @@ export function PlansFaq() {
             >
               <span className="text-lg font-black leading-tight">{item.question}</span>
               <span
-                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] transition-transform duration-300 motion-reduce:transition-none data-[state=open]:rotate-180"
+                className={cn(
+                  "inline-flex size-9 shrink-0 items-center justify-center rounded-full border transition-transform duration-300 motion-reduce:transition-none data-[state=open]:rotate-180",
+                  isLight
+                    ? "border-black/10 bg-nodo-purple/8 text-nodo-purple"
+                    : "border-white/14 bg-white/[0.06]",
+                )}
                 data-state={isOpen ? "open" : "closed"}
               >
                 {isOpen ? (
@@ -53,7 +72,12 @@ export function PlansFaq() {
               data-state={isOpen ? "open" : "closed"}
             >
               <div className="min-h-0">
-                <p className="px-5 pb-5 text-pretty text-base leading-7 text-white/64 sm:px-6">
+                <p
+                  className={cn(
+                    "px-5 pb-5 text-pretty text-base leading-7 sm:px-6",
+                    isLight ? "text-nodo-ink/68" : "text-white/64",
+                  )}
+                >
                   {item.answer}
                 </p>
               </div>

@@ -140,7 +140,7 @@ src/app/api/contact/route.ts
 src/app/api/contact/upload/route.ts
 ```
 
-`/about` still uses `RoutePlaceholder` and is intentionally `noIndex` until a real trust page is ready. `/case-studies` has a custom PlasterPro-focused page, is indexable, and is included in the sitemap.
+`/about` has a custom Nodo story page, is indexable, and is included in the sitemap. `/case-studies` has a custom PlasterPro-focused page, is indexable, and is included in the sitemap.
 
 ## Component Architecture
 
@@ -165,6 +165,9 @@ src/components/templates
 
 ### Molecules
 
+- `AboutClientFocusButton.tsx`: reusable client selector with off-side neon icon, active state, and timed progress bar.
+- `AboutPhilosophyCard.tsx`: reusable Nodo philosophy card with compact mobile and editorial desktop layouts.
+- `AboutValueSignalCard.tsx`: reusable value card with mobile constellation treatment and desktop scroll-signal composition.
 - `ContactForm.tsx`: contact form, attachment UI, submission animation, upload orchestration, and contact API call.
 - `FooterLinkColumn.tsx`: footer column and link rendering.
 - `ProcessStep.tsx`: home process step row.
@@ -195,6 +198,7 @@ src/components/templates
 - `PlansHubPage.tsx`: `/plans` hub.
 - `WebsitePlansPage.tsx`: `/plans/websites`.
 - `MarketingBrandingPlansPage.tsx`: `/plans/marketing-branding`.
+- `AboutPage.tsx`: `/about` Nodo story, values, clients, and final CTA page.
 
 Content is centralized mostly in:
 
@@ -936,6 +940,8 @@ For frontend or animation changes:
 - Check reduced-motion behavior when relevant.
 - Verify that visible text does not overflow cards, buttons, or panels.
 - Verify that `data-testid` hooks remain stable.
+- Use `npm run qa:visual -- /about --name about` or another route/name pair for controlled Playwright screenshots. The script skips the preloader, hides the analytics consent banner for the QA session, scrolls to trigger reveal animations, and writes desktop/mobile screenshots to `/private/tmp`.
+- For pinned sections, add `--focus-test-id <test-id> --scroll-progress <0-1>` to capture a viewport at a specific point in the scroll-linked animation.
 
 For contact form changes:
 
