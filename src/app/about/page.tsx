@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { RoutePlaceholder } from "@/components/molecules/RoutePlaceholder";
-import { placeholderPages } from "@/lib/content";
+import { AboutPage as AboutPageTemplate } from "@/components/templates/AboutPage";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About",
-  description: placeholderPages.about.description,
+  title: "About Nodo",
+  description:
+    "Nodo is a creative agency in Auckland helping service businesses build sharper brands, better websites, and a more consistent digital presence.",
   path: "/about",
-  noIndex: true,
 });
 
 export default function AboutPage() {
-  return <RoutePlaceholder pageKey="about" headingLevel="h1" {...placeholderPages.about} />;
+  return <AboutPageTemplate />;
 }

@@ -29,6 +29,10 @@ jest.mock("@/components/templates/CaseStudiesPage", () => ({
   CaseStudiesPage: () => <main data-testid="case-studies-page-main" />,
 }));
 
+jest.mock("@/components/templates/AboutPage", () => ({
+  AboutPage: () => <main data-testid="about-page-main" />,
+}));
+
 jest.mock("@/components/organisms/ContactSection", () => ({
   ContactSection: ({ selectedPlanSlug, intent, source }: {
     selectedPlanSlug?: string;
@@ -59,7 +63,8 @@ describe("App Router pages", () => {
   it("should expose expected metadata", () => {
     expect(homeMetadata.title).toBe("Nodo | Website Design, Marketing and Branding in Auckland");
     expect(contactMetadata.title).toBe("Contact");
-    expect(aboutMetadata.robots).toEqual({ index: false, follow: true });
+    expect(aboutMetadata.title).toBe("About Nodo");
+    expect(aboutMetadata.robots).toBeUndefined();
   });
 
   it("should render home", () => {

@@ -11,4 +11,8 @@ describe("sitemap", () => {
       })),
     );
   });
+
+  it("should include the About page now that it is complete", () => {
+    expect(indexableRoutes.some((route) => route.path === "/about")).toBe(true);
+  });
 });

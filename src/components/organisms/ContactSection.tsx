@@ -1,24 +1,14 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Share2,
-  Target,
-  type LucideIcon,
-} from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { ContactForm } from "@/components/molecules/ContactForm";
-import { contactEmail, contactPhone, socialLinks, type SocialPlatform } from "@/lib/seo";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Share2, Target, type LucideIcon } from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { ContactForm } from '@/components/molecules/ContactForm';
+import { contactEmail, contactPhone, socialLinks, type SocialPlatform } from '@/lib/seo';
 
 gsap.registerPlugin(useGSAP);
 
@@ -39,36 +29,36 @@ type ContactDetail = {
 const socialIcons: Record<SocialPlatform, LucideIcon> = {
   instagram: Instagram,
   facebook: Facebook,
-  linkedin: Linkedin,
+  linkedin: Linkedin
 };
 
 const contactDetails: ContactDetail[] = [
   {
-    label: "Location",
-    value: "Auckland, New Zealand",
+    label: 'Location',
+    value: 'Auckland, New Zealand',
     icon: MapPin,
-    testId: "contact-page-detail-location",
+    testId: 'contact-page-detail-location'
   },
   {
-    label: "Best fit",
-    value: "Brand clarity, digital marketing, high-performing websites, and growth plans that connect the work.",
+    label: 'Best fit',
+    value: 'Brand clarity, digital marketing, high-performing websites, and growth plans that connect the work.',
     icon: Target,
-    testId: "contact-page-detail-best-fit",
+    testId: 'contact-page-detail-best-fit'
   },
   {
-    label: "Email",
+    label: 'Email',
     value: contactEmail,
     href: `mailto:${contactEmail}`,
     icon: Mail,
-    testId: "contact-page-detail-email",
+    testId: 'contact-page-detail-email'
   },
   {
-    label: "Phone",
+    label: 'Phone',
     value: contactPhone,
-    href: `tel:${contactPhone.replace(/\s+/g, "")}`,
+    href: `tel:${contactPhone.replace(/\s+/g, '')}`,
     icon: Phone,
-    testId: "contact-page-detail-phone",
-  },
+    testId: 'contact-page-detail-phone'
+  }
 ];
 
 export function ContactSection({ selectedPlanSlug, intent, source }: ContactSectionProps) {
@@ -78,63 +68,63 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.set(
           [
-            ".contact-page-heading > *",
-            ".contact-page-details-card",
-            ".contact-page-detail",
-            ".contact-page-form-card",
-            "[data-testid='contact-form'] > *",
+            '.contact-page-heading > *',
+            '.contact-page-details-card',
+            '.contact-page-detail',
+            '.contact-page-form-card',
+            "[data-testid='contact-form'] > *"
           ],
           {
             autoAlpha: 0,
-            y: 20,
-          },
+            y: 20
+          }
         );
-        gsap.set(".contact-page-form-card", {
-          scale: 0.98,
+        gsap.set('.contact-page-form-card', {
+          scale: 0.98
         });
 
         const tl = gsap.timeline({
           paused: true,
-          defaults: { ease: "power3.out" },
+          defaults: { ease: 'power3.out' }
         });
 
-        tl.to(".contact-page-heading > *", {
+        tl.to('.contact-page-heading > *', {
           autoAlpha: 1,
           y: 0,
           duration: 0.72,
-          stagger: 0.08,
+          stagger: 0.08
         })
           .to(
-            ".contact-page-details-card",
+            '.contact-page-details-card',
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.62,
+              duration: 0.62
             },
-            "-=0.28",
+            '-=0.28'
           )
           .to(
-            ".contact-page-detail",
+            '.contact-page-detail',
             {
               autoAlpha: 1,
               y: 0,
               duration: 0.58,
-              stagger: 0.06,
+              stagger: 0.06
             },
-            "-=0.22",
+            '-=0.22'
           )
           .to(
-            ".contact-page-form-card",
+            '.contact-page-form-card',
             {
               autoAlpha: 1,
               y: 0,
               scale: 1,
-              duration: 0.78,
+              duration: 0.78
             },
-            "-=0.42",
+            '-=0.42'
           )
           .to(
             "[data-testid='contact-form'] > *",
@@ -143,48 +133,48 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
               y: 0,
               duration: 0.54,
               stagger: 0.045,
-              clearProps: "transform,visibility",
+              clearProps: 'transform,visibility'
             },
-            "-=0.46",
+            '-=0.46'
           );
 
         const playIntro = () => {
           tl.play(0);
         };
 
-        if (document.documentElement.dataset.nodoPreloaded === "true") {
+        if (document.documentElement.dataset.nodoPreloaded === 'true') {
           playIntro();
         } else {
-          window.addEventListener("nodo:preloader-complete", playIntro, {
-            once: true,
+          window.addEventListener('nodo:preloader-complete', playIntro, {
+            once: true
           });
         }
 
         return () => {
-          window.removeEventListener("nodo:preloader-complete", playIntro);
+          window.removeEventListener('nodo:preloader-complete', playIntro);
         };
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
+      mm.add('(prefers-reduced-motion: reduce)', () => {
         gsap.set(
           [
-            ".contact-page-heading > *",
-            ".contact-page-details-card",
-            ".contact-page-detail",
-            ".contact-page-form-card",
-            "[data-testid='contact-form'] > *",
+            '.contact-page-heading > *',
+            '.contact-page-details-card',
+            '.contact-page-detail',
+            '.contact-page-form-card',
+            "[data-testid='contact-form'] > *"
           ],
           {
             autoAlpha: 1,
             y: 0,
-            scale: 1,
-          },
+            scale: 1
+          }
         );
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -200,7 +190,7 @@ export function ContactSection({ selectedPlanSlug, intent, source }: ContactSect
         fps={34}
         interactive
         maxDevicePixelRatio={1.5}
-        maxNodes={104}
+        maxNodes={50}
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.10),transparent_28%),radial-gradient(circle_at_82%_22%,rgba(232,48,207,0.06),transparent_22%)]" />
       <Container className="relative z-10 flex flex-1">
