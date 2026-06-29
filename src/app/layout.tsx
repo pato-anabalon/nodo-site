@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { JsonLdScript } from "@/components/atoms/JsonLdScript";
 import { AnalyticsConsentManager } from "@/components/molecules/AnalyticsConsentManager";
+import { RouteScrollReset } from "@/components/atoms/RouteScrollReset";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 import { PagePreloader } from "@/components/organisms/PagePreloader";
@@ -48,9 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-NZ" className={inter.variable}>
+    <html lang="en-NZ" className={inter.variable} data-scroll-behavior="smooth">
       <body>
         <JsonLdScript id="global-structured-data" data={createGlobalStructuredData()} />
+        <RouteScrollReset />
         <PagePreloader />
         <Header />
         {children}

@@ -11,6 +11,8 @@ describe("home section organisms", () => {
     renderWithProviders(<ServicesSection />);
 
     expect(screen.getByRole("heading", { name: /three core services/i })).toBeInTheDocument();
+    expect(screen.getByTestId("home-services-card-grid")).toBeInTheDocument();
+    expect(screen.getByTestId("home-service-card-branding")).toBeInTheDocument();
   });
 
   it("should render the proof section with case study CTA", () => {
