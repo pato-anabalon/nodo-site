@@ -1,7 +1,7 @@
-import "@testing-library/jest-dom";
-import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
-import { TextDecoder, TextEncoder } from "node:util";
-import * as React from "react";
+import '@testing-library/jest-dom';
+import { ReadableStream, TransformStream, WritableStream } from 'node:stream/web';
+import { TextDecoder, TextEncoder } from 'node:util';
+import * as React from 'react';
 
 const mockReact = React;
 
@@ -10,34 +10,36 @@ Object.assign(globalThis, {
   TextDecoder,
   TextEncoder,
   TransformStream,
-  WritableStream,
+  WritableStream
 });
 
 // `undici` reads TextEncoder during module initialization, so it must be loaded after the polyfill above.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const undici = require("undici") as typeof import("undici");
+const undici = require('undici') as typeof import('undici');
 
 Object.assign(globalThis, {
   fetch: globalThis.fetch ?? undici.fetch,
   Headers: globalThis.Headers ?? undici.Headers,
   Request: globalThis.Request ?? undici.Request,
-  Response: globalThis.Response ?? undici.Response,
+  Response: globalThis.Response ?? undici.Response
 });
 
-const createMatchMedia = (matches = false) => (query: string) => ({
-  matches,
-  media: query,
-  onchange: null,
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  addListener: jest.fn(),
-  removeListener: jest.fn(),
-  dispatchEvent: jest.fn(),
-});
+const createMatchMedia =
+  (matches = false) =>
+  (query: string) => ({
+    matches,
+    media: query,
+    onchange: null,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  });
 
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: createMatchMedia(false),
+  value: createMatchMedia(false)
 });
 
 class ResizeObserverMock {
@@ -52,24 +54,24 @@ class IntersectionObserverMock {
   disconnect = jest.fn();
 }
 
-Object.defineProperty(window, "ResizeObserver", {
+Object.defineProperty(window, 'ResizeObserver', {
   writable: true,
-  value: ResizeObserverMock,
+  value: ResizeObserverMock
 });
 
-Object.defineProperty(window, "IntersectionObserver", {
+Object.defineProperty(window, 'IntersectionObserver', {
   writable: true,
-  value: IntersectionObserverMock,
+  value: IntersectionObserverMock
 });
 
-Object.defineProperty(window, "requestAnimationFrame", {
+Object.defineProperty(window, 'requestAnimationFrame', {
   writable: true,
-  value: jest.fn(() => 1),
+  value: jest.fn(() => 1)
 });
 
-Object.defineProperty(window, "cancelAnimationFrame", {
+Object.defineProperty(window, 'cancelAnimationFrame', {
   writable: true,
-  value: jest.fn(),
+  value: jest.fn()
 });
 
 HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
@@ -79,7 +81,7 @@ HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
   clearRect: jest.fn(),
   closePath: jest.fn(),
   createRadialGradient: jest.fn(() => ({
-    addColorStop: jest.fn(),
+    addColorStop: jest.fn()
   })),
   fill: jest.fn(),
   fillRect: jest.fn(),
@@ -91,7 +93,7 @@ HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
   scale: jest.fn(),
   setTransform: jest.fn(),
   stroke: jest.fn(),
-  translate: jest.fn(),
+  translate: jest.fn()
 }));
 
 Element.prototype.getBoundingClientRect = jest.fn(() => ({
@@ -103,59 +105,61 @@ Element.prototype.getBoundingClientRect = jest.fn(() => ({
   width: 100,
   x: 0,
   y: 0,
-  toJSON: () => ({}),
+  toJSON: () => ({})
 }));
 
-jest.mock("@vercel/analytics", () => ({
-  track: jest.fn(),
+jest.mock('@vercel/analytics', () => ({
+  track: jest.fn()
 }));
 
-jest.mock("@vercel/analytics/next", () => ({
-  Analytics: () => null,
+jest.mock('@vercel/analytics/next', () => ({
+  Analytics: () => null
 }));
 
-jest.mock("next/navigation", () => ({
-  usePathname: jest.fn(() => "/"),
+jest.mock('next/navigation', () => ({
+  usePathname: jest.fn(() => '/'),
   useRouter: jest.fn(() => ({
     back: jest.fn(),
     push: jest.fn(),
-    replace: jest.fn(),
+    replace: jest.fn()
   })),
-  useSearchParams: jest.fn(() => new URLSearchParams()),
+  useSearchParams: jest.fn(() => new URLSearchParams())
 }));
 
-jest.mock("@upstash/redis", () => ({
+jest.mock('@upstash/redis', () => ({
   Redis: jest.fn().mockImplementation(() => ({
     expire: jest.fn(),
     get: jest.fn(),
     incr: jest.fn(),
-    set: jest.fn(),
-  })),
+    set: jest.fn()
+  }))
 }));
 
-jest.mock("@gsap/react", () => ({
+jest.mock('@gsap/react', () => ({
   useGSAP: (callback: () => void | (() => void)) => {
     mockReact.useEffect(() => callback(), [callback]);
-  },
+  }
 }));
 
 const matchMediaMock = {
   add: jest.fn((_query, callback) => {
     callback({ conditions: { reduceMotion: false } });
   }),
-  revert: jest.fn(),
+  revert: jest.fn()
 };
 
-jest.mock("gsap", () => ({
+jest.mock('gsap', () => ({
   __esModule: true,
   default: {
     from: jest.fn(() => ({
+      kill: jest.fn().mockReturnThis(),
       play: jest.fn().mockReturnThis(),
-      restart: jest.fn().mockReturnThis(),
+      restart: jest.fn().mockReturnThis()
     })),
     fromTo: jest.fn(() => ({
+      kill: jest.fn().mockReturnThis(),
       play: jest.fn().mockReturnThis(),
-      restart: jest.fn().mockReturnThis(),
+      restart: jest.fn().mockReturnThis()
     })),
     killTweensOf: jest.fn(),
     matchMedia: jest.fn(() => matchMediaMock),
@@ -169,25 +173,33 @@ jest.mock("gsap", () => ({
       set: jest.fn().mockReturnThis(),
       to: jest.fn().mockReturnThis(),
       play: jest.fn().mockReturnThis(),
-      reverse: jest.fn().mockReturnThis(),
+      reverse: jest.fn().mockReturnThis()
     })),
     to: jest.fn(() => ({
+      kill: jest.fn().mockReturnThis(),
       play: jest.fn().mockReturnThis(),
       restart: jest.fn().mockReturnThis(),
-      reverse: jest.fn().mockReturnThis(),
+      reverse: jest.fn().mockReturnThis()
     })),
     utils: {
-      toArray: jest.fn(() => []),
-    },
-  },
+      toArray: jest.fn(() => [])
+    }
+  }
 }));
 
-jest.mock("gsap/ScrollTrigger", () => ({
+jest.mock('gsap/CustomEase', () => ({
+  CustomEase: {
+    create: jest.fn(() => 'custom-ease')
+  }
+}));
+
+jest.mock('gsap/ScrollTrigger', () => ({
   ScrollTrigger: {
     batch: jest.fn(),
     create: jest.fn((options) => {
       options?.onEnter?.();
       return { kill: jest.fn() };
     }),
-  },
+    refresh: jest.fn()
+  }
 }));

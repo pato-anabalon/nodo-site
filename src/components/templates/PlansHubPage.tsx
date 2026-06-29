@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
@@ -12,6 +12,7 @@ import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 import { plansHubCards, plansHubContent } from '@/lib/content';
+import { createPlansHubNodo3dCardReveal } from '@/lib/gsap-plans-hub-nodo-3d-reveal';
 import { testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -25,26 +26,27 @@ export function PlansHubPage() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
+      const plansHubCardGrid = root.current?.querySelector<HTMLElement>('[data-testid="plans-hub-card-grid"]');
+      const cardReveal = plansHubCardGrid
+        ? createPlansHubNodo3dCardReveal({
+            container: plansHubCardGrid,
+            itemSelector: '.plans-hub-reveal-card'
+          })
+        : null;
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.set('.plans-hub-hero-title-word', { yPercent: 135 });
         gsap.set('.plans-hub-hero-title', { autoAlpha: 1 });
         gsap.set(
-          [
-            '.plans-hub-hero-eyebrow',
-            '.plans-hub-hero-copy',
-            '.plans-hub-hero-chip',
-            '.plans-hub-video-frame',
-          ],
+          ['.plans-hub-hero-eyebrow', '.plans-hub-hero-copy', '.plans-hub-hero-chip', '.plans-hub-video-frame'],
           {
             autoAlpha: 0,
-            y: 22,
-          },
+            y: 22
+          }
         );
         gsap.set('.plans-hub-video-glow', { autoAlpha: 0, scale: 0.92 });
         gsap.set('.plans-hub-path-line', { scaleX: 0, transformOrigin: 'left center' });
         gsap.set('.plans-hub-path-node', { autoAlpha: 0, scale: 0.4 });
-        gsap.set('.plans-hub-path-card', { autoAlpha: 0, y: 34 });
 
         const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
@@ -60,15 +62,14 @@ export function PlansHubPage() {
           scrollTrigger: {
             trigger: '[data-testid="plans-hub-positioning-section"]',
             start: 'top 72%',
-            once: true,
+            once: true
           },
-          defaults: { ease: 'power3.out' },
+          defaults: { ease: 'power3.out' }
         });
 
         pathTl
           .to('.plans-hub-path-line', { scaleX: 1, duration: 0.95 })
-          .to('.plans-hub-path-node', { autoAlpha: 1, scale: 1, duration: 0.42, stagger: 0.12 }, '-=0.62')
-          .to('.plans-hub-path-card', { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.1 }, '-=0.22');
+          .to('.plans-hub-path-node', { autoAlpha: 1, scale: 1, duration: 0.42, stagger: 0.12 }, '-=0.62');
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
@@ -82,8 +83,7 @@ export function PlansHubPage() {
             '.plans-hub-video-frame',
             '.plans-hub-video-glow',
             '.plans-hub-path-line',
-            '.plans-hub-path-node',
-            '.plans-hub-path-card',
+            '.plans-hub-path-node'
           ],
           {
             autoAlpha: 1,
@@ -91,14 +91,17 @@ export function PlansHubPage() {
             yPercent: 0,
             scale: 1,
             scaleX: 1,
-            rotation: 0,
-          },
+            rotation: 0
+          }
         );
       });
 
-      return () => mm.revert();
+      return () => {
+        cardReveal?.revert();
+        mm.revert();
+      };
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -156,7 +159,7 @@ export function PlansHubPage() {
                   </MetaChip>
                 );
 
-                return highlight === "Bundles" ? (
+                return highlight === 'Bundles' ? (
                   <span key={highlight} className="hidden sm:inline-flex">
                     {chip}
                   </span>
@@ -225,7 +228,7 @@ export function PlansHubPage() {
                         .toLowerCase()
                         .replace(/[^a-z0-9]+/g, '-')
                         .replace(/^-|-$/g, '')}`}
-                      className="plans-hub-path-card group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-black/8 bg-black/[0.025] p-5 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/55 hover:bg-white hover:shadow-[0_18px_44px_rgba(124,58,237,0.18)] sm:p-6"
+                      className="plans-hub-reveal-card group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-black/8 bg-black/[0.025] p-5 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/55 hover:bg-white hover:shadow-[0_18px_44px_rgba(124,58,237,0.18)] sm:p-6"
                     >
                       <Icon
                         aria-hidden="true"
