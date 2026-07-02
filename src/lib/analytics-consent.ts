@@ -1,25 +1,25 @@
-export const ANALYTICS_CONSENT_STORAGE_KEY = "nodo:analytics-consent";
-export const ANALYTICS_CONSENT_CHANGED_EVENT = "nodo:analytics-consent-changed";
-export const ANALYTICS_PREFERENCES_OPEN_EVENT = "nodo:analytics-preferences-open";
+export const ANALYTICS_CONSENT_STORAGE_KEY = 'nodo:analytics-consent';
+export const ANALYTICS_CONSENT_CHANGED_EVENT = 'nodo:analytics-consent-changed';
+export const ANALYTICS_PREFERENCES_OPEN_EVENT = 'nodo:analytics-preferences-open';
 
-export type AnalyticsConsentChoice = "accepted" | "declined";
+export type AnalyticsConsentChoice = 'accepted' | 'declined';
 
 export function getAnalyticsConsent(): AnalyticsConsentChoice | null {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return null;
   }
 
   const stored = window.localStorage.getItem(ANALYTICS_CONSENT_STORAGE_KEY);
 
-  return stored === "accepted" || stored === "declined" ? stored : null;
+  return stored === 'accepted' || stored === 'declined' ? stored : null;
 }
 
 export function hasAnalyticsConsent() {
-  return getAnalyticsConsent() === "accepted";
+  return getAnalyticsConsent() === 'accepted';
 }
 
 export function setAnalyticsConsent(choice: AnalyticsConsentChoice) {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
@@ -28,7 +28,7 @@ export function setAnalyticsConsent(choice: AnalyticsConsentChoice) {
 }
 
 export function openAnalyticsPreferences() {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 

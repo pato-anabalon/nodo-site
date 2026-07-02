@@ -1,5 +1,5 @@
-import type { AboutPhilosophyStep } from "@/lib/content";
-import { testIdSlug } from "@/lib/utils";
+import type { AboutPhilosophyStep } from '@/lib/content';
+import { testIdSlug } from '@/lib/utils';
 
 type AboutPhilosophyCardProps = {
   index: number;
@@ -7,7 +7,7 @@ type AboutPhilosophyCardProps = {
 };
 
 export function AboutPhilosophyCard({ index, step }: AboutPhilosophyCardProps) {
-  const number = String(index + 1).padStart(2, "0");
+  const number = String(index + 1).padStart(2, '0');
 
   return (
     <article
@@ -23,9 +23,7 @@ export function AboutPhilosophyCard({ index, step }: AboutPhilosophyCardProps) {
       >
         {number}
       </div>
-      <h3 className="relative z-10 text-4xl font-black leading-none text-white lg:mt-20 lg:text-5xl">
-        {step.word}
-      </h3>
+      <h3 className="relative z-10 text-4xl font-black leading-none text-white lg:mt-20 lg:text-5xl">{step.word}</h3>
       <p className="relative z-10 mt-3 max-w-[85%] text-sm leading-6 text-white/64 lg:mt-5 lg:max-w-none lg:text-base lg:leading-7">
         {step.line}
       </p>

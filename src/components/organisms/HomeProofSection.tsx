@@ -1,30 +1,20 @@
-import Image from "next/image";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
-import { caseStudiesPageContent } from "@/lib/content";
+import Image from 'next/image';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
+import { caseStudiesPageContent } from '@/lib/content';
 
-const proofPoints = [
-  "Clearer service structure",
-  "Stronger local trust",
-  "More visible quote paths",
-];
+const proofPoints = ['Clearer service structure', 'Stronger local trust', 'More visible quote paths'];
 
 export function HomeProofSection() {
   const { featured } = caseStudiesPageContent;
   const after = featured.comparison.after;
 
   return (
-    <section
-      data-testid="home-proof-section"
-      className="overflow-hidden bg-white py-16 text-nodo-black sm:py-20"
-    >
+    <section data-testid="home-proof-section" className="overflow-hidden bg-white py-16 text-nodo-black sm:py-20">
       <Container>
-        <div
-          data-testid="home-proof-layout"
-          className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center"
-        >
+        <div data-testid="home-proof-layout" className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <ScrollReveal>
             <div data-testid="home-proof-content" className="max-w-3xl">
               <p

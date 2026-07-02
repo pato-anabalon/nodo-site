@@ -1,45 +1,40 @@
-import type { CSSProperties } from "react";
-import { NodoLogo } from "@/components/atoms/NodoLogo";
-import { AnalyticsPreferencesButton } from "@/components/molecules/AnalyticsPreferencesButton";
-import { FooterContactPanel } from "@/components/molecules/FooterContactPanel";
-import { FooterLinkColumn, type FooterLink } from "@/components/molecules/FooterLinkColumn";
+import type { CSSProperties } from 'react';
+import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { AnalyticsPreferencesButton } from '@/components/molecules/AnalyticsPreferencesButton';
+import { FooterContactPanel } from '@/components/molecules/FooterContactPanel';
+import { FooterLinkColumn, type FooterLink } from '@/components/molecules/FooterLinkColumn';
 
-const taglineWords = ["Clarity.", "Speed.", "Results."];
+const taglineWords = ['Clarity.', 'Speed.', 'Results.'];
 
 const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
-    title: "Explore",
+    title: 'Explore',
     links: [
-      { label: "Services", href: "/services" },
-      { label: "Website design Auckland", href: "/services/website-design-auckland" },
-      { label: "Plans", href: "/plans" },
-      { label: "Case studies", href: "/case-studies" },
-    ],
+      { label: 'Services', href: '/services' },
+      { label: 'Website design Auckland', href: '/services/website-design-auckland' },
+      { label: 'Plans', href: '/plans' },
+      { label: 'Case studies', href: '/case-studies' }
+    ]
   },
   {
-    title: "Plans",
+    title: 'Plans',
     links: [
-      { label: "Website Plans", href: "/plans/websites" },
-      { label: "Marketing & Branding", href: "/plans/marketing-branding" },
-      { label: "All-in-One Bundles", href: "/plans/marketing-branding#bundles" },
-    ],
+      { label: 'Website Plans', href: '/plans/websites' },
+      { label: 'Marketing & Branding', href: '/plans/marketing-branding' },
+      { label: 'All-in-One Bundles', href: '/plans/marketing-branding#bundles' }
+    ]
   },
   {
-    title: "Company",
-    links: [
-      { label: "Contact", href: "/contact" },
-    ],
-  },
+    title: 'Company',
+    links: [{ label: 'Contact', href: '/contact' }]
+  }
 ];
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      data-testid="site-footer"
-      className="relative overflow-hidden bg-nodo-black pb-4 text-white"
-    >
+    <footer data-testid="site-footer" className="relative overflow-hidden bg-nodo-black pb-4 text-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.18),transparent_26%),radial-gradient(circle_at_82%_36%,rgba(232,48,207,0.08),transparent_24%)]" />
       <div className="relative z-10">
@@ -60,18 +55,22 @@ export function Footer() {
                     <span
                       key={word}
                       aria-hidden="true"
-                      className={`nodo-footer-tagline-word${wordIndex === 0 ? " nodo-footer-tagline-word-static" : ""}`}
-                      style={{
-                        "--word-delay": `${wordIndex * 2.45}s`,
-                      } as CSSProperties}
+                      className={`nodo-footer-tagline-word${wordIndex === 0 ? ' nodo-footer-tagline-word-static' : ''}`}
+                      style={
+                        {
+                          '--word-delay': `${wordIndex * 2.45}s`
+                        } as CSSProperties
+                      }
                     >
                       {[...word].map((letter, letterIndex) => (
                         <span
                           key={`${word}-${letterIndex}`}
                           className="nodo-footer-tagline-letter"
-                          style={{
-                            "--letter-delay": `${wordIndex * 2.45 + letterIndex * 0.045}s`,
-                          } as CSSProperties}
+                          style={
+                            {
+                              '--letter-delay': `${wordIndex * 2.45 + letterIndex * 0.045}s`
+                            } as CSSProperties
+                          }
                         >
                           {letter}
                         </span>
@@ -79,10 +78,7 @@ export function Footer() {
                     </span>
                   ))}
                 </div>
-                <p
-                  data-testid="site-footer-description"
-                  className="mt-6 max-w-md text-lg leading-8 text-white/62"
-                >
+                <p data-testid="site-footer-description" className="mt-6 max-w-md text-lg leading-8 text-white/62">
                   Website design, marketing, and branding for Auckland service businesses.
                 </p>
               </div>

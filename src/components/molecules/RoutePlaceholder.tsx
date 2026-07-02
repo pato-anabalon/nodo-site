@@ -1,16 +1,16 @@
-import { Container } from "@/components/atoms/Container";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
+import { Container } from '@/components/atoms/Container';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 
 type RoutePlaceholderProps = {
   pageKey: string;
   eyebrow: string;
   title: string;
   description: string;
-  headingLevel?: "h1" | "h2";
+  headingLevel?: 'h1' | 'h2';
 };
 
-export function RoutePlaceholder({ pageKey, eyebrow, title, description, headingLevel = "h2" }: RoutePlaceholderProps) {
+export function RoutePlaceholder({ pageKey, eyebrow, title, description, headingLevel = 'h2' }: RoutePlaceholderProps) {
   return (
     <main data-testid={`${pageKey}-page-main`} className="min-h-screen bg-nodo-black pt-36">
       <Container>

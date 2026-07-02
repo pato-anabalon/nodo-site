@@ -326,7 +326,8 @@ Behavior:
 - Waits for window load, fonts, and a short minimum duration.
 - Emits `nodo:preloader-complete`.
 - Sets `document.documentElement.dataset.nodoPreloaded = "true"`.
-- First render returns `null` on server and client to avoid hydration mismatch.
+- Renders the overlay in the initial HTML so the site layout does not flash before the preloader.
+- Root layout includes a small sessionStorage bootstrap script that sets `data-nodo-preloaded` before hydration when the preloader was already seen in the current browser session.
 
 ### Constellation Background
 
@@ -413,7 +414,7 @@ src/lib/contact-integrations.ts
 The flow states are:
 
 ```ts
-'idle' | 'launching' | 'covering' | 'inFlight' | 'success' | 'failure'
+'idle' | 'launching' | 'covering' | 'inFlight' | 'success' | 'failure';
 ```
 
 Submission animation:
@@ -893,7 +894,7 @@ This prevents installs from using an older corporate Artifactory registry in the
 For testing from a phone on the local network, `next.config.ts` currently allows:
 
 ```ts
-allowedDevOrigins: ["192.168.1.33"]
+allowedDevOrigins: ['192.168.1.33'];
 ```
 
 If the local IP changes, update this value and restart the dev server.

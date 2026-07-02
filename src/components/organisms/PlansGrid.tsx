@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CheckCircle2, XCircle } from "lucide-react";
-import { TrackedPlanCta } from "@/components/molecules/TrackedPlanCta";
-import { plans, plansPageContent, type Plan } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CheckCircle2, XCircle } from 'lucide-react';
+import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
+import { plans, plansPageContent, type Plan } from '@/lib/content';
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-function contactHref(plan: Plan["slug"]) {
+function contactHref(plan: Plan['slug']) {
   return `/contact?plan=${plan}&intent=quote&source=plans`;
 }
 
 function planTypeLabel(plan: Plan) {
-  return plan.tone === "one-off" ? "One-off build" : "Growth partnership";
+  return plan.tone === 'one-off' ? 'One-off build' : 'Growth partnership';
 }
 
 function PlanCard({ plan }: { plan: Plan }) {
@@ -24,22 +24,22 @@ function PlanCard({ plan }: { plan: Plan }) {
     <article
       data-testid={`plans-grid-${plan.slug}-card`}
       className={cn(
-        "plan-card group relative flex h-full flex-col overflow-visible rounded-[2rem] border bg-white/[0.045] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.07] sm:p-7 sm:pt-11",
+        'plan-card group relative flex h-full flex-col overflow-visible rounded-[2rem] border bg-white/[0.045] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.07] sm:p-7 sm:pt-11',
         plan.highlighted
-          ? "border-nodo-lavender/70 bg-[linear-gradient(160deg,rgba(124,58,237,0.42),rgba(255,255,255,0.08)_42%,rgba(5,5,5,0.7))] shadow-[0_30px_110px_rgba(124,58,237,0.32)]"
-          : "border-white/12",
-        plan.tone === "premium" && "bg-[linear-gradient(145deg,rgba(124,58,237,0.16),rgba(255,255,255,0.045))]",
-        plan.tone === "one-off" && "bg-white/[0.025] opacity-90",
+          ? 'border-nodo-lavender/70 bg-[linear-gradient(160deg,rgba(124,58,237,0.42),rgba(255,255,255,0.08)_42%,rgba(5,5,5,0.7))] shadow-[0_30px_110px_rgba(124,58,237,0.32)]'
+          : 'border-white/12',
+        plan.tone === 'premium' && 'bg-[linear-gradient(145deg,rgba(124,58,237,0.16),rgba(255,255,255,0.045))]',
+        plan.tone === 'one-off' && 'bg-white/[0.025] opacity-90'
       )}
     >
       <div
         data-testid={`plans-grid-${plan.slug}-type-tag`}
         className={cn(
-          "absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] shadow-[0_14px_34px_rgba(0,0,0,0.28)]",
+          'absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] shadow-[0_14px_34px_rgba(0,0,0,0.28)]',
           plan.highlighted
-            ? "border-white/20 bg-nodo-lavender text-nodo-black"
-            : "border-white/14 bg-nodo-purple text-white",
-          plan.tone === "one-off" && "border-white/18 bg-nodo-black text-white",
+            ? 'border-white/20 bg-nodo-lavender text-nodo-black'
+            : 'border-white/14 bg-nodo-purple text-white',
+          plan.tone === 'one-off' && 'border-white/18 bg-nodo-black text-white'
         )}
       >
         {planTypeLabel(plan)}
@@ -47,28 +47,37 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div data-testid={`plans-grid-${plan.slug}-badge-row`} className="flex min-h-10 items-start justify-center gap-3">
         {plan.badge ? (
-          <span data-testid={`plans-grid-${plan.slug}-badge`} className="mt-1 rounded-full border border-nodo-pink/40 bg-nodo-pink px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(232,48,207,0.32)]">
+          <span
+            data-testid={`plans-grid-${plan.slug}-badge`}
+            className="mt-1 rounded-full border border-nodo-pink/40 bg-nodo-pink px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_12px_32px_rgba(232,48,207,0.32)]"
+          >
             {plan.badge}
           </span>
         ) : null}
       </div>
 
       <div className="mt-7">
-        <h3 data-testid={`plans-grid-${plan.slug}-title`} className="text-3xl font-black tracking-normal text-white">{plan.name}</h3>
-        <p data-testid={`plans-grid-${plan.slug}-label`} className="mt-3 min-h-16 text-sm leading-6 text-white/62">{plan.label}</p>
+        <h3 data-testid={`plans-grid-${plan.slug}-title`} className="text-3xl font-black tracking-normal text-white">
+          {plan.name}
+        </h3>
+        <p data-testid={`plans-grid-${plan.slug}-label`} className="mt-3 min-h-16 text-sm leading-6 text-white/62">
+          {plan.label}
+        </p>
       </div>
 
       <div data-testid={`plans-grid-${plan.slug}-pricing`} className="mt-7 border-y border-white/12 py-5">
-        <p data-testid={`plans-grid-${plan.slug}-price`} className="text-2xl font-black leading-tight text-white">{plan.price}</p>
-        {plan.priceDetail ? (
-          <p className="mt-2 text-sm leading-6 text-white/46">{plan.priceDetail}</p>
-        ) : null}
+        <p data-testid={`plans-grid-${plan.slug}-price`} className="text-2xl font-black leading-tight text-white">
+          {plan.price}
+        </p>
+        {plan.priceDetail ? <p className="mt-2 text-sm leading-6 text-white/46">{plan.priceDetail}</p> : null}
         {plan.contractNote ? (
           <p className="mt-2 text-sm font-semibold text-nodo-lavender">{plan.contractNote}</p>
         ) : null}
       </div>
 
-      <p data-testid={`plans-grid-${plan.slug}-summary`} className="mt-5 text-pretty text-sm leading-6 text-white/68">{plan.summary}</p>
+      <p data-testid={`plans-grid-${plan.slug}-summary`} className="mt-5 text-pretty text-sm leading-6 text-white/68">
+        {plan.summary}
+      </p>
 
       <div data-testid={`plans-grid-${plan.slug}-features`} className="mt-6 grid gap-3">
         {plan.includedFeatures.map((feature) => (
@@ -92,7 +101,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           intent="quote"
           location="plans_grid"
           dataTestId={`plans-grid-${plan.slug}-button`}
-          variant={plan.highlighted ? "primary" : "secondary"}
+          variant={plan.highlighted ? 'primary' : 'secondary'}
           className="w-full"
         >
           {plan.ctaLabel}
@@ -102,8 +111,8 @@ function PlanCard({ plan }: { plan: Plan }) {
   );
 }
 
-const growthPartnershipPlans = plans.filter((plan) => plan.tone !== "one-off");
-const launchPlan = plans.find((plan) => plan.tone === "one-off");
+const growthPartnershipPlans = plans.filter((plan) => plan.tone !== 'one-off');
+const launchPlan = plans.find((plan) => plan.tone === 'one-off');
 
 export function PlansGrid() {
   const root = useRef<HTMLDivElement>(null);
@@ -112,34 +121,34 @@ export function PlansGrid() {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const cards = gsap.utils.toArray<HTMLElement>(".plan-card");
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const cards = gsap.utils.toArray<HTMLElement>('.plan-card');
 
         gsap.set(cards, { autoAlpha: 0, y: 38 });
 
         ScrollTrigger.batch(cards, {
-          start: "top 84%",
+          start: 'top 84%',
           once: true,
           onEnter: (batch) => {
             gsap.to(batch, {
               autoAlpha: 1,
               y: 0,
               duration: 0.75,
-              ease: "power3.out",
+              ease: 'power3.out',
               stagger: 0.08,
-              overwrite: true,
+              overwrite: true
             });
-          },
+          }
         });
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(".plan-card", { autoAlpha: 1, y: 0 });
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set('.plan-card', { autoAlpha: 1, y: 0 });
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -149,7 +158,9 @@ export function PlansGrid() {
           <PlanCard key={plan.slug} plan={plan} />
         ))}
       </div>
-      <p data-testid="plans-grid-pricing-note" className="mt-5 text-sm text-white/46">{plansPageContent.pricingNote}</p>
+      <p data-testid="plans-grid-pricing-note" className="mt-5 text-sm text-white/46">
+        {plansPageContent.pricingNote}
+      </p>
     </div>
   );
 }
@@ -160,28 +171,39 @@ export function LaunchPlanCard() {
   }
 
   return (
-    <article data-testid="plans-launch-card" className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10">
+    <article
+      data-testid="plans-launch-card"
+      className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10"
+    >
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_70%_20%,rgba(124,58,237,0.18),transparent_34%)]" />
-      <div data-testid="plans-launch-card-type-tag" className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/18 bg-nodo-black px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_14px_34px_rgba(0,0,0,0.28)]">
+      <div
+        data-testid="plans-launch-card-type-tag"
+        className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-white/18 bg-nodo-black px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+      >
         One-off build
       </div>
 
       <div className="relative grid gap-8 lg:grid-cols-[0.75fr_1fr] lg:items-start">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-nodo-purple">
-            One-off website build
-          </p>
-          <h3 data-testid="plans-launch-card-title" className="mt-4 text-4xl font-black tracking-normal text-nodo-black">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-nodo-purple">One-off website build</p>
+          <h3
+            data-testid="plans-launch-card-title"
+            className="mt-4 text-4xl font-black tracking-normal text-nodo-black"
+          >
             {launchPlan.name}
           </h3>
-          <p data-testid="plans-launch-card-summary" className="mt-4 max-w-xl text-pretty text-base leading-7 text-nodo-ink/68">
+          <p
+            data-testid="plans-launch-card-summary"
+            className="mt-4 max-w-xl text-pretty text-base leading-7 text-nodo-ink/68"
+          >
             {launchPlan.summary}
           </p>
-          <div data-testid="plans-launch-card-pricing" className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5">
+          <div
+            data-testid="plans-launch-card-pricing"
+            className="mt-7 rounded-3xl border border-black/8 bg-nodo-black p-5"
+          >
             <p className="text-sm font-semibold text-white/52">One-time website investment</p>
-            <p className="mt-2 text-3xl font-black leading-tight text-white">
-              {launchPlan.price}
-            </p>
+            <p className="mt-2 text-3xl font-black leading-tight text-white">{launchPlan.price}</p>
             <TrackedPlanCta
               href={contactHref(launchPlan.slug)}
               plan={launchPlan.slug}
@@ -197,24 +219,25 @@ export function LaunchPlanCard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div data-testid="plans-launch-card-included" className="rounded-3xl border border-black/8 bg-black/[0.02] p-5">
-            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-purple">
-              Included
-            </h4>
+          <div
+            data-testid="plans-launch-card-included"
+            className="rounded-3xl border border-black/8 bg-black/[0.02] p-5"
+          >
+            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-purple">Included</h4>
             <div className="mt-5 grid gap-3">
               {launchPlan.includedFeatures.map((feature) => (
                 <div key={feature} className="flex gap-3 text-sm leading-5 text-nodo-ink/76">
-                  <CheckCircle2
-                    aria-hidden="true"
-                    className="mt-0.5 size-4 shrink-0 text-nodo-purple"
-                  />
+                  <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-nodo-purple" />
                   <span>{feature}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div data-testid="plans-launch-card-excluded" className="rounded-3xl border border-black/8 bg-black/[0.04] p-5">
+          <div
+            data-testid="plans-launch-card-excluded"
+            className="rounded-3xl border border-black/8 bg-black/[0.04] p-5"
+          >
             <h4 className="text-sm font-black uppercase tracking-[0.18em] text-nodo-ink/58">
               Not included in this model
             </h4>

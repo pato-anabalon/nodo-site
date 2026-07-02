@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import type { ReactNode } from "react";
-import { Button } from "@/components/atoms/Button";
-import { trackCtaClicked, trackHomepageCtaClicked, trackNotFoundCtaClicked } from "@/lib/analytics";
+import type { ReactNode } from 'react';
+import { Button } from '@/components/atoms/Button';
+import { trackCtaClicked, trackHomepageCtaClicked, trackNotFoundCtaClicked } from '@/lib/analytics';
 
 type TrackedCtaButtonProps = {
   children: ReactNode;
   href: string;
   label: string;
-  event?: "cta" | "homepage" | "not-found";
+  event?: 'cta' | 'homepage' | 'not-found';
   location?: string;
   route?: string;
   className?: string;
@@ -16,15 +16,15 @@ type TrackedCtaButtonProps = {
   icon?: ReactNode;
   rel?: string;
   target?: string;
-  variant?: "primary" | "secondary" | "ghost" | "inverted";
-  surfaceTone?: "dark" | "purple" | "light";
+  variant?: 'primary' | 'secondary' | 'ghost' | 'inverted';
+  surfaceTone?: 'dark' | 'purple' | 'light';
 };
 
 export function TrackedCtaButton({
   children,
   href,
   label,
-  event = "cta",
+  event = 'cta',
   location,
   route,
   ...buttonProps
@@ -33,25 +33,25 @@ export function TrackedCtaButton({
     <Button
       href={href}
       onClick={() => {
-        if (event === "homepage") {
+        if (event === 'homepage') {
           trackHomepageCtaClicked({
             label,
-            location: location ?? "homepage",
-            href,
+            location: location ?? 'homepage',
+            href
           });
           return;
         }
 
-        if (event === "not-found") {
+        if (event === 'not-found') {
           trackNotFoundCtaClicked({ label, href });
           return;
         }
 
         trackCtaClicked({
           label,
-          location: location ?? "site",
+          location: location ?? 'site',
           href,
-          route,
+          route
         });
       }}
       {...buttonProps}

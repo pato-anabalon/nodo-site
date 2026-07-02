@@ -1,8 +1,8 @@
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { ProofPoint } from "@/components/molecules/ProofPoint";
-import { resultOutcomes } from "@/lib/content";
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { ProofPoint } from '@/components/molecules/ProofPoint';
+import { resultOutcomes } from '@/lib/content';
 
 export function ResultsSection() {
   return (

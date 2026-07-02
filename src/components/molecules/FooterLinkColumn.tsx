@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { testIdSlug } from "@/lib/utils";
+import Link from 'next/link';
+import { testIdSlug } from '@/lib/utils';
 
 export type FooterLink = {
   label: string;

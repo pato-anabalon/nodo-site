@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,8 +19,8 @@ function scrollToPageTop() {
   const root = document.documentElement;
   const previousScrollBehavior = root.style.scrollBehavior;
 
-  root.style.scrollBehavior = "auto";
-  window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+  root.style.scrollBehavior = 'auto';
+  window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
   root.style.scrollBehavior = previousScrollBehavior;
   refreshScrollTriggers();
 }
@@ -31,12 +31,12 @@ export function RouteScrollReset() {
   useEffect(() => {
     const previousScrollRestoration = window.history.scrollRestoration;
 
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
 
     return () => {
-      if ("scrollRestoration" in window.history) {
+      if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = previousScrollRestoration;
       }
     };

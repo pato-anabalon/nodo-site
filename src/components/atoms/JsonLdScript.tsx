@@ -4,15 +4,9 @@ type JsonLdScriptProps = {
 };
 
 function serializeJsonLd(data: unknown) {
-  return JSON.stringify(data).replace(/</g, "\\u003c");
+  return JSON.stringify(data).replace(/</g, '\\u003c');
 }
 
 export function JsonLdScript({ id, data }: JsonLdScriptProps) {
-  return (
-    <script
-      id={id}
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
-    />
-  );
+  return <script id={id} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }} />;
 }

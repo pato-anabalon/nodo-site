@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Button } from "@/components/atoms/Button";
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import { GoogleTagManager } from '@next/third-parties/google';
+import { Button } from '@/components/atoms/Button';
 import {
   ANALYTICS_CONSENT_CHANGED_EVENT,
   ANALYTICS_PREFERENCES_OPEN_EVENT,
   getAnalyticsConsent,
   setAnalyticsConsent,
-  type AnalyticsConsentChoice,
-} from "@/lib/analytics-consent";
+  type AnalyticsConsentChoice
+} from '@/lib/analytics-consent';
 
-type AnalyticsConsentSnapshot = AnalyticsConsentChoice | "unset" | "unknown";
+type AnalyticsConsentSnapshot = AnalyticsConsentChoice | 'unset' | 'unknown';
 
 function getConsentSnapshot(): AnalyticsConsentSnapshot {
-  return getAnalyticsConsent() ?? "unset";
+  return getAnalyticsConsent() ?? 'unset';
 }
 
 function getServerConsentSnapshot(): AnalyticsConsentSnapshot {
-  return "unknown";
+  return 'unknown';
 }
 
 function subscribeToConsentChanges(callback: () => void) {
@@ -31,11 +31,7 @@ function subscribeToConsentChanges(callback: () => void) {
 
 export function AnalyticsConsentManager() {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-  const consent = useSyncExternalStore(
-    subscribeToConsentChanges,
-    getConsentSnapshot,
-    getServerConsentSnapshot,
-  );
+  const consent = useSyncExternalStore(subscribeToConsentChanges, getConsentSnapshot, getServerConsentSnapshot);
   const [isPreferencesOpen, setIsPreferencesOpen] = useState(false);
 
   useEffect(() => {
@@ -52,11 +48,11 @@ export function AnalyticsConsentManager() {
     };
   }, [gtmId]);
 
-  if (!gtmId || consent === "unknown") {
+  if (!gtmId || consent === 'unknown') {
     return null;
   }
 
-  const isBannerOpen = consent === "unset" || isPreferencesOpen;
+  const isBannerOpen = consent === 'unset' || isPreferencesOpen;
   const updateConsent = (choice: AnalyticsConsentChoice) => {
     setAnalyticsConsent(choice);
     setIsPreferencesOpen(false);
@@ -64,7 +60,7 @@ export function AnalyticsConsentManager() {
 
   return (
     <>
-      {consent === "accepted" ? <GoogleTagManager gtmId={gtmId} /> : null}
+      {consent === 'accepted' ? <GoogleTagManager gtmId={gtmId} /> : null}
       {isBannerOpen ? (
         <section
           data-testid="analytics-consent-banner"
@@ -73,18 +69,17 @@ export function AnalyticsConsentManager() {
         >
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-nodo-lavender">
-                Analytics preferences
-              </p>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-nodo-lavender">Analytics preferences</p>
               <p className="mt-2 text-sm leading-6 text-white/68">
-                We use Google analytics tags to understand campaign performance and improve Nodo ads. Vercel Analytics stays active for basic site insights.
+                We use Google analytics tags to understand campaign performance and improve Nodo ads. Vercel Analytics
+                stays active for basic site insights.
               </p>
             </div>
             <div className="flex flex-wrap gap-2 md:justify-end">
               <Button
                 type="button"
                 dataTestId="analytics-consent-accept-button"
-                onClick={() => updateConsent("accepted")}
+                onClick={() => updateConsent('accepted')}
                 className="min-h-10 px-4"
               >
                 Accept analytics
@@ -92,7 +87,7 @@ export function AnalyticsConsentManager() {
               <Button
                 type="button"
                 dataTestId="analytics-consent-decline-button"
-                onClick={() => updateConsent("declined")}
+                onClick={() => updateConsent('declined')}
                 variant="secondary"
                 className="min-h-10 px-4"
               >

@@ -1,11 +1,11 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   type CardEntranceState,
   nodoCardEntranceStates,
   nodoCardFinalState,
-  setCardsToEntrance,
-} from "@/lib/gsap-card-reveal";
+  setCardsToEntrance
+} from '@/lib/gsap-card-reveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +34,7 @@ function createCubicBezierEase(x1: number, y1: number, x2: number, y2: number) {
   const sampleCount = 11;
   const sampleStep = 1 / (sampleCount - 1);
   const sampleValues = Array.from({ length: sampleCount }, (_value, index) =>
-    calculateBezier(index * sampleStep, x1, x2),
+    calculateBezier(index * sampleStep, x1, x2)
   );
 
   function a(point1: number, point2: number) {
@@ -131,15 +131,15 @@ function createCubicBezierEase(x1: number, y1: number, x2: number, y2: number) {
 }
 
 function getResolvedStart(onceStart: CardRevealStart, card: HTMLElement, index: number, cards: HTMLElement[]) {
-  return typeof onceStart === "function" ? onceStart(card, index, cards) : onceStart;
+  return typeof onceStart === 'function' ? onceStart(card, index, cards) : onceStart;
 }
 
 export function getNodoDesktopCardOnceStart(_card: HTMLElement, index: number, cards: HTMLElement[]) {
   if (cards.length >= 3 && index % 3 === 1) {
-    return "top 74%";
+    return 'top 74%';
   }
 
-  return "top 84%";
+  return 'top 84%';
 }
 
 export function createCardOnceReveal({
@@ -148,10 +148,10 @@ export function createCardOnceReveal({
   duration = 1.7,
   ease = nodoCardRevealEase,
   entranceStates = nodoCardEntranceStates,
-  mediaQuery = "(prefers-reduced-motion: no-preference)",
+  mediaQuery = '(prefers-reduced-motion: no-preference)',
   onceStart = getNodoDesktopCardOnceStart,
   stagger = 0,
-  toggleActions = "play none none none",
+  toggleActions = 'play none none none'
 }: CardOnceRevealOptions): CardRevealControls {
   const cards = Array.from(container.querySelectorAll<HTMLElement>(itemSelector));
   const mm = gsap.matchMedia();
@@ -166,14 +166,14 @@ export function createCardOnceReveal({
         delay: index * stagger,
         duration,
         ease,
-        overwrite: "auto",
+        overwrite: 'auto',
         scrollTrigger: {
           trigger: card,
           start: getResolvedStart(onceStart, card, index, cards),
           once: true,
-          toggleActions,
-        },
-      }),
+          toggleActions
+        }
+      })
     );
 
     const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -184,14 +184,14 @@ export function createCardOnceReveal({
     };
   });
 
-  mm.add("(prefers-reduced-motion: reduce)", () => {
+  mm.add('(prefers-reduced-motion: reduce)', () => {
     gsap.set(cards, {
       ...nodoCardFinalState,
-      clearProps: "transform,visibility,opacity,willChange",
+      clearProps: 'transform,visibility,opacity,willChange'
     });
   });
 
   return {
-    revert: () => mm.revert(),
+    revert: () => mm.revert()
   };
 }

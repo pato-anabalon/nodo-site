@@ -66,15 +66,14 @@ Create `defaultProps`:
 ```tsx
 const defaultProps = {
   open: true,
-  onClose: jest.fn(),
+  onClose: jest.fn()
 };
 ```
 
 Use a reusable `setup`:
 
 ```tsx
-const setup = (props = {}) =>
-  render(<Component {...defaultProps} {...props} />);
+const setup = (props = {}) => render(<Component {...defaultProps} {...props} />);
 ```
 
 - Avoid duplicating large prop objects.
@@ -145,8 +144,8 @@ Prefer focused assertions.
 ```tsx
 expect(fn).toHaveBeenCalledWith(
   expect.objectContaining({
-    id: 1,
-  }),
+    id: 1
+  })
 );
 ```
 
@@ -184,8 +183,8 @@ Test file names should follow:
 Prefer explicit mocks:
 
 ```tsx
-jest.mock("./service", () => ({
-  fetchData: jest.fn(),
+jest.mock('./service', () => ({
+  fetchData: jest.fn()
 }));
 ```
 
@@ -212,8 +211,8 @@ afterEach(() => {
 Prioritize accessible queries:
 
 ```tsx
-screen.getByRole("button", {
-  name: /submit/i,
+screen.getByRole('button', {
+  name: /submit/i
 });
 ```
 
@@ -234,7 +233,7 @@ expect(await screen.findByText(/success/i)).toBeInTheDocument();
 ### Do Not Test Internal Implementation
 
 ```tsx
-expect(wrapper.state("open")).toBe(true);
+expect(wrapper.state('open')).toBe(true);
 ```
 
 ### Do Not Overuse Test IDs
@@ -242,13 +241,13 @@ expect(wrapper.state("open")).toBe(true);
 Avoid:
 
 ```tsx
-screen.getByTestId("button");
+screen.getByTestId('button');
 ```
 
 when this works:
 
 ```tsx
-screen.getByRole("button");
+screen.getByRole('button');
 ```
 
 ### Do Not Use Giant Snapshots
@@ -278,7 +277,7 @@ expect(button).toBeInTheDocument();
 Example:
 
 ```tsx
-it("should call onClose when close button is clicked", async () => {
+it('should call onClose when close button is clicked', async () => {
   // Arrange
   const onClose = jest.fn();
   const user = userEvent.setup();
@@ -286,7 +285,7 @@ it("should call onClose when close button is clicked", async () => {
   render(<Modal onClose={onClose} />);
 
   // Act
-  await user.click(screen.getByRole("button", { name: /close/i }));
+  await user.click(screen.getByRole('button', { name: /close/i }));
 
   // Assert
   expect(onClose).toHaveBeenCalledTimes(1);

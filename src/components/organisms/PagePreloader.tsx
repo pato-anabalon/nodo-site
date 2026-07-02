@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { NodoLogo } from "@/components/atoms/NodoLogo";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { cn } from '@/lib/utils';
 
 const MIN_VISIBLE_MS = 950;
-const PRELOADER_SESSION_KEY = "nodo:preloader-seen";
+const PRELOADER_SESSION_KEY = 'nodo:preloader-seen';
 
 function waitForWindowLoad() {
-  if (document.readyState === "complete") {
+  if (document.readyState === 'complete') {
     return Promise.resolve();
   }
 
   return new Promise<void>((resolve) => {
-    window.addEventListener("load", () => resolve(), { once: true });
+    window.addEventListener('load', () => resolve(), { once: true });
   });
 }
 
 function waitForFonts() {
-  if (!("fonts" in document)) {
+  if (!('fonts' in document)) {
     return Promise.resolve();
   }
 
@@ -34,26 +34,29 @@ function wait(ms: number) {
 
 export function PagePreloader() {
   const [isLeaving, setIsLeaving] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     const originalOverflow = document.body.style.overflow;
-    const hasSeenPreloader = window.sessionStorage.getItem(PRELOADER_SESSION_KEY) === "true";
+    const hasSeenPreloader = window.sessionStorage.getItem(PRELOADER_SESSION_KEY) === 'true';
 
     if (hasSeenPreloader) {
-      document.documentElement.dataset.nodoPreloaded = "true";
-      window.dispatchEvent(new Event("nodo:preloader-complete"));
-      return;
+      document.documentElement.dataset.nodoPreloaded = 'true';
+      window.dispatchEvent(new Event('nodo:preloader-complete'));
+      const frame = window.requestAnimationFrame(() => {
+        if (!cancelled) {
+          setIsMounted(false);
+        }
+      });
+
+      return () => {
+        cancelled = true;
+        window.cancelAnimationFrame(frame);
+      };
     }
 
-    window.requestAnimationFrame(() => {
-      if (!cancelled) {
-        setIsMounted(true);
-      }
-    });
-
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
     async function preparePage() {
       await Promise.all([waitForWindowLoad(), waitForFonts(), wait(MIN_VISIBLE_MS)]);
@@ -66,9 +69,9 @@ export function PagePreloader() {
       window.setTimeout(() => {
         if (!cancelled) {
           document.body.style.overflow = originalOverflow;
-          window.sessionStorage.setItem(PRELOADER_SESSION_KEY, "true");
-          document.documentElement.dataset.nodoPreloaded = "true";
-          window.dispatchEvent(new Event("nodo:preloader-complete"));
+          window.sessionStorage.setItem(PRELOADER_SESSION_KEY, 'true');
+          document.documentElement.dataset.nodoPreloaded = 'true';
+          window.dispatchEvent(new Event('nodo:preloader-complete'));
           setIsMounted(false);
         }
       }, 520);
@@ -90,8 +93,8 @@ export function PagePreloader() {
     <div
       data-testid="site-preloader"
       className={cn(
-        "fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-nodo-black transition duration-500 ease-out",
-        isLeaving && "pointer-events-none opacity-0",
+        'nodo-preloader-shell fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-nodo-black transition duration-500 ease-out',
+        isLeaving && 'pointer-events-none opacity-0'
       )}
       aria-live="polite"
       aria-label="Loading Nodo"
@@ -104,9 +107,7 @@ export function PagePreloader() {
         <div className="w-56 overflow-hidden rounded-full bg-white/12">
           <div className="h-1.5 w-1/2 rounded-full bg-nodo-purple shadow-[0_0_28px_rgba(124,58,237,0.8)] motion-safe:animate-[nodo-loader_1.05s_ease-in-out_infinite]" />
         </div>
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-white/58">
-          Loading
-        </p>
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-white/58">Loading</p>
       </div>
     </div>
   );

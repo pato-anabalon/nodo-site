@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 type ConstellationBackgroundProps = {
-  backgroundTone?: "dark" | "light";
+  backgroundTone?: 'dark' | 'light';
   className?: string;
   density?: number;
   fps?: number;
@@ -25,11 +25,11 @@ type Node = {
 };
 
 const colors = {
-  white: "255, 255, 255",
-  purple: "124, 58, 237",
-  lavender: "196, 181, 253",
-  ink: "12, 10, 18",
-  charcoal: "18, 16, 24",
+  white: '255, 255, 255',
+  purple: '124, 58, 237',
+  lavender: '196, 181, 253',
+  ink: '12, 10, 18',
+  charcoal: '18, 16, 24'
 };
 
 const colorSchemes = {
@@ -38,15 +38,15 @@ const colorSchemes = {
     accentNode: colors.purple,
     line: colors.white,
     accentLine: colors.lavender,
-    glow: colors.purple,
+    glow: colors.purple
   },
   light: {
     node: colors.charcoal,
     accentNode: colors.purple,
     line: colors.charcoal,
     accentLine: colors.purple,
-    glow: colors.purple,
-  },
+    glow: colors.purple
+  }
 } as const;
 
 function clamp(value: number, min: number, max: number) {
@@ -69,31 +69,31 @@ function createNodes(width: number, height: number, density: number, maxNodes: n
       radius: accent ? Math.random() * 2.8 + 2.6 : Math.random() * 1.8 + 1.1,
       alpha: accent ? 0.86 : Math.random() * 0.32 + 0.38,
       phase: Math.random() * Math.PI * 2,
-      accent,
+      accent
     };
   });
 }
 
 export function ConstellationBackground({
-  backgroundTone = "dark",
+  backgroundTone = 'dark',
   className,
   density = 1,
   fps = 60,
   interactive = true,
   maxDevicePixelRatio = 2,
-  maxNodes = 104,
+  maxNodes = 104
 }: ConstellationBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
+    const context = canvas?.getContext('2d');
 
     if (!canvas || !context) {
       return;
     }
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = { x: -1000, y: -1000, active: false };
     let width = 0;
     let height = 0;
@@ -152,7 +152,7 @@ export function ConstellationBackground({
             const strength = 1 - distance / connectionDistance;
             const pointerDistance = Math.min(
               Math.hypot((node.x + next.x) / 2 - pointer.x, (node.y + next.y) / 2 - pointer.y),
-              240,
+              240
             );
             const pointerBoost = pointer.active ? (1 - pointerDistance / 240) * 0.56 : 0;
 
@@ -160,9 +160,7 @@ export function ConstellationBackground({
             context.moveTo(node.x, node.y);
             context.lineTo(next.x, next.y);
             const baseAlpha =
-              backgroundTone === "light"
-                ? strength * 1.28 + pointerBoost * 2.18
-                : strength * 0.24 + pointerBoost;
+              backgroundTone === 'light' ? strength * 1.28 + pointerBoost * 2.18 : strength * 0.24 + pointerBoost;
 
             context.strokeStyle = `rgba(${node.accent || next.accent ? scheme.accentLine : scheme.line}, ${baseAlpha})`;
             context.lineWidth = node.accent || next.accent ? 1.35 : 0.8;
@@ -179,10 +177,7 @@ export function ConstellationBackground({
 
         context.beginPath();
         context.arc(node.x, node.y, Math.max(radius, 0.6), 0, Math.PI * 2);
-        const nodeAlpha =
-          backgroundTone === "light" && !node.accent
-            ? Math.min(node.alpha + 0.58, 1)
-            : node.alpha;
+        const nodeAlpha = backgroundTone === 'light' && !node.accent ? Math.min(node.alpha + 0.58, 1) : node.alpha;
 
         context.fillStyle = `rgba(${node.accent ? scheme.accentNode : scheme.node}, ${nodeAlpha})`;
         context.fill();
@@ -233,8 +228,8 @@ export function ConstellationBackground({
     visibilityObserver.observe(canvas);
 
     if (interactive) {
-      canvas.addEventListener("pointermove", handlePointerMove);
-      canvas.addEventListener("pointerleave", handlePointerLeave);
+      canvas.addEventListener('pointermove', handlePointerMove);
+      canvas.addEventListener('pointerleave', handlePointerLeave);
     }
 
     resize();
@@ -245,8 +240,8 @@ export function ConstellationBackground({
       visibilityObserver.disconnect();
 
       if (interactive) {
-        canvas.removeEventListener("pointermove", handlePointerMove);
-        canvas.removeEventListener("pointerleave", handlePointerLeave);
+        canvas.removeEventListener('pointermove', handlePointerMove);
+        canvas.removeEventListener('pointerleave', handlePointerLeave);
       }
 
       window.cancelAnimationFrame(animationFrame);
@@ -257,9 +252,9 @@ export function ConstellationBackground({
     <canvas
       ref={canvasRef}
       className={cn(
-        "absolute inset-0 h-full w-full",
-        interactive ? "pointer-events-auto" : "pointer-events-none",
-        className,
+        'absolute inset-0 h-full w-full',
+        interactive ? 'pointer-events-auto' : 'pointer-events-none',
+        className
       )}
       aria-hidden="true"
     />

@@ -1,1 +1,1 @@
-import "jest-axe";
+import 'jest-axe';

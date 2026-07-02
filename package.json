@@ -6,13 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write . --ignore-unknown",
+    "format:staged": "lint-staged",
     "lint": "eslint",
+    "prepare": "husky",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "qa:visual": "node scripts/qa-visual.mjs",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md,mdx,mjs,cjs,yml,yaml}": "prettier --write"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -39,9 +45,12 @@
     "@types/react-dom": "^19.1.5",
     "eslint": "^9.27.0",
     "eslint-config-next": "^16.0.0",
+    "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.4.1",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.9.3",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   }

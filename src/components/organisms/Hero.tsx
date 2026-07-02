@@ -171,10 +171,7 @@ export function Hero() {
           >
             Auckland digital growth studio
           </p>
-          <h1
-            data-testid="home-hero-title"
-            className="hero-title opacity-0 motion-reduce:opacity-100 text-white"
-          >
+          <h1 data-testid="home-hero-title" className="hero-title opacity-0 motion-reduce:opacity-100 text-white">
             <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
               <span className="hero-title-word inline-block shrink-0">nodo</span>
               <span className="hero-title-word inline-block shrink-0 text-nodo-purple">.</span>
@@ -200,8 +197,8 @@ export function Hero() {
             data-testid="home-hero-copy"
             className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68"
           >
-            Nodo helps Auckland service businesses improve how they look, show up online, and turn attention into stronger
-            enquiries.
+            Nodo helps Auckland service businesses improve how they look, show up online, and turn attention into
+            stronger enquiries.
           </p>
           <div data-testid="home-hero-actions" className="relative z-20 mt-9 flex flex-wrap gap-3">
             <TrackedCtaButton
