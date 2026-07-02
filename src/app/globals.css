@@ -110,6 +110,10 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
+html[data-nodo-preloaded='true'] .nodo-preloader-shell {
+  display: none;
+}
+
 button,
 input,
 textarea,

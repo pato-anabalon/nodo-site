@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 import { JsonLdScript } from '@/components/atoms/JsonLdScript';
 import { AnalyticsConsentManager } from '@/components/molecules/AnalyticsConsentManager';
@@ -15,6 +16,14 @@ const inter = Inter({
   variable: '--font-inter',
   display: 'swap'
 });
+
+const preloaderSessionScript = `
+try {
+  if (window.sessionStorage.getItem('nodo:preloader-seen') === 'true') {
+    document.documentElement.dataset.nodoPreloaded = 'true';
+  }
+} catch {}
+`;
 
 export const metadata: Metadata = {
   title: {
@@ -49,8 +58,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-NZ" className={inter.variable} data-scroll-behavior="smooth">
+    <html lang="en-NZ" className={inter.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
+        <Script
+          id="preloader-session-bootstrap"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: preloaderSessionScript }}
+        />
         <JsonLdScript id="global-structured-data" data={createGlobalStructuredData()} />
         <RouteScrollReset />
         <PagePreloader />

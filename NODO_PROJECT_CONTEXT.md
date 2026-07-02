@@ -326,7 +326,8 @@ Behavior:
 - Waits for window load, fonts, and a short minimum duration.
 - Emits `nodo:preloader-complete`.
 - Sets `document.documentElement.dataset.nodoPreloaded = "true"`.
-- First render returns `null` on server and client to avoid hydration mismatch.
+- Renders the overlay in the initial HTML so the site layout does not flash before the preloader.
+- Root layout includes a small sessionStorage bootstrap script that sets `data-nodo-preloaded` before hydration when the preloader was already seen in the current browser session.
 
 ### Constellation Background
 

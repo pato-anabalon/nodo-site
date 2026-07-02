@@ -18,10 +18,14 @@ describe('PagePreloader', () => {
     jest.restoreAllMocks();
   });
 
-  it('should skip when the preloader has already been seen', () => {
+  it('should skip when the preloader has already been seen', async () => {
     window.sessionStorage.setItem('nodo:preloader-seen', 'true');
 
     renderWithProviders(<PagePreloader />);
+
+    await act(async () => {
+      jest.runOnlyPendingTimers();
+    });
 
     expect(screen.queryByRole('status', { name: /loading nodo/i })).not.toBeInTheDocument();
     expect(document.documentElement.dataset.nodoPreloaded).toBe('true');

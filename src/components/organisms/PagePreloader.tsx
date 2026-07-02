@@ -34,7 +34,7 @@ function wait(ms: number) {
 
 export function PagePreloader() {
   const [isLeaving, setIsLeaving] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -44,14 +44,17 @@ export function PagePreloader() {
     if (hasSeenPreloader) {
       document.documentElement.dataset.nodoPreloaded = 'true';
       window.dispatchEvent(new Event('nodo:preloader-complete'));
-      return;
-    }
+      const frame = window.requestAnimationFrame(() => {
+        if (!cancelled) {
+          setIsMounted(false);
+        }
+      });
 
-    window.requestAnimationFrame(() => {
-      if (!cancelled) {
-        setIsMounted(true);
-      }
-    });
+      return () => {
+        cancelled = true;
+        window.cancelAnimationFrame(frame);
+      };
+    }
 
     document.body.style.overflow = 'hidden';
 
@@ -90,7 +93,7 @@ export function PagePreloader() {
     <div
       data-testid="site-preloader"
       className={cn(
-        'fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-nodo-black transition duration-500 ease-out',
+        'nodo-preloader-shell fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-nodo-black transition duration-500 ease-out',
         isLeaving && 'pointer-events-none opacity-0'
       )}
       aria-live="polite"
