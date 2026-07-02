@@ -1,6 +1,6 @@
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 
 export function CTASection() {
   return (
@@ -9,10 +9,16 @@ export function CTASection() {
         <ScrollReveal>
           <div data-testid="home-cta-layout" className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p data-testid="home-cta-eyebrow" className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/70">
+              <p
+                data-testid="home-cta-eyebrow"
+                className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/70"
+              >
                 Ready when you are
               </p>
-              <h2 data-testid="home-cta-title" className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
+              <h2
+                data-testid="home-cta-title"
+                className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl"
+              >
                 Build the digital presence your next customers can trust.
               </h2>
             </div>

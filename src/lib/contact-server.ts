@@ -1,12 +1,12 @@
-import { Redis } from "@upstash/redis";
+import { Redis } from '@upstash/redis';
 import {
   CONTACT_ATTACHMENT_LIMITS,
   type ContactAttachment,
   getFileExtension,
   isAllowedContentType,
   isAllowedFilePair,
-  isExpectedContactPathname,
-} from "@/lib/contact-attachments";
+  isExpectedContactPathname
+} from '@/lib/contact-attachments';
 
 type StoredAttachment = ContactAttachment & {
   submissionId: string;
@@ -14,16 +14,14 @@ type StoredAttachment = ContactAttachment & {
   uploadedAt: string;
 };
 
-const redisUrl =
-  process.env.UPSTASH_REDIS_REST_URL ?? process.env.UPSTASH_REDIS_KV_REST_API_URL;
-const redisToken =
-  process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.UPSTASH_REDIS_KV_REST_API_TOKEN;
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL ?? process.env.UPSTASH_REDIS_KV_REST_API_URL;
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.UPSTASH_REDIS_KV_REST_API_TOKEN;
 
 const redis =
   redisUrl && redisToken
     ? new Redis({
         url: redisUrl,
-        token: redisToken,
+        token: redisToken
       })
     : null;
 
@@ -31,24 +29,16 @@ const ATTACHMENT_TTL_SECONDS = 60 * 60;
 const RATE_LIMIT_TTL_SECONDS = 15 * 60;
 
 export function getClientIp(request: Request) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
+  const forwardedFor = request.headers.get('x-forwarded-for');
 
   if (forwardedFor) {
-    return forwardedFor.split(",")[0]?.trim() ?? "unknown";
+    return forwardedFor.split(',')[0]?.trim() ?? 'unknown';
   }
 
-  return (
-    request.headers.get("x-real-ip") ??
-    request.headers.get("cf-connecting-ip") ??
-    "unknown"
-  );
+  return request.headers.get('x-real-ip') ?? request.headers.get('cf-connecting-ip') ?? 'unknown';
 }
 
-export async function checkRateLimit(params: {
-  key: string;
-  limit: number;
-  windowSeconds?: number;
-}) {
+export async function checkRateLimit(params: { key: string; limit: number; windowSeconds?: number }) {
   if (!redis) {
     return { limited: false, remaining: params.limit, configured: false };
   }
@@ -62,7 +52,7 @@ export async function checkRateLimit(params: {
   return {
     limited: count > params.limit,
     remaining: Math.max(0, params.limit - count),
-    configured: true,
+    configured: true
   };
 }
 
@@ -75,11 +65,9 @@ export async function storeContactAttachment(attachment: StoredAttachment) {
     return;
   }
 
-  await redis.set(
-    getAttachmentKey(attachment.submissionId, attachment.pathname),
-    attachment,
-    { ex: ATTACHMENT_TTL_SECONDS },
-  );
+  await redis.set(getAttachmentKey(attachment.submissionId, attachment.pathname), attachment, {
+    ex: ATTACHMENT_TTL_SECONDS
+  });
 }
 
 export async function getStoredContactAttachment(submissionId: string, pathname: string) {
@@ -91,8 +79,8 @@ export async function getStoredContactAttachment(submissionId: string, pathname:
 }
 
 export function sanitizeText(value: unknown, maxLength: number) {
-  return String(value ?? "")
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
+  return String(value ?? '')
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
     .trim()
     .slice(0, maxLength);
 }
@@ -123,20 +111,20 @@ export function validateAttachmentMetadata(attachment: ContactAttachment, submis
 
   return Boolean(
     pathnameExtension &&
-      filenameExtension &&
-      pathnameExtension === filenameExtension &&
-      isMatchingVercelBlobUrl(attachment.url, attachment.pathname),
+    filenameExtension &&
+    pathnameExtension === filenameExtension &&
+    isMatchingVercelBlobUrl(attachment.url, attachment.pathname)
   );
 }
 
 export function isMatchingVercelBlobUrl(url: string, pathname: string) {
   try {
     const parsedUrl = new URL(url);
-    const urlPathname = decodeURIComponent(parsedUrl.pathname.replace(/^\/+/, ""));
+    const urlPathname = decodeURIComponent(parsedUrl.pathname.replace(/^\/+/, ''));
 
     return (
-      parsedUrl.protocol === "https:" &&
-      parsedUrl.hostname.endsWith(".blob.vercel-storage.com") &&
+      parsedUrl.protocol === 'https:' &&
+      parsedUrl.hostname.endsWith('.blob.vercel-storage.com') &&
       urlPathname === pathname
     );
   } catch {
@@ -151,8 +139,8 @@ export async function validateUploadedMagicNumber(url: string, contentType: stri
 
   const response = await fetch(url, {
     headers: {
-      Range: "bytes=0-15",
-    },
+      Range: 'bytes=0-15'
+    }
   });
 
   if (!response.ok) {
@@ -161,31 +149,31 @@ export async function validateUploadedMagicNumber(url: string, contentType: stri
 
   const bytes = new Uint8Array(await response.arrayBuffer());
 
-  if (contentType === "image/jpeg") {
+  if (contentType === 'image/jpeg') {
     return bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
   }
 
-  if (contentType === "image/png") {
+  if (contentType === 'image/png') {
     return matches(bytes, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   }
 
-  if (contentType === "image/gif") {
-    return text(bytes, 0, 6) === "GIF87a" || text(bytes, 0, 6) === "GIF89a";
+  if (contentType === 'image/gif') {
+    return text(bytes, 0, 6) === 'GIF87a' || text(bytes, 0, 6) === 'GIF89a';
   }
 
-  if (contentType === "image/webp") {
-    return text(bytes, 0, 4) === "RIFF" && text(bytes, 8, 4) === "WEBP";
+  if (contentType === 'image/webp') {
+    return text(bytes, 0, 4) === 'RIFF' && text(bytes, 8, 4) === 'WEBP';
   }
 
-  if (contentType === "application/pdf") {
-    return text(bytes, 0, 4) === "%PDF";
+  if (contentType === 'application/pdf') {
+    return text(bytes, 0, 4) === '%PDF';
   }
 
-  if (contentType === "application/msword") {
+  if (contentType === 'application/msword') {
     return matches(bytes, [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]);
   }
 
-  if (contentType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+  if (contentType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
     return matches(bytes, [0x50, 0x4b, 0x03, 0x04]);
   }
 

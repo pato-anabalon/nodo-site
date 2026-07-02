@@ -1,5 +1,5 @@
-import { axe, toHaveNoViolations } from "jest-axe";
-import type { RenderResult } from "@testing-library/react";
+import { axe, toHaveNoViolations } from 'jest-axe';
+import type { RenderResult } from '@testing-library/react';
 
 expect.extend(toHaveNoViolations);
 

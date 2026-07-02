@@ -1,15 +1,11 @@
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { HomeServicesCardGrid } from "@/components/organisms/HomeServicesCardGrid";
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { HomeServicesCardGrid } from '@/components/organisms/HomeServicesCardGrid';
 
 export function ServicesSection() {
   return (
-    <section
-      id="services"
-      data-testid="home-services-section"
-      className="bg-nodo-black py-24 sm:py-32"
-    >
+    <section id="services" data-testid="home-services-section" className="bg-nodo-black py-24 sm:py-32">
       <Container>
         <ScrollReveal>
           <SectionHeading

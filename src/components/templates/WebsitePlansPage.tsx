@@ -1,49 +1,49 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ArrowDown, BarChart3, CalendarDays, Rocket, TrendingUp } from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { MetaChip } from "@/components/atoms/MetaChip";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { TrackedPlanCta } from "@/components/molecules/TrackedPlanCta";
-import { PlansComparison } from "@/components/organisms/PlansComparison";
-import { PlansFaq } from "@/components/organisms/PlansFaq";
-import { LaunchPlanCard, PlansGrid } from "@/components/organisms/PlansGrid";
-import { planCadenceItems, plans, plansPageContent, type PlanCadenceItem } from "@/lib/content";
-import { testIdSlug } from "@/lib/utils";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ArrowDown, BarChart3, CalendarDays, Rocket, TrendingUp } from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { MetaChip } from '@/components/atoms/MetaChip';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
+import { PlansComparison } from '@/components/organisms/PlansComparison';
+import { PlansFaq } from '@/components/organisms/PlansFaq';
+import { LaunchPlanCard, PlansGrid } from '@/components/organisms/PlansGrid';
+import { planCadenceItems, plans, plansPageContent, type PlanCadenceItem } from '@/lib/content';
+import { testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
 
-const plansHeroTitleWords = plansPageContent.hero.title.split(" ");
-const heroChipAccents = ["purple", "lavender", "pink"] as const;
+const plansHeroTitleWords = plansPageContent.hero.title.split(' ');
+const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
 const cadenceIcons = [Rocket, CalendarDays, BarChart3, TrendingUp] as const;
 
-function contactHref(intent: "discovery-call" | "quote", source: string) {
+function contactHref(intent: 'discovery-call' | 'quote', source: string) {
   return `/contact?intent=${intent}&source=${source}`;
 }
 
-function planName(planSlug: PlanCadenceItem["planSlug"]) {
+function planName(planSlug: PlanCadenceItem['planSlug']) {
   return plans.find((plan) => plan.slug === planSlug)?.name ?? planSlug;
 }
 
-function cadenceAccentClass(planSlug: PlanCadenceItem["planSlug"]) {
-  if (planSlug === "nodo-launch") {
-    return "from-white/18 via-nodo-lavender/20 to-white/6";
+function cadenceAccentClass(planSlug: PlanCadenceItem['planSlug']) {
+  if (planSlug === 'nodo-launch') {
+    return 'from-white/18 via-nodo-lavender/20 to-white/6';
   }
 
-  if (planSlug === "nodo-growth") {
-    return "from-nodo-purple/52 via-nodo-lavender/18 to-white/6";
+  if (planSlug === 'nodo-growth') {
+    return 'from-nodo-purple/52 via-nodo-lavender/18 to-white/6';
   }
 
-  if (planSlug === "nodo-nexus") {
-    return "from-nodo-pink/34 via-nodo-purple/24 to-white/6";
+  if (planSlug === 'nodo-nexus') {
+    return 'from-nodo-pink/34 via-nodo-purple/24 to-white/6';
   }
 
-  return "from-nodo-lavender/34 via-nodo-purple/18 to-white/6";
+  return 'from-nodo-lavender/34 via-nodo-purple/18 to-white/6';
 }
 
 export function WebsitePlansPage() {
@@ -53,67 +53,77 @@ export function WebsitePlansPage() {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(".plans-hero-title-word", { yPercent: 135 });
-        gsap.set(".plans-hero-title", { autoAlpha: 1 });
-        gsap.set([".plans-hero-kicker", ".plans-hero-copy", ".plans-hero-cta", ".plans-hero-chip", ".plans-hero-scroll"], {
-          autoAlpha: 0,
-          y: 22,
-        });
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.plans-hero-title-word', { yPercent: 135 });
+        gsap.set('.plans-hero-title', { autoAlpha: 1 });
+        gsap.set(
+          ['.plans-hero-kicker', '.plans-hero-copy', '.plans-hero-cta', '.plans-hero-chip', '.plans-hero-scroll'],
+          {
+            autoAlpha: 0,
+            y: 22
+          }
+        );
 
-        const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
 
-        tl.to(".plans-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.65 })
-          .to(".plans-hero-title-word", { yPercent: 0, duration: 0.9, stagger: 0.075 }, "-=0.18")
-          .to(".plans-hero-copy", { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.08 }, "-=0.18")
-          .to(".plans-hero-chip", { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, "-=0.25")
+        tl.to('.plans-hero-kicker', { autoAlpha: 1, y: 0, duration: 0.65 })
+          .to('.plans-hero-title-word', { yPercent: 0, duration: 0.9, stagger: 0.075 }, '-=0.18')
+          .to('.plans-hero-copy', { autoAlpha: 1, y: 0, duration: 0.72, stagger: 0.08 }, '-=0.18')
+          .to('.plans-hero-chip', { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, '-=0.25')
           .to(
-            ".plans-hero-cta",
+            '.plans-hero-cta',
             {
               autoAlpha: 1,
               y: 0,
               duration: 0.6,
               stagger: 0.08,
-              clearProps: "transform,visibility",
+              clearProps: 'transform,visibility'
             },
-            "-=0.2",
+            '-=0.2'
           )
-          .to(".plans-hero-scroll", { autoAlpha: 1, y: 0, duration: 0.45 }, 0.9);
+          .to('.plans-hero-scroll', { autoAlpha: 1, y: 0, duration: 0.45 }, 0.9);
 
         const playIntro = () => {
           tl.play(0);
         };
 
-        if (document.documentElement.dataset.nodoPreloaded === "true") {
+        if (document.documentElement.dataset.nodoPreloaded === 'true') {
           playIntro();
         } else {
-          window.addEventListener("nodo:preloader-complete", playIntro, { once: true });
+          window.addEventListener('nodo:preloader-complete', playIntro, { once: true });
         }
 
         return () => {
-          window.removeEventListener("nodo:preloader-complete", playIntro);
+          window.removeEventListener('nodo:preloader-complete', playIntro);
         };
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".plans-hero-kicker", ".plans-hero-title", ".plans-hero-title-word", ".plans-hero-copy", ".plans-hero-cta", ".plans-hero-chip", ".plans-hero-scroll"], {
-          autoAlpha: 1,
-          y: 0,
-          yPercent: 0,
-        });
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(
+          [
+            '.plans-hero-kicker',
+            '.plans-hero-title',
+            '.plans-hero-title-word',
+            '.plans-hero-copy',
+            '.plans-hero-cta',
+            '.plans-hero-chip',
+            '.plans-hero-scroll'
+          ],
+          {
+            autoAlpha: 1,
+            y: 0,
+            yPercent: 0
+          }
+        );
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
-    <main
-      ref={root}
-      data-testid="plans-page-main"
-      className="overflow-hidden bg-nodo-black"
-    >
+    <main ref={root} data-testid="plans-page-main" className="overflow-hidden bg-nodo-black">
       <section
         data-testid="plans-page-hero-section"
         className="relative flex min-h-screen overflow-hidden bg-nodo-black pt-28"
@@ -177,7 +187,7 @@ export function WebsitePlansPage() {
             </div>
             <div className="mt-9 flex flex-wrap gap-3">
               <TrackedPlanCta
-                href={contactHref("discovery-call", "plans-hero")}
+                href={contactHref('discovery-call', 'plans-hero')}
                 plan="not-selected"
                 intent="discovery-call"
                 location="plans_hero_primary"
@@ -187,7 +197,7 @@ export function WebsitePlansPage() {
                 Help me choose a plan
               </TrackedPlanCta>
               <TrackedPlanCta
-                href={contactHref("quote", "plans-hero")}
+                href={contactHref('quote', 'plans-hero')}
                 plan="not-selected"
                 intent="quote"
                 location="plans_hero_secondary"
@@ -246,8 +256,7 @@ export function WebsitePlansPage() {
                       After go-live
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-nodo-ink/78">
-                      The partnership plans keep your website supported,
-                      updated, and improving after launch.
+                      The partnership plans keep your website supported, updated, and improving after launch.
                     </p>
                   </div>
                 </div>
@@ -257,11 +266,7 @@ export function WebsitePlansPage() {
         </Container>
       </section>
 
-      <section
-        id="plans"
-        data-testid="plans-page-grid-section"
-        className="py-20 sm:py-28"
-      >
+      <section id="plans" data-testid="plans-page-grid-section" className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <SectionHeading
@@ -310,10 +315,7 @@ export function WebsitePlansPage() {
               className="max-w-5xl"
             />
           </ScrollReveal>
-          <div
-            data-testid="plans-page-cadence-grid"
-            className="mt-12 grid gap-5 lg:grid-cols-2"
-          >
+          <div data-testid="plans-page-cadence-grid" className="mt-12 grid gap-5 lg:grid-cols-2">
             {planCadenceItems.map((item, index) => (
               <ScrollReveal key={item.planSlug} delay={index * 0.05}>
                 <article
@@ -327,9 +329,7 @@ export function WebsitePlansPage() {
                         <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-lavender">
                           {item.eyebrow}
                         </p>
-                        <h3 className="mt-2 text-2xl font-black leading-tight text-white">
-                          {planName(item.planSlug)}
-                        </h3>
+                        <h3 className="mt-2 text-2xl font-black leading-tight text-white">{planName(item.planSlug)}</h3>
                       </div>
                       <span className="shrink-0 rounded-full border border-white/12 bg-white/[0.055] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-white/68">
                         {item.term}
@@ -339,7 +339,7 @@ export function WebsitePlansPage() {
                     <div className="mt-6 space-y-0">
                       {item.points.map((point, pointIndex) => {
                         const Icon = cadenceIcons[pointIndex % cadenceIcons.length];
-                        const step = String(pointIndex + 1).padStart(2, "0");
+                        const step = String(pointIndex + 1).padStart(2, '0');
                         const isLast = pointIndex === item.points.length - 1;
 
                         return (
@@ -352,20 +352,18 @@ export function WebsitePlansPage() {
                               <span className="relative z-10 inline-flex size-11 items-center justify-center rounded-full border border-white/12 bg-white/[0.065] text-xs font-black text-white">
                                 {step}
                               </span>
-                              {!isLast ? <span className="h-full w-px bg-gradient-to-b from-white/18 to-white/4" /> : null}
+                              {!isLast ? (
+                                <span className="h-full w-px bg-gradient-to-b from-white/18 to-white/4" />
+                              ) : null}
                             </div>
-                            <div className={isLast ? "pb-0" : "pb-5"}>
+                            <div className={isLast ? 'pb-0' : 'pb-5'}>
                               <div className="flex items-center gap-2">
                                 <span className="inline-flex size-7 items-center justify-center rounded-full bg-nodo-purple/22 text-nodo-lavender">
                                   <Icon aria-hidden="true" className="size-3.5" />
                                 </span>
-                                <h4 className="text-sm font-black leading-tight text-white">
-                                  {point.label}
-                                </h4>
+                                <h4 className="text-sm font-black leading-tight text-white">{point.label}</h4>
                               </div>
-                              <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">
-                                {point.description}
-                              </p>
+                              <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">{point.description}</p>
                             </div>
                           </div>
                         );
@@ -373,14 +371,14 @@ export function WebsitePlansPage() {
                     </div>
                     <div className="mt-6 rounded-md border border-white/10 bg-white/[0.045] px-4 py-3">
                       <p className="text-sm font-semibold leading-6 text-white/64">
-                        {item.planSlug === "nodo-launch"
-                          ? "Fast launch first. Support can be added later."
-                          : "Built for support, reporting, and planned improvement."}
+                        {item.planSlug === 'nodo-launch'
+                          ? 'Fast launch first. Support can be added later.'
+                          : 'Built for support, reporting, and planned improvement.'}
                       </p>
                     </div>
                   </div>
                   <div className="pointer-events-none absolute right-4 top-5 text-6xl font-black leading-none text-white/[0.035] sm:text-7xl">
-                    {item.planSlug === "nodo-launch" ? "GO" : "12"}
+                    {item.planSlug === 'nodo-launch' ? 'GO' : '12'}
                   </div>
                 </article>
               </ScrollReveal>
@@ -389,10 +387,7 @@ export function WebsitePlansPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="plans-page-comparison-section"
-        className="py-20 sm:py-28"
-      >
+      <section data-testid="plans-page-comparison-section" className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <SectionHeading
@@ -433,10 +428,7 @@ export function WebsitePlansPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="plans-page-final-cta-section"
-        className="bg-nodo-purple py-20 text-white sm:py-28"
-      >
+      <section data-testid="plans-page-final-cta-section" className="bg-nodo-purple py-20 text-white sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -447,13 +439,11 @@ export function WebsitePlansPage() {
                 <h2 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
                   {plansPageContent.finalCta.title}
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">
-                  {plansPageContent.finalCta.copy}
-                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">{plansPageContent.finalCta.copy}</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <TrackedPlanCta
-                  href={contactHref("discovery-call", "plans-final")}
+                  href={contactHref('discovery-call', 'plans-final')}
                   plan="not-selected"
                   intent="discovery-call"
                   location="plans_final_primary"
@@ -463,7 +453,7 @@ export function WebsitePlansPage() {
                   Help me choose
                 </TrackedPlanCta>
                 <TrackedPlanCta
-                  href={contactHref("quote", "plans-final")}
+                  href={contactHref('quote', 'plans-final')}
                   plan="not-selected"
                   intent="quote"
                   location="plans_final_secondary"

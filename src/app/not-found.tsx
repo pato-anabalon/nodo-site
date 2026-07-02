@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import { ArrowLeft, Compass, MessageCircle } from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { NodoLogo } from "@/components/atoms/NodoLogo";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
+import type { Metadata } from 'next';
+import { ArrowLeft, Compass, MessageCircle } from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 
 export const metadata: Metadata = {
-  title: "Page not found | Nodo",
-  description: "This Nodo page could not be found.",
+  title: 'Page not found | Nodo',
+  description: 'This Nodo page could not be found.',
   robots: {
     index: false,
-    follow: false,
-  },
+    follow: false
+  }
 };
 
 export default function NotFound() {
@@ -20,13 +20,7 @@ export default function NotFound() {
       data-testid="not-found-page-main"
       className="relative min-h-screen overflow-hidden bg-nodo-black pt-28 text-white"
     >
-      <ConstellationBackground
-        className="opacity-72"
-        density={0.68}
-        fps={32}
-        maxDevicePixelRatio={1.5}
-        maxNodes={72}
-      />
+      <ConstellationBackground className="opacity-72" density={0.68} fps={32} maxDevicePixelRatio={1.5} maxNodes={72} />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(124,58,237,0.18),transparent_34%),linear-gradient(180deg,rgba(5,5,5,0.08),rgba(5,5,5,0.72))]" />
       <Container className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center py-16">
         <section
@@ -46,10 +40,7 @@ export default function NotFound() {
             >
               This page has drifted off the map.
             </h1>
-            <p
-              data-testid="not-found-copy"
-              className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68"
-            >
+            <p data-testid="not-found-copy" className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68">
               The link may have moved, or the page may not exist yet. You can head back to the main site, browse
               services, or tell us what you were trying to find.
             </p>

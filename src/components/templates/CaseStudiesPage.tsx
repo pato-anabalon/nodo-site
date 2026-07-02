@@ -1,36 +1,25 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import Image from "next/image";
-import {
-  ArrowUpRight,
-  MapPinned,
-  MessageSquareText,
-  MousePointerClick,
-  ShieldCheck,
-} from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { MetaChip } from "@/components/atoms/MetaChip";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { CaseStudyOutcomeCard } from "@/components/molecules/CaseStudyOutcomeCard";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
-import { caseStudiesPageContent, caseStudyWorkCards } from "@/lib/content";
-import { testIdSlug } from "@/lib/utils";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import Image from 'next/image';
+import { ArrowUpRight, MapPinned, MessageSquareText, MousePointerClick, ShieldCheck } from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { MetaChip } from '@/components/atoms/MetaChip';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { CaseStudyOutcomeCard } from '@/components/molecules/CaseStudyOutcomeCard';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
+import { caseStudiesPageContent, caseStudyWorkCards } from '@/lib/content';
+import { testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
 
-const heroTitleWords = caseStudiesPageContent.hero.title.split(" ");
-const heroChipAccents = ["purple", "lavender", "pink"] as const;
-const outcomeIcons = [
-  ShieldCheck,
-  MessageSquareText,
-  MapPinned,
-  MousePointerClick,
-] as const;
+const heroTitleWords = caseStudiesPageContent.hero.title.split(' ');
+const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
+const outcomeIcons = [ShieldCheck, MessageSquareText, MapPinned, MousePointerClick] as const;
 const showSelectedWorkSection = false;
 
 function BrowserSlot({
@@ -40,7 +29,7 @@ function BrowserSlot({
   imageSrc,
   imageAlt,
   videoSrc,
-  tone,
+  tone
 }: {
   label: string;
   title: string;
@@ -48,9 +37,9 @@ function BrowserSlot({
   imageSrc: string;
   imageAlt: string;
   videoSrc: string;
-  tone: "before" | "after";
+  tone: 'before' | 'after';
 }) {
-  const isAfter = tone === "after";
+  const isAfter = tone === 'after';
 
   return (
     <article
@@ -69,11 +58,9 @@ function BrowserSlot({
       </div>
       <div
         className={[
-          "relative mt-5 aspect-[16/10] overflow-hidden rounded-[1.25rem] border",
-          isAfter
-            ? "border-nodo-lavender/30 bg-white"
-            : "border-white/10 bg-white/[0.035]",
-        ].join(" ")}
+          'relative mt-5 aspect-[16/10] overflow-hidden rounded-[1.25rem] border',
+          isAfter ? 'border-nodo-lavender/30 bg-white' : 'border-white/10 bg-white/[0.035]'
+        ].join(' ')}
       >
         <video
           aria-label={imageAlt}
@@ -91,9 +78,7 @@ function BrowserSlot({
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_68%,rgba(5,5,5,0.42))]" />
       </div>
       <div className="mt-5">
-        <h3 className="text-2xl font-black tracking-normal text-white">
-          {title}
-        </h3>
+        <h3 className="text-2xl font-black tracking-normal text-white">{title}</h3>
         <p className="mt-3 text-sm leading-6 text-white/62">{description}</p>
       </div>
     </article>
@@ -142,9 +127,7 @@ function HeroTransformationPanel() {
             <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-nodo-purple">
               Featured transformation
             </p>
-            <p className="mt-1 text-sm font-black leading-5 text-nodo-black">
-              PlasterPro Solution
-            </p>
+            <p className="mt-1 text-sm font-black leading-5 text-nodo-black">PlasterPro Solution</p>
           </div>
           <span className="rounded-full bg-nodo-black px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white">
             Nodo after
@@ -163,16 +146,10 @@ export function CaseStudiesPage() {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const beforeCard = root.current?.querySelector<HTMLElement>(
-          ".case-hero-carousel-before",
-        );
-        const afterCard = root.current?.querySelector<HTMLElement>(
-          ".case-hero-carousel-after",
-        );
-        const proofPanel = root.current?.querySelector<HTMLElement>(
-          ".case-hero-proof-panel",
-        );
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const beforeCard = root.current?.querySelector<HTMLElement>('.case-hero-carousel-before');
+        const afterCard = root.current?.querySelector<HTMLElement>('.case-hero-carousel-after');
+        const proofPanel = root.current?.querySelector<HTMLElement>('.case-hero-proof-panel');
 
         if (!beforeCard || !afterCard || !proofPanel) {
           return;
@@ -185,7 +162,7 @@ export function CaseStudiesPage() {
           scale: 0.82,
           rotation: -3,
           rotationY: -12,
-          zIndex: 1,
+          zIndex: 1
         };
         const beforeFrontState = {
           autoAlpha: 1,
@@ -194,7 +171,7 @@ export function CaseStudiesPage() {
           scale: 1.08,
           rotation: 1,
           rotationY: 0,
-          zIndex: 4,
+          zIndex: 4
         };
         const afterFrontState = {
           autoAlpha: 1,
@@ -203,7 +180,7 @@ export function CaseStudiesPage() {
           scale: 1,
           rotation: 0,
           rotationY: 0,
-          zIndex: 4,
+          zIndex: 4
         };
         const afterBackState = {
           autoAlpha: 0.58,
@@ -212,33 +189,33 @@ export function CaseStudiesPage() {
           scale: 0.78,
           rotation: -4,
           rotationY: -12,
-          zIndex: 1,
+          zIndex: 1
         };
 
-        gsap.set(".case-hero-eyebrow", { autoAlpha: 0, y: 18 });
-        gsap.set(".case-hero-title-word", { yPercent: 135, rotation: 2 });
-        gsap.set(".case-hero-title", { autoAlpha: 1 });
-        gsap.set([".case-hero-copy", ".case-hero-chip"], {
+        gsap.set('.case-hero-eyebrow', { autoAlpha: 0, y: 18 });
+        gsap.set('.case-hero-title-word', { yPercent: 135, rotation: 2 });
+        gsap.set('.case-hero-title', { autoAlpha: 1 });
+        gsap.set(['.case-hero-copy', '.case-hero-chip'], {
           autoAlpha: 0,
-          y: 18,
+          y: 18
         });
-        gsap.set(".case-hero-proof-panel", {
+        gsap.set('.case-hero-proof-panel', {
           autoAlpha: 0,
           x: 44,
-          clipPath: "inset(0 0 0 100% round 2rem)",
+          clipPath: 'inset(0 0 0 100% round 2rem)'
         });
-        gsap.set(".case-hero-proof-item", {
+        gsap.set('.case-hero-proof-item', {
           autoAlpha: 0,
           x: 18,
           xPercent: 0,
-          transformOrigin: "50% 50%",
-          force3D: true,
+          transformOrigin: '50% 50%',
+          force3D: true
         });
 
         const carouselTl = gsap.timeline({
           paused: true,
           repeat: -1,
-          defaults: { ease: "power3.inOut", overwrite: "auto" },
+          defaults: { ease: 'power3.inOut', overwrite: 'auto' }
         });
 
         carouselTl
@@ -247,107 +224,103 @@ export function CaseStudiesPage() {
             y: -8,
             rotation: 0.35,
             duration: 3,
-            ease: "sine.inOut",
+            ease: 'sine.inOut'
           })
           .set(beforeCard, { zIndex: 5 })
-          .set(afterCard, { zIndex: 2 }, "<")
+          .set(afterCard, { zIndex: 2 }, '<')
           .to(
             beforeCard,
             {
               ...beforeFrontState,
-              duration: 0.82,
+              duration: 0.82
             },
-            "+=0.04",
+            '+=0.04'
           )
           .to(
             afterCard,
             {
               ...afterBackState,
-              duration: 0.82,
+              duration: 0.82
             },
-            "<",
+            '<'
           )
           .to(beforeCard, {
             xPercent: 21,
             y: 110,
             rotation: 1.35,
             duration: 3,
-            ease: "sine.inOut",
+            ease: 'sine.inOut'
           })
           .set(afterCard, { zIndex: 5 })
-          .set(beforeCard, { zIndex: 2 }, "<")
+          .set(beforeCard, { zIndex: 2 }, '<')
           .to(
             afterCard,
             {
               ...afterFrontState,
-              duration: 0.82,
+              duration: 0.82
             },
-            "+=0.04",
+            '+=0.04'
           )
           .to(
             beforeCard,
             {
               ...beforeBackState,
-              duration: 0.82,
+              duration: 0.82
             },
-            "<",
+            '<'
           );
 
         const tl = gsap.timeline({
           paused: true,
-          defaults: { ease: "power3.out" },
+          defaults: { ease: 'power3.out' }
         });
 
-        tl.to(".case-hero-eyebrow", {
+        tl.to('.case-hero-eyebrow', {
           autoAlpha: 1,
           y: 0,
-          duration: 0.58,
+          duration: 0.58
         })
           .to(
-            ".case-hero-title-word",
+            '.case-hero-title-word',
             {
               yPercent: 0,
               rotation: 0,
               duration: 0.9,
-              stagger: { each: 0.045, from: "start" },
+              stagger: { each: 0.045, from: 'start' }
             },
-            "-=0.18",
+            '-=0.18'
           )
+          .to('.case-hero-copy', { autoAlpha: 1, y: 0, duration: 0.68 }, '-=0.34')
           .to(
-            ".case-hero-copy",
-            { autoAlpha: 1, y: 0, duration: 0.68 },
-            "-=0.34",
-          )
-          .to(
-            ".case-hero-chip",
+            '.case-hero-chip',
             {
               autoAlpha: 1,
               y: 0,
               duration: 0.46,
-              stagger: 0.055,
+              stagger: 0.055
             },
-            "-=0.26",
+            '-=0.26'
           )
           .to(
-            ".case-hero-proof-panel",
+            '.case-hero-proof-panel',
             {
               autoAlpha: 1,
               x: 0,
-              clipPath: "inset(0 0 0 0% round 2rem)",
+              clipPath: 'inset(0 0 0 0% round 2rem)',
               duration: 0.86,
-              clearProps: "clipPath",
+              clearProps: 'clipPath'
             },
-            0.48,
+            0.48
           )
           .to(
-            ".case-hero-proof-item",
+            '.case-hero-proof-item',
             {
               autoAlpha: 1,
               x: 0,
               duration: 0.48,
-              stagger: 0.08,
+              stagger: 0.08
             },
-            "-=0.36",
+            '-=0.36'
           )
           .add(() => {
             gsap.set(beforeCard, beforeBackState);
@@ -362,35 +335,35 @@ export function CaseStudiesPage() {
         const pauseCarousel = () => carouselTl.pause();
         const resumeCarousel = () => carouselTl.resume();
 
-        proofPanel.addEventListener("mouseenter", pauseCarousel);
-        proofPanel.addEventListener("mouseleave", resumeCarousel);
+        proofPanel.addEventListener('mouseenter', pauseCarousel);
+        proofPanel.addEventListener('mouseleave', resumeCarousel);
 
-        if (document.documentElement.dataset.nodoPreloaded === "true") {
+        if (document.documentElement.dataset.nodoPreloaded === 'true') {
           playIntro();
         } else {
-          window.addEventListener("nodo:preloader-complete", playIntro, {
-            once: true,
+          window.addEventListener('nodo:preloader-complete', playIntro, {
+            once: true
           });
         }
 
         return () => {
-          window.removeEventListener("nodo:preloader-complete", playIntro);
-          proofPanel.removeEventListener("mouseenter", pauseCarousel);
-          proofPanel.removeEventListener("mouseleave", resumeCarousel);
+          window.removeEventListener('nodo:preloader-complete', playIntro);
+          proofPanel.removeEventListener('mouseenter', pauseCarousel);
+          proofPanel.removeEventListener('mouseleave', resumeCarousel);
           carouselTl.kill();
         };
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
+      mm.add('(prefers-reduced-motion: reduce)', () => {
         gsap.set(
           [
-            ".case-hero-eyebrow",
-            ".case-hero-title",
-            ".case-hero-title-word",
-            ".case-hero-copy",
-            ".case-hero-chip",
-            ".case-hero-proof-panel",
-            ".case-hero-proof-item",
+            '.case-hero-eyebrow',
+            '.case-hero-title',
+            '.case-hero-title-word',
+            '.case-hero-copy',
+            '.case-hero-chip',
+            '.case-hero-proof-panel',
+            '.case-hero-proof-item'
           ],
           {
             autoAlpha: 1,
@@ -401,14 +374,14 @@ export function CaseStudiesPage() {
             scale: 1,
             rotation: 0,
             rotationY: 0,
-            clipPath: "none",
-          },
+            clipPath: 'none'
+          }
         );
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (
@@ -444,9 +417,7 @@ export function CaseStudiesPage() {
                   key={`${word}-${index}`}
                   className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
                 >
-                  <span className="case-hero-title-word inline-block pr-[0.22em]">
-                    {word}
-                  </span>
+                  <span className="case-hero-title-word inline-block pr-[0.22em]">{word}</span>
                 </span>
               ))}
             </h1>
@@ -456,10 +427,7 @@ export function CaseStudiesPage() {
             >
               {hero.copy}
             </p>
-            <div
-              data-testid="case-studies-hero-highlights"
-              className="mt-8 flex flex-wrap gap-3"
-            >
+            <div data-testid="case-studies-hero-highlights" className="mt-8 flex flex-wrap gap-3">
               {hero.highlights.map((highlight, index) => (
                 <MetaChip
                   key={highlight}
@@ -478,17 +446,12 @@ export function CaseStudiesPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="case-studies-featured-section"
-        className="border-y border-white/10 py-20 sm:py-28"
-      >
+      <section data-testid="case-studies-featured-section" className="border-y border-white/10 py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
-                  {featured.eyebrow}
-                </p>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">{featured.eyebrow}</p>
                 <h2
                   data-testid="case-studies-plasterpro-title"
                   className="mt-5 text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl"
@@ -541,26 +504,18 @@ export function CaseStudiesPage() {
                   data-testid="case-studies-plasterpro-headline-card"
                   className="rounded-[1.75rem] border border-nodo-lavender/32 bg-nodo-purple/20 p-6"
                 >
-                  <p className="text-sm font-black uppercase tracking-[0.18em] text-nodo-lavender">
-                    Website redesign
-                  </p>
+                  <p className="text-sm font-black uppercase tracking-[0.18em] text-nodo-lavender">Website redesign</p>
                   <h3 className="mt-4 text-balance text-3xl font-black leading-tight text-white sm:text-4xl">
                     {featured.headline}
                   </h3>
                 </div>
                 <div className="grid gap-5 md:grid-cols-2">
                   <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
-                    <h3 className="text-xl font-black text-white">
-                      {featured.challenge.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-7 text-white/64">
-                      {featured.challenge.description}
-                    </p>
+                    <h3 className="text-xl font-black text-white">{featured.challenge.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-white/64">{featured.challenge.description}</p>
                   </article>
                   <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
-                    <h3 className="text-xl font-black text-white">
-                      {featured.work.title}
-                    </h3>
+                    <h3 className="text-xl font-black text-white">{featured.work.title}</h3>
                     <ul className="mt-4 grid gap-3">
                       {featured.work.points.map((point) => (
                         <li key={point} className="flex gap-3 text-sm leading-6 text-white/66">
@@ -603,10 +558,7 @@ export function CaseStudiesPage() {
       </section>
 
       {showSelectedWorkSection ? (
-        <section
-          data-testid="case-studies-selected-work-section"
-          className="bg-white py-20 text-nodo-black sm:py-28"
-        >
+        <section data-testid="case-studies-selected-work-section" className="bg-white py-20 text-nodo-black sm:py-28">
           <Container>
             <ScrollReveal>
               <SectionHeading
@@ -616,10 +568,7 @@ export function CaseStudiesPage() {
                 surfaceTone="light"
               />
             </ScrollReveal>
-            <div
-              data-testid="case-studies-selected-work-grid"
-              className="mt-12 grid gap-5 lg:grid-cols-3"
-            >
+            <div data-testid="case-studies-selected-work-grid" className="mt-12 grid gap-5 lg:grid-cols-3">
               {caseStudyWorkCards.map((card, index) => {
                 const Icon = card.icon;
                 const slug = testIdSlug(card.title);
@@ -635,17 +584,13 @@ export function CaseStudiesPage() {
                           <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-purple">
                             {card.eyebrow}
                           </p>
-                          <h3 className="mt-4 text-3xl font-black tracking-normal text-nodo-black">
-                            {card.title}
-                          </h3>
+                          <h3 className="mt-4 text-3xl font-black tracking-normal text-nodo-black">{card.title}</h3>
                         </div>
                         <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-nodo-black text-white shadow-[0_12px_34px_rgba(0,0,0,0.16)]">
                           <Icon aria-hidden="true" className="size-5" />
                         </span>
                       </div>
-                      <p className="mt-5 text-pretty text-base leading-7 text-nodo-ink/68">
-                        {card.description}
-                      </p>
+                      <p className="mt-5 text-pretty text-base leading-7 text-nodo-ink/68">{card.description}</p>
                       <div className="mt-6 flex flex-wrap gap-2">
                         {card.tags.map((tag) => (
                           <span
@@ -683,23 +628,16 @@ export function CaseStudiesPage() {
         </section>
       ) : null}
 
-      <section
-        data-testid="case-studies-final-cta-section"
-        className="bg-nodo-purple py-20 text-white sm:py-28"
-      >
+      <section data-testid="case-studies-final-cta-section" className="bg-nodo-purple py-20 text-white sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <p className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/70">
-                  {finalCta.eyebrow}
-                </p>
+                <p className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/70">{finalCta.eyebrow}</p>
                 <h2 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
                   {finalCta.title}
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">
-                  {finalCta.copy}
-                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">{finalCta.copy}</p>
               </div>
               <TrackedCtaButton
                 href="/contact?intent=project&source=case-studies-final"

@@ -1,6 +1,6 @@
-import { Container } from "@/components/atoms/Container";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
+import { Container } from '@/components/atoms/Container';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
 
 export function AboutSection() {
   return (
@@ -15,12 +15,15 @@ export function AboutSection() {
               className="[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
             />
             <p data-testid="home-about-supporting-copy" className="mt-6 max-w-2xl text-lg leading-8 text-nodo-ink/68">
-              The approach is direct: understand the business, clarify the message,
-              shape the digital presence, and keep improving it around real customer response.
+              The approach is direct: understand the business, clarify the message, shape the digital presence, and keep
+              improving it around real customer response.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
-            <div data-testid="home-about-video-card" className="relative overflow-hidden rounded-[2rem] bg-nodo-black p-6">
+            <div
+              data-testid="home-about-video-card"
+              className="relative overflow-hidden rounded-[2rem] bg-nodo-black p-6"
+            >
               <video
                 className="h-auto w-full rounded-[1.5rem] bg-white object-cover"
                 src="/videos/team-discussion-optimized.mp4"

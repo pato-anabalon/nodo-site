@@ -1,9 +1,5 @@
-import { NextResponse } from "next/server";
-import {
-  CONTACT_ATTACHMENT_LIMITS,
-  type ContactAttachment,
-  isAllowedFilePair,
-} from "@/lib/contact-attachments";
+import { NextResponse } from 'next/server';
+import { CONTACT_ATTACHMENT_LIMITS, type ContactAttachment, isAllowedFilePair } from '@/lib/contact-attachments';
 import {
   checkRateLimit,
   getClientIp,
@@ -12,14 +8,14 @@ import {
   sanitizeText,
   storeContactAttachment,
   validateAttachmentMetadata,
-  validateUploadedMagicNumber,
-} from "@/lib/contact-server";
+  validateUploadedMagicNumber
+} from '@/lib/contact-server';
 import {
   forwardContactLead,
   hasAnyIntegrationSuccess,
   hasCriticalIntegrationFailure,
-  type ContactLead,
-} from "@/lib/contact-integrations";
+  type ContactLead
+} from '@/lib/contact-integrations';
 
 type ContactPayload = {
   name?: string;
@@ -54,7 +50,7 @@ export async function POST(request: Request) {
   try {
     payload = (await request.json()) as ContactPayload;
   } catch {
-    return NextResponse.json({ error: "Invalid request payload." }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request payload.' }, { status: 400 });
   }
 
   const name = sanitizeText(payload.name, 80);
@@ -81,56 +77,47 @@ export async function POST(request: Request) {
     Date.now() - formStartedAt < MIN_FORM_AGE_MS ||
     Date.now() - formStartedAt > MAX_FORM_AGE_MS
   ) {
-    return NextResponse.json({ error: "Invalid contact request." }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid contact request.' }, { status: 400 });
   }
 
   if (!name || !lastName || !email || !message) {
-    return NextResponse.json(
-      { error: "Name, last name, email, and message are required." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: 'Name, last name, email, and message are required.' }, { status: 400 });
   }
 
   if (!isValidEmail(email)) {
-    return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+    return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
 
   if (message.length > MESSAGE_MAX_LENGTH) {
-    return NextResponse.json(
-      { error: `Message must be ${MESSAGE_MAX_LENGTH} characters or fewer.` },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: `Message must be ${MESSAGE_MAX_LENGTH} characters or fewer.` }, { status: 400 });
   }
 
   const ipRateLimit = await checkRateLimit({
     key: `contact:submit:ip:${ip}`,
     limit: 8,
-    windowSeconds: 15 * 60,
+    windowSeconds: 15 * 60
   });
 
   if (ipRateLimit.limited) {
-    return NextResponse.json(
-      { error: "Too many contact requests. Please try again later." },
-      { status: 429 },
-    );
+    return NextResponse.json({ error: 'Too many contact requests. Please try again later.' }, { status: 429 });
   }
 
   const emailRateLimit = await checkRateLimit({
-    key: `contact:submit:email:${email.replace(/[^a-z0-9]/gi, "_")}`,
+    key: `contact:submit:email:${email.replace(/[^a-z0-9]/gi, '_')}`,
     limit: 4,
-    windowSeconds: 60 * 60,
+    windowSeconds: 60 * 60
   });
 
   if (emailRateLimit.limited) {
     return NextResponse.json(
-      { error: "Too many contact requests for this email. Please try again later." },
-      { status: 429 },
+      { error: 'Too many contact requests for this email. Please try again later.' },
+      { status: 429 }
     );
   }
 
   const validatedAttachments = await validateAttachments(attachments, submissionId);
 
-  if ("error" in validatedAttachments) {
+  if ('error' in validatedAttachments) {
     return NextResponse.json({ error: validatedAttachments.error }, { status: 400 });
   }
 
@@ -150,7 +137,7 @@ export async function POST(request: Request) {
     source,
     attachments: validatedAttachments.attachments,
     attachmentCount: validatedAttachments.attachments.length,
-    submittedAt: new Date().toISOString(),
+    submittedAt: new Date().toISOString()
   };
 
   const integrations = await forwardContactLead(lead);
@@ -159,13 +146,13 @@ export async function POST(request: Request) {
   if (hasCriticalIntegrationFailure(integrations)) {
     return NextResponse.json(
       {
-        error: "The lead could not be sent right now. Please try again.",
+        error: 'The lead could not be sent right now. Please try again.',
         metadata: {
           leadReceived,
-          integrations,
-        },
+          integrations
+        }
       },
-      { status: 502 },
+      { status: 502 }
     );
   }
 
@@ -179,9 +166,9 @@ export async function POST(request: Request) {
       source,
       attachmentCount: validatedAttachments.attachments.length,
       leadReceived,
-      integrations,
+      integrations
     },
-    message: "Contact request received.",
+    message: 'Contact request received.'
   });
 }
 
@@ -191,11 +178,11 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
   }
 
   if (!/^[a-f0-9-]{36}$/i.test(submissionId)) {
-    return { error: "Invalid attachment session." };
+    return { error: 'Invalid attachment session.' };
   }
 
   if (!hasAttachmentStore()) {
-    return { error: "Attachments are not available right now." };
+    return { error: 'Attachments are not available right now.' };
   }
 
   if (attachments.length > CONTACT_ATTACHMENT_LIMITS.maxFiles) {
@@ -205,7 +192,7 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
   const totalSize = attachments.reduce((total, attachment) => total + Number(attachment.size), 0);
 
   if (totalSize > CONTACT_ATTACHMENT_LIMITS.maxTotalSize) {
-    return { error: "Attachments must be 25 MB total or less." };
+    return { error: 'Attachments must be 25 MB total or less.' };
   }
 
   const validated: ContactAttachment[] = [];
@@ -215,7 +202,7 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
       !validateAttachmentMetadata(attachment, submissionId) ||
       !isAllowedFilePair(attachment.originalName, attachment.contentType)
     ) {
-      return { error: "One or more attachments are invalid." };
+      return { error: 'One or more attachments are invalid.' };
     }
 
     const stored =
@@ -223,7 +210,7 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
       (await validateAttachmentOnDemand(attachment, submissionId));
 
     if (!stored.valid) {
-      return { error: "One or more attachments did not pass validation." };
+      return { error: 'One or more attachments did not pass validation.' };
     }
 
     validated.push({
@@ -232,7 +219,7 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
       filename: stored.filename,
       originalName: stored.originalName,
       contentType: stored.contentType,
-      size: stored.size,
+      size: stored.size
     });
   }
 
@@ -245,7 +232,7 @@ async function validateAttachmentOnDemand(attachment: ContactAttachment, submiss
     ...attachment,
     submissionId,
     valid,
-    uploadedAt: new Date().toISOString(),
+    uploadedAt: new Date().toISOString()
   };
 
   await storeContactAttachment(storedAttachment);

@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
-import { JsonLdScript } from "@/components/atoms/JsonLdScript";
-import { ContactSection } from "@/components/organisms/ContactSection";
-import { createBreadcrumbStructuredData, createPageMetadata } from "@/lib/seo";
+import type { Metadata } from 'next';
+import { JsonLdScript } from '@/components/atoms/JsonLdScript';
+import { ContactSection } from '@/components/organisms/ContactSection';
+import { createBreadcrumbStructuredData, createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact",
-  description:
-    "Contact Nodo to discuss a branding, digital marketing, or website project for your business.",
-  path: "/contact",
+  title: 'Contact',
+  description: 'Contact Nodo to discuss a branding, digital marketing, or website project for your business.',
+  path: '/contact'
 });
 
 type ContactPageProps = {
@@ -23,7 +22,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
 
   return (
     <>
-      <JsonLdScript id="breadcrumb-structured-data" data={createBreadcrumbStructuredData("/contact")} />
+      <JsonLdScript id="breadcrumb-structured-data" data={createBreadcrumbStructuredData('/contact')} />
       <ContactSection
         selectedPlanSlug={readSearchParam(params.plan)}
         intent={readSearchParam(params.intent)}

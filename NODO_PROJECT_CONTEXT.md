@@ -413,7 +413,7 @@ src/lib/contact-integrations.ts
 The flow states are:
 
 ```ts
-'idle' | 'launching' | 'covering' | 'inFlight' | 'success' | 'failure'
+'idle' | 'launching' | 'covering' | 'inFlight' | 'success' | 'failure';
 ```
 
 Submission animation:
@@ -893,7 +893,7 @@ This prevents installs from using an older corporate Artifactory registry in the
 For testing from a phone on the local network, `next.config.ts` currently allows:
 
 ```ts
-allowedDevOrigins: ["192.168.1.33"]
+allowedDevOrigins: ['192.168.1.33'];
 ```
 
 If the local IP changes, update this value and restart the dev server.

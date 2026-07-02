@@ -10,10 +10,10 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      }
     ];
   },
   async redirects() {
@@ -21,15 +21,15 @@ const nextConfig: NextConfig = {
       {
         source: '/pricing',
         destination: '/plans',
-        permanent: true,
+        permanent: true
       },
       {
         source: '/pricing/:path*',
         destination: '/plans',
-        permanent: true,
-      },
+        permanent: true
+      }
     ];
-  },
+  }
 };
 
 export default nextConfig;

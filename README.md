@@ -198,7 +198,7 @@ When testing from a phone on the same network, update `allowedDevOrigins` in [`n
 Example:
 
 ```ts
-allowedDevOrigins: ["192.168.1.33"]
+allowedDevOrigins: ['192.168.1.33'];
 ```
 
 The contact form includes a fallback for `crypto.randomUUID()` because some mobile browsers do not expose it over LAN `http://192.x.x.x` development URLs.

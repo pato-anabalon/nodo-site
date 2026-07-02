@@ -1,10 +1,10 @@
-import { Sparkles } from "lucide-react";
-import { fireEvent, screen } from "@testing-library/react";
-import { renderWithProviders } from "@/test/render";
-import { AboutClientFocusButton } from "./AboutClientFocusButton";
+import { Sparkles } from 'lucide-react';
+import { fireEvent, screen } from '@testing-library/react';
+import { renderWithProviders } from '@/test/render';
+import { AboutClientFocusButton } from './AboutClientFocusButton';
 
-describe("AboutClientFocusButton", () => {
-  it("renders an active client control and handles selection", () => {
+describe('AboutClientFocusButton', () => {
+  it('renders an active client control and handles selection', () => {
     const onClick = jest.fn();
 
     renderWithProviders(
@@ -16,12 +16,12 @@ describe("AboutClientFocusButton", () => {
         label="Emerging brands"
         onClick={onClick}
         progressDurationMs={2000}
-      />,
+      />
     );
 
-    const button = screen.getByTestId("about-client-emerging-brands");
+    const button = screen.getByTestId('about-client-emerging-brands');
 
-    expect(button).toHaveAttribute("aria-pressed", "true");
+    expect(button).toHaveAttribute('aria-pressed', 'true');
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
   });

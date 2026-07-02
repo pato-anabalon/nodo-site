@@ -1,78 +1,72 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { CheckCircle2 } from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { MetaChip } from "@/components/atoms/MetaChip";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { TrackedPlanCta } from "@/components/molecules/TrackedPlanCta";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { CheckCircle2 } from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { MetaChip } from '@/components/atoms/MetaChip';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
 import {
   brandingPlans,
   bundlePlans,
   marketingBrandingPageContent,
   marketingPlans,
   plansPageContent,
-  type CommercialPlan,
-} from "@/lib/content";
-import { cn, testIdSlug } from "@/lib/utils";
+  type CommercialPlan
+} from '@/lib/content';
+import { cn, testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
 
-const marketingHeroTitleWords = marketingBrandingPageContent.hero.title.split(" ");
-const heroChipAccents = ["purple", "lavender", "pink"] as const;
+const marketingHeroTitleWords = marketingBrandingPageContent.hero.title.split(' ');
+const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
 
-function contactHref(plan: CommercialPlan["slug"], source: string) {
+function contactHref(plan: CommercialPlan['slug'], source: string) {
   return `/contact?plan=${plan}&intent=quote&source=${source}`;
 }
 
 function CommercialPlanCard({
   plan,
   source,
-  light = false,
+  light = false
 }: {
   plan: CommercialPlan;
   source: string;
   light?: boolean;
 }) {
   const topTag =
-    plan.category === "Marketing"
-      ? "Digital Marketing"
-      : plan.category === "Bundle"
-        ? plan.model
-        : plan.category;
-  const showSecondaryTag = plan.category === "Branding";
+    plan.category === 'Marketing' ? 'Digital Marketing' : plan.category === 'Bundle' ? plan.model : plan.category;
+  const showSecondaryTag = plan.category === 'Branding';
 
   return (
     <article
       data-testid={`${source}-${plan.slug}-card`}
       className={cn(
-        "group relative flex h-full flex-col overflow-visible rounded-[2rem] border p-6 pt-10 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 sm:p-7 sm:pt-11",
+        'group relative flex h-full flex-col overflow-visible rounded-[2rem] border p-6 pt-10 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 sm:p-7 sm:pt-11',
         light
-          ? "border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.10)] hover:bg-white"
-          : "border-white/12 bg-white/[0.045] text-white shadow-[0_24px_80px_rgba(0,0,0,0.22)] hover:bg-white/[0.07]",
+          ? 'border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.10)] hover:bg-white'
+          : 'border-white/12 bg-white/[0.045] text-white shadow-[0_24px_80px_rgba(0,0,0,0.22)] hover:bg-white/[0.07]',
         plan.highlighted && !light
-          ? "border-nodo-lavender/65 bg-[linear-gradient(160deg,rgba(124,58,237,0.34),rgba(255,255,255,0.08)_46%,rgba(5,5,5,0.7))]"
+          ? 'border-nodo-lavender/65 bg-[linear-gradient(160deg,rgba(124,58,237,0.34),rgba(255,255,255,0.08)_46%,rgba(5,5,5,0.7))]'
           : null,
         plan.highlighted && light
-          ? "border-nodo-purple/30 bg-[linear-gradient(145deg,#f3ecff_0%,#ffffff_50%,#f8f4ff_100%)]"
-          : null,
+          ? 'border-nodo-purple/30 bg-[linear-gradient(145deg,#f3ecff_0%,#ffffff_50%,#f8f4ff_100%)]'
+          : null
       )}
     >
       <div
         data-testid={`${source}-${plan.slug}-primary-tag`}
         className={cn(
-          "absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] shadow-[0_14px_34px_rgba(0,0,0,0.22)]",
-          light
-            ? "border-black/8 bg-nodo-black text-white"
-            : "border-white/14 bg-nodo-purple text-white",
+          'absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl border px-4 py-2 text-center text-xs font-black uppercase tracking-[0.16em] shadow-[0_14px_34px_rgba(0,0,0,0.22)]',
+          light ? 'border-black/8 bg-nodo-black text-white' : 'border-white/14 bg-nodo-purple text-white',
           plan.highlighted &&
             (light
-              ? "border-nodo-purple/20 bg-nodo-lavender text-nodo-black"
-              : "border-white/20 bg-nodo-lavender text-nodo-black"),
+              ? 'border-nodo-purple/20 bg-nodo-lavender text-nodo-black'
+              : 'border-white/20 bg-nodo-lavender text-nodo-black')
         )}
       >
         {topTag}
@@ -83,10 +77,10 @@ function CommercialPlanCard({
           <span
             data-testid={`${source}-${plan.slug}-secondary-tag`}
             className={cn(
-              "mt-1 rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.16em]",
+              'mt-1 rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.16em]',
               light
-                ? "border-nodo-purple/20 bg-nodo-purple/10 text-nodo-purple"
-                : "border-white/14 bg-white/[0.06] text-white/66",
+                ? 'border-nodo-purple/20 bg-nodo-purple/10 text-nodo-purple'
+                : 'border-white/14 bg-white/[0.06] text-white/66'
             )}
           >
             {plan.model}
@@ -97,22 +91,22 @@ function CommercialPlanCard({
       <div className="mt-7">
         <h3
           data-testid={`${source}-${plan.slug}-title`}
-          className={cn("text-3xl font-black tracking-normal", light ? "text-nodo-black" : "text-white")}
+          className={cn('text-3xl font-black tracking-normal', light ? 'text-nodo-black' : 'text-white')}
         >
           {plan.name}
         </h3>
         <p
           data-testid={`${source}-${plan.slug}-label`}
-          className={cn("mt-3 min-h-14 text-sm leading-6", light ? "text-nodo-ink/68" : "text-white/62")}
+          className={cn('mt-3 min-h-14 text-sm leading-6', light ? 'text-nodo-ink/68' : 'text-white/62')}
         >
           {plan.label}
         </p>
       </div>
 
-      <div className={cn("mt-7 border-y py-5", light ? "border-black/8" : "border-white/12")}>
+      <div className={cn('mt-7 border-y py-5', light ? 'border-black/8' : 'border-white/12')}>
         <p
           data-testid={`${source}-${plan.slug}-price`}
-          className={cn("text-2xl font-black leading-tight", light ? "text-nodo-black" : "text-white")}
+          className={cn('text-2xl font-black leading-tight', light ? 'text-nodo-black' : 'text-white')}
         >
           {plan.price}
         </p>
@@ -120,7 +114,7 @@ function CommercialPlanCard({
 
       <p
         data-testid={`${source}-${plan.slug}-summary`}
-        className={cn("mt-5 text-pretty text-sm leading-6", light ? "text-nodo-ink/70" : "text-white/68")}
+        className={cn('mt-5 text-pretty text-sm leading-6', light ? 'text-nodo-ink/70' : 'text-white/68')}
       >
         {plan.summary}
       </p>
@@ -129,7 +123,7 @@ function CommercialPlanCard({
         {plan.includedFeatures.map((feature) => (
           <div
             key={feature}
-            className={cn("flex gap-3 text-sm leading-5", light ? "text-nodo-ink/74" : "text-white/72")}
+            className={cn('flex gap-3 text-sm leading-5', light ? 'text-nodo-ink/74' : 'text-white/72')}
           >
             <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-nodo-lavender" />
             <span>{feature}</span>
@@ -144,8 +138,8 @@ function CommercialPlanCard({
           intent="quote"
           location={source}
           dataTestId={`${source}-${plan.slug}-button`}
-          variant={plan.highlighted ? "primary" : "secondary"}
-          surfaceTone={light ? "light" : "dark"}
+          variant={plan.highlighted ? 'primary' : 'secondary'}
+          surfaceTone={light ? 'light' : 'dark'}
           className="w-full"
         >
           {plan.ctaLabel}
@@ -162,7 +156,7 @@ function PlanSection({
   description,
   plans,
   source,
-  light = false,
+  light = false
 }: {
   id?: string;
   eyebrow: string;
@@ -176,7 +170,7 @@ function PlanSection({
     <section
       id={id}
       data-testid={`${source}-section`}
-      className={cn("py-20 sm:py-28", light && "border-y border-black/8 bg-white text-nodo-black")}
+      className={cn('py-20 sm:py-28', light && 'border-y border-black/8 bg-white text-nodo-black')}
     >
       <Container>
         <ScrollReveal>
@@ -184,7 +178,7 @@ function PlanSection({
             eyebrow={eyebrow}
             title={title}
             description={description}
-            className={cn(light && "[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68")}
+            className={cn(light && '[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68')}
           />
         </ScrollReveal>
         <div className="mt-12 grid gap-5 lg:grid-cols-3" data-testid={`${source}-cards-grid`}>
@@ -196,7 +190,7 @@ function PlanSection({
         </div>
         <p
           data-testid={`${source}-pricing-note`}
-          className={cn("mt-5 text-sm", light ? "text-nodo-ink/52" : "text-white/46")}
+          className={cn('mt-5 text-sm', light ? 'text-nodo-ink/52' : 'text-white/46')}
         >
           {plansPageContent.pricingNote}
         </p>
@@ -212,33 +206,42 @@ export function MarketingBrandingPlansPage() {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(".marketing-hero-title-word", { yPercent: 135 });
-        gsap.set(".marketing-hero-title", { autoAlpha: 1 });
-        gsap.set([".marketing-hero-kicker", ".marketing-hero-copy", ".marketing-hero-chip"], {
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.set('.marketing-hero-title-word', { yPercent: 135 });
+        gsap.set('.marketing-hero-title', { autoAlpha: 1 });
+        gsap.set(['.marketing-hero-kicker', '.marketing-hero-copy', '.marketing-hero-chip'], {
           autoAlpha: 0,
-          y: 22,
+          y: 22
         });
 
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        tl.to(".marketing-hero-kicker", { autoAlpha: 1, y: 0, duration: 0.65 })
-          .to(".marketing-hero-title-word", { yPercent: 0, duration: 0.9, stagger: 0.075 }, "-=0.18")
-          .to(".marketing-hero-copy", { autoAlpha: 1, y: 0, duration: 0.72 }, "-=0.18")
-          .to(".marketing-hero-chip", { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, "-=0.24");
+        tl.to('.marketing-hero-kicker', { autoAlpha: 1, y: 0, duration: 0.65 })
+          .to('.marketing-hero-title-word', { yPercent: 0, duration: 0.9, stagger: 0.075 }, '-=0.18')
+          .to('.marketing-hero-copy', { autoAlpha: 1, y: 0, duration: 0.72 }, '-=0.18')
+          .to('.marketing-hero-chip', { autoAlpha: 1, y: 0, duration: 0.56, stagger: 0.07 }, '-=0.24');
       });
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".marketing-hero-kicker", ".marketing-hero-title", ".marketing-hero-title-word", ".marketing-hero-copy", ".marketing-hero-chip"], {
-          autoAlpha: 1,
-          y: 0,
-          yPercent: 0,
-        });
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(
+          [
+            '.marketing-hero-kicker',
+            '.marketing-hero-title',
+            '.marketing-hero-title-word',
+            '.marketing-hero-copy',
+            '.marketing-hero-chip'
+          ],
+          {
+            autoAlpha: 1,
+            y: 0,
+            yPercent: 0
+          }
+        );
       });
 
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root }
   );
 
   return (

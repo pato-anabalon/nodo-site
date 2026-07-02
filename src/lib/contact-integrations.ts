@@ -1,4 +1,4 @@
-import { formatFileSize, type ContactAttachment } from "@/lib/contact-attachments";
+import { formatFileSize, type ContactAttachment } from '@/lib/contact-attachments';
 
 export type ContactLead = {
   submissionId: string;
@@ -47,7 +47,7 @@ export async function forwardContactLead(lead: ContactLead): Promise<ContactInte
   return {
     trello,
     email,
-    telegram,
+    telegram
   };
 }
 
@@ -56,9 +56,7 @@ export function hasCriticalIntegrationFailure(results: ContactIntegrationResults
     return false;
   }
 
-  const configuredResults = [results.trello, results.email, results.telegram].filter(
-    (result) => result.configured,
-  );
+  const configuredResults = [results.trello, results.email, results.telegram].filter((result) => result.configured);
 
   if (configuredResults.length === 0) {
     return false;
@@ -87,60 +85,53 @@ async function createTrelloCard(lead: ContactLead): Promise<IntegrationResult> {
       idList: listId,
       name: getLeadTitle(lead),
       desc: buildTrelloDescription(lead),
-      pos: "top",
+      pos: 'top'
     });
 
-    const response = await fetch("https://api.trello.com/1/cards", {
-      method: "POST",
-      body: cardPayload,
+    const response = await fetch('https://api.trello.com/1/cards', {
+      method: 'POST',
+      body: cardPayload
     });
 
     if (!response.ok) {
       return {
         configured: true,
         ok: false,
-        error: await response.text(),
+        error: await response.text()
       };
     }
 
     const card = (await response.json()) as TrelloCard;
 
-    await Promise.all(
-      lead.attachments.map((attachment) => addTrelloAttachment(card.id, attachment, key, token)),
-    );
+    await Promise.all(lead.attachments.map((attachment) => addTrelloAttachment(card.id, attachment, key, token)));
 
     return {
       configured: true,
       ok: true,
       id: card.id,
-      url: card.url ?? card.shortUrl,
+      url: card.url ?? card.shortUrl
     };
   } catch (error) {
     return {
       configured: true,
       ok: false,
-      error: getErrorMessage(error),
+      error: getErrorMessage(error)
     };
   }
 }
 
-async function addTrelloAttachment(
-  cardId: string,
-  attachment: ContactAttachment,
-  key: string,
-  token: string,
-) {
+async function addTrelloAttachment(cardId: string, attachment: ContactAttachment, key: string, token: string) {
   const payload = new URLSearchParams({
     key,
     token,
     url: attachment.url,
     name: attachment.originalName,
-    setCover: "false",
+    setCover: 'false'
   });
 
   await fetch(`https://api.trello.com/1/cards/${cardId}/attachments`, {
-    method: "POST",
-    body: payload,
+    method: 'POST',
+    body: payload
   });
 }
 
@@ -154,11 +145,11 @@ async function sendLeadEmail(lead: ContactLead, trelloUrl?: string): Promise<Int
   }
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         from,
@@ -168,17 +159,17 @@ async function sendLeadEmail(lead: ContactLead, trelloUrl?: string): Promise<Int
         html: buildEmailHtml(lead, trelloUrl),
         text: buildPlainTextLeadSummary(lead, trelloUrl),
         tags: [
-          { name: "source", value: sanitizeTagValue(lead.source || "contact") },
-          { name: "intent", value: sanitizeTagValue(lead.intent || "general") },
-        ],
-      }),
+          { name: 'source', value: sanitizeTagValue(lead.source || 'contact') },
+          { name: 'intent', value: sanitizeTagValue(lead.intent || 'general') }
+        ]
+      })
     });
 
     if (!response.ok) {
       return {
         configured: true,
         ok: false,
-        error: await response.text(),
+        error: await response.text()
       };
     }
 
@@ -187,21 +178,18 @@ async function sendLeadEmail(lead: ContactLead, trelloUrl?: string): Promise<Int
     return {
       configured: true,
       ok: true,
-      id: payload.id,
+      id: payload.id
     };
   } catch (error) {
     return {
       configured: true,
       ok: false,
-      error: getErrorMessage(error),
+      error: getErrorMessage(error)
     };
   }
 }
 
-async function sendTelegramNotification(
-  lead: ContactLead,
-  trelloUrl?: string,
-): Promise<IntegrationResult> {
+async function sendTelegramNotification(lead: ContactLead, trelloUrl?: string): Promise<IntegrationResult> {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
@@ -211,16 +199,16 @@ async function sendTelegramNotification(
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         chat_id: chatId,
         text: buildTelegramMessage(lead, trelloUrl),
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-      }),
+        parse_mode: 'HTML',
+        disable_web_page_preview: true
+      })
     });
 
     const payload = (await response.json()) as {
@@ -233,27 +221,27 @@ async function sendTelegramNotification(
       return {
         configured: true,
         ok: false,
-        error: payload.description ?? JSON.stringify(payload),
+        error: payload.description ?? JSON.stringify(payload)
       };
     }
 
     return {
       configured: true,
       ok: true,
-      id: payload.result?.message_id ? String(payload.result.message_id) : undefined,
+      id: payload.result?.message_id ? String(payload.result.message_id) : undefined
     };
   } catch (error) {
     return {
       configured: true,
       ok: false,
-      error: getErrorMessage(error),
+      error: getErrorMessage(error)
     };
   }
 }
 
 function getLeadTitle(lead: ContactLead) {
   const contactName = `${lead.name} ${lead.lastName}`.trim();
-  const context = lead.planSelected || lead.intent || "Contact enquiry";
+  const context = lead.planSelected || lead.intent || 'Contact enquiry';
   return `New Nodo lead: ${contactName} - ${context}`;
 }
 
@@ -262,49 +250,46 @@ function buildTrelloDescription(lead: ContactLead) {
     `## Contact`,
     `Name: ${lead.name} ${lead.lastName}`,
     `Email: ${lead.email}`,
-    lead.phone ? `Phone: ${lead.phone}` : "",
-    lead.company ? `Company: ${lead.company}` : "",
-    lead.city ? `City: ${lead.city}` : "",
-    "",
+    lead.phone ? `Phone: ${lead.phone}` : '',
+    lead.company ? `Company: ${lead.company}` : '',
+    lead.city ? `City: ${lead.city}` : '',
+    '',
     `## Context`,
-    lead.intent ? `Intent: ${lead.intent}` : "",
-    lead.source ? `Source: ${lead.source}` : "",
-    lead.planSelected ? `Plan: ${lead.planSelected}` : "",
-    lead.planType ? `Plan type: ${lead.planType}` : "",
-    lead.planSlug ? `Plan slug: ${lead.planSlug}` : "",
-    "",
+    lead.intent ? `Intent: ${lead.intent}` : '',
+    lead.source ? `Source: ${lead.source}` : '',
+    lead.planSelected ? `Plan: ${lead.planSelected}` : '',
+    lead.planType ? `Plan type: ${lead.planType}` : '',
+    lead.planSlug ? `Plan slug: ${lead.planSlug}` : '',
+    '',
     `## Message`,
     lead.message,
-    "",
+    '',
     `## Attachments`,
     lead.attachments.length
       ? lead.attachments
-          .map(
-            (attachment) =>
-              `- [${attachment.originalName}](${attachment.url}) (${formatFileSize(attachment.size)})`,
-          )
-          .join("\n")
-      : "No attachments.",
-    "",
+          .map((attachment) => `- [${attachment.originalName}](${attachment.url}) (${formatFileSize(attachment.size)})`)
+          .join('\n')
+      : 'No attachments.',
+    '',
     `Submitted: ${lead.submittedAt}`,
-    `Submission ID: ${lead.submissionId}`,
+    `Submission ID: ${lead.submissionId}`
   ]
-    .filter((line) => line !== "")
-    .join("\n");
+    .filter((line) => line !== '')
+    .join('\n');
 }
 
 function buildEmailHtml(lead: ContactLead, trelloUrl?: string) {
   const rows = [
-    ["Name", `${lead.name} ${lead.lastName}`],
-    ["Email", lead.email],
-    ["Phone", lead.phone],
-    ["Company", lead.company],
-    ["City", lead.city],
-    ["Intent", lead.intent],
-    ["Source", lead.source],
-    ["Plan", lead.planSelected],
-    ["Plan type", lead.planType],
-    ["Submitted", lead.submittedAt],
+    ['Name', `${lead.name} ${lead.lastName}`],
+    ['Email', lead.email],
+    ['Phone', lead.phone],
+    ['Company', lead.company],
+    ['City', lead.city],
+    ['Intent', lead.intent],
+    ['Source', lead.source],
+    ['Plan', lead.planSelected],
+    ['Plan type', lead.planType],
+    ['Submitted', lead.submittedAt]
   ].filter(([, value]) => value);
 
   return `<!doctype html>
@@ -318,9 +303,9 @@ function buildEmailHtml(lead: ContactLead, trelloUrl?: string) {
             ([label, value]) => `<tr>
           <th style="text-align:left;width:150px;padding:12px 14px;border-bottom:1px solid #eeeaf6;color:#5d566b;font-size:13px;">${escapeHtml(label)}</th>
           <td style="padding:12px 14px;border-bottom:1px solid #eeeaf6;font-size:14px;">${escapeHtml(value)}</td>
-        </tr>`,
+        </tr>`
           )
-          .join("")}
+          .join('')}
       </table>
       <h2 style="font-size:16px;margin:24px 0 10px;">Message</h2>
       <p style="white-space:pre-wrap;background:#ffffff;border-radius:12px;padding:16px;line-height:1.6;">${escapeHtml(lead.message)}</p>
@@ -329,7 +314,7 @@ function buildEmailHtml(lead: ContactLead, trelloUrl?: string) {
       ${
         trelloUrl
           ? `<p style="margin-top:24px;"><a href="${escapeHtml(trelloUrl)}" style="color:#6d3ff5;font-weight:700;">Open Trello card</a></p>`
-          : ""
+          : ''
       }
     </div>
   </body>
@@ -345,83 +330,76 @@ function buildEmailAttachmentList(lead: ContactLead) {
     ${lead.attachments
       .map(
         (attachment) =>
-          `<li><a href="${escapeHtml(attachment.url)}">${escapeHtml(attachment.originalName)}</a> (${formatFileSize(attachment.size)})</li>`,
+          `<li><a href="${escapeHtml(attachment.url)}">${escapeHtml(attachment.originalName)}</a> (${formatFileSize(attachment.size)})</li>`
       )
-      .join("")}
+      .join('')}
   </ul>`;
 }
 
 function buildPlainTextLeadSummary(lead: ContactLead, trelloUrl?: string) {
   return [
     getLeadTitle(lead),
-    "",
+    '',
     `Name: ${lead.name} ${lead.lastName}`,
     `Email: ${lead.email}`,
-    lead.phone ? `Phone: ${lead.phone}` : "",
-    lead.company ? `Company: ${lead.company}` : "",
-    lead.city ? `City: ${lead.city}` : "",
-    lead.intent ? `Intent: ${lead.intent}` : "",
-    lead.source ? `Source: ${lead.source}` : "",
-    lead.planSelected ? `Plan: ${lead.planSelected}` : "",
-    "",
-    "Message:",
+    lead.phone ? `Phone: ${lead.phone}` : '',
+    lead.company ? `Company: ${lead.company}` : '',
+    lead.city ? `City: ${lead.city}` : '',
+    lead.intent ? `Intent: ${lead.intent}` : '',
+    lead.source ? `Source: ${lead.source}` : '',
+    lead.planSelected ? `Plan: ${lead.planSelected}` : '',
+    '',
+    'Message:',
     lead.message,
-    "",
-    "Attachments:",
+    '',
+    'Attachments:',
     lead.attachments.length
       ? lead.attachments
-          .map(
-            (attachment) =>
-              `${attachment.originalName} (${formatFileSize(attachment.size)}): ${attachment.url}`,
-          )
-          .join("\n")
-      : "No attachments.",
-    trelloUrl ? `\nTrello card: ${trelloUrl}` : "",
+          .map((attachment) => `${attachment.originalName} (${formatFileSize(attachment.size)}): ${attachment.url}`)
+          .join('\n')
+      : 'No attachments.',
+    trelloUrl ? `\nTrello card: ${trelloUrl}` : ''
   ]
-    .filter((line) => line !== "")
-    .join("\n");
+    .filter((line) => line !== '')
+    .join('\n');
 }
 
 function buildTelegramMessage(lead: ContactLead, trelloUrl?: string) {
   const lines = [
     `<b>New Nodo lead</b>`,
     `${escapeHtml(lead.name)} ${escapeHtml(lead.lastName)}`,
-    "",
+    '',
     `Email: ${escapeHtml(lead.email)}`,
-    lead.phone ? `Phone: ${escapeHtml(lead.phone)}` : "",
-    lead.company ? `Company: ${escapeHtml(lead.company)}` : "",
-    lead.city ? `City: ${escapeHtml(lead.city)}` : "",
-    lead.planSelected ? `Plan: ${escapeHtml(lead.planSelected)}` : "",
-    lead.intent ? `Intent: ${escapeHtml(lead.intent)}` : "",
-    "",
+    lead.phone ? `Phone: ${escapeHtml(lead.phone)}` : '',
+    lead.company ? `Company: ${escapeHtml(lead.company)}` : '',
+    lead.city ? `City: ${escapeHtml(lead.city)}` : '',
+    lead.planSelected ? `Plan: ${escapeHtml(lead.planSelected)}` : '',
+    lead.intent ? `Intent: ${escapeHtml(lead.intent)}` : '',
+    '',
     escapeHtml(truncate(lead.message, 900)),
-    "",
-    lead.attachments.length ? `Attachments: ${lead.attachments.length}` : "Attachments: 0",
-    trelloUrl ? `<a href="${escapeHtml(trelloUrl)}">Open Trello card</a>` : "",
-  ].filter((line) => line !== "");
+    '',
+    lead.attachments.length ? `Attachments: ${lead.attachments.length}` : 'Attachments: 0',
+    trelloUrl ? `<a href="${escapeHtml(trelloUrl)}">Open Trello card</a>` : ''
+  ].filter((line) => line !== '');
 
-  return truncate(lines.join("\n"), 3900);
+  return truncate(lines.join('\n'), 3900);
 }
 
 function parseRecipients(value?: string) {
   return (
     value
-      ?.split(",")
+      ?.split(',')
       .map((recipient) => recipient.trim())
       .filter(Boolean) ?? []
   );
 }
 
 function sanitizeTagValue(value: string) {
-  return value.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 256) || "unknown";
+  return value.replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 256) || 'unknown';
 }
 
 function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function truncate(value: string, maxLength: number) {
@@ -429,5 +407,5 @@ function truncate(value: string, maxLength: number) {
 }
 
 function getErrorMessage(error: unknown) {
-  return error instanceof Error ? error.message : "Unknown integration error.";
+  return error instanceof Error ? error.message : 'Unknown integration error.';
 }

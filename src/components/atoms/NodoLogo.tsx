@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type NodoLogoProps = {
   className?: string;
@@ -7,24 +7,15 @@ type NodoLogoProps = {
 };
 
 export function NodoLogo({ className, markOnly = false, inverted = false }: NodoLogoProps) {
-  const main = inverted ? "text-white" : "text-black";
-  const secondary = inverted ? "text-white" : "text-black";
+  const main = inverted ? 'text-white' : 'text-black';
+  const secondary = inverted ? 'text-white' : 'text-black';
 
   return (
     <span
-      className={cn(
-        "inline-flex items-center gap-3 font-black tracking-normal",
-        main,
-        className,
-      )}
+      className={cn('inline-flex items-center gap-3 font-black tracking-normal', main, className)}
       aria-label="Nodo"
     >
-      <svg
-        className="h-10 w-11 shrink-0 overflow-visible"
-        viewBox="0 0 120 128"
-        fill="none"
-        aria-hidden="true"
-      >
+      <svg className="h-10 w-11 shrink-0 overflow-visible" viewBox="0 0 120 128" fill="none" aria-hidden="true">
         <path
           className={secondary}
           d="M20 58L58 54L96 48M58 54L77 14M58 54L31 112"

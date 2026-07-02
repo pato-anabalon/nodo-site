@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,26 +8,26 @@ import {
   MessageSquareText,
   MonitorSmartphone,
   Search,
-  ShieldCheck,
-} from "lucide-react";
-import { ConstellationBackground } from "@/components/atoms/ConstellationBackground";
-import { Container } from "@/components/atoms/Container";
-import { MetaChip } from "@/components/atoms/MetaChip";
-import { NodoLogo } from "@/components/atoms/NodoLogo";
-import { ScrollReveal } from "@/components/atoms/ScrollReveal";
-import { SectionHeading } from "@/components/atoms/SectionHeading";
-import { TrackedCtaButton } from "@/components/molecules/TrackedCtaButton";
-import { websiteDesignAucklandPageContent } from "@/lib/content";
-import { cn, testIdSlug } from "@/lib/utils";
+  ShieldCheck
+} from 'lucide-react';
+import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
+import { Container } from '@/components/atoms/Container';
+import { MetaChip } from '@/components/atoms/MetaChip';
+import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
+import { websiteDesignAucklandPageContent } from '@/lib/content';
+import { cn, testIdSlug } from '@/lib/utils';
 
 const iconMap = [ShieldCheck, Search, MessageSquareText];
-const heroChipAccents = ["purple", "lavender", "pink"] as const;
+const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
 const introPointIconMap = [MessageSquareText, ShieldCheck, ArrowRight];
 const processStepGradientClasses = [
-  "bg-[linear-gradient(135deg,#f4fbff_0%,#ffffff_35%,#f1ecff_68%,#fff7fb_100%)]",
-  "bg-[linear-gradient(135deg,#fff8fb_0%,#ffffff_36%,#eef7ff_66%,#f4efff_100%)]",
-  "bg-[linear-gradient(135deg,#f8fff9_0%,#ffffff_34%,#f3efff_64%,#f8f4ff_100%)]",
-  "bg-[linear-gradient(135deg,#fffdf5_0%,#ffffff_34%,#eef7ff_65%,#f7f1ff_100%)]",
+  'bg-[linear-gradient(135deg,#f4fbff_0%,#ffffff_35%,#f1ecff_68%,#fff7fb_100%)]',
+  'bg-[linear-gradient(135deg,#fff8fb_0%,#ffffff_36%,#eef7ff_66%,#f4efff_100%)]',
+  'bg-[linear-gradient(135deg,#f8fff9_0%,#ffffff_34%,#f3efff_64%,#f8f4ff_100%)]',
+  'bg-[linear-gradient(135deg,#fffdf5_0%,#ffffff_34%,#eef7ff_65%,#f7f1ff_100%)]'
 ];
 const includedIconMap = [
   MonitorSmartphone,
@@ -37,57 +37,49 @@ const includedIconMap = [
   Search,
   CheckCircle2,
   Gauge,
-  ArrowRight,
+  ArrowRight
 ];
 const includedFeatureMeta = [
   {
-    label: "Plan",
-    className: "sm:col-span-2 lg:col-span-2",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(124,58,237,0.28),rgba(255,255,255,0.075)_42%,rgba(232,48,207,0.16))]",
+    label: 'Plan',
+    className: 'sm:col-span-2 lg:col-span-2',
+    gradient: 'bg-[linear-gradient(135deg,rgba(124,58,237,0.28),rgba(255,255,255,0.075)_42%,rgba(232,48,207,0.16))]'
   },
   {
-    label: "Content",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(232,48,207,0.18),rgba(255,255,255,0.065)_46%,rgba(124,58,237,0.14))]",
+    label: 'Content',
+    gradient: 'bg-[linear-gradient(135deg,rgba(232,48,207,0.18),rgba(255,255,255,0.065)_46%,rgba(124,58,237,0.14))]'
   },
   {
-    label: "Design",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(196,181,253,0.20),rgba(255,255,255,0.06)_42%,rgba(124,58,237,0.16))]",
+    label: 'Design',
+    gradient: 'bg-[linear-gradient(135deg,rgba(196,181,253,0.20),rgba(255,255,255,0.06)_42%,rgba(124,58,237,0.16))]'
   },
   {
-    label: "Build",
-    className: "sm:col-span-2 lg:col-span-2",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(124,58,237,0.22),rgba(255,255,255,0.07)_38%,rgba(79,70,229,0.16))]",
+    label: 'Build',
+    className: 'sm:col-span-2 lg:col-span-2',
+    gradient: 'bg-[linear-gradient(135deg,rgba(124,58,237,0.22),rgba(255,255,255,0.07)_38%,rgba(79,70,229,0.16))]'
   },
   {
-    label: "SEO",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(124,58,237,0.17)_52%,rgba(232,48,207,0.10))]",
+    label: 'SEO',
+    gradient: 'bg-[linear-gradient(135deg,rgba(255,255,255,0.07),rgba(124,58,237,0.17)_52%,rgba(232,48,207,0.10))]'
   },
   {
-    label: "Enquiry",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(232,48,207,0.14),rgba(255,255,255,0.06)_48%,rgba(196,181,253,0.18))]",
+    label: 'Enquiry',
+    gradient: 'bg-[linear-gradient(135deg,rgba(232,48,207,0.14),rgba(255,255,255,0.06)_48%,rgba(196,181,253,0.18))]'
   },
   {
-    label: "Speed",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(196,181,253,0.16),rgba(255,255,255,0.065)_44%,rgba(124,58,237,0.18))]",
+    label: 'Speed',
+    gradient: 'bg-[linear-gradient(135deg,rgba(196,181,253,0.16),rgba(255,255,255,0.065)_44%,rgba(124,58,237,0.18))]'
   },
   {
-    label: "Launch",
-    gradient:
-      "bg-[linear-gradient(135deg,rgba(124,58,237,0.18),rgba(255,255,255,0.065)_42%,rgba(232,48,207,0.16))]",
-  },
+    label: 'Launch',
+    gradient: 'bg-[linear-gradient(135deg,rgba(124,58,237,0.18),rgba(255,255,255,0.065)_42%,rgba(232,48,207,0.16))]'
+  }
 ];
 const faqCardGradientClasses = [
-  "bg-[linear-gradient(145deg,#ffffff_0%,#fbf8ff_48%,#efe8ff_100%)]",
-  "bg-[linear-gradient(145deg,#ffffff_0%,#f8fbff_46%,#f4eaff_100%)]",
-  "bg-[linear-gradient(145deg,#fffafd_0%,#ffffff_46%,#eeeaff_100%)]",
-  "bg-[linear-gradient(145deg,#ffffff_0%,#fbf7ff_44%,#eef6ff_100%)]",
+  'bg-[linear-gradient(145deg,#ffffff_0%,#fbf8ff_48%,#efe8ff_100%)]',
+  'bg-[linear-gradient(145deg,#ffffff_0%,#f8fbff_46%,#f4eaff_100%)]',
+  'bg-[linear-gradient(145deg,#fffafd_0%,#ffffff_46%,#eeeaff_100%)]',
+  'bg-[linear-gradient(145deg,#ffffff_0%,#fbf7ff_44%,#eef6ff_100%)]'
 ];
 
 export function WebsiteDesignAucklandPage() {
@@ -249,17 +241,10 @@ export function WebsiteDesignAucklandPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="website-design-auckland-problems-section"
-        className="py-20 sm:py-28"
-      >
+      <section data-testid="website-design-auckland-problems-section" className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
-            <SectionHeading
-              eyebrow={content.problems.eyebrow}
-              title={content.problems.title}
-              className="max-w-4xl"
-            />
+            <SectionHeading eyebrow={content.problems.eyebrow} title={content.problems.title} className="max-w-4xl" />
           </ScrollReveal>
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {content.problems.items.map((item, index) => {
@@ -274,12 +259,8 @@ export function WebsiteDesignAucklandPage() {
                     <div className="mb-10 inline-flex size-12 items-center justify-center rounded-2xl bg-nodo-purple text-white shadow-[0_0_32px_rgba(124,58,237,0.36)]">
                       <Icon aria-hidden="true" className="size-5" />
                     </div>
-                    <h2 className="text-2xl font-black tracking-normal text-white">
-                      {item.title}
-                    </h2>
-                    <p className="mt-4 text-pretty text-base leading-7 text-white/64">
-                      {item.copy}
-                    </p>
+                    <h2 className="text-2xl font-black tracking-normal text-white">{item.title}</h2>
+                    <p className="mt-4 text-pretty text-base leading-7 text-white/64">{item.copy}</p>
                   </article>
                 </ScrollReveal>
               );
@@ -304,15 +285,15 @@ export function WebsiteDesignAucklandPage() {
             </ScrollReveal>
             <div className="grid gap-4">
               {content.process.steps.map((step, index) => {
-                const stepNumber = String(index + 1).padStart(2, "0");
+                const stepNumber = String(index + 1).padStart(2, '0');
 
                 return (
                   <ScrollReveal key={step.title} delay={index * 0.04}>
                     <article
                       data-testid={`website-design-auckland-process-step-${index + 1}`}
                       className={cn(
-                        "group relative overflow-hidden rounded-[1.6rem] border border-black/8 bg-[length:170%_170%] bg-[position:0%_50%] p-6 shadow-[0_14px_36px_rgba(17,12,28,0.06)] transition-[transform,box-shadow,border-color,background-position] duration-500 hover:-translate-y-0.5 hover:border-nodo-purple/45 hover:bg-[position:100%_50%] hover:shadow-[0_24px_60px_rgba(124,58,237,0.16)] motion-reduce:transform-none sm:p-7",
-                        processStepGradientClasses[index % processStepGradientClasses.length],
+                        'group relative overflow-hidden rounded-[1.6rem] border border-black/8 bg-[length:170%_170%] bg-[position:0%_50%] p-6 shadow-[0_14px_36px_rgba(17,12,28,0.06)] transition-[transform,box-shadow,border-color,background-position] duration-500 hover:-translate-y-0.5 hover:border-nodo-purple/45 hover:bg-[position:100%_50%] hover:shadow-[0_24px_60px_rgba(124,58,237,0.16)] motion-reduce:transform-none sm:p-7',
+                        processStepGradientClasses[index % processStepGradientClasses.length]
                       )}
                     >
                       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(124,58,237,0.13),transparent_32%),radial-gradient(circle_at_84%_76%,rgba(232,48,207,0.08),transparent_28%)] opacity-70 transition duration-300 group-hover:opacity-100" />
@@ -329,9 +310,7 @@ export function WebsiteDesignAucklandPage() {
                         <h2 className="mt-5 text-2xl font-black tracking-normal text-nodo-black sm:text-3xl">
                           {step.title}
                         </h2>
-                        <p className="mt-3 text-base leading-7 text-nodo-ink/70">
-                          {step.copy}
-                        </p>
+                        <p className="mt-3 text-base leading-7 text-nodo-ink/70">{step.copy}</p>
                       </div>
                     </article>
                   </ScrollReveal>
@@ -350,25 +329,21 @@ export function WebsiteDesignAucklandPage() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/22 to-transparent" />
         <Container className="relative z-10">
           <ScrollReveal>
-            <SectionHeading
-              eyebrow={content.included.eyebrow}
-              title={content.included.title}
-              className="max-w-4xl"
-            />
+            <SectionHeading eyebrow={content.included.eyebrow} title={content.included.title} className="max-w-4xl" />
           </ScrollReveal>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {content.included.items.map((item, index) => {
               const Icon = includedIconMap[index] ?? CheckCircle2;
               const featureMeta = includedFeatureMeta[index] ?? includedFeatureMeta[0];
-              const featureNumber = String(index + 1).padStart(2, "0");
+              const featureNumber = String(index + 1).padStart(2, '0');
 
               return (
-                <ScrollReveal key={item} delay={index * 0.025} className={cn("h-full", featureMeta.className)}>
+                <ScrollReveal key={item} delay={index * 0.025} className={cn('h-full', featureMeta.className)}>
                   <article
                     data-testid={`website-design-auckland-included-${testIdSlug(item)}`}
                     className={cn(
-                      "group relative min-h-[13rem] overflow-hidden rounded-[1.55rem] border border-white/12 bg-[length:160%_160%] bg-[position:0%_50%] p-5 shadow-[0_18px_46px_rgba(0,0,0,0.18)] transition-[transform,box-shadow,border-color,background-position] duration-500 hover:-translate-y-1 hover:border-nodo-lavender/42 hover:bg-[position:100%_50%] hover:shadow-[0_26px_70px_rgba(124,58,237,0.22)] motion-reduce:transform-none sm:p-6",
-                      featureMeta.gradient,
+                      'group relative min-h-[13rem] overflow-hidden rounded-[1.55rem] border border-white/12 bg-[length:160%_160%] bg-[position:0%_50%] p-5 shadow-[0_18px_46px_rgba(0,0,0,0.18)] transition-[transform,box-shadow,border-color,background-position] duration-500 hover:-translate-y-1 hover:border-nodo-lavender/42 hover:bg-[position:100%_50%] hover:shadow-[0_26px_70px_rgba(124,58,237,0.22)] motion-reduce:transform-none sm:p-6',
+                      featureMeta.gradient
                     )}
                   >
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.16),transparent_26%),radial-gradient(circle_at_82%_78%,rgba(124,58,237,0.16),transparent_28%)] opacity-70 transition duration-300 group-hover:opacity-100" />
@@ -390,9 +365,7 @@ export function WebsiteDesignAucklandPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-base font-black leading-7 text-white sm:text-lg">
-                          {item}
-                        </p>
+                        <p className="text-base font-black leading-7 text-white sm:text-lg">{item}</p>
                       </div>
                     </div>
                   </article>
@@ -429,9 +402,7 @@ export function WebsiteDesignAucklandPage() {
                 <h2 className="mt-5 text-balance text-4xl font-black leading-[0.95] tracking-normal text-nodo-black sm:text-6xl">
                   {content.proof.title}
                 </h2>
-                <p className="mt-6 text-pretty text-lg leading-8 text-nodo-ink/68">
-                  {content.proof.copy}
-                </p>
+                <p className="mt-6 text-pretty text-lg leading-8 text-nodo-ink/68">{content.proof.copy}</p>
                 <ul className="mt-7 grid gap-3">
                   {content.proof.bullets.map((bullet) => (
                     <li key={bullet} className="flex gap-3 text-base leading-7 text-nodo-ink/72">
@@ -458,10 +429,7 @@ export function WebsiteDesignAucklandPage() {
         </Container>
       </section>
 
-      <section
-        data-testid="website-design-auckland-plans-section"
-        className="py-20 sm:py-28"
-      >
+      <section data-testid="website-design-auckland-plans-section" className="py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <div className="grid gap-8 rounded-[2rem] border border-white/12 bg-white/[0.045] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:p-10">
@@ -472,9 +440,7 @@ export function WebsiteDesignAucklandPage() {
                 <h2 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl">
                   {content.plans.title}
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/66">
-                  {content.plans.copy}
-                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/66">{content.plans.copy}</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <TrackedCtaButton
@@ -518,7 +484,7 @@ export function WebsiteDesignAucklandPage() {
           </ScrollReveal>
           <div className="mt-12 grid gap-4 lg:grid-cols-4">
             {content.faq.map((item, index) => {
-              const cardNumber = String(index + 1).padStart(2, "0");
+              const cardNumber = String(index + 1).padStart(2, '0');
 
               return (
                 <ScrollReveal key={item.question} delay={index * 0.04} className="h-full">
@@ -528,8 +494,8 @@ export function WebsiteDesignAucklandPage() {
                     data-testid={`website-design-auckland-faq-${index + 1}`}
                     tabIndex={0}
                     className={cn(
-                      "group relative h-full min-h-[18rem] overflow-hidden rounded-[1.65rem] border border-black/8 bg-[length:150%_150%] bg-[position:0%_50%] p-5 shadow-[0_16px_42px_rgba(17,12,28,0.07)] transition-[transform,box-shadow,border-color,background-position] duration-300 hover:-translate-y-1 hover:border-nodo-purple/38 hover:bg-[position:100%_50%] hover:shadow-[0_24px_62px_rgba(124,58,237,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-nodo-purple motion-reduce:transform-none sm:p-6 lg:min-h-[22rem] lg:[perspective:1000px]",
-                      faqCardGradientClasses[index % faqCardGradientClasses.length],
+                      'group relative h-full min-h-[18rem] overflow-hidden rounded-[1.65rem] border border-black/8 bg-[length:150%_150%] bg-[position:0%_50%] p-5 shadow-[0_16px_42px_rgba(17,12,28,0.07)] transition-[transform,box-shadow,border-color,background-position] duration-300 hover:-translate-y-1 hover:border-nodo-purple/38 hover:bg-[position:100%_50%] hover:shadow-[0_24px_62px_rgba(124,58,237,0.16)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-nodo-purple motion-reduce:transform-none sm:p-6 lg:min-h-[22rem] lg:[perspective:1000px]',
+                      faqCardGradientClasses[index % faqCardGradientClasses.length]
                     )}
                   >
                     <div
@@ -591,9 +557,7 @@ export function WebsiteDesignAucklandPage() {
                 <h2 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl">
                   {content.finalCta.title}
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">
-                  {content.finalCta.copy}
-                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-8 text-white/72">{content.finalCta.copy}</p>
               </div>
               <TrackedCtaButton
                 href="/contact?service=website-design-auckland&source=website-design-auckland-final"

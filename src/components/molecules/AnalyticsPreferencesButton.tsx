@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { SlidersHorizontal } from "lucide-react";
-import { openAnalyticsPreferences } from "@/lib/analytics-consent";
+import { SlidersHorizontal } from 'lucide-react';
+import { openAnalyticsPreferences } from '@/lib/analytics-consent';
 
 export function AnalyticsPreferencesButton() {
   return (
