@@ -57,7 +57,7 @@ Search Console status:
 Business data provided by the user:
 
 - Public/legal name: `Nodo Limited`
-- Street address: `19 Marywil Crescent, Hauraki`
+- Street address: `23 Orton Street, Glenfield`
 - City: `Auckland`
 - Region: `Auckland`
 - Postal code: `0627`

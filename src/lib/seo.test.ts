@@ -1,5 +1,6 @@
 import {
   absoluteUrl,
+  businessAddress,
   contactEmail,
   createBreadcrumbStructuredData,
   createGlobalStructuredData,
@@ -22,7 +23,12 @@ describe('seo', () => {
       expect.objectContaining({
         '@type': 'ProfessionalService',
         legalName,
-        email: contactEmail
+        email: contactEmail,
+        address: expect.objectContaining({
+          streetAddress: businessAddress.streetAddress,
+          addressLocality: businessAddress.addressLocality,
+          postalCode: businessAddress.postalCode
+        })
       })
     );
     expect(data['@graph'][1]).toEqual(expect.objectContaining({ '@type': 'WebSite' }));

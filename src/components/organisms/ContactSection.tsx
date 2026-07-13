@@ -8,7 +8,7 @@ import { ConstellationBackground } from '@/components/atoms/ConstellationBackgro
 import { Container } from '@/components/atoms/Container';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { ContactForm } from '@/components/molecules/ContactForm';
-import { contactEmail, contactPhone, socialLinks, type SocialPlatform } from '@/lib/seo';
+import { businessAddress, contactEmail, contactPhone, socialLinks, type SocialPlatform } from '@/lib/seo';
 
 gsap.registerPlugin(useGSAP);
 
@@ -35,7 +35,7 @@ const socialIcons: Record<SocialPlatform, LucideIcon> = {
 const contactDetails: ContactDetail[] = [
   {
     label: 'Location',
-    value: 'Auckland, New Zealand',
+    value: businessAddress.display,
     icon: MapPin,
     testId: 'contact-page-detail-location'
   },
