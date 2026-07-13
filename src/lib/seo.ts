@@ -6,6 +6,14 @@ export const legalName = 'Nodo Limited';
 export const nzbn = '9429053399663';
 export const contactEmail = 'contact@nodo.co.nz';
 export const contactPhone = '+64 27 742 3001';
+export const businessAddress = {
+  streetAddress: '23 Orton Street, Glenfield',
+  addressLocality: 'Auckland',
+  addressRegion: 'Auckland',
+  postalCode: '0627',
+  addressCountry: 'New Zealand',
+  display: '23 Orton Street, Glenfield, Auckland 0627'
+};
 export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin';
 export type SocialLink = {
   platform: SocialPlatform;
@@ -147,11 +155,11 @@ export function createGlobalStructuredData() {
         },
         address: {
           '@type': 'PostalAddress',
-          streetAddress: '19 Marywil Crescent, Hauraki',
-          addressLocality: 'Auckland',
-          addressRegion: 'Auckland',
-          postalCode: '0627',
-          addressCountry: 'New Zealand'
+          streetAddress: businessAddress.streetAddress,
+          addressLocality: businessAddress.addressLocality,
+          addressRegion: businessAddress.addressRegion,
+          postalCode: businessAddress.postalCode,
+          addressCountry: businessAddress.addressCountry
         },
         areaServed: [
           {
