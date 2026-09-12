@@ -28,6 +28,10 @@ const redis =
 const ATTACHMENT_TTL_SECONDS = 60 * 60;
 const RATE_LIMIT_TTL_SECONDS = 15 * 60;
 
+function logRedisFailure(operation: string, error: unknown) {
+  console.error(`[contact] Redis ${operation} failed, degrading gracefully:`, error);
+}
+
 export function getClientIp(request: Request) {
   const forwardedFor = request.headers.get('x-forwarded-for');
 
@@ -43,17 +47,23 @@ export async function checkRateLimit(params: { key: string; limit: number; windo
     return { limited: false, remaining: params.limit, configured: false };
   }
 
-  const count = await redis.incr(params.key);
+  try {
+    const count = await redis.incr(params.key);
 
-  if (count === 1) {
-    await redis.expire(params.key, params.windowSeconds ?? RATE_LIMIT_TTL_SECONDS);
+    if (count === 1) {
+      await redis.expire(params.key, params.windowSeconds ?? RATE_LIMIT_TTL_SECONDS);
+    }
+
+    return {
+      limited: count > params.limit,
+      remaining: Math.max(0, params.limit - count),
+      configured: true
+    };
+  } catch (error) {
+    logRedisFailure('rate limit check', error);
+
+    return { limited: false, remaining: params.limit, configured: false };
   }
-
-  return {
-    limited: count > params.limit,
-    remaining: Math.max(0, params.limit - count),
-    configured: true
-  };
 }
 
 export function hasAttachmentStore() {
@@ -65,9 +75,13 @@ export async function storeContactAttachment(attachment: StoredAttachment) {
     return;
   }
 
-  await redis.set(getAttachmentKey(attachment.submissionId, attachment.pathname), attachment, {
-    ex: ATTACHMENT_TTL_SECONDS
-  });
+  try {
+    await redis.set(getAttachmentKey(attachment.submissionId, attachment.pathname), attachment, {
+      ex: ATTACHMENT_TTL_SECONDS
+    });
+  } catch (error) {
+    logRedisFailure('attachment store', error);
+  }
 }
 
 export async function getStoredContactAttachment(submissionId: string, pathname: string) {
@@ -75,7 +89,13 @@ export async function getStoredContactAttachment(submissionId: string, pathname:
     return null;
   }
 
-  return redis.get<StoredAttachment>(getAttachmentKey(submissionId, pathname));
+  try {
+    return await redis.get<StoredAttachment>(getAttachmentKey(submissionId, pathname));
+  } catch (error) {
+    logRedisFailure('attachment read', error);
+
+    return null;
+  }
 }
 
 export function sanitizeText(value: unknown, maxLength: number) {

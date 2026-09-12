@@ -13,6 +13,8 @@ import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { CaseStudyOutcomeCard } from '@/components/molecules/CaseStudyOutcomeCard';
 import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 import { caseStudiesPageContent, caseStudyWorkCards } from '@/lib/content';
+import type { CaseStudyBrowserSlot, CaseStudyWorkCard, CaseStudyWorkLink, FeaturedCaseStudy } from '@/lib/content';
+import { trackCtaClicked } from '@/lib/analytics';
 import { testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
@@ -20,7 +22,9 @@ gsap.registerPlugin(useGSAP);
 const heroTitleWords = caseStudiesPageContent.hero.title.split(' ');
 const heroChipAccents = ['purple', 'lavender', 'pink'] as const;
 const outcomeIcons = [ShieldCheck, MessageSquareText, MapPinned, MousePointerClick] as const;
-const showSelectedWorkSection = false;
+const showSelectedWorkSection = true;
+const featureWorkCards = caseStudyWorkCards.filter((card) => Boolean(card.image));
+const secondaryWorkCards = caseStudyWorkCards.filter((card) => !card.image);
 
 function BrowserSlot({
   label,
@@ -29,22 +33,20 @@ function BrowserSlot({
   imageSrc,
   imageAlt,
   videoSrc,
-  tone
-}: {
-  label: string;
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  videoSrc: string;
-  tone: 'before' | 'after';
+  kind = 'browser',
+  tone,
+  studyId
+}: CaseStudyBrowserSlot & {
+  tone: 'before' | 'after' | 'showcase';
+  studyId: string;
 }) {
-  const isAfter = tone === 'after';
+  const isAfter = tone !== 'before';
+  const isLinkPreview = kind === 'linkPreview';
 
   return (
     <article
-      data-testid={`case-studies-plasterpro-${tone}-slot`}
-      className="relative overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.045] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.18)] sm:p-5"
+      data-testid={`case-studies-${studyId}-${testIdSlug(label)}-slot`}
+      className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.045] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.18)] sm:p-5"
     >
       <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div className="flex gap-2">
@@ -59,25 +61,38 @@ function BrowserSlot({
       <div
         className={[
           'relative mt-5 aspect-[16/10] overflow-hidden rounded-[1.25rem] border',
-          isAfter ? 'border-nodo-lavender/30 bg-white' : 'border-white/10 bg-white/[0.035]'
+          isAfter ? 'border-nodo-lavender/30' : 'border-white/10',
+          isLinkPreview ? 'bg-nodo-black' : isAfter ? 'bg-white' : 'bg-white/[0.035]'
         ].join(' ')}
       >
-        <video
-          aria-label={imageAlt}
-          autoPlay
-          className="h-full w-full object-cover object-top"
-          controls
-          loop
-          muted
-          playsInline
-          poster={imageSrc}
-          preload="metadata"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_68%,rgba(5,5,5,0.42))]" />
+        {videoSrc ? (
+          <video
+            aria-label={imageAlt}
+            autoPlay
+            className="h-full w-full object-cover object-top"
+            controls
+            loop
+            muted
+            playsInline
+            poster={imageSrc}
+            preload="metadata"
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            sizes="(min-width: 1024px) 46vw, 92vw"
+            className={isLinkPreview ? 'object-contain' : 'object-cover object-top'}
+          />
+        )}
+        {isLinkPreview ? null : (
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_68%,rgba(5,5,5,0.42))]" />
+        )}
       </div>
-      <div className="mt-5">
+      <div className="mt-5 flex-1">
         <h3 className="text-2xl font-black tracking-normal text-white">{title}</h3>
         <p className="mt-3 text-sm leading-6 text-white/62">{description}</p>
       </div>
@@ -138,8 +153,251 @@ function HeroTransformationPanel() {
   );
 }
 
+const workCardSurface =
+  'group flex h-full flex-col rounded-[1.75rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_52%,#f8f4ff_100%)] p-6 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/45 hover:shadow-[0_20px_54px_rgba(124,58,237,0.16)]';
+
+function WorkCardPieceLinks({ links, slug }: { links: CaseStudyWorkLink[]; slug: string }) {
+  return (
+    <div data-testid={`case-studies-work-card-${slug}-pieces`} className="mt-5 flex flex-wrap gap-2">
+      {links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() =>
+            trackCtaClicked({
+              label: link.label,
+              location: `case_studies_work_card_${slug}_piece`,
+              href: link.href,
+              route: '/case-studies'
+            })
+          }
+          className="group/piece inline-flex items-center gap-1.5 rounded-full border border-nodo-purple/24 bg-nodo-purple/[0.06] px-3 py-1.5 text-xs font-bold text-nodo-purple transition duration-300 hover:border-nodo-purple/55 hover:bg-nodo-purple/12"
+        >
+          {link.label}
+          <ArrowUpRight
+            aria-hidden="true"
+            className="size-3.5 transition duration-300 group-hover/piece:translate-x-0.5 group-hover/piece:-translate-y-0.5 motion-reduce:transform-none"
+          />
+        </a>
+      ))}
+    </div>
+  );
+}
+
+function WorkCardBody({
+  card,
+  slug,
+  isFeature = false
+}: {
+  card: CaseStudyWorkCard;
+  slug: string;
+  isFeature?: boolean;
+}) {
+  const Icon = card.icon;
+
+  return (
+    <>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-purple">{card.eyebrow}</p>
+          <h3 className="mt-4 text-3xl font-black tracking-normal text-nodo-black">{card.title}</h3>
+        </div>
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-nodo-black text-white shadow-[0_12px_34px_rgba(0,0,0,0.16)]">
+          <Icon aria-hidden="true" className="size-5" />
+        </span>
+      </div>
+      <p className="mt-5 text-pretty text-base leading-7 text-nodo-ink/68">{card.description}</p>
+      <div className="mt-6 flex flex-wrap gap-2">
+        {card.tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border border-black/8 bg-black/[0.035] px-3 py-1.5 text-xs font-bold text-nodo-ink/62"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      {card.links ? <WorkCardPieceLinks links={card.links} slug={slug} /> : null}
+      {card.href && card.ctaLabel ? (
+        <div className={isFeature ? 'mt-7' : 'mt-auto pt-8'}>
+          <TrackedCtaButton
+            href={card.href}
+            label={card.ctaLabel}
+            location={`case_studies_work_card_${slug}`}
+            route="/case-studies"
+            target="_blank"
+            rel="noreferrer"
+            variant="inverted"
+            dataTestId={`case-studies-work-card-${slug}-button`}
+            className={isFeature ? 'w-full justify-between sm:w-auto sm:gap-4' : 'w-full justify-between'}
+            icon={<ArrowUpRight aria-hidden="true" className="size-4" />}
+          >
+            {card.ctaLabel}
+          </TrackedCtaButton>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function WorkCard({ card }: { card: CaseStudyWorkCard }) {
+  const slug = testIdSlug(card.title);
+
+  if (!card.image) {
+    return (
+      <article data-testid={`case-studies-work-card-${slug}`} className={workCardSurface}>
+        <WorkCardBody card={card} slug={slug} />
+      </article>
+    );
+  }
+
+  return (
+    <article data-testid={`case-studies-work-card-${slug}`} className={workCardSurface}>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
+        <figure data-testid={`case-studies-work-card-${slug}-visual`} className="mx-auto w-full max-w-[19rem]">
+          <div className="relative aspect-[9/16] overflow-hidden rounded-[1.25rem] border border-black/8 bg-black/[0.04] shadow-[0_16px_44px_rgba(22,19,25,0.12)]">
+            <Image
+              src={card.image.src}
+              alt={card.image.alt}
+              fill
+              sizes="(min-width: 1024px) 19rem, 80vw"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="mt-3 text-center text-xs font-bold uppercase tracking-[0.16em] text-nodo-ink/48">
+            {card.image.caption}
+          </figcaption>
+        </figure>
+        <div className="flex flex-col">
+          <WorkCardBody card={card} slug={slug} isFeature />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
+  const slots: CaseStudyBrowserSlot[] = study.comparison
+    ? [study.comparison.before, study.comparison.after]
+    : study.showcase;
+
+  return (
+    <article data-testid={`case-studies-${study.id}-block`}>
+      <ScrollReveal>
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">{study.eyebrow}</p>
+            <h2
+              data-testid={`case-studies-${study.id}-title`}
+              className="mt-5 text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl"
+            >
+              {study.client}
+            </h2>
+            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-white/42">{study.industry}</p>
+            <p
+              data-testid={`case-studies-${study.id}-summary`}
+              className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68"
+            >
+              {study.summary}
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {study.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/12 bg-white/[0.055] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white/62"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8">
+              <TrackedCtaButton
+                href={study.href}
+                label="View live site"
+                location={`case_studies_${study.id.replace(/-/g, '_')}`}
+                route="/case-studies"
+                target="_blank"
+                rel="noreferrer"
+                dataTestId={`case-studies-${study.id}-live-site-button`}
+                className="group"
+                icon={
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none"
+                  />
+                }
+              >
+                View live site
+              </TrackedCtaButton>
+            </div>
+          </div>
+
+          <div className="grid gap-5">
+            <div
+              data-testid={`case-studies-${study.id}-headline-card`}
+              className="rounded-[1.75rem] border border-nodo-lavender/32 bg-nodo-purple/20 p-6"
+            >
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-nodo-lavender">{study.kicker}</p>
+              <h3 className="mt-4 text-balance text-3xl font-black leading-tight text-white sm:text-4xl">
+                {study.headline}
+              </h3>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
+                <h3 className="text-xl font-black text-white">{study.challenge.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/64">{study.challenge.description}</p>
+              </article>
+              <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
+                <h3 className="text-xl font-black text-white">{study.work.title}</h3>
+                <ul className="mt-4 grid gap-3">
+                  {study.work.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-sm leading-6 text-white/66">
+                      <span className="mt-2 size-1.5 shrink-0 rounded-full bg-nodo-lavender" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <div className="mt-14 grid gap-5 lg:grid-cols-2">
+        {slots.map((slot, index) => (
+          <ScrollReveal key={slot.label} className="h-full" delay={index * 0.08}>
+            <BrowserSlot
+              {...slot}
+              studyId={study.id}
+              tone={study.comparison ? (index === 0 ? 'before' : 'after') : 'showcase'}
+            />
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <ScrollReveal>
+        <div
+          data-testid={`case-studies-${study.id}-outcomes`}
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {study.outcomes.map((outcome, index) => (
+            <CaseStudyOutcomeCard
+              key={outcome}
+              icon={outcomeIcons[index % outcomeIcons.length]}
+              index={index}
+              outcome={outcome}
+            />
+          ))}
+        </div>
+      </ScrollReveal>
+    </article>
+  );
+}
+
 export function CaseStudiesPage() {
-  const { hero, featured, selectedWork, finalCta } = caseStudiesPageContent;
+  const { hero, featuredCaseStudies, selectedWork, finalCta } = caseStudiesPageContent;
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -448,112 +706,11 @@ export function CaseStudiesPage() {
 
       <section data-testid="case-studies-featured-section" className="border-y border-white/10 py-20 sm:py-28">
         <Container>
-          <ScrollReveal>
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">{featured.eyebrow}</p>
-                <h2
-                  data-testid="case-studies-plasterpro-title"
-                  className="mt-5 text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl"
-                >
-                  {featured.client}
-                </h2>
-                <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-white/42">
-                  {featured.industry}
-                </p>
-                <p
-                  data-testid="case-studies-plasterpro-summary"
-                  className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68"
-                >
-                  {featured.summary}
-                </p>
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {featured.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/12 bg-white/[0.055] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white/62"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <TrackedCtaButton
-                    href={featured.href}
-                    label="View live site"
-                    location="case_studies_plasterpro"
-                    route="/case-studies"
-                    target="_blank"
-                    rel="noreferrer"
-                    dataTestId="case-studies-plasterpro-live-site-button"
-                    className="group"
-                    icon={
-                      <ArrowUpRight
-                        aria-hidden="true"
-                        className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none"
-                      />
-                    }
-                  >
-                    View live site
-                  </TrackedCtaButton>
-                </div>
-              </div>
-
-              <div className="grid gap-5">
-                <div
-                  data-testid="case-studies-plasterpro-headline-card"
-                  className="rounded-[1.75rem] border border-nodo-lavender/32 bg-nodo-purple/20 p-6"
-                >
-                  <p className="text-sm font-black uppercase tracking-[0.18em] text-nodo-lavender">Website redesign</p>
-                  <h3 className="mt-4 text-balance text-3xl font-black leading-tight text-white sm:text-4xl">
-                    {featured.headline}
-                  </h3>
-                </div>
-                <div className="grid gap-5 md:grid-cols-2">
-                  <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
-                    <h3 className="text-xl font-black text-white">{featured.challenge.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-white/64">{featured.challenge.description}</p>
-                  </article>
-                  <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
-                    <h3 className="text-xl font-black text-white">{featured.work.title}</h3>
-                    <ul className="mt-4 grid gap-3">
-                      {featured.work.points.map((point) => (
-                        <li key={point} className="flex gap-3 text-sm leading-6 text-white/66">
-                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-nodo-lavender" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <div className="mt-14 grid gap-5 lg:grid-cols-2">
-            <ScrollReveal>
-              <BrowserSlot {...featured.comparison.before} tone="before" />
-            </ScrollReveal>
-            <ScrollReveal delay={0.08}>
-              <BrowserSlot {...featured.comparison.after} tone="after" />
-            </ScrollReveal>
+          <div className="grid gap-20 sm:gap-28">
+            {featuredCaseStudies.map((study) => (
+              <FeaturedCaseStudyBlock key={study.id} study={study} />
+            ))}
           </div>
-
-          <ScrollReveal>
-            <div
-              data-testid="case-studies-plasterpro-outcomes"
-              className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
-            >
-              {featured.outcomes.map((outcome, index) => (
-                <CaseStudyOutcomeCard
-                  key={outcome}
-                  icon={outcomeIcons[index % outcomeIcons.length]}
-                  index={index}
-                  outcome={outcome}
-                />
-              ))}
-            </div>
-          </ScrollReveal>
         </Container>
       </section>
 
@@ -568,61 +725,19 @@ export function CaseStudiesPage() {
                 surfaceTone="light"
               />
             </ScrollReveal>
-            <div data-testid="case-studies-selected-work-grid" className="mt-12 grid gap-5 lg:grid-cols-3">
-              {caseStudyWorkCards.map((card, index) => {
-                const Icon = card.icon;
-                const slug = testIdSlug(card.title);
-
-                return (
+            <div data-testid="case-studies-selected-work-grid" className="mt-12 grid gap-5">
+              {featureWorkCards.map((card, index) => (
+                <ScrollReveal key={card.title} delay={index * 0.06}>
+                  <WorkCard card={card} />
+                </ScrollReveal>
+              ))}
+              <div className="grid gap-5 lg:grid-cols-2">
+                {secondaryWorkCards.map((card, index) => (
                   <ScrollReveal key={card.title} delay={index * 0.06} className="h-full">
-                    <article
-                      data-testid={`case-studies-work-card-${slug}`}
-                      className="group flex h-full flex-col rounded-[1.75rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_52%,#f8f4ff_100%)] p-6 shadow-[0_18px_60px_rgba(22,19,25,0.06)] transition duration-300 hover:-translate-y-1 hover:border-nodo-purple/45 hover:shadow-[0_20px_54px_rgba(124,58,237,0.16)]"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-[0.18em] text-nodo-purple">
-                            {card.eyebrow}
-                          </p>
-                          <h3 className="mt-4 text-3xl font-black tracking-normal text-nodo-black">{card.title}</h3>
-                        </div>
-                        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-black/8 bg-nodo-black text-white shadow-[0_12px_34px_rgba(0,0,0,0.16)]">
-                          <Icon aria-hidden="true" className="size-5" />
-                        </span>
-                      </div>
-                      <p className="mt-5 text-pretty text-base leading-7 text-nodo-ink/68">{card.description}</p>
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {card.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-black/8 bg-black/[0.035] px-3 py-1.5 text-xs font-bold text-nodo-ink/62"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      {card.href && card.ctaLabel ? (
-                        <div className="mt-auto pt-8">
-                          <TrackedCtaButton
-                            href={card.href}
-                            label={card.ctaLabel}
-                            location={`case_studies_work_card_${slug}`}
-                            route="/case-studies"
-                            target="_blank"
-                            rel="noreferrer"
-                            variant="inverted"
-                            dataTestId={`case-studies-work-card-${slug}-button`}
-                            className="w-full justify-between"
-                            icon={<ArrowUpRight aria-hidden="true" className="size-4" />}
-                          >
-                            {card.ctaLabel}
-                          </TrackedCtaButton>
-                        </div>
-                      ) : null}
-                    </article>
+                    <WorkCard card={card} />
                   </ScrollReveal>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </Container>
         </section>

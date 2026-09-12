@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 import { JsonLdScript } from '@/components/atoms/JsonLdScript';
@@ -14,6 +14,12 @@ import './globals.css';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap'
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-plus-jakarta-sans',
   display: 'swap'
 });
 
@@ -58,8 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-NZ" className={inter.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>
+    <html
+      lang="en-NZ"
+      className={`${plusJakartaSans.variable} ${inter.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body className={plusJakartaSans.className}>
         <Script
           id="preloader-session-bootstrap"
           strategy="beforeInteractive"

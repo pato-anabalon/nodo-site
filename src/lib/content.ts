@@ -367,77 +367,191 @@ export const aboutPageContent = {
   }
 };
 
+export type CaseStudyWorkLink = {
+  label: string;
+  href: string;
+};
+
 export type CaseStudyWorkCard = {
   title: string;
   eyebrow: string;
   description: string;
   href?: string;
   ctaLabel?: string;
+  links?: CaseStudyWorkLink[];
+  image?: {
+    src: string;
+    alt: string;
+    caption: string;
+  };
   tags: string[];
   icon: LucideIcon;
+};
+
+export type CaseStudyBrowserSlot = {
+  label: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  videoSrc?: string;
+  kind?: 'browser' | 'linkPreview';
+};
+
+type FeaturedCaseStudyBase = {
+  id: string;
+  eyebrow: string;
+  kicker: string;
+  client: string;
+  href: string;
+  industry: string;
+  headline: string;
+  summary: string;
+  tags: string[];
+  challenge: {
+    title: string;
+    description: string;
+  };
+  work: {
+    title: string;
+    points: string[];
+  };
+  outcomes: string[];
+};
+
+export type ComparisonCaseStudy = FeaturedCaseStudyBase & {
+  comparison: {
+    before: CaseStudyBrowserSlot;
+    after: CaseStudyBrowserSlot;
+  };
+  showcase?: never;
+};
+
+export type ShowcaseCaseStudy = FeaturedCaseStudyBase & {
+  showcase: CaseStudyBrowserSlot[];
+  comparison?: never;
+};
+
+export type FeaturedCaseStudy = ComparisonCaseStudy | ShowcaseCaseStudy;
+
+const plasterProCaseStudy: ComparisonCaseStudy = {
+  id: 'plasterpro',
+  eyebrow: 'Featured case study',
+  kicker: 'Website redesign',
+  client: 'PlasterPro Solution',
+  href: 'https://www.plasterprosolution.co.nz/',
+  industry: 'Auckland plastering, painting, gib stopping, and property presentation',
+  headline: 'From an outdated Wix site to a high-trust trade website for Auckland property work.',
+  summary:
+    'PlasterPro Solution needed a website that matched the quality of their work. The redesign gave the business clearer service structure, stronger trust signals, better local relevance, and a sharper first impression.',
+  tags: ['Website redesign', 'UX', 'Copywriting', 'SEO structure'],
+  challenge: {
+    title: 'The challenge',
+    description:
+      'The old site did not communicate the quality, range, or credibility of the business clearly enough. For a trade business working across Auckland properties, the website needed to feel professional quickly and make it easier for clients to request a quote.'
+  },
+  work: {
+    title: 'What changed',
+    points: [
+      'A clearer service architecture for plastering, painting, gib stopping, and property presentation.',
+      'A stronger first impression built around premium finishes and Auckland property work.',
+      'Trust signals through reviews, qualifications, suppliers, project imagery, and clear contact paths.',
+      'More direct copy that helps homeowners, builders, agents, and property managers understand the offer.'
+    ]
+  },
+  outcomes: [
+    'Stronger credibility from the first visit',
+    'Clearer explanation of services',
+    'Better foundation for local SEO',
+    'More visible quote paths'
+  ],
+  comparison: {
+    before: {
+      label: 'Before',
+      title: 'Old Wix presence',
+      description:
+        'The previous site had weak hierarchy, crowded sections, and limited trust signals for a trade business working across Auckland properties.',
+      imageSrc: '/case-studies/plasterpro-old.png',
+      imageAlt: 'Old PlasterPro Solution Wix website screenshot before the Nodo redesign.',
+      videoSrc: '/videos/plasterpro-old-site-480.mp4'
+    },
+    after: {
+      label: 'After',
+      title: 'Nodo redesign',
+      description: 'A sharper website experience built around services, process, projects, reviews, and quote actions.',
+      imageSrc: '/case-studies/plasterpro-new.png',
+      imageAlt: 'New PlasterPro Solution website screenshot after the Nodo redesign.',
+      videoSrc: '/videos/plasterpro-new-site-480.mp4'
+    }
+  }
+};
+
+const libertySecurityCaseStudy: ShowcaseCaseStudy = {
+  id: 'liberty-security',
+  eyebrow: 'New case study',
+  kicker: 'Website designed from scratch',
+  client: 'Liberty Security',
+  href: 'https://www.libertysecurity.co.nz/',
+  industry: 'Security services across the Auckland region: events, close protection, guarding, and CCTV monitoring',
+  headline: 'A brand strategy document turned into a launch-ready website, designed from scratch.',
+  summary:
+    'Liberty Security is a people-first security company founded by two owners with more than fifteen years of combined industry experience. They arrived with a written brand strategy and no digital presence. Nodo turned that document into a complete website: structure, copy, visual language, and share-ready metadata.',
+  tags: ['Website from scratch', 'Brand strategy', 'Copywriting', 'SEO and metadata'],
+  challenge: {
+    title: 'The brief',
+    description:
+      'A new company needed to look established from day one. The site had to carry the People Protecting People positioning, explain a broad service range without feeling generic, and make Liberty easy to contact from the very first screen, all with no existing website to build on.'
+  },
+  work: {
+    title: 'What we built',
+    points: [
+      'A full website designed from scratch around the Liberty brand strategy. No template, no off-the-shelf theme.',
+      'A section structure that follows the story: why Liberty exists, what they believe, services, industries, and how they work.',
+      'Copy shaped directly from the strategy document so positioning, values, and tone stay consistent across every section.',
+      'Direct contact paths on every screen through a visible phone number and a persistent enquiry call to action.',
+      'Metadata and Open Graph cards so the link previews correctly when shared on WhatsApp, Facebook, or LinkedIn.'
+    ]
+  },
+  outcomes: [
+    'A credible presence from launch day',
+    'Eight services clearly explained',
+    'Twelve industries covered',
+    'Share-ready link previews'
+  ],
+  showcase: [
+    {
+      label: 'Live site',
+      title: 'Designed from scratch',
+      description:
+        'A dark, confident opening built around the People Protecting People line, with the service region, the value proposition, and two clear next steps visible before any scrolling.',
+      imageSrc: '/case-studies/liberty-hero.jpeg',
+      imageAlt: 'Liberty Security website homepage designed by Nodo, showing the People Protecting People hero.'
+    },
+    {
+      label: 'Link preview',
+      title: 'Share-ready metadata',
+      description:
+        'Open Graph titles, descriptions, and imagery configured so the site presents itself properly every time the link is sent through WhatsApp, Facebook, or LinkedIn.',
+      imageSrc: '/case-studies/liberty-open-graph.jpeg',
+      imageAlt: 'Liberty Security website link preview card as it appears when the URL is shared in a chat.',
+      kind: 'linkPreview'
+    }
+  ]
 };
 
 export const caseStudiesPageContent = {
   hero: {
     eyebrow: 'Selected work',
     title: 'Work that makes businesses easier to trust, find, and choose.',
-    copy: 'Selected website redesigns, social media work, and content pieces for New Zealand businesses, starting with a full website transformation for PlasterPro Solution.',
+    copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to a site designed from scratch for Liberty Security.',
     highlights: ['Website redesign', 'Social media', 'Video content']
   },
-  featured: {
-    eyebrow: 'Featured case study',
-    client: 'PlasterPro Solution',
-    href: 'https://www.plasterprosolution.co.nz/',
-    industry: 'Auckland plastering, painting, gib stopping, and property presentation',
-    headline: 'From an outdated Wix site to a high-trust trade website for Auckland property work.',
-    summary:
-      'PlasterPro Solution needed a website that matched the quality of their work. The redesign gave the business clearer service structure, stronger trust signals, better local relevance, and a sharper first impression.',
-    tags: ['Website redesign', 'UX', 'Copywriting', 'SEO structure'],
-    challenge: {
-      title: 'The challenge',
-      description:
-        'The old site did not communicate the quality, range, or credibility of the business clearly enough. For a trade business working across Auckland properties, the website needed to feel professional quickly and make it easier for clients to request a quote.'
-    },
-    work: {
-      title: 'What changed',
-      points: [
-        'A clearer service architecture for plastering, painting, gib stopping, and property presentation.',
-        'A stronger first impression built around premium finishes and Auckland property work.',
-        'Trust signals through reviews, qualifications, suppliers, project imagery, and clear contact paths.',
-        'More direct copy that helps homeowners, builders, agents, and property managers understand the offer.'
-      ]
-    },
-    outcomes: [
-      'Stronger credibility from the first visit',
-      'Clearer explanation of services',
-      'Better foundation for local SEO',
-      'More visible quote paths'
-    ],
-    comparison: {
-      before: {
-        label: 'Before',
-        title: 'Old Wix presence',
-        description:
-          'The previous site had weak hierarchy, crowded sections, and limited trust signals for a trade business working across Auckland properties.',
-        imageSrc: '/case-studies/plasterpro-old.png',
-        imageAlt: 'Old PlasterPro Solution Wix website screenshot before the Nodo redesign.',
-        videoSrc: '/videos/plasterpro-old-site-480.mp4'
-      },
-      after: {
-        label: 'After',
-        title: 'Nodo redesign',
-        description:
-          'A sharper website experience built around services, process, projects, reviews, and quote actions.',
-        imageSrc: '/case-studies/plasterpro-new.png',
-        imageAlt: 'New PlasterPro Solution website screenshot after the Nodo redesign.',
-        videoSrc: '/videos/plasterpro-new-site-480.mp4'
-      }
-    }
-  },
+  featured: plasterProCaseStudy,
+  featuredCaseStudies: [plasterProCaseStudy, libertySecurityCaseStudy] as FeaturedCaseStudy[],
   selectedWork: {
-    eyebrow: 'More client work',
-    title: 'Useful work does not always need a full case study.',
-    copy: 'Some projects are ongoing, smaller in scope, or focused on specific content needs. This section keeps those visible without overclaiming results.'
+    eyebrow: 'Ongoing client work',
+    title: 'The social media work that keeps clients visible between projects.',
+    copy: 'Graphic lines, short-form video, and campaign pieces produced month to month. No single post needs a full case study, but together they keep a business consistent, recognisable, and present.'
   },
   finalCta: {
     eyebrow: 'Have a business that needs this kind of shift?',
@@ -448,19 +562,41 @@ export const caseStudiesPageContent = {
 
 export const caseStudyWorkCards: CaseStudyWorkCard[] = [
   {
-    title: 'PISNCO',
-    eyebrow: 'Social media management',
-    description: 'Ongoing social media support focused on rhythm, visual consistency, captions, and brand presence.',
+    title: 'PISnCO',
+    eyebrow: 'Social media and event campaign',
+    description:
+      'Ongoing social media support built on a consistent graphic line across posts and campaign pieces, so every announcement reads as the same brand. Nodo also came on board as a sponsor of Fonda Pisco pal que lee, the Latin Flavour edition held at The Y Auckland City.',
     href: 'https://www.instagram.com/pisnco/',
     ctaLabel: 'View Instagram',
-    tags: ['Social media', 'Content planning', 'Captions'],
+    links: [
+      { label: 'Graphic line 01', href: 'https://www.instagram.com/p/DYlj-A7EVVO/' },
+      { label: 'Graphic line 02', href: 'https://www.instagram.com/p/DYlj33HkR3p/' },
+      { label: 'Graphic line 03', href: 'https://www.instagram.com/p/DYljy4-ESEh/' },
+      { label: 'Event reel', href: 'https://www.instagram.com/p/Dc8BIBiSV93/' }
+    ],
+    image: {
+      src: '/case-studies/flayer-fonda.jpeg',
+      alt: 'Fonda Pisco pal que lee Latin Flavour edition flyer, with Nodo listed among the event sponsors.',
+      caption: 'Nodo listed among the event sponsors.'
+    },
+    tags: ['Social media', 'Graphic line', 'Event campaign', 'Sponsorship'],
     icon: Instagram
   },
   {
-    title: 'Short-form video pieces',
-    eyebrow: 'Video content',
-    description: 'Video assets and social pieces created to help businesses explain, promote, launch, or stay visible.',
-    tags: ['Video editing', 'Reels', 'Content pieces'],
+    title: 'PlasterPro Solution',
+    eyebrow: 'Social video content',
+    description:
+      'Short-form video pieces for the PlasterPro Solution Instagram, turning finished plastering and painting jobs into content that keeps the business visible between projects.',
+    href: 'https://www.instagram.com/plasterprosolution',
+    ctaLabel: 'View Instagram',
+    links: [
+      { label: 'Reel 01', href: 'https://www.instagram.com/p/Dcz8VWbAe5I/' },
+      { label: 'Reel 02', href: 'https://www.instagram.com/p/DdCqGYDiFxd/' },
+      { label: 'Reel 03', href: 'https://www.instagram.com/p/Dcx_h3CiJC7/' },
+      { label: 'Reel 04', href: 'https://www.instagram.com/p/DckrTdjCOlM/' },
+      { label: 'Reel 05', href: 'https://www.instagram.com/p/DchP3NxgTOo/' }
+    ],
+    tags: ['Video editing', 'Reels', 'Content planning'],
     icon: Clapperboard
   },
   {

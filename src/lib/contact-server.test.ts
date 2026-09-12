@@ -27,6 +27,67 @@ describe('contact-server', () => {
     expect(typeof hasAttachmentStore()).toBe('boolean');
   });
 
+  describe('when Redis is configured but unreachable', () => {
+    const originalEnv = process.env;
+
+    function loadWithUnreachableRedis() {
+      const unreachable = () => Promise.reject(new TypeError('fetch failed'));
+
+      jest.doMock('@upstash/redis', () => ({
+        Redis: jest.fn().mockImplementation(() => ({
+          incr: unreachable,
+          expire: unreachable,
+          set: unreachable,
+          get: unreachable
+        }))
+      }));
+
+      return jest.requireActual<typeof import('./contact-server')>('./contact-server');
+    }
+
+    beforeEach(() => {
+      jest.resetModules();
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+      process.env = {
+        ...originalEnv,
+        UPSTASH_REDIS_REST_URL: 'https://unreachable.upstash.io',
+        UPSTASH_REDIS_REST_TOKEN: 'token'
+      };
+    });
+
+    afterEach(() => {
+      process.env = originalEnv;
+      jest.restoreAllMocks();
+      jest.dontMock('@upstash/redis');
+    });
+
+    it('should let the submission through instead of throwing', async () => {
+      const { checkRateLimit } = loadWithUnreachableRedis();
+
+      await expect(checkRateLimit({ key: 'contact:submit:ip:1.2.3.4', limit: 8 })).resolves.toEqual({
+        limited: false,
+        remaining: 8,
+        configured: false
+      });
+    });
+
+    it('should degrade the attachment store to on-demand validation', async () => {
+      const { getStoredContactAttachment, storeContactAttachment } = loadWithUnreachableRedis();
+      const attachment = createContactAttachment();
+
+      await expect(
+        storeContactAttachment({
+          ...attachment,
+          submissionId: validSubmissionId,
+          valid: true,
+          uploadedAt: new Date().toISOString()
+        })
+      ).resolves.toBeUndefined();
+
+      await expect(getStoredContactAttachment(validSubmissionId, attachment.pathname)).resolves.toBeNull();
+    });
+  });
+
   it('should validate matching Blob URLs and metadata', () => {
     const attachment = createContactAttachment();
 

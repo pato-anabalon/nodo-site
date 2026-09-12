@@ -272,7 +272,7 @@ export function Header() {
               aria-label="Nodo home"
               className="nodo-header-surface nodo-header-surface-hover pointer-events-auto relative flex h-[var(--nodo-header-logo-height)] w-[var(--nodo-header-logo-width)] items-center rounded-br-[2.1rem] px-7 py-4 text-white shadow-[0_18px_38px_rgba(5,5,5,0.18)] transition duration-300 sm:px-8"
             >
-              <NodoLogo inverted className="scale-[0.9]" />
+              <NodoLogo inverted className="font-brand scale-[0.9]" />
             </Link>
           </div>
         </div>

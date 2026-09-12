@@ -72,7 +72,8 @@
   --color-nodo-ink: var(--nodo-ink);
   --color-nodo-muted: var(--nodo-muted);
   --blur-sm: 4px;
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-brand: var(--font-inter);
 }
 
 @keyframes about-client-progress {
@@ -107,7 +108,7 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px), var(--background);
   background-size: 64px 64px;
   color: var(--foreground);
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), Arial, Helvetica, sans-serif;
 }
 
 html[data-nodo-preloaded='true'] .nodo-preloader-shell {
