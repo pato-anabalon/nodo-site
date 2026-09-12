@@ -47,7 +47,8 @@ develop
 - `@upstash/redis`
 - Vercel Analytics
 - Google Tag Manager for Google Ads/GA4 campaign measurement
-- Font: Inter via `next/font/google`
+- Font: Plus Jakarta Sans globally via `next/font/google`, with Inter reserved for the desktop header wordmark and
+  the `Nodo.` wordmark in the home hero
 
 Useful scripts:
 

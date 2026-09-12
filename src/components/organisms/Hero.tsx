@@ -173,8 +173,8 @@ export function Hero() {
           </p>
           <h1 data-testid="home-hero-title" className="hero-title opacity-0 motion-reduce:opacity-100 text-white">
             <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
-              <span className="hero-title-word inline-block shrink-0">nodo</span>
-              <span className="hero-title-word inline-block shrink-0 text-nodo-purple">.</span>
+              <span className="hero-title-word font-brand inline-block shrink-0">nodo</span>
+              <span className="hero-title-word font-brand inline-block shrink-0 text-nodo-purple">.</span>
               <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
             </span>
             <span className="mb-[-0.16em] mt-5 block max-w-2xl overflow-hidden pb-[0.16em] text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
