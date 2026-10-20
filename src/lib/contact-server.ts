@@ -66,10 +66,6 @@ export async function checkRateLimit(params: { key: string; limit: number; windo
   }
 }
 
-export function hasAttachmentStore() {
-  return Boolean(redis);
-}
-
 export async function storeContactAttachment(attachment: StoredAttachment) {
   if (!redis) {
     return;

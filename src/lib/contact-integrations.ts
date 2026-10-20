@@ -17,6 +17,8 @@ export type ContactLead = {
   attachments: ContactAttachment[];
   attachmentCount: number;
   submittedAt: string;
+  /** The visitor's IP, passed on so the CRM rate-limits people rather than this server. */
+  clientIp?: string;
 };
 
 type IntegrationResult = {
@@ -37,17 +39,20 @@ export type ContactIntegrationResults = {
   trello: IntegrationResult;
   email: IntegrationResult;
   telegram: IntegrationResult;
+  crm: IntegrationResult;
 };
 
 export async function forwardContactLead(lead: ContactLead): Promise<ContactIntegrationResults> {
   const trello = await createTrelloCard(lead);
   const email = await sendLeadEmail(lead, trello.url);
   const telegram = await sendTelegramNotification(lead, trello.url);
+  const crm = await sendLeadToCrm(lead);
 
   return {
     trello,
     email,
-    telegram
+    telegram,
+    crm
   };
 }
 
@@ -56,7 +61,9 @@ export function hasCriticalIntegrationFailure(results: ContactIntegrationResults
     return false;
   }
 
-  const configuredResults = [results.trello, results.email, results.telegram].filter((result) => result.configured);
+  const configuredResults = [results.trello, results.email, results.telegram, results.crm].filter(
+    (result) => result.configured
+  );
 
   if (configuredResults.length === 0) {
     return false;
@@ -66,7 +73,7 @@ export function hasCriticalIntegrationFailure(results: ContactIntegrationResults
 }
 
 export function hasAnyIntegrationSuccess(results: ContactIntegrationResults) {
-  return [results.trello, results.email, results.telegram].some((result) => result.ok);
+  return [results.trello, results.email, results.telegram, results.crm].some((result) => result.ok);
 }
 
 async function createTrelloCard(lead: ContactLead): Promise<IntegrationResult> {
@@ -237,6 +244,86 @@ async function sendTelegramNotification(lead: ContactLead, trelloUrl?: string): 
       error: getErrorMessage(error)
     };
   }
+}
+
+async function sendLeadToCrm(lead: ContactLead): Promise<IntegrationResult> {
+  const url = process.env.CRM_API_URL;
+  const apiKey = process.env.CRM_API_KEY;
+
+  if (!url || !apiKey) {
+    return { configured: false, ok: false };
+  }
+
+  try {
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      // A retry of the same submission is recognised by the CRM and not duplicated.
+      'Idempotency-Key': lead.submissionId
+    };
+
+    // Only a secret key may say whose IP this is; the CRM ignores it otherwise.
+    if (lead.clientIp && lead.clientIp !== 'unknown') {
+      headers['X-Client-Ip'] = lead.clientIp;
+    }
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(buildCrmPayload(lead))
+    });
+
+    if (!response.ok) {
+      return {
+        configured: true,
+        ok: false,
+        error: await response.text()
+      };
+    }
+
+    const payload = (await response.json()) as { id?: string };
+
+    return {
+      configured: true,
+      ok: true,
+      id: payload.id
+    };
+  } catch (error) {
+    return {
+      configured: true,
+      ok: false,
+      error: getErrorMessage(error)
+    };
+  }
+}
+
+/**
+ * The CRM recognises name, email, phone, company, address, service and message
+ * by their usual names and keeps everything else with the enquiry, so the
+ * site's own fields (intent, plan…) travel under their own names.
+ */
+function buildCrmPayload(lead: ContactLead) {
+  return {
+    name: `${lead.name} ${lead.lastName}`.trim(),
+    email: lead.email,
+    phone: lead.phone,
+    company: lead.company,
+    address: lead.city,
+    service: lead.planSelected || lead.intent,
+    message: lead.message,
+    intent: lead.intent,
+    source: lead.source,
+    plan: lead.planSelected,
+    plan_type: lead.planType,
+    plan_slug: lead.planSlug,
+    submitted_at: lead.submittedAt,
+    files: lead.attachments.map((attachment) => ({
+      name: attachment.originalName,
+      url: attachment.url,
+      size: attachment.size,
+      type: attachment.contentType
+    }))
+  };
 }
 
 function getLeadTitle(lead: ContactLead) {
