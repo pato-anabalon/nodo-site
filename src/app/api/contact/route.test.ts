@@ -11,7 +11,6 @@ jest.mock('@/lib/contact-server', () => ({
   checkRateLimit: jest.fn(),
   getClientIp: jest.fn(() => '127.0.0.1'),
   getStoredContactAttachment: jest.fn(),
-  hasAttachmentStore: jest.fn(),
   sanitizeText: jest.requireActual('@/lib/contact-server').sanitizeText,
   storeContactAttachment: jest.fn(),
   validateAttachmentMetadata: jest.fn(),
@@ -35,14 +34,14 @@ describe('/api/contact', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     contactServer.checkRateLimit.mockResolvedValue({ limited: false, remaining: 1, configured: false });
-    contactServer.hasAttachmentStore.mockReturnValue(true);
     contactServer.getStoredContactAttachment.mockResolvedValue(null);
     contactServer.validateAttachmentMetadata.mockReturnValue(true);
     contactServer.validateUploadedMagicNumber.mockResolvedValue(true);
     contactIntegrations.forwardContactLead.mockResolvedValue({
       trello: { configured: false, ok: false },
       email: { configured: true, ok: true },
-      telegram: { configured: false, ok: false }
+      telegram: { configured: false, ok: false },
+      crm: { configured: false, ok: false }
     });
   });
 
@@ -149,11 +148,33 @@ describe('/api/contact', () => {
     );
   });
 
+  it('should accept attachments when no Redis store is available', async () => {
+    // Without Redis nothing is remembered between requests: every file is
+    // checked on the spot instead of being read back from the store.
+    contactServer.getStoredContactAttachment.mockResolvedValue(null);
+    contactServer.storeContactAttachment.mockResolvedValue(undefined);
+    const attachment = createContactAttachment();
+
+    const response = await POST(
+      new Request('https://nodo.test/api/contact', {
+        method: 'POST',
+        body: JSON.stringify(createContactPayload({ attachments: [attachment] }))
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expect(contactServer.validateUploadedMagicNumber).toHaveBeenCalledWith(attachment.url, attachment.contentType);
+    expect(contactIntegrations.forwardContactLead).toHaveBeenCalledWith(
+      expect.objectContaining({ attachmentCount: 1 })
+    );
+  });
+
   it('should return 502 when every configured integration fails', async () => {
     contactIntegrations.forwardContactLead.mockResolvedValueOnce({
       trello: { configured: true, ok: false },
       email: { configured: true, ok: false },
-      telegram: { configured: false, ok: false }
+      telegram: { configured: false, ok: false },
+      crm: { configured: false, ok: false }
     });
 
     const response = await POST(

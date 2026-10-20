@@ -1,7 +1,6 @@
 import { createContactAttachment, validSubmissionId } from '@/test/factories';
 import {
   getClientIp,
-  hasAttachmentStore,
   isMatchingVercelBlobUrl,
   sanitizeText,
   validateAttachmentMetadata,
@@ -21,10 +20,6 @@ describe('contact-server', () => {
     expect(sanitizeText('  hi\u0000 there  ', 20)).toBe('hi there');
     expect(sanitizeText(undefined, 5)).toBe('');
     expect(sanitizeText('abcdef', 3)).toBe('abc');
-  });
-
-  it('should detect whether attachment store is configured', () => {
-    expect(typeof hasAttachmentStore()).toBe('boolean');
   });
 
   describe('when Redis is configured but unreachable', () => {
