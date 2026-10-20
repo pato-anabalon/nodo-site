@@ -4,7 +4,6 @@ import {
   checkRateLimit,
   getClientIp,
   getStoredContactAttachment,
-  hasAttachmentStore,
   sanitizeText,
   storeContactAttachment,
   validateAttachmentMetadata,
@@ -137,7 +136,8 @@ export async function POST(request: Request) {
     source,
     attachments: validatedAttachments.attachments,
     attachmentCount: validatedAttachments.attachments.length,
-    submittedAt: new Date().toISOString()
+    submittedAt: new Date().toISOString(),
+    clientIp: ip
   };
 
   const integrations = await forwardContactLead(lead);
@@ -179,10 +179,6 @@ async function validateAttachments(attachments: ContactAttachment[], submissionI
 
   if (!/^[a-f0-9-]{36}$/i.test(submissionId)) {
     return { error: 'Invalid attachment session.' };
-  }
-
-  if (!hasAttachmentStore()) {
-    return { error: 'Attachments are not available right now.' };
   }
 
   if (attachments.length > CONTACT_ATTACHMENT_LIMITS.maxFiles) {

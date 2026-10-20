@@ -39,11 +39,13 @@ describe('contact-integrations', () => {
     delete process.env.TRELLO_API_KEY;
     delete process.env.RESEND_API_KEY;
     delete process.env.TELEGRAM_BOT_TOKEN;
+    delete process.env.CRM_API_KEY;
 
     await expect(forwardContactLead(createLead())).resolves.toEqual({
       trello: { configured: false, ok: false },
       email: { configured: false, ok: false },
-      telegram: { configured: false, ok: false }
+      telegram: { configured: false, ok: false },
+      crm: { configured: false, ok: false }
     });
     expect(global.fetch).not.toHaveBeenCalled();
   });
@@ -80,12 +82,60 @@ describe('contact-integrations', () => {
     expect(result.telegram).toEqual(expect.objectContaining({ configured: true, ok: true, id: '10' }));
   });
 
+  it('should send the lead to the CRM with the idempotency key and visitor IP', async () => {
+    delete process.env.TRELLO_API_KEY;
+    delete process.env.RESEND_API_KEY;
+    delete process.env.TELEGRAM_BOT_TOKEN;
+    Object.assign(process.env, { CRM_API_URL: 'http://localhost:3100/api/v1/leads', CRM_API_KEY: 'nodo_sk_test' });
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ status: 'accepted', id: 'lead-1' })
+    });
+
+    const result = await forwardContactLead(
+      createLead({
+        clientIp: '203.0.113.7',
+        attachments: [
+          {
+            url: 'https://blob.test/a.pdf',
+            pathname: 'a.pdf',
+            filename: 'a.pdf',
+            originalName: 'brief.pdf',
+            contentType: 'application/pdf',
+            size: 1234
+          }
+        ]
+      })
+    );
+
+    expect(result.crm).toEqual({ configured: true, ok: true, id: 'lead-1' });
+    const [url, init] = (global.fetch as jest.Mock).mock.calls[0];
+    expect(url).toBe('http://localhost:3100/api/v1/leads');
+    expect(init.headers).toEqual(
+      expect.objectContaining({
+        Authorization: 'Bearer nodo_sk_test',
+        'Idempotency-Key': '123e4567-e89b-12d3-a456-426614174000',
+        'X-Client-Ip': '203.0.113.7'
+      })
+    );
+    expect(JSON.parse(init.body)).toEqual(
+      expect.objectContaining({
+        name: 'Pato Anabalon',
+        email: 'pato@example.com',
+        address: 'Auckland',
+        service: 'Flow',
+        files: [{ name: 'brief.pdf', url: 'https://blob.test/a.pdf', size: 1234, type: 'application/pdf' }]
+      })
+    );
+  });
+
   it('should detect critical failures only when every configured channel fails', () => {
     expect(
       hasAnyIntegrationSuccess({
         trello: { configured: true, ok: false },
         email: { configured: true, ok: true },
-        telegram: { configured: false, ok: false }
+        telegram: { configured: false, ok: false },
+        crm: { configured: false, ok: false }
       })
     ).toBe(true);
 
@@ -93,7 +143,8 @@ describe('contact-integrations', () => {
       hasCriticalIntegrationFailure({
         trello: { configured: true, ok: false },
         email: { configured: true, ok: false },
-        telegram: { configured: false, ok: false }
+        telegram: { configured: false, ok: false },
+        crm: { configured: false, ok: false }
       })
     ).toBe(true);
 
@@ -101,7 +152,8 @@ describe('contact-integrations', () => {
       hasCriticalIntegrationFailure({
         trello: { configured: false, ok: false },
         email: { configured: false, ok: false },
-        telegram: { configured: false, ok: false }
+        telegram: { configured: false, ok: false },
+        crm: { configured: false, ok: false }
       })
     ).toBe(false);
   });

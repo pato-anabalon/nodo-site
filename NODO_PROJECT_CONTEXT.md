@@ -141,7 +141,7 @@ src/app/api/contact/route.ts
 src/app/api/contact/upload/route.ts
 ```
 
-`/about` has a custom Nodo story page, is indexable, and is included in the sitemap. `/case-studies` has a custom PlasterPro-focused page, is indexable, and is included in the sitemap.
+`/about` has a custom Nodo story page, is indexable, and is included in the sitemap. `/case-studies` has a custom page carrying multiple featured case studies plus an ongoing client work section, is indexable, and is included in the sitemap.
 
 ## Component Architecture
 
@@ -201,6 +201,7 @@ src/components/templates
 - `WebsitePlansPage.tsx`: `/plans/websites`.
 - `MarketingBrandingPlansPage.tsx`: `/plans/marketing-branding`.
 - `AboutPage.tsx`: `/about` Nodo story, values, clients, and final CTA page.
+- `CaseStudiesPage.tsx`: `/case-studies` featured case studies and ongoing client work page.
 
 Content is centralized mostly in:
 
@@ -843,6 +844,32 @@ Plans dynamic test IDs:
 - `website-plans-hero-highlight-<highlight-slug>`
 - `marketing-branding-hero-highlight-<highlight-slug>`
 
+### Case Studies Page
+
+Featured case studies render one `FeaturedCaseStudyBlock` per entry in `caseStudiesPageContent.featuredCaseStudies`. Test IDs are derived from each study's `id`, so adding a case study adds a matching set:
+
+- `case-studies-featured-section`
+- `case-studies-<study-id>-block`
+- `case-studies-<study-id>-title`
+- `case-studies-<study-id>-summary`
+- `case-studies-<study-id>-headline-card`
+- `case-studies-<study-id>-live-site-button`
+- `case-studies-<study-id>-outcomes`
+- `case-studies-<study-id>-<slot-label-slug>-slot`
+
+Current study ids are `plasterpro` and `liberty-security`. A study declares either `comparison` (before/after, two slots) or `showcase` (a site built from scratch, so there is no before), never both. Slot test IDs therefore read `case-studies-plasterpro-before-slot`, `case-studies-plasterpro-after-slot`, `case-studies-liberty-security-live-site-slot`, and `case-studies-liberty-security-link-preview-slot`.
+
+Ongoing client work cards derive their test IDs from the card title:
+
+- `case-studies-selected-work-section`
+- `case-studies-selected-work-grid`
+- `case-studies-work-card-<card-slug>`
+- `case-studies-work-card-<card-slug>-visual` (feature card with an image only)
+- `case-studies-work-card-<card-slug>-pieces` (linked social pieces)
+- `case-studies-work-card-<card-slug>-button`
+
+Cards that carry an `image` render as a full-width feature card; the rest fall into a two column grid. Current slugs are `pisnco`, `plasterpro-solution`, and `website-and-content-support`. `case-studies-work-card-short-form-video-pieces` was retired when that generic card was replaced by the named PlasterPro Solution client card.
+
 ### Placeholder Pages
 
 `RoutePlaceholder` creates:
@@ -875,7 +902,8 @@ It includes:
 - services page content,
 - plan slugs and plan content,
 - pricing/comparison data,
-- FAQ content.
+- FAQ content,
+- case studies page content, featured case studies, and ongoing client work cards.
 
 Commercial hierarchy for `/plans`:
 
