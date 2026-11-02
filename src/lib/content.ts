@@ -143,18 +143,30 @@ export const resultOutcomes = [
     label: 'Trust',
     title: 'Stronger first impression',
     description: 'Your brand and website look more credible from the first visit.',
+    example: {
+      client: 'PlasterPro Solution',
+      detail: 'Reviews, qualifications, suppliers, and project imagery now back up the quality of the work.'
+    },
     icon: Sparkles
   },
   {
     label: 'Action',
     title: 'Clearer customer action',
     description: 'Visitors understand what you offer, why it matters, and how to take the next step.',
+    example: {
+      client: 'Liberty Security',
+      detail: 'A visible phone number and an enquiry action on every screen of the new site.'
+    },
     icon: MousePointer2
   },
   {
     label: 'Consistency',
     title: 'More consistent presence',
     description: 'Your website, content, and marketing feel connected instead of scattered.',
+    example: {
+      client: 'Liberty Security',
+      detail: 'Copy shaped from their brand strategy, so tone and values hold across every section.'
+    },
     icon: Workflow
   }
 ];
@@ -542,7 +554,7 @@ const libertySecurityCaseStudy: ShowcaseCaseStudy = {
 export const caseStudiesPageContent = {
   hero: {
     eyebrow: 'Selected work',
-    title: 'Work that makes businesses easier to trust, find, and choose.',
+    title: 'Work that gets businesses chosen.',
     copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to a site designed from scratch for Liberty Security.',
     highlights: ['Website redesign', 'Social media', 'Video content']
   },
@@ -612,7 +624,7 @@ export const caseStudyWorkCards: CaseStudyWorkCard[] = [
 export const servicesPageContent = {
   hero: {
     eyebrow: 'Nodo services',
-    title: 'Brand, marketing, and websites that help customers choose you.',
+    title: 'Helping customers choose you.',
     subtitle: '',
     copy: 'Nodo brings branding, digital marketing, and website development together so your business looks sharper, attracts the right attention, and turns that attention into clearer enquiries.',
     highlights: ['Sharper positioning', 'More visibility', 'Better conversion']
@@ -652,7 +664,7 @@ export const servicesPageContent = {
 export const websiteDesignAucklandPageContent = {
   hero: {
     eyebrow: 'Website design Auckland',
-    title: 'Websites for Auckland businesses that need to look credible and win better enquiries.',
+    title: 'Website design for Auckland businesses.',
     subtitle:
       'Custom website design, redesigns, and launch-ready builds for service businesses that need customers to understand, trust, and contact them faster.',
     copy: 'Nodo designs and builds websites that make your offer clearer, your business easier to trust, and your next enquiry easier to start.',
@@ -847,7 +859,7 @@ export type CommercialPlan = {
 export const plansHubContent = {
   hero: {
     eyebrow: 'Nodo plans',
-    title: 'Choose the right plan for what your business needs next.',
+    title: 'Pick what your business needs next.',
     copy: 'Start with the area that needs attention first: a stronger website, clearer brand, more consistent marketing, or one connected plan that brings it all together.',
     highlights: ['Websites', 'Marketing', 'Branding', 'Bundles']
   },
@@ -893,7 +905,7 @@ export const plansHubCards: PlansHubCard[] = [
 export const plansPageContent = {
   hero: {
     eyebrow: 'Website plans',
-    title: 'Website plans for launch, support, and ongoing improvement.',
+    title: 'Website plans that keep improving.',
     subtitle: '',
     copy: 'Choose a one-off website build or an ongoing partnership that keeps your website updated, supported, and improving for search, AI discovery, and real enquiries after launch.',
     highlights: ['One-off build available', 'Monthly support available', 'SEO + AI discovery ready']
@@ -1091,7 +1103,7 @@ export const planCadenceItems: PlanCadenceItem[] = [
 export const marketingBrandingPageContent = {
   hero: {
     eyebrow: 'Marketing & branding plans',
-    title: 'Build the clarity and momentum your business needs.',
+    title: 'A clearer brand. Steadier marketing.',
     copy: 'Nodo helps you shape how your business looks, communicates, and shows up online, with practical plans for brand foundations, marketing activity, and connected launch support.',
     highlights: ['Monthly marketing', 'One-off branding', 'Connected bundles']
   },

@@ -618,7 +618,6 @@ Footer dynamic test IDs:
 - `home-hero-content`
 - `home-hero-eyebrow`
 - `home-hero-title`
-- `home-hero-tagline`
 - `home-hero-copy`
 - `home-hero-actions`
 - `home-hero-mark`
@@ -648,7 +647,6 @@ Footer dynamic test IDs:
 - `home-results-card-grid`
 - `home-about-section`
 - `home-about-layout`
-- `home-about-supporting-copy`
 - `home-about-video-card`
 - `home-about-video`
 - `home-cta-section`

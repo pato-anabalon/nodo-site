@@ -9,7 +9,10 @@ describe('Hero', () => {
     renderWithProviders(<Hero />);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('nodo');
-    expect(screen.getByText(/clarity/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'nodo. Brands, marketing and websites built to grow.' })
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId('home-hero-tagline')).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /let.s talk/i })).toHaveAttribute('href', '/contact');
     expect(screen.getByRole('link', { name: /scroll to services/i })).toHaveAttribute('href', '#services');
   });

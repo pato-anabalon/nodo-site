@@ -432,6 +432,8 @@ export function Header() {
         type="button"
         aria-label="Close menu"
         data-testid="site-header-mobile-menu-backdrop"
+        aria-hidden={!isMobileMenuOpen}
+        tabIndex={isMobileMenuOpen ? 0 : -1}
         className={cn(
           'pointer-events-auto fixed inset-x-0 bottom-0 top-20 z-10 bg-[color-mix(in_oklab,var(--nodo-black)_50%,transparent)] backdrop-blur-[var(--blur-sm)] transition duration-300 lg:hidden',
           isMobileMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
@@ -442,6 +444,7 @@ export function Header() {
         id="site-header-mobile-menu"
         data-testid="site-header-mobile-menu"
         aria-hidden={!isMobileMenuOpen}
+        inert={!isMobileMenuOpen}
         className={cn(
           'site-header-mobile-panel pointer-events-auto fixed left-[4.75rem] right-0 top-0 z-30 origin-top-right transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:left-[5.25rem] lg:hidden',
           isMobileMenuOpen

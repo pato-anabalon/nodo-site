@@ -67,7 +67,7 @@ export function Footer() {
 
         <div
           data-testid="site-footer-legal-row"
-          className="flex w-full flex-col gap-3 px-5 pt-6 text-xs font-semibold uppercase tracking-[0.18em] text-white/34 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"
+          className="flex w-full flex-col gap-3 px-5 pt-6 text-xs font-semibold uppercase tracking-[0.18em] text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"
         >
           <p data-testid="site-footer-location">Built in Auckland, New Zealand.</p>
           <div className="flex flex-col gap-3 sm:items-end">

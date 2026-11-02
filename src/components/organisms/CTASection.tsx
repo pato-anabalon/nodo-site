@@ -11,27 +11,45 @@ export function CTASection() {
             <div>
               <p
                 data-testid="home-cta-eyebrow"
-                className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/70"
+                className="mb-5 text-sm font-black uppercase tracking-[0.24em] text-white/90"
               >
-                Ready when you are
+                Clarity. Speed. Results.
               </p>
               <h2
                 data-testid="home-cta-title"
                 className="max-w-4xl text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl"
               >
-                Build the digital presence your next customers can trust.
+                Let’s make your business easier to choose.
               </h2>
             </div>
-            <TrackedCtaButton
-              href="/contact"
-              label="Start the conversation"
-              event="homepage"
-              location="home_final_cta"
-              variant="inverted"
-              dataTestId="home-cta-primary-button"
-            >
-              Start the conversation
-            </TrackedCtaButton>
+            <div data-testid="home-cta-actions" className="lg:text-right">
+              <div className="flex flex-wrap gap-3 lg:justify-end">
+                <TrackedCtaButton
+                  href="/contact?source=home-cta"
+                  label="Start the conversation"
+                  event="homepage"
+                  location="home_final_cta"
+                  variant="inverted"
+                  dataTestId="home-cta-primary-button"
+                >
+                  Start the conversation
+                </TrackedCtaButton>
+                <TrackedCtaButton
+                  href="/plans"
+                  label="See plans"
+                  event="homepage"
+                  location="home_final_cta"
+                  variant="secondary"
+                  surfaceTone="purple"
+                  dataTestId="home-cta-plans-button"
+                >
+                  See plans
+                </TrackedCtaButton>
+              </div>
+              <p data-testid="home-cta-reassurance" className="mt-4 text-sm font-semibold leading-6 text-white">
+                Tell us about your business. We reply within one business day.
+              </p>
+            </div>
           </div>
         </ScrollReveal>
       </Container>

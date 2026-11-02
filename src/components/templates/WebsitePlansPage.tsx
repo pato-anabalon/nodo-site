@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ArrowDown, BarChart3, CalendarDays, Rocket, TrendingUp } from 'lucide-react';
@@ -146,12 +146,12 @@ export function WebsitePlansPage() {
               className="plans-hero-title opacity-0 motion-reduce:opacity-100 max-w-6xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl"
             >
               {plansHeroTitleWords.map((word, index) => (
-                <span
-                  key={`${word}-${index}`}
-                  className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
-                >
-                  <span className="plans-hero-title-word inline-block pr-[0.22em]">{word}</span>
-                </span>
+                <Fragment key={`${word}-${index}`}>
+                  {index > 0 ? ' ' : null}
+                  <span className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top">
+                    <span className="plans-hero-title-word inline-block">{word}</span>
+                  </span>
+                </Fragment>
               ))}
             </h1>
             {plansPageContent.hero.subtitle ? (

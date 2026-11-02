@@ -13,6 +13,9 @@ describe('ServiceCard', () => {
           eyebrow: 'Websites',
           title: 'Website design',
           description: 'Custom websites for growing businesses.',
+          bestWhen: 'Best when your site looks outdated.',
+          ctaLabel: 'Explore website design',
+          href: '/services/website-design-auckland',
           icon: Globe
         }}
       />
@@ -21,6 +24,11 @@ describe('ServiceCard', () => {
     expect(screen.getByRole('heading', { name: /website design/i })).toBeInTheDocument();
     expect(screen.getByText('Websites')).toBeInTheDocument();
     expect(screen.getByText('02')).toBeInTheDocument();
+    expect(screen.getByText('Best when your site looks outdated.')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /explore website design/i })).toHaveAttribute(
+      'href',
+      '/services/website-design-auckland'
+    );
     await expectNoA11yViolations(view);
   });
 });
