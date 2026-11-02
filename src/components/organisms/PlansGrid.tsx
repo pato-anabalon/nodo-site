@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CheckCircle2, XCircle } from 'lucide-react';
+import { CheckCircle2, PlusCircle, XCircle } from 'lucide-react';
 import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
 import { plans, plansPageContent, type Plan } from '@/lib/content';
 import { cn } from '@/lib/utils';
@@ -28,7 +28,6 @@ function PlanCard({ plan }: { plan: Plan }) {
         plan.highlighted
           ? 'border-nodo-lavender/70 bg-[linear-gradient(160deg,rgba(124,58,237,0.42),rgba(255,255,255,0.08)_42%,rgba(5,5,5,0.7))] shadow-[0_30px_110px_rgba(124,58,237,0.32)]'
           : 'border-white/12',
-        plan.tone === 'premium' && 'bg-[linear-gradient(145deg,rgba(124,58,237,0.16),rgba(255,255,255,0.045))]',
         plan.tone === 'one-off' && 'bg-white/[0.025] opacity-90'
       )}
     >
@@ -94,6 +93,21 @@ function PlanCard({ plan }: { plan: Plan }) {
         ))}
       </div>
 
+      {plan.addOns ? (
+        <div data-testid={`plans-grid-${plan.slug}-add-ons`} className="mt-6 border-t border-white/12 pt-5">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-nodo-lavender">{plan.addOns.title}</p>
+          <p className="mt-1 text-xs leading-5 text-white/46">{plan.addOns.note}</p>
+          <div className="mt-4 grid gap-3">
+            {plan.addOns.items.map((item) => (
+              <div key={item} className="flex gap-3 text-sm leading-5 text-white/62">
+                <PlusCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-white/40" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <div className="mt-auto pt-8">
         <TrackedPlanCta
           href={contactHref(plan.slug)}
@@ -153,12 +167,12 @@ export function PlansGrid() {
 
   return (
     <div ref={root} data-testid="plans-grid">
-      <div data-testid="plans-grid-growth-partnership-cards" className="grid gap-5 lg:grid-cols-3">
+      <div data-testid="plans-grid-growth-partnership-cards" className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2">
         {growthPartnershipPlans.map((plan) => (
           <PlanCard key={plan.slug} plan={plan} />
         ))}
       </div>
-      <p data-testid="plans-grid-pricing-note" className="mt-5 text-sm text-white/46">
+      <p data-testid="plans-grid-pricing-note" className="mx-auto mt-5 max-w-5xl text-sm text-white/46">
         {plansPageContent.pricingNote}
       </p>
     </div>

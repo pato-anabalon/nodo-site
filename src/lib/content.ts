@@ -775,7 +775,6 @@ export const websiteDesignAucklandPageContent = {
 export type PlanSlug =
   | 'nodo-flow'
   | 'nodo-growth'
-  | 'nodo-nexus'
   | 'nodo-launch'
   | 'starter-marketing'
   | 'growth-marketing'
@@ -787,7 +786,7 @@ export type PlanSlug =
   | 'bundle-growth'
   | 'bundle-scale';
 
-export type WebsitePlanSlug = Extract<PlanSlug, 'nodo-flow' | 'nodo-growth' | 'nodo-nexus' | 'nodo-launch'>;
+export type WebsitePlanSlug = Extract<PlanSlug, 'nodo-flow' | 'nodo-growth' | 'nodo-launch'>;
 
 export type PlanIntent = 'discovery-call' | 'quote';
 
@@ -803,9 +802,14 @@ export type Plan = {
   summary: string;
   includedFeatures: string[];
   excludedFeatures?: string[];
+  addOns?: {
+    title: string;
+    note: string;
+    items: string[];
+  };
   ctaLabel: string;
   highlighted?: boolean;
-  tone: 'entry' | 'growth' | 'premium' | 'one-off';
+  tone: 'entry' | 'growth' | 'one-off';
 };
 
 export type PlanCadenceItem = {
@@ -908,7 +912,7 @@ export const plansPageContent = {
   purchaseOption: {
     eyebrow: 'After 12 months',
     title: 'What happens after the first 12 months?',
-    copy: 'Flow, Growth, and Nexus are structured as 12-month partnerships. After that period, we can discuss whether continuing the partnership or exploring a website purchase option makes more sense for your business.',
+    copy: 'Flow and Growth are structured as 12-month partnerships. After that period, we can discuss whether continuing the partnership or exploring a website purchase option makes more sense for your business.',
     note: 'The best option depends on your website structure, service history, and how much support you want after the first year.'
   },
   finalCta: {
@@ -922,15 +926,16 @@ export const plans: Plan[] = [
   {
     slug: 'nodo-flow',
     name: 'Nodo Flow',
+    badge: 'Most Popular',
     label: 'Best for a professional website with monthly care',
     type: 'Digital Growth Partnership',
-    price: 'From NZD 649/month',
-    priceDetail: 'Initial build and onboarding investment from NZD 2,500',
+    price: 'NZD 299/month',
+    priceDetail: 'Initial build and onboarding investment: NZD 1,299',
     contractNote: '12-month partnership period',
     summary:
       'A strong starting point for businesses that want their website built, supported, and kept up to date over time.',
     includedFeatures: [
-      'Professional website build',
+      'Professional website build (up to 5 sections/pages)',
       'Responsive design',
       'Essential on-page SEO',
       'AI search/GEO-ready content structure',
@@ -942,16 +947,16 @@ export const plans: Plan[] = [
       'Website purchase option after 12 months'
     ],
     ctaLabel: 'Talk about Flow',
+    highlighted: true,
     tone: 'entry'
   },
   {
     slug: 'nodo-growth',
     name: 'Nodo Growth',
-    badge: 'Most Popular',
     label: 'Best for more enquiries, stronger visibility, and regular improvements',
     type: 'Digital Growth Partnership',
-    price: 'From NZD 1,099/month',
-    priceDetail: 'Initial build and onboarding investment from NZD 4,500',
+    price: 'From NZD 699/month',
+    priceDetail: 'Initial build and onboarding investment from NZD 2,499',
     contractNote: '12-month partnership period',
     summary:
       'An ongoing website partnership for businesses that want better visibility, clearer customer actions, and more useful enquiries over time.',
@@ -966,32 +971,20 @@ export const plans: Plan[] = [
       'Priority support',
       'Website purchase option after 12 months'
     ],
+    addOns: {
+      title: 'Optional add-ons',
+      note: 'Quoted separately based on scope',
+      items: [
+        'Advanced AI search/GEO optimisation',
+        'Advanced conversion support',
+        'Booking, FAQ or lead handling improvements',
+        'Advanced integrations',
+        'Strategic optimisation support',
+        'Priority turnaround'
+      ]
+    },
     ctaLabel: 'Talk about Growth',
-    highlighted: true,
     tone: 'growth'
-  },
-  {
-    slug: 'nodo-nexus',
-    name: 'Nodo Nexus',
-    label: 'Best for advanced optimisation, integrations, and strategic support',
-    type: 'Digital Growth Partnership',
-    price: 'From NZD 1,990/month',
-    priceDetail: 'Initial build and onboarding investment from NZD 7,500',
-    contractNote: '12-month partnership period',
-    summary:
-      'A premium partnership for businesses that need deeper optimisation, more complex website improvements, and higher-touch strategic support.',
-    includedFeatures: [
-      'Everything in Nodo Growth',
-      'Advanced AI search/GEO optimisation',
-      'Advanced conversion support',
-      'Booking, FAQ or lead handling improvements',
-      'Advanced integrations',
-      'Strategic optimisation support',
-      'Priority turnaround',
-      'Website purchase option after 12 months'
-    ],
-    ctaLabel: 'Talk about Nexus',
-    tone: 'premium'
   },
   {
     slug: 'nodo-launch',
@@ -1030,7 +1023,7 @@ export const planCadenceItems: PlanCadenceItem[] = [
     term: '12 months',
     points: [
       {
-        label: 'First 90 days',
+        label: 'First 30 days',
         description: 'Build, onboarding, analytics, SEO structure, and the first improvement roadmap.'
       },
       {
@@ -1067,30 +1060,6 @@ export const planCadenceItems: PlanCadenceItem[] = [
       {
         label: 'What improves over time',
         description: 'Local search presence, AI search/GEO basics, conversion paths, and campaign-ready pages.'
-      }
-    ]
-  },
-  {
-    planSlug: 'nodo-nexus',
-    eyebrow: 'Plan cadence',
-    term: '12 months',
-    points: [
-      {
-        label: 'First 90 days',
-        description: 'Growth setup plus advanced optimisation planning, integrations, and strategic direction.'
-      },
-      {
-        label: 'Monthly cadence',
-        description:
-          'Priority optimisation, technical improvements, conversion work, strategic reviews, and faster support.'
-      },
-      {
-        label: 'What gets reported',
-        description: 'Visibility work, conversion priorities, integration progress, support activity, and next steps.'
-      },
-      {
-        label: 'What improves over time',
-        description: 'AI search/GEO, lead handling, booking or FAQ flows, integrations, and key user journeys.'
       }
     ]
   },
@@ -1326,7 +1295,7 @@ export const bundlePlans: CommercialPlan[] = [
     price: 'From NZD 4,499/month',
     summary: 'A premium bundle that connects advanced website support, full brand work, and digital marketing.',
     includedFeatures: [
-      'Website Nexus',
+      'Website Growth with advanced add-ons',
       'Full Brand & Launch',
       'Full Digital Marketing',
       'Advanced AI search/GEO visibility support',
@@ -1356,7 +1325,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': true
     }
   },
@@ -1365,7 +1333,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': true
     }
   },
@@ -1374,7 +1341,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': true
     }
   },
@@ -1383,7 +1349,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': true
     }
   },
@@ -1392,7 +1357,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': true
     }
   },
@@ -1401,7 +1365,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': false
     }
   },
@@ -1410,7 +1373,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': true,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': false
     }
   },
@@ -1419,7 +1381,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': false,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': false
     }
   },
@@ -1428,7 +1389,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': false,
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': false
     }
   },
@@ -1436,8 +1396,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     feature: 'AI search/GEO visibility support',
     values: {
       'nodo-flow': 'Foundation',
-      'nodo-growth': 'Visibility basics',
-      'nodo-nexus': 'Advanced optimisation',
+      'nodo-growth': 'Basics + advanced add-on',
       'nodo-launch': 'Launch-ready structure'
     }
   },
@@ -1446,7 +1405,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': 'Small improvements',
       'nodo-growth': true,
-      'nodo-nexus': true,
       'nodo-launch': false
     }
   },
@@ -1454,8 +1412,7 @@ export const planComparisonRows: PlanComparisonRow[] = [
     feature: 'Advanced conversion support',
     values: {
       'nodo-flow': false,
-      'nodo-growth': false,
-      'nodo-nexus': true,
+      'nodo-growth': 'Add-on',
       'nodo-launch': false
     }
   },
@@ -1464,7 +1421,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': false,
       'nodo-growth': true,
-      'nodo-nexus': 'Priority turnaround',
       'nodo-launch': false
     }
   },
@@ -1473,7 +1429,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': 'After 12 months',
       'nodo-growth': 'After 12 months',
-      'nodo-nexus': 'After 12 months',
       'nodo-launch': 'One-off purchase'
     }
   },
@@ -1482,7 +1437,6 @@ export const planComparisonRows: PlanComparisonRow[] = [
     values: {
       'nodo-flow': false,
       'nodo-growth': false,
-      'nodo-nexus': false,
       'nodo-launch': true
     }
   }
@@ -1490,14 +1444,14 @@ export const planComparisonRows: PlanComparisonRow[] = [
 
 export const plansFaq = [
   {
-    question: 'What is the difference between Nodo Launch and Flow, Growth, or Nexus?',
+    question: 'What is the difference between Nodo Launch and Flow or Growth?',
     answer:
-      'Nodo Launch is a one-off website build. Nodo Flow, Nodo Growth and Nodo Nexus are ongoing website partnerships that include support, updates and improvements after launch.'
+      'Nodo Launch is a one-off website build. Nodo Flow and Nodo Growth are ongoing website partnerships that include support, updates and improvements after launch.'
   },
   {
     question: 'Do the partnership plans include a minimum period?',
     answer:
-      'Yes. Flow, Growth and Nexus are structured around a 12-month partnership period so we can build, support and improve the website properly over time.'
+      'Yes. Flow and Growth are structured around a 12-month partnership period so we can build, support and improve the website properly over time.'
   },
   {
     question: 'Can I buy the website after a partnership plan?',

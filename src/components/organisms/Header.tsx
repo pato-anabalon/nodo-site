@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { NodoLogoImage } from '@/components/atoms/NodoLogoImage';
 import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 import { navigation } from '@/lib/content';
 import { cn } from '@/lib/utils';
@@ -272,7 +272,7 @@ export function Header() {
               aria-label="Nodo home"
               className="nodo-header-surface nodo-header-surface-hover pointer-events-auto relative flex h-[var(--nodo-header-logo-height)] w-[var(--nodo-header-logo-width)] items-center rounded-br-[2.1rem] px-7 py-4 text-white shadow-[0_18px_38px_rgba(5,5,5,0.18)] transition duration-300 sm:px-8"
             >
-              <NodoLogo inverted className="font-brand scale-[0.9]" />
+              <NodoLogoImage priority />
             </Link>
           </div>
         </div>
@@ -414,18 +414,16 @@ export function Header() {
           href="/"
           aria-label="Nodo home"
           data-testid="site-header-mobile-logo"
-          className="relative flex items-center gap-3"
+          className="relative flex items-center"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          <span className="relative z-50 inline-flex">
-            <NodoLogo inverted markOnly />
-          </span>
-          <span
-            data-testid="site-header-mobile-logo-wordmark"
-            className="relative z-10 text-[2rem] font-black leading-none tracking-normal"
-          >
-            nodo<span className="text-nodo-purple">.</span>
-          </span>
+          <NodoLogoImage
+            priority
+            className={cn(
+              'h-12 transition-[clip-path] duration-300',
+              isMobileMenuOpen ? '[clip-path:inset(0_62%_0_0)]' : '[clip-path:inset(0_0_0_0)]'
+            )}
+          />
         </Link>
         <span aria-hidden="true" className="size-12 shrink-0" />
       </div>

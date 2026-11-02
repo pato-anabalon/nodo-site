@@ -580,7 +580,6 @@ The project uses `data-testid` extensively to make browser verification and regr
 - `site-header-contact-button`
 - `site-header-mobile-bar`
 - `site-header-mobile-logo`
-- `site-header-mobile-logo-wordmark`
 - `site-header-mobile-menu-backdrop`
 - `site-header-mobile-menu`
 - `site-header-mobile-menu-link-home`
@@ -907,7 +906,7 @@ It includes:
 
 Commercial hierarchy for `/plans`:
 
-- Primary Digital Growth Partnership offers: `Flow`, `Growth`, `Nexus`.
+- Primary Digital Growth Partnership offers: `Flow` (most popular, NZD 299/month fixed) and `Growth` (from NZD 699/month, with optional add-ons). `Nexus` was retired on 2026-11-02.
 - `Launch` is a secondary one-off website alternative.
 
 ## Local Development Notes

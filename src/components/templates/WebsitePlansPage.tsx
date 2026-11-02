@@ -39,10 +39,6 @@ function cadenceAccentClass(planSlug: PlanCadenceItem['planSlug']) {
     return 'from-nodo-purple/52 via-nodo-lavender/18 to-white/6';
   }
 
-  if (planSlug === 'nodo-nexus') {
-    return 'from-nodo-pink/34 via-nodo-purple/24 to-white/6';
-  }
-
   return 'from-nodo-lavender/34 via-nodo-purple/18 to-white/6';
 }
 
@@ -272,7 +268,7 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="Growth partnerships"
               title="Choose the level of ongoing support your business needs."
-              description="Flow, Growth, and Nexus are for businesses that want more than a website delivered once. They include support, updates, and improvement over time."
+              description="Flow and Growth are for businesses that want more than a website delivered once. They include support, updates, and improvement over time."
             />
           </ScrollReveal>
           <div className="mt-12">
@@ -311,11 +307,11 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="How each plan works"
               title="Ongoing partnership cadence or a focused launch path."
-              description="Flow, Growth, and Nexus are designed around a 12-month improvement rhythm. Launch is different: it is a focused delivery path for getting a website live quickly, then deciding what support makes sense next."
+              description="Flow and Growth are designed around a 12-month improvement rhythm. Launch is different: it is a focused delivery path for getting a website live quickly, then deciding what support makes sense next."
               className="max-w-5xl"
             />
           </ScrollReveal>
-          <div data-testid="plans-page-cadence-grid" className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div data-testid="plans-page-cadence-grid" className="mt-12 grid gap-5 lg:grid-cols-3">
             {planCadenceItems.map((item, index) => (
               <ScrollReveal key={item.planSlug} delay={index * 0.05}>
                 <article

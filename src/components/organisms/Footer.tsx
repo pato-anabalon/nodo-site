@@ -1,10 +1,7 @@
-import type { CSSProperties } from 'react';
-import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { NodoLogoImage } from '@/components/atoms/NodoLogoImage';
 import { AnalyticsPreferencesButton } from '@/components/molecules/AnalyticsPreferencesButton';
 import { FooterContactPanel } from '@/components/molecules/FooterContactPanel';
 import { FooterLinkColumn, type FooterLink } from '@/components/molecules/FooterLinkColumn';
-
-const taglineWords = ['Clarity.', 'Speed.', 'Results.'];
 
 const footerColumns: Array<{ title: string; links: FooterLink[] }> = [
   {
@@ -45,39 +42,7 @@ export function Footer() {
           <div className="grid w-full gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[35fr_30fr_35fr] lg:items-start lg:px-10">
             <div data-testid="site-footer-brand-block">
               <div>
-                <NodoLogo inverted className="text-white" />
-                <div
-                  data-testid="site-footer-tagline"
-                  className="nodo-footer-tagline mt-7 text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl"
-                >
-                  <span className="sr-only">Clarity. Speed. Results.</span>
-                  {taglineWords.map((word, wordIndex) => (
-                    <span
-                      key={word}
-                      aria-hidden="true"
-                      className={`nodo-footer-tagline-word${wordIndex === 0 ? ' nodo-footer-tagline-word-static' : ''}`}
-                      style={
-                        {
-                          '--word-delay': `${wordIndex * 2.45}s`
-                        } as CSSProperties
-                      }
-                    >
-                      {[...word].map((letter, letterIndex) => (
-                        <span
-                          key={`${word}-${letterIndex}`}
-                          className="nodo-footer-tagline-letter"
-                          style={
-                            {
-                              '--letter-delay': `${wordIndex * 2.45 + letterIndex * 0.045}s`
-                            } as CSSProperties
-                          }
-                        >
-                          {letter}
-                        </span>
-                      ))}
-                    </span>
-                  ))}
-                </div>
+                <NodoLogoImage className="h-24 sm:h-28" />
                 <p data-testid="site-footer-description" className="mt-6 max-w-md text-lg leading-8 text-white/62">
                   Website design, marketing, and branding for Auckland service businesses.
                 </p>
