@@ -42,10 +42,18 @@ export function HomeServicesCardGrid() {
   );
 
   return (
-    <div ref={gridRef} data-testid="home-services-card-grid" className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <div
+      ref={gridRef}
+      data-testid="home-services-card-grid"
+      className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-3 md:[&>*:last-child:nth-child(odd)]:col-span-2 xl:[&>*:last-child:nth-child(odd)]:col-span-1"
+    >
       {services.map((service, index) => (
         <div key={service.title} className="home-service-card-scrub h-full will-change-transform">
-          <ServiceCard service={service} index={index} />
+          <ServiceCard
+            service={service}
+            index={index}
+            href={service.href.replace('source=services-section', 'source=home')}
+          />
         </div>
       ))}
     </div>

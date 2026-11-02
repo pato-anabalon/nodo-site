@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '@/components/atoms/Container';
-import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { LoopingVideo } from '@/components/molecules/LoopingVideo';
 import { ProcessStep } from '@/components/molecules/ProcessStep';
 import { processSteps } from '@/lib/content';
 
@@ -140,17 +140,13 @@ export function ProcessSection() {
               {shouldRenderVideo ? (
                 <div
                   data-testid="home-process-video-frame"
-                  className="mt-10 min-h-72 flex-1 overflow-hidden rounded-[1.75rem] border border-black/8 bg-nodo-black shadow-[0_24px_80px_rgba(22,19,25,0.14)]"
+                  className="relative mt-10 min-h-72 flex-1 overflow-hidden rounded-[1.75rem] border border-black/8 bg-nodo-black shadow-[0_24px_80px_rgba(22,19,25,0.14)]"
                 >
-                  <video
-                    data-testid="home-process-video"
+                  <LoopingVideo
+                    dataTestId="home-process-video"
+                    label="Sketching a website wireframe on a tablet"
                     className="h-full min-h-72 w-full object-cover"
                     src="/videos/how-we-work.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
                     onLoadedMetadata={() => window.dispatchEvent(new Event('resize'))}
                   />
                 </div>
@@ -161,7 +157,12 @@ export function ProcessSection() {
             data-testid="home-process-steps-panel"
             className="flex h-full flex-col rounded-[2rem] bg-nodo-black px-5 py-4 sm:px-8 sm:py-8"
           >
-            <SectionHeading eyebrow="Working rhythm" title="Four moves. Clear outputs." className="mb-8 shrink-0" />
+            <p
+              data-testid="home-process-steps-label"
+              className="mb-6 shrink-0 text-sm font-black uppercase tracking-[0.22em] text-nodo-lavender"
+            >
+              Four moves, clear outputs
+            </p>
             <div data-testid="home-process-steps-list" className="flex flex-1 flex-col justify-between gap-2">
               {processSteps.map((step, index) => (
                 <ProcessStep

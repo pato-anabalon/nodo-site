@@ -68,11 +68,10 @@ export function PlansComparison() {
       <div data-testid="plans-comparison-desktop" className="hidden md:block">
         <table data-testid="plans-comparison-table" className="w-full table-fixed border-collapse text-left">
           <colgroup>
-            <col className="w-[24%]" />
-            <col className="w-[19%]" />
-            <col className="w-[19%]" />
-            <col className="w-[19%]" />
-            <col className="w-[19%]" />
+            <col className="w-[31%]" />
+            <col className="w-[23%]" />
+            <col className="w-[23%]" />
+            <col className="w-[23%]" />
           </colgroup>
           <thead>
             <tr className="border-b border-white/12 bg-white/[0.045]">

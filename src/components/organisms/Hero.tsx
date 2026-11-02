@@ -10,8 +10,6 @@ import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 
 gsap.registerPlugin(useGSAP);
 
-const heroTaglineWords = ['Clarity.', 'Speed.', 'Results.'];
-
 type HeroMarkGraphicProps = {
   className?: string;
 };
@@ -67,19 +65,16 @@ export function Hero() {
         gsap.set('.hero-node', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-node-connected', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-title-word', { yPercent: 135 });
-        gsap.set('.hero-tagline-word', { yPercent: 135 });
         gsap.set('.hero-title', { autoAlpha: 1 });
         gsap.set(['.hero-kicker', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 0,
           y: 18
         });
-        gsap.set('.hero-tagline', { autoAlpha: 1, y: 0 });
 
         const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
 
         tl.to('.hero-kicker', { autoAlpha: 1, y: 0, duration: 0.7 })
           .to('.hero-title-word', { yPercent: 0, duration: 0.85, stagger: 0.08 }, '-=0.25')
-          .to('.hero-tagline-word', { yPercent: 0, duration: 0.8, stagger: 0.08 }, '-=0.25')
           .to('.hero-bodycopy', { autoAlpha: 1, y: 0, duration: 0.75 }, '-=0.35')
           .to(
             '.hero-cta',
@@ -140,12 +135,11 @@ export function Hero() {
       });
 
       mm.add('(prefers-reduced-motion: reduce)', () => {
-        gsap.set(['.hero-kicker', '.hero-title', '.hero-title-word', '.hero-tagline', '.hero-bodycopy', '.hero-cta'], {
+        gsap.set(['.hero-kicker', '.hero-title', '.hero-title-word', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 1,
           y: 0,
           yPercent: 0
         });
-        gsap.set('.hero-tagline-word', { yPercent: 0 });
         gsap.set('.hero-line', { strokeDashoffset: 0 });
         gsap.set(['.hero-node', '.hero-node-connected'], { scale: 1 });
       });
@@ -171,31 +165,23 @@ export function Hero() {
           >
             Auckland digital growth studio
           </p>
-          <h1 data-testid="home-hero-title" className="hero-title opacity-0 motion-reduce:opacity-100 text-white">
+          <h1
+            data-testid="home-hero-title"
+            aria-label="nodo. Brands, marketing and websites built to grow."
+            className="hero-title opacity-0 motion-reduce:opacity-100 text-white"
+          >
             <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
               <span className="hero-title-word font-brand inline-block shrink-0">nodo</span>
               <span className="hero-title-word font-brand inline-block shrink-0 text-nodo-purple">.</span>
               <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
             </span>
             <span className="mb-[-0.16em] mt-5 block max-w-2xl overflow-hidden pb-[0.16em] text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
-              <span className="hero-title-word inline-block">
-                Sharper brands, smarter marketing, and websites built to grow
-              </span>
+              <span className="hero-title-word inline-block">Brands, marketing and websites built to grow.</span>
             </span>
           </h1>
           <p
-            data-testid="home-hero-tagline"
-            className="hero-tagline opacity-0 motion-reduce:opacity-100 mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl"
-          >
-            {heroTaglineWords.map((word, index) => (
-              <span key={`${word}-${index}`} className="inline-block overflow-hidden align-top">
-                <span className="hero-tagline-word inline-block pr-[0.24em]">{word}</span>
-              </span>
-            ))}
-          </p>
-          <p
             data-testid="home-hero-copy"
-            className="hero-bodycopy mt-6 max-w-xl text-pretty text-lg leading-8 text-white/68"
+            className="hero-bodycopy mt-7 max-w-xl text-pretty text-lg leading-8 text-white/80"
           >
             Nodo helps Auckland service businesses improve how they look, show up online, and turn attention into
             stronger enquiries.

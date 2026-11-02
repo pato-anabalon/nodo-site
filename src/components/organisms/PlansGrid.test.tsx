@@ -10,7 +10,9 @@ describe('PlansGrid', () => {
     expect(screen.getByTestId('plans-grid-growth-partnership-cards')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Nodo Flow' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Nodo Growth' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Nodo Nexus' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Nodo Nexus' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('plans-grid-nodo-flow-badge')).toHaveTextContent('Most Popular');
+    expect(screen.getByTestId('plans-grid-nodo-growth-add-ons')).toHaveTextContent('Optional add-ons');
     expect(screen.queryByRole('heading', { name: 'Nodo Launch' })).not.toBeInTheDocument();
   });
 

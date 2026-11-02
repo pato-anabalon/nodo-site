@@ -5,10 +5,14 @@ type ProofPointProps = {
   label: string;
   title: string;
   description: string;
+  example?: {
+    client: string;
+    detail: string;
+  };
   icon: LucideIcon;
 };
 
-export function ProofPoint({ label, title, description, icon: Icon }: ProofPointProps) {
+export function ProofPoint({ label, title, description, example, icon: Icon }: ProofPointProps) {
   const slug = testIdSlug(title);
 
   return (
@@ -34,9 +38,18 @@ export function ProofPoint({ label, title, description, icon: Icon }: ProofPoint
       >
         {title}
       </h3>
-      <p data-testid={`home-result-card-${slug}-description`} className="mt-5 text-base leading-7 text-white/62">
+      <p data-testid={`home-result-card-${slug}-description`} className="mb-6 mt-5 text-base leading-7 text-white/72">
         {description}
       </p>
+      {example ? (
+        <p
+          data-testid={`home-result-card-${slug}-example`}
+          className="mt-auto border-t border-white/12 pt-5 text-sm leading-6 text-white/80"
+        >
+          <span className="block font-black text-nodo-lavender">{example.client}</span>
+          {example.detail}
+        </p>
+      ) : null}
     </article>
   );
 }

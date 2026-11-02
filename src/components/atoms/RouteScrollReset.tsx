@@ -21,6 +21,10 @@ function scrollToPageTop() {
 
   root.style.scrollBehavior = 'auto';
   window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
+  // ScrollTrigger caches the previous page's scroll position and restores it on refresh,
+  // which pushes short pages (e.g. /contact) to the bottom. Setting the scroll through its
+  // own scroll function updates that cache.
+  ScrollTrigger.getScrollFunc(window)(0);
   root.style.scrollBehavior = previousScrollBehavior;
   refreshScrollTriggers();
 }

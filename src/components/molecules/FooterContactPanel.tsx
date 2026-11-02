@@ -38,7 +38,7 @@ export function FooterContactPanel() {
             />
           </span>
           <span>
-            <span className="block text-xs font-black uppercase tracking-[0.18em] text-white/34">Email</span>
+            <span className="block text-xs font-black uppercase tracking-[0.18em] text-white/60">Email</span>
             <span className="mt-1 block text-sm font-semibold text-white/66 transition group-hover/contact:text-white">
               {contactEmail}
             </span>
@@ -56,7 +56,7 @@ export function FooterContactPanel() {
             />
           </span>
           <span>
-            <span className="block text-xs font-black uppercase tracking-[0.18em] text-white/34">Phone</span>
+            <span className="block text-xs font-black uppercase tracking-[0.18em] text-white/60">Phone</span>
             <span className="mt-1 block text-sm font-semibold text-white/66 transition group-hover/contact:text-white">
               {contactPhone}
             </span>
@@ -64,7 +64,7 @@ export function FooterContactPanel() {
         </a>
       </div>
       <div data-testid="site-footer-social-links" className="mt-8">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-white/34">Social</p>
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-white/60">Social</p>
         <div className="mt-4 flex flex-wrap gap-3">
           {socialLinks.map((link) => {
             const Icon = socialIcons[link.platform];

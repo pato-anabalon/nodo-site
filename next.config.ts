@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  allowedDevOrigins: ['192.168.1.33'],
+  allowedDevOrigins: ['192.168.1.33', '192.168.1.72'],
   async headers() {
     return [
       {
