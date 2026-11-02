@@ -36,7 +36,7 @@ export function ProcessStep({
       <div data-testid={`home-process-step-${slug}-meta`} className="relative flex items-start gap-3 sm:block">
         <span
           data-testid={`home-process-step-${slug}-number`}
-          className="process-step-number inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.055] text-sm font-black text-white/54 transition duration-300"
+          className="process-step-number inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.055] text-sm font-black text-white/64 transition duration-300"
         >
           {stepNumber}
         </span>
@@ -61,7 +61,7 @@ export function ProcessStep({
           </p>
           <span
             data-testid={`home-process-step-${slug}-output`}
-            className="process-step-output rounded-full border border-white/12 bg-white/[0.055] px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white/46 transition duration-300"
+            className="process-step-output rounded-full border border-white/12 bg-white/[0.055] px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white/68 transition duration-300"
           >
             {output}
           </span>

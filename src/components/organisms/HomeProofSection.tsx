@@ -27,7 +27,7 @@ export function HomeProofSection() {
                 data-testid="home-proof-title"
                 className="text-balance text-4xl font-black leading-[0.95] tracking-normal sm:text-6xl"
               >
-                From an outdated Wix site to a clearer, higher-trust trade website.
+                From outdated Wix to a high-trust trade site.
               </h2>
               <p
                 data-testid="home-proof-copy"

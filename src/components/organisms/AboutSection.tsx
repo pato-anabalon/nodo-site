@@ -1,6 +1,7 @@
 import { Container } from '@/components/atoms/Container';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
+import { LoopingVideo } from '@/components/molecules/LoopingVideo';
 
 export function AboutSection() {
   return (
@@ -10,29 +11,21 @@ export function AboutSection() {
           <ScrollReveal>
             <SectionHeading
               eyebrow="Based in Auckland"
-              title="A digital growth partner for businesses ready to be seen, trusted, and chosen."
+              title="An Auckland partner for growing businesses."
               description="Nodo works with growing companies that need sharper positioning, more consistent marketing, and a website that supports real commercial growth."
-              className="[&_h2]:text-nodo-black [&_p]:text-nodo-ink/68"
+              surfaceTone="light"
             />
-            <p data-testid="home-about-supporting-copy" className="mt-6 max-w-2xl text-lg leading-8 text-nodo-ink/68">
-              The approach is direct: understand the business, clarify the message, shape the digital presence, and keep
-              improving it around real customer response.
-            </p>
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
             <div
               data-testid="home-about-video-card"
               className="relative overflow-hidden rounded-[2rem] bg-nodo-black p-6"
             >
-              <video
+              <LoopingVideo
                 className="h-auto w-full rounded-[1.5rem] bg-white object-cover"
                 src="/videos/team-discussion-optimized.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                data-testid="home-about-video"
+                label="A team discussing a project around a table"
+                dataTestId="home-about-video"
               />
             </div>
           </ScrollReveal>

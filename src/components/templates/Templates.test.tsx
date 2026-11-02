@@ -43,10 +43,11 @@ describe('page templates', () => {
     expect(screen.getByTestId('plans-launch-card')).toBeInTheDocument();
     expect(screen.getByTestId('plans-page-cadence-section')).toBeInTheDocument();
     expect(screen.getByTestId('plans-page-cadence-grid')).toBeInTheDocument();
-    expect(screen.getAllByText('First 90 days')).toHaveLength(3);
-    expect(screen.getAllByText('Monthly cadence')).toHaveLength(3);
-    expect(screen.getAllByText('What gets reported')).toHaveLength(3);
-    expect(screen.getAllByText('What improves over time')).toHaveLength(3);
+    expect(screen.getAllByText('First 30 days')).toHaveLength(1);
+    expect(screen.getAllByText('First 90 days')).toHaveLength(1);
+    expect(screen.getAllByText('Monthly cadence')).toHaveLength(2);
+    expect(screen.getAllByText('What gets reported')).toHaveLength(2);
+    expect(screen.getAllByText('What improves over time')).toHaveLength(2);
     expect(screen.getByText('Launch sprint')).toBeInTheDocument();
     expect(screen.getByText('Go-live handover')).toBeInTheDocument();
     expect(screen.getByText('What gets delivered')).toBeInTheDocument();

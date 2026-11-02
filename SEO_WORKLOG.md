@@ -11,7 +11,7 @@ Key working rules:
 - Keep visible copy in English.
 - Avoid overusing abstract or technical language such as "systems" when the customer may read it as expensive or complex.
 - Prefer business outcomes, decision clarity, and next-step confidence over internal technical language.
-- Keep `/plans` retainer-first, with `Flow`, `Growth`, and `Nexus` leading over `Launch`.
+- Keep `/plans` retainer-first, with `Flow` and `Growth` leading over `Launch`. `Nexus` was retired on 2026-11-02; its features are now optional Growth add-ons.
 - Skip undeveloped sections during SEO audits until they are ready to be indexed.
 
 ## Skills And Review Lenses Used

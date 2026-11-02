@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ArrowDown, BarChart3, CalendarDays, Rocket, TrendingUp } from 'lucide-react';
@@ -37,10 +37,6 @@ function cadenceAccentClass(planSlug: PlanCadenceItem['planSlug']) {
 
   if (planSlug === 'nodo-growth') {
     return 'from-nodo-purple/52 via-nodo-lavender/18 to-white/6';
-  }
-
-  if (planSlug === 'nodo-nexus') {
-    return 'from-nodo-pink/34 via-nodo-purple/24 to-white/6';
   }
 
   return 'from-nodo-lavender/34 via-nodo-purple/18 to-white/6';
@@ -150,12 +146,12 @@ export function WebsitePlansPage() {
               className="plans-hero-title opacity-0 motion-reduce:opacity-100 max-w-6xl text-balance text-5xl font-black leading-[0.9] tracking-normal text-white sm:text-7xl lg:text-8xl"
             >
               {plansHeroTitleWords.map((word, index) => (
-                <span
-                  key={`${word}-${index}`}
-                  className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top"
-                >
-                  <span className="plans-hero-title-word inline-block pr-[0.22em]">{word}</span>
-                </span>
+                <Fragment key={`${word}-${index}`}>
+                  {index > 0 ? ' ' : null}
+                  <span className="mb-[-0.22em] inline-block overflow-hidden pb-[0.22em] align-top">
+                    <span className="plans-hero-title-word inline-block">{word}</span>
+                  </span>
+                </Fragment>
               ))}
             </h1>
             {plansPageContent.hero.subtitle ? (
@@ -272,7 +268,7 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="Growth partnerships"
               title="Choose the level of ongoing support your business needs."
-              description="Flow, Growth, and Nexus are for businesses that want more than a website delivered once. They include support, updates, and improvement over time."
+              description="Flow and Growth are for businesses that want more than a website delivered once. They include support, updates, and improvement over time."
             />
           </ScrollReveal>
           <div className="mt-12">
@@ -311,11 +307,11 @@ export function WebsitePlansPage() {
             <SectionHeading
               eyebrow="How each plan works"
               title="Ongoing partnership cadence or a focused launch path."
-              description="Flow, Growth, and Nexus are designed around a 12-month improvement rhythm. Launch is different: it is a focused delivery path for getting a website live quickly, then deciding what support makes sense next."
+              description="Flow and Growth are designed around a 12-month improvement rhythm. Launch is different: it is a focused delivery path for getting a website live quickly, then deciding what support makes sense next."
               className="max-w-5xl"
             />
           </ScrollReveal>
-          <div data-testid="plans-page-cadence-grid" className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div data-testid="plans-page-cadence-grid" className="mt-12 grid gap-5 lg:grid-cols-3">
             {planCadenceItems.map((item, index) => (
               <ScrollReveal key={item.planSlug} delay={index * 0.05}>
                 <article

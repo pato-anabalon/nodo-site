@@ -11,6 +11,7 @@ describe('ProofPoint', () => {
         label="Trust"
         title="Clearer enquiries"
         description="Customers understand the next step."
+        example={{ client: 'Liberty Security', detail: 'An enquiry action on every screen.' }}
         icon={CheckCircle}
       />
     );
@@ -18,6 +19,7 @@ describe('ProofPoint', () => {
     expect(screen.getByRole('heading', { name: /clearer enquiries/i })).toBeInTheDocument();
     expect(screen.getByText('Trust')).toBeInTheDocument();
     expect(screen.getByText('Customers understand the next step.')).toBeInTheDocument();
+    expect(screen.getByText('Liberty Security')).toBeInTheDocument();
     await expectNoA11yViolations(view);
   });
 });
