@@ -10,6 +10,7 @@ import { MetaChip } from '@/components/atoms/MetaChip';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
+import { PlanFinderButton } from '@/components/organisms/PlanFinder';
 import { PlansComparison } from '@/components/organisms/PlansComparison';
 import { PlansFaq } from '@/components/organisms/PlansFaq';
 import { LaunchPlanCard, PlansGrid } from '@/components/organisms/PlansGrid';
@@ -182,16 +183,12 @@ export function WebsitePlansPage() {
               ))}
             </div>
             <div className="mt-9 flex flex-wrap gap-3">
-              <TrackedPlanCta
-                href={contactHref('discovery-call', 'plans-hero')}
-                plan="not-selected"
-                intent="discovery-call"
+              <PlanFinderButton
                 location="plans_hero_primary"
+                variant="primary"
                 dataTestId="plans-hero-primary-button"
                 className="plans-hero-cta opacity-0 motion-reduce:opacity-100"
-              >
-                Help me choose a plan
-              </TrackedPlanCta>
+              />
               <TrackedPlanCta
                 href={contactHref('quote', 'plans-hero')}
                 plan="not-selected"

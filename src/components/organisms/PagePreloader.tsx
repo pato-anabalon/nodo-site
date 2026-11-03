@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
-import { NodoLogo } from '@/components/atoms/NodoLogo';
+import { NodoLogoImage } from '@/components/atoms/NodoLogoImage';
 import { cn } from '@/lib/utils';
 
 const MIN_VISIBLE_MS = 950;
@@ -103,7 +103,7 @@ export function PagePreloader() {
       <ConstellationBackground className="opacity-70" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.22),transparent_34%)]" />
       <div className="relative z-10 flex flex-col items-center gap-8 px-6 text-center">
-        <NodoLogo inverted className="preloader-logo scale-[1.4] sm:scale-[1.7]" />
+        <NodoLogoImage priority className="preloader-logo h-20 sm:h-24" />
         <div className="w-56 overflow-hidden rounded-full bg-white/12">
           <div className="h-1.5 w-1/2 rounded-full bg-nodo-purple shadow-[0_0_28px_rgba(124,58,237,0.8)] motion-safe:animate-[nodo-loader_1.05s_ease-in-out_infinite]" />
         </div>

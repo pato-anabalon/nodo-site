@@ -10,6 +10,7 @@ import { MetaChip } from '@/components/atoms/MetaChip';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { TrackedPlanCta } from '@/components/molecules/TrackedPlanCta';
+import { PlanFinderButton } from '@/components/organisms/PlanFinder';
 import {
   brandingPlans,
   bundlePlans,
@@ -44,9 +45,10 @@ function CommercialPlanCard({
 
   return (
     <article
+      id={plan.slug}
       data-testid={`${source}-${plan.slug}-card`}
       className={cn(
-        'group relative flex h-full flex-col overflow-visible rounded-[2rem] border p-6 pt-10 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 sm:p-7 sm:pt-11',
+        'group relative flex h-full scroll-mt-36 flex-col overflow-visible rounded-[2rem] border p-6 pt-10 transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 sm:p-7 sm:pt-11',
         light
           ? 'border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.10)] hover:bg-white'
           : 'border-white/12 bg-white/[0.045] text-white shadow-[0_24px_80px_rgba(0,0,0,0.22)] hover:bg-white/[0.07]',
@@ -299,6 +301,14 @@ export function MarketingBrandingPlansPage() {
                 </MetaChip>
               ))}
             </div>
+            <div className="mt-9">
+              <PlanFinderButton
+                location="marketing_branding_hero"
+                variant="primary"
+                className="marketing-hero-chip opacity-0 motion-reduce:opacity-100"
+                dataTestId="marketing-branding-hero-plan-finder-button"
+              />
+            </div>
           </div>
         </Container>
       </section>
@@ -320,7 +330,7 @@ export function MarketingBrandingPlansPage() {
         light
       />
 
-      <section id="bundles" data-testid="bundle-plans-section" className="py-20 sm:py-28">
+      <section id="bundles" data-testid="bundle-plans-section" className="scroll-mt-16 py-20 sm:py-28">
         <Container>
           <ScrollReveal>
             <SectionHeading

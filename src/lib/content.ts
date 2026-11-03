@@ -415,6 +415,12 @@ type FeaturedCaseStudyBase = {
   eyebrow: string;
   kicker: string;
   client: string;
+  logo: {
+    src: string;
+    width: number;
+    height: number;
+    className?: string;
+  };
   href: string;
   industry: string;
   headline: string;
@@ -451,6 +457,7 @@ const plasterProCaseStudy: ComparisonCaseStudy = {
   eyebrow: 'Featured case study',
   kicker: 'Website redesign',
   client: 'PlasterPro Solution',
+  logo: { src: '/case-studies/plasterpro-logo.png', width: 1220, height: 694 },
   href: 'https://www.plasterprosolution.co.nz/',
   industry: 'Auckland plastering, painting, gib stopping, and property presentation',
   headline: 'From an outdated Wix site to a high-trust trade website for Auckland property work.',
@@ -483,7 +490,7 @@ const plasterProCaseStudy: ComparisonCaseStudy = {
       title: 'Old Wix presence',
       description:
         'The previous site had weak hierarchy, crowded sections, and limited trust signals for a trade business working across Auckland properties.',
-      imageSrc: '/case-studies/plasterpro-old.png',
+      imageSrc: '/case-studies/plasterpro-old.jpeg',
       imageAlt: 'Old PlasterPro Solution Wix website screenshot before the Nodo redesign.',
       videoSrc: '/videos/plasterpro-old-site-480.mp4'
     },
@@ -491,7 +498,7 @@ const plasterProCaseStudy: ComparisonCaseStudy = {
       label: 'After',
       title: 'Nodo redesign',
       description: 'A sharper website experience built around services, process, projects, reviews, and quote actions.',
-      imageSrc: '/case-studies/plasterpro-new.png',
+      imageSrc: '/case-studies/plasterpro-new.jpeg',
       imageAlt: 'New PlasterPro Solution website screenshot after the Nodo redesign.',
       videoSrc: '/videos/plasterpro-new-site-480.mp4'
     }
@@ -500,9 +507,10 @@ const plasterProCaseStudy: ComparisonCaseStudy = {
 
 const libertySecurityCaseStudy: ShowcaseCaseStudy = {
   id: 'liberty-security',
-  eyebrow: 'New case study',
+  eyebrow: 'Featured case study',
   kicker: 'Website designed from scratch',
   client: 'Liberty Security',
+  logo: { src: '/case-studies/liberty-logo.png', width: 924, height: 539 },
   href: 'https://www.libertysecurity.co.nz/',
   industry: 'Security services across the Auckland region: events, close protection, guarding, and CCTV monitoring',
   headline: 'A brand strategy document turned into a launch-ready website, designed from scratch.',
@@ -551,15 +559,70 @@ const libertySecurityCaseStudy: ShowcaseCaseStudy = {
   ]
 };
 
+const oldBrushCaseStudy: ShowcaseCaseStudy = {
+  id: 'old-brush',
+  eyebrow: 'New case study',
+  kicker: 'Brand, landing page, and lead integration',
+  client: 'Old Brush',
+  logo: { src: '/case-studies/oldbrush-logo.png', width: 1563, height: 1563, className: 'scale-[1.35]' },
+  href: 'https://www.oldbrush.co.nz/',
+  industry: 'Interior plastering and painting across Auckland',
+  headline: 'A new trade brand, from logo to leads in Trello.',
+  summary:
+    'Old Brush is an Auckland interior plastering and painting business focused on Level 4 and Level 5 finishes. It started with no brand and no website. Nodo created the identity, designed the landing page from scratch, and connected quote requests straight into Trello.',
+  tags: ['Branding', 'Landing page', 'Copywriting', 'Trello lead integration'],
+  challenge: {
+    title: 'The brief',
+    description:
+      'A new business needed to look established and premium from day one. The brand had to signal craftsmanship and traditional finishes, the site had to explain finish levels in plain language, and every quote request needed to land somewhere it could be tracked and followed up.'
+  },
+  work: {
+    title: 'What we built',
+    points: [
+      'A brand identity built around traditional finishes: a crest-style logo, a warm neutral palette, and serif typography that feel crafted rather than corporate.',
+      'A landing page designed from scratch, structured around services, approach, the look of the work, the business behind it, and a clear call to start a project.',
+      'Plain-language copy for patching and repairs, Level 4 and Level 5 plaster finishes, interior painting, and wallpaper removal.',
+      'Quote requests created automatically as cards on the Old Brush Trello board, so every lead is captured in one place and easy to follow up.',
+      'Metadata and Open Graph cards so the link previews correctly when shared on WhatsApp, Facebook, or LinkedIn.'
+    ]
+  },
+  outcomes: [
+    'A credible brand from day one',
+    'Five services clearly explained',
+    'Leads captured in Trello automatically',
+    'Share-ready link previews'
+  ],
+  showcase: [
+    {
+      label: 'Live site',
+      title: 'Brand and site from scratch',
+      description:
+        'A calm, crafted opening with the Old Brush crest, the Level 4 and Level 5 promise, and a single request-a-quote action visible before any scrolling.',
+      imageSrc: '/case-studies/oldbrush-hero.jpeg',
+      imageAlt:
+        'Old Brush website homepage designed by Nodo, showing the refined interior plastering and painting hero with the crest logo.'
+    },
+    {
+      label: 'Link preview',
+      title: 'Share-ready metadata',
+      description:
+        'Open Graph title, description, and imagery configured so the brand presents itself properly every time the link is shared.',
+      imageSrc: '/case-studies/oldbrush-open-graph.jpeg',
+      imageAlt: 'Old Brush website link preview card as it appears when the URL is shared in a chat.',
+      kind: 'linkPreview'
+    }
+  ]
+};
+
 export const caseStudiesPageContent = {
   hero: {
     eyebrow: 'Selected work',
     title: 'Work that gets businesses chosen.',
-    copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to a site designed from scratch for Liberty Security.',
+    copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to sites designed from scratch for Liberty Security and Old Brush.',
     highlights: ['Website redesign', 'Social media', 'Video content']
   },
   featured: plasterProCaseStudy,
-  featuredCaseStudies: [plasterProCaseStudy, libertySecurityCaseStudy] as FeaturedCaseStudy[],
+  featuredCaseStudies: [plasterProCaseStudy, libertySecurityCaseStudy, oldBrushCaseStudy] as FeaturedCaseStudy[],
   selectedWork: {
     eyebrow: 'Ongoing client work',
     title: 'The social media work that keeps clients visible between projects.',
@@ -570,6 +633,66 @@ export const caseStudiesPageContent = {
     title: 'Tell us what feels unclear, outdated, or inconsistent.',
     copy: 'We can help you decide whether your next move is website, marketing, brand, or content.'
   }
+};
+
+export type HomeProofSlide = {
+  id: string;
+  client: string;
+  kicker: string;
+  logo: FeaturedCaseStudy['logo'];
+  headline: string;
+  copy: string;
+  points: string[];
+  image: {
+    src: string;
+    alt: string;
+  };
+  href: string;
+};
+
+const homeProofCopy: Record<string, Pick<HomeProofSlide, 'headline' | 'copy' | 'points'>> = {
+  plasterpro: {
+    headline: 'From outdated Wix to a high-trust trade site.',
+    copy: 'PlasterPro Solution needed a website that matched the quality of their Auckland property work. Nodo reshaped the experience around services, trust signals, local relevance, and easier quote paths.',
+    points: ['Clearer service structure', 'Stronger local trust', 'More visible quote paths']
+  },
+  'liberty-security': {
+    headline: 'From a strategy document to a launch-ready site.',
+    copy: 'Liberty Security arrived with a written brand strategy and no digital presence. Nodo turned it into a website designed from scratch, with positioning, services, and contact paths ready from day one.',
+    points: ['A credible presence from launch day', 'Eight services clearly explained', 'Share-ready link previews']
+  },
+  'old-brush': {
+    headline: 'A new trade brand, from logo to leads.',
+    copy: 'Old Brush started with no brand and no website. Nodo created the identity, designed the landing page, and connected quote requests straight into Trello.',
+    points: [
+      'A credible brand from day one',
+      'Five services clearly explained',
+      'Leads captured in Trello automatically'
+    ]
+  }
+};
+
+export const homeProofContent = {
+  eyebrow: 'Featured work',
+  title: 'Real work for real Auckland businesses.',
+  slides: caseStudiesPageContent.featuredCaseStudies.flatMap((study): HomeProofSlide[] => {
+    const copy = homeProofCopy[study.id];
+    const image = study.comparison ? study.comparison.after : study.showcase[0];
+
+    return copy && image
+      ? [
+          {
+            id: study.id,
+            client: study.client,
+            kicker: study.kicker,
+            logo: study.logo,
+            image: { src: image.imageSrc, alt: image.imageAlt },
+            href: `/case-studies#${study.id}`,
+            ...copy
+          }
+        ]
+      : [];
+  })
 };
 
 export const caseStudyWorkCards: CaseStudyWorkCard[] = [
@@ -745,7 +868,7 @@ export const websiteDesignAucklandPageContent = {
     ],
     href: '/case-studies',
     ctaLabel: 'View the case study',
-    imageSrc: '/case-studies/plasterpro-new.png',
+    imageSrc: '/case-studies/plasterpro-new.jpeg',
     imageAlt: 'New PlasterPro Solution website screenshot after the Nodo redesign.'
   },
   plans: {

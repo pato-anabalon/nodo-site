@@ -7,26 +7,46 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function refreshScrollTriggers() {
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-    });
-  });
-}
-
-function scrollToPageTop() {
+function setScroll(top: number) {
   const root = document.documentElement;
   const previousScrollBehavior = root.style.scrollBehavior;
 
   root.style.scrollBehavior = 'auto';
-  window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
+  window.scrollTo({ left: 0, top, behavior: 'auto' });
   // ScrollTrigger caches the previous page's scroll position and restores it on refresh,
   // which pushes short pages (e.g. /contact) to the bottom. Setting the scroll through its
   // own scroll function updates that cache.
-  ScrollTrigger.getScrollFunc(window)(0);
+  ScrollTrigger.getScrollFunc(window)(top);
   root.style.scrollBehavior = previousScrollBehavior;
-  refreshScrollTriggers();
+}
+
+function getHashTarget() {
+  const id = decodeURIComponent(window.location.hash.slice(1));
+
+  return id ? document.getElementById(id) : null;
+}
+
+function scrollToHashTarget(target: HTMLElement) {
+  const scrollMarginTop = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
+
+  setScroll(Math.max(0, target.getBoundingClientRect().top + window.scrollY - scrollMarginTop));
+}
+
+function resetRouteScroll() {
+  setScroll(0);
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+
+      // Links to another page's section (e.g. /plans/websites#nodo-flow) land on that section
+      // once pinned sections have been measured.
+      const target = getHashTarget();
+
+      if (target) {
+        scrollToHashTarget(target);
+      }
+    });
+  });
 }
 
 export function RouteScrollReset() {
@@ -47,8 +67,8 @@ export function RouteScrollReset() {
   }, []);
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(scrollToPageTop);
-    const timeout = window.setTimeout(scrollToPageTop, 80);
+    const frame = window.requestAnimationFrame(resetRouteScroll);
+    const timeout = window.setTimeout(resetRouteScroll, 80);
 
     return () => {
       window.cancelAnimationFrame(frame);

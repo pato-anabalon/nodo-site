@@ -7,6 +7,7 @@ import { ArrowDown } from 'lucide-react';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
 import { Container } from '@/components/atoms/Container';
 import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
+import { PlanFinderButton } from '@/components/organisms/PlanFinder';
 
 gsap.registerPlugin(useGSAP);
 
@@ -53,6 +54,8 @@ function HeroMarkGraphic({ className }: HeroMarkGraphicProps) {
   );
 }
 
+const wordmarkLetters = [...'nodo'];
+
 export function Hero() {
   const root = useRef<HTMLElement>(null);
 
@@ -65,6 +68,7 @@ export function Hero() {
         gsap.set('.hero-node', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-node-connected', { scale: 0, transformOrigin: 'center' });
         gsap.set('.hero-title-word', { yPercent: 135 });
+        gsap.set('.hero-wordmark-dot', { scale: 0, autoAlpha: 0, transformOrigin: '50% 85%' });
         gsap.set('.hero-title', { autoAlpha: 1 });
         gsap.set(['.hero-kicker', '.hero-bodycopy', '.hero-cta'], {
           autoAlpha: 0,
@@ -74,7 +78,21 @@ export function Hero() {
         const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
 
         tl.to('.hero-kicker', { autoAlpha: 1, y: 0, duration: 0.7 })
-          .to('.hero-title-word', { yPercent: 0, duration: 0.85, stagger: 0.08 }, '-=0.25')
+          // Wave colour shift: each letter rises from Nodo purple into white.
+          .from(
+            '.hero-wordmark-letter',
+            {
+              y: 40,
+              color: '#7c3aed',
+              opacity: 0,
+              stagger: { each: 0.15, from: 'start' },
+              duration: 0.6,
+              ease: 'sine.out'
+            },
+            '-=0.25'
+          )
+          .to('.hero-wordmark-dot', { scale: 1, autoAlpha: 1, duration: 1, ease: 'elastic.out(1, 0.45)' }, '-=0.3')
+          .to('.hero-title-word', { yPercent: 0, duration: 0.85 }, '-=0.85')
           .to('.hero-bodycopy', { autoAlpha: 1, y: 0, duration: 0.75 }, '-=0.35')
           .to(
             '.hero-cta',
@@ -140,6 +158,7 @@ export function Hero() {
           y: 0,
           yPercent: 0
         });
+        gsap.set('.hero-wordmark-dot', { autoAlpha: 1, scale: 1 });
         gsap.set('.hero-line', { strokeDashoffset: 0 });
         gsap.set(['.hero-node', '.hero-node-connected'], { scale: 1 });
       });
@@ -171,12 +190,20 @@ export function Hero() {
             className="hero-title opacity-0 motion-reduce:opacity-100 text-white"
           >
             <span className="flex flex-nowrap items-center overflow-hidden whitespace-nowrap text-[clamp(4.2rem,16vw,12.5rem)] font-black leading-[0.82] tracking-normal lg:items-baseline">
-              <span className="hero-title-word font-brand inline-block shrink-0">nodo</span>
-              <span className="hero-title-word font-brand inline-block shrink-0 text-nodo-purple">.</span>
+              <span className="font-brand inline-flex shrink-0 font-bold">
+                {wordmarkLetters.map((letter, index) => (
+                  <span key={`${letter}-${index}`} className="hero-wordmark-letter inline-block">
+                    {letter}
+                  </span>
+                ))}
+              </span>
+              <span className="hero-wordmark-dot font-brand inline-block shrink-0 font-bold text-nodo-purple">.</span>
               <HeroMarkGraphic className="ml-3 inline-block size-[clamp(3.2rem,14vw,4.75rem)] shrink-0 overflow-visible lg:hidden" />
             </span>
             <span className="mb-[-0.16em] mt-5 block max-w-2xl overflow-hidden pb-[0.16em] text-balance text-3xl font-black leading-[0.95] tracking-normal sm:text-5xl">
-              <span className="hero-title-word inline-block">Brands, marketing and websites built to grow.</span>
+              <span className="hero-title-word inline-block font-bold">
+                Brands, marketing and websites built to grow.
+              </span>
             </span>
           </h1>
           <p
@@ -197,17 +224,7 @@ export function Hero() {
             >
               Let’s talk
             </TrackedCtaButton>
-            <TrackedCtaButton
-              href="#services"
-              label="Explore services"
-              event="homepage"
-              location="home_hero"
-              variant="secondary"
-              className="hero-cta"
-              dataTestId="home-hero-secondary-button"
-            >
-              Explore services
-            </TrackedCtaButton>
+            <PlanFinderButton location="home_hero" className="hero-cta" dataTestId="home-hero-secondary-button" />
           </div>
         </div>
 
