@@ -98,3 +98,23 @@ export function trackHomepageCtaClicked({ label, location, href }: { label: stri
 export function trackNotFoundCtaClicked({ label, href }: { label: string; href: string }) {
   track('404 CTA Clicked', { label, href });
 }
+
+export function trackPlanFinderOpened(location: string) {
+  track('Plan Finder Opened', { location });
+  pushGtmEvent('nodo_plan_finder_open', { location });
+}
+
+export function trackPlanFinderAnswered({ question, answer }: { question: string; answer: string }) {
+  track('Plan Finder Answered', { question, answer });
+  pushGtmEvent('nodo_plan_finder_answer', { question, answer });
+}
+
+export function trackPlanFinderCompleted({ plan, alternative }: { plan: PlanSlug; alternative?: PlanSlug }) {
+  track('Plan Finder Completed', { plan, alternative: alternative ?? 'none' });
+  pushGtmEvent('nodo_plan_finder_complete', { plan, alternative });
+}
+
+export function trackPlanFinderCtaClicked({ plan, action }: { plan: PlanSlug; action: 'view-plan' | 'contact' }) {
+  track('Plan Finder CTA Clicked', { plan, action });
+  pushGtmEvent('nodo_cta_click', { plan, location: 'plan_finder', label: action });
+}

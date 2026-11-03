@@ -1,8 +1,9 @@
 'use client';
 
-import { Fragment, useRef } from 'react';
+import { Fragment, useEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { ArrowUpRight, MapPinned, MessageSquareText, MousePointerClick, ShieldCheck } from 'lucide-react';
 import { ConstellationBackground } from '@/components/atoms/ConstellationBackground';
@@ -15,7 +16,7 @@ import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
 import { caseStudiesPageContent, caseStudyWorkCards } from '@/lib/content';
 import type { CaseStudyBrowserSlot, CaseStudyWorkCard, CaseStudyWorkLink, FeaturedCaseStudy } from '@/lib/content';
 import { trackCtaClicked } from '@/lib/analytics';
-import { testIdSlug } from '@/lib/utils';
+import { cn, testIdSlug } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
 
@@ -288,15 +289,24 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
       <ScrollReveal>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">{study.eyebrow}</p>
+            <p data-case-reveal="intro" className="text-sm font-black uppercase tracking-[0.24em] text-nodo-lavender">
+              {study.eyebrow}
+            </p>
             <h2
+              data-case-reveal="title"
               data-testid={`case-studies-${study.id}-title`}
               className="mt-5 text-balance text-4xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl"
             >
               {study.client}
             </h2>
-            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-white/42">{study.industry}</p>
             <p
+              data-case-reveal="intro"
+              className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-white/42"
+            >
+              {study.industry}
+            </p>
+            <p
+              data-case-reveal="intro"
               data-testid={`case-studies-${study.id}-summary`}
               className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68"
             >
@@ -306,13 +316,14 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
               {study.tags.map((tag) => (
                 <span
                   key={tag}
+                  data-case-reveal="tag"
                   className="rounded-full border border-white/12 bg-white/[0.055] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white/62"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <div className="mt-8">
+            <div data-case-reveal="intro" className="mt-8">
               <TrackedCtaButton
                 href={study.href}
                 label="View live site"
@@ -336,6 +347,7 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
 
           <div className="grid gap-5">
             <div
+              data-case-reveal="headline"
               data-testid={`case-studies-${study.id}-headline-card`}
               className="rounded-[1.75rem] border border-nodo-lavender/32 bg-nodo-purple/20 p-6"
             >
@@ -345,11 +357,11 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
               </h3>
             </div>
             <div className="grid gap-5 md:grid-cols-2">
-              <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
+              <article data-case-reveal="card" className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
                 <h3 className="text-xl font-black text-white">{study.challenge.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/64">{study.challenge.description}</p>
               </article>
-              <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
+              <article data-case-reveal="card" className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
                 <h3 className="text-xl font-black text-white">{study.work.title}</h3>
                 <ul className="mt-4 grid gap-3">
                   {study.work.points.map((point) => (
@@ -368,11 +380,13 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
       <div className="mt-14 grid gap-5 lg:grid-cols-2">
         {slots.map((slot, index) => (
           <ScrollReveal key={slot.label} className="h-full" delay={index * 0.08}>
-            <BrowserSlot
-              {...slot}
-              studyId={study.id}
-              tone={study.comparison ? (index === 0 ? 'before' : 'after') : 'showcase'}
-            />
+            <div data-case-reveal="slot" className="h-full">
+              <BrowserSlot
+                {...slot}
+                studyId={study.id}
+                tone={study.comparison ? (index === 0 ? 'before' : 'after') : 'showcase'}
+              />
+            </div>
           </ScrollReveal>
         ))}
       </div>
@@ -383,16 +397,203 @@ function FeaturedCaseStudyBlock({ study }: { study: FeaturedCaseStudy }) {
           className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {study.outcomes.map((outcome, index) => (
-            <CaseStudyOutcomeCard
-              key={outcome}
-              icon={outcomeIcons[index % outcomeIcons.length]}
-              index={index}
-              outcome={outcome}
-            />
+            <div key={outcome} data-case-reveal="outcome">
+              <CaseStudyOutcomeCard icon={outcomeIcons[index % outcomeIcons.length]} index={index} outcome={outcome} />
+            </div>
           ))}
         </div>
       </ScrollReveal>
     </article>
+  );
+}
+
+function subscribeToHash(onChange: () => void) {
+  window.addEventListener('hashchange', onChange);
+
+  return () => window.removeEventListener('hashchange', onChange);
+}
+
+function readHash() {
+  return window.location.hash.slice(1);
+}
+
+function FeaturedCaseStudySwitcher({ studies }: { studies: FeaturedCaseStudy[] }) {
+  const hash = useSyncExternalStore(subscribeToHash, readHash, () => '');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const hasSwitchedRef = useRef(false);
+  const activeId = selectedId ?? studies.find((study) => study.id === hash)?.id ?? studies[0]?.id;
+  const activeIndex = Math.max(
+    0,
+    studies.findIndex((study) => study.id === activeId)
+  );
+
+  useEffect(() => {
+    const tab = activeId ? tabRefs.current[activeId] : null;
+    const tabList = tab?.parentElement;
+
+    // On phones the tabs scroll sideways; keep the active one in view.
+    if (tab && tabList && tabList.scrollWidth > tabList.clientWidth) {
+      const paddingLeft = Number.parseFloat(window.getComputedStyle(tabList).paddingLeft) || 0;
+      tabList.scrollTo({ left: tab.offsetLeft - tabList.offsetLeft - paddingLeft, behavior: 'smooth' });
+    }
+
+    // Newly revealed panels need their scroll-triggered reveals measured again.
+    window.requestAnimationFrame(() => ScrollTrigger.refresh());
+  }, [activeId]);
+
+  useGSAP(
+    () => {
+      const panel = activeId && hasSwitchedRef.current ? document.getElementById(activeId) : null;
+
+      if (!panel) {
+        return;
+      }
+
+      // The panel's scroll reveals already ran (or would replay); the switch animation replaces them.
+      const scrollReveals = panel.querySelectorAll<HTMLElement>('.will-change-transform');
+      gsap.killTweensOf(scrollReveals);
+      scrollReveals.forEach((element) => {
+        element.style.opacity = '1';
+        element.style.visibility = 'inherit';
+        element.style.transform = 'none';
+      });
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const query = (name: string) => panel.querySelectorAll(`[data-case-reveal="${name}"]`);
+        const slots = gsap.utils.toArray<HTMLElement>(query('slot'));
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+        tl.from(query('intro')[0], { autoAlpha: 0, y: 16, duration: 0.4 })
+          .from(
+            query('title'),
+            { autoAlpha: 0, y: 36, filter: 'blur(10px)', duration: 0.7, clearProps: 'filter' },
+            '-=0.2'
+          )
+          .from([...query('intro')].slice(1), { autoAlpha: 0, y: 24, duration: 0.55, stagger: 0.08 }, '-=0.45')
+          .from(query('tag'), { autoAlpha: 0, scale: 0.85, duration: 0.35, stagger: 0.05 }, '-=0.35')
+          .from(
+            query('headline'),
+            { autoAlpha: 0, x: 40, scale: 0.96, duration: 0.75, transformOrigin: 'left center' },
+            0.15
+          )
+          .from(query('card'), { autoAlpha: 0, y: 32, duration: 0.6, stagger: 0.12 }, 0.4)
+          .from(
+            slots,
+            { autoAlpha: 0, x: (index) => (index % 2 === 0 ? -48 : 48), y: 24, duration: 0.8, stagger: 0.1 },
+            0.6
+          )
+          .from(query('outcome'), { autoAlpha: 0, y: 24, duration: 0.5, stagger: 0.06 }, 0.85);
+      });
+
+      return () => mm.revert();
+    },
+    { dependencies: [activeId], revertOnUpdate: true }
+  );
+
+  const select = (id: string) => {
+    hasSwitchedRef.current = true;
+    setSelectedId(id);
+    window.history.replaceState(window.history.state, '', `#${id}`);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const keys: Record<string, number> = {
+      ArrowRight: activeIndex + 1,
+      ArrowLeft: activeIndex - 1,
+      Home: 0,
+      End: studies.length - 1
+    };
+    const nextIndex = keys[event.key];
+
+    if (nextIndex === undefined) {
+      return;
+    }
+
+    event.preventDefault();
+    const nextStudy = studies[(nextIndex + studies.length) % studies.length];
+    select(nextStudy.id);
+    tabRefs.current[nextStudy.id]?.focus();
+  };
+
+  return (
+    <section data-testid="case-studies-featured-section" className="border-y border-white/10 py-16 sm:py-24">
+      <Container>
+        <div
+          role="tablist"
+          aria-label="Case studies"
+          data-testid="case-studies-switcher"
+          className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-2 [mask-image:linear-gradient(90deg,#000_82%,transparent)] [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:[mask-image:none]"
+        >
+          {studies.map((study) => {
+            const isActive = study.id === activeId;
+
+            return (
+              <button
+                key={study.id}
+                ref={(node) => {
+                  tabRefs.current[study.id] = node;
+                }}
+                type="button"
+                role="tab"
+                id={`case-studies-tab-${study.id}`}
+                aria-selected={isActive}
+                aria-controls={study.id}
+                tabIndex={isActive ? 0 : -1}
+                data-testid={`case-studies-tab-${study.id}`}
+                className={cn(
+                  'flex min-h-16 shrink-0 items-center gap-4 rounded-2xl border py-3 pl-3 pr-5 text-left transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nodo-lavender',
+                  isActive
+                    ? 'border-nodo-purple bg-nodo-purple text-white shadow-[0_14px_40px_rgba(124,58,237,0.32)]'
+                    : 'border-white/12 bg-white/[0.045] text-white/80 hover:border-nodo-lavender/50 hover:bg-white/[0.08] hover:text-white'
+                )}
+                onClick={() => select(study.id)}
+                onKeyDown={handleKeyDown}
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    'flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl p-1.5 transition',
+                    isActive ? 'bg-nodo-black/40' : 'bg-nodo-black/60'
+                  )}
+                >
+                  <Image
+                    src={study.logo.src}
+                    alt=""
+                    width={study.logo.width}
+                    height={study.logo.height}
+                    sizes="64px"
+                    className={cn('h-full w-full object-contain', study.logo.className)}
+                  />
+                </span>
+                <span className="flex flex-col">
+                  <span className="text-base font-black leading-tight">{study.client}</span>
+                  <span className={cn('mt-1 text-xs font-semibold', isActive ? 'text-white/80' : 'text-white/60')}>
+                    {study.kicker}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {studies.map((study) => (
+          <div
+            key={study.id}
+            id={study.id}
+            role="tabpanel"
+            aria-labelledby={`case-studies-tab-${study.id}`}
+            hidden={study.id !== activeId}
+            data-testid={`case-studies-${study.id}-panel`}
+            className="case-study-panel mt-12 scroll-mt-56 sm:mt-16 lg:scroll-mt-64"
+          >
+            <FeaturedCaseStudyBlock study={study} />
+          </div>
+        ))}
+      </Container>
+    </section>
   );
 }
 
@@ -704,15 +905,7 @@ export function CaseStudiesPage() {
         </Container>
       </section>
 
-      <section data-testid="case-studies-featured-section" className="border-y border-white/10 py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-20 sm:gap-28">
-            {featuredCaseStudies.map((study) => (
-              <FeaturedCaseStudyBlock key={study.id} study={study} />
-            ))}
-          </div>
-        </Container>
-      </section>
+      <FeaturedCaseStudySwitcher studies={featuredCaseStudies} />
 
       {showSelectedWorkSection ? (
         <section data-testid="case-studies-selected-work-section" className="bg-white py-20 text-nodo-black sm:py-28">

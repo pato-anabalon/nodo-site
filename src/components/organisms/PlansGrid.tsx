@@ -22,9 +22,10 @@ function planTypeLabel(plan: Plan) {
 function PlanCard({ plan }: { plan: Plan }) {
   return (
     <article
+      id={plan.slug}
       data-testid={`plans-grid-${plan.slug}-card`}
       className={cn(
-        'plan-card group relative flex h-full flex-col overflow-visible rounded-[2rem] border bg-white/[0.045] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.07] sm:p-7 sm:pt-11',
+        'plan-card group relative flex h-full scroll-mt-36 flex-col overflow-visible rounded-[2rem] border bg-white/[0.045] p-6 pt-10 shadow-[0_24px_80px_rgba(0,0,0,0.25)] transition duration-300 hover:-translate-y-1 hover:border-nodo-lavender/50 hover:bg-white/[0.07] sm:p-7 sm:pt-11',
         plan.highlighted
           ? 'border-nodo-lavender/70 bg-[linear-gradient(160deg,rgba(124,58,237,0.42),rgba(255,255,255,0.08)_42%,rgba(5,5,5,0.7))] shadow-[0_30px_110px_rgba(124,58,237,0.32)]'
           : 'border-white/12',
@@ -186,8 +187,9 @@ export function LaunchPlanCard() {
 
   return (
     <article
+      id={launchPlan.slug}
       data-testid="plans-launch-card"
-      className="plan-card relative overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10"
+      className="plan-card relative scroll-mt-36 overflow-visible rounded-[2rem] border border-black/8 bg-[linear-gradient(145deg,#fbf9ff_0%,#ffffff_48%,#f8f4ff_100%)] p-6 pt-10 text-nodo-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] lg:p-8 lg:pt-10"
     >
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_70%_20%,rgba(124,58,237,0.18),transparent_34%)]" />
       <div

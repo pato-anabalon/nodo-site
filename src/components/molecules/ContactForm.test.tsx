@@ -69,6 +69,20 @@ describe('ContactForm', () => {
     expect(screen.getByText(/quote request/i)).toBeInTheDocument();
   });
 
+  it('should prefill the message with plan finder answers only when coming from the plan finder', () => {
+    window.sessionStorage.setItem('nodo:plan-finder-summary', 'Plan finder answers:\n- Focus: My website');
+
+    const { unmount } = renderWithProviders(
+      <ContactForm selectedPlanSlug="nodo-flow" intent="quote" source="plan-finder" />
+    );
+    expect(screen.getByTestId('contact-form-message-field')).toHaveValue('Plan finder answers:\n- Focus: My website');
+    unmount();
+
+    renderWithProviders(<ContactForm selectedPlanSlug="nodo-flow" intent="quote" source="plans" />);
+    expect(screen.getByTestId('contact-form-message-field')).toHaveValue('');
+    window.sessionStorage.clear();
+  });
+
   it('should add and remove valid files', () => {
     setup();
     const file = createFile('brief.pdf', 'application/pdf', 2048);

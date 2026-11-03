@@ -74,6 +74,28 @@ describe('page templates', () => {
 
     expect(screen.getByTestId('case-studies-page-main')).toBeInTheDocument();
     expect(screen.getAllByText(/PlasterPro Solution/i).length).toBeGreaterThan(0);
+    expect(screen.getByTestId('case-studies-old-brush-title')).toHaveTextContent('Old Brush');
+  });
+
+  it('should switch between case studies with tabs', () => {
+    renderWithProviders(<CaseStudiesPage />);
+
+    const plasterProTab = screen.getByRole('tab', { name: /PlasterPro Solution/i });
+    const libertyTab = screen.getByRole('tab', { name: /Liberty Security/i });
+
+    expect(plasterProTab).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByTestId('case-studies-plasterpro-panel')).toBeVisible();
+    expect(screen.getByTestId('case-studies-liberty-security-panel')).not.toBeVisible();
+
+    fireEvent.click(libertyTab);
+    expect(libertyTab).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByTestId('case-studies-liberty-security-panel')).toBeVisible();
+    expect(window.location.hash).toBe('#liberty-security');
+
+    fireEvent.keyDown(libertyTab, { key: 'ArrowRight' });
+    expect(screen.getByRole('tab', { name: /Old Brush/i })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: /Old Brush/i })).toHaveFocus();
+    window.history.replaceState(null, '', '/');
   });
 
   it('should render AboutPage', () => {
