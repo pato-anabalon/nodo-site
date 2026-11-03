@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from 'react';
 import { uploadPresigned } from '@vercel/blob/client';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -17,6 +17,7 @@ import {
 } from '@/lib/contact-attachments';
 import { trackContactFormError, trackContactFormSubmitted } from '@/lib/analytics';
 import { allPlanOptions, type PlanIntent } from '@/lib/content';
+import { PLAN_FINDER_SOURCE, PLAN_FINDER_STORAGE_KEY } from '@/lib/plan-finder';
 import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(useGSAP);
@@ -97,13 +98,38 @@ function createSubmissionId() {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
+function subscribeToNothing() {
+  return () => {};
+}
+
+function readPlanFinderSummary() {
+  try {
+    return window.sessionStorage.getItem(PLAN_FINDER_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function clearPlanFinderSummary() {
+  try {
+    window.sessionStorage.removeItem(PLAN_FINDER_STORAGE_KEY);
+  } catch {
+    // Nothing to clear when storage is unavailable.
+  }
+}
+
 export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormProps) {
   const rootRef = useRef<HTMLFormElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const coverRef = useRef<HTMLDivElement>(null);
   const [flowState, setFlowState] = useState<FlowState>('idle');
   const [message, setMessage] = useState('');
-  const [leadMessage, setLeadMessage] = useState('');
+  const storedPlanFinderSummary = useSyncExternalStore(subscribeToNothing, readPlanFinderSummary, () => null);
+  const [editedLeadMessage, setLeadMessage] = useState<string | null>(null);
+  // Answers from the plan finder prefill the message; anything the visitor types replaces them.
+  const leadMessage =
+    editedLeadMessage ??
+    (source === PLAN_FINDER_SOURCE ? (storedPlanFinderSummary ?? '').slice(0, MESSAGE_MAX_LENGTH) : '');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [submissionId] = useState(createSubmissionId);
   const [formStartedAt] = useState(() => Date.now().toString());
@@ -114,6 +140,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
   const selectedPlanType = getPlanType(selectedPlan);
   const trackingPlan = selectedPlan?.slug ?? 'not-selected';
   const trackingSource = source ?? 'contact';
+
   const attachmentTotalSize = selectedFiles.reduce((total, file) => total + file.size, 0);
   const isSending = flowState !== 'idle';
   const shouldDimFields = flowState !== 'idle' && flowState !== 'launching';
@@ -271,6 +298,7 @@ export function ContactForm({ selectedPlanSlug, intent, source }: ContactFormPro
 
     if (result.ok) {
       setFlowState('success');
+      clearPlanFinderSummary();
       trackContactFormSubmitted({
         plan: trackingPlan,
         intent: selectedIntent,

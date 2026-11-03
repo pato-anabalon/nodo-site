@@ -11,6 +11,7 @@ import { MetaChip } from '@/components/atoms/MetaChip';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { SectionHeading } from '@/components/atoms/SectionHeading';
 import { TrackedCtaButton } from '@/components/molecules/TrackedCtaButton';
+import { PlanFinderButton } from '@/components/organisms/PlanFinder';
 import { plansHubCards, plansHubContent } from '@/lib/content';
 import { createPlansHubNodo3dCardReveal } from '@/lib/gsap-plans-hub-nodo-3d-reveal';
 import { testIdSlug } from '@/lib/utils';
@@ -167,6 +168,14 @@ export function PlansHubPage() {
                   <span key={highlight}>{chip}</span>
                 );
               })}
+            </div>
+            <div className="mt-9">
+              <PlanFinderButton
+                location="plans_hub_hero"
+                variant="primary"
+                className="plans-hub-hero-chip opacity-0 motion-reduce:opacity-100"
+                dataTestId="plans-hub-hero-plan-finder-button"
+              />
             </div>
           </div>
 

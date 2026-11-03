@@ -188,7 +188,7 @@ src/components/templates
 - `Hero.tsx`: home hero with GSAP intro and constellation background.
 - `PagePreloader.tsx`: one-time session preloader.
 - `ContactSection.tsx`: contact page layout and animation wrapper.
-- `HomeProofSection.tsx`: compact home proof band linking the PlasterPro transformation to `/case-studies`.
+- `HomeProofSection.tsx`: 3D case study carousel (PlasterPro, Liberty Security, Old Brush) built from `homeProofContent` in `content.ts`; each slide links to `/case-studies#<study-id>`. Autoplay pauses on hover, focus, off-screen, and by the pause button; reduced motion renders flat slides without autoplay.
 - `ServicesSection.tsx`, `ProcessSection.tsx`, `ResultsSection.tsx`, `AboutSection.tsx`, `CTASection.tsx`: home sections.
 - `ServicesPageShowcase.tsx`: services detail cards.
 - `PlansGrid.tsx`, `PlansComparison.tsx`, `PlansFaq.tsx`: plan page UI blocks.
@@ -631,6 +631,15 @@ Footer dynamic test IDs:
 - `home-proof-points`
 - `home-proof-case-study-button`
 - `home-proof-visual`
+- `home-proof-controls`
+- `home-proof-previous-button`
+- `home-proof-next-button`
+- `home-proof-autoplay-button`
+- `home-proof-slide-<study-id>`
+- `home-proof-slide-title`
+- `home-proof-pagination`
+- `home-proof-dot-<study-id>`
+- `home-proof-progress`
 - `home-services-section`
 - `home-services-card-grid`
 - `home-process-section`
@@ -847,6 +856,9 @@ Featured case studies render one `FeaturedCaseStudyBlock` per entry in `caseStud
 
 - `case-studies-featured-section`
 - `case-studies-<study-id>-block`
+- `case-studies-switcher`
+- `case-studies-tab-<study-id>`
+- `case-studies-<study-id>-panel`
 - `case-studies-<study-id>-title`
 - `case-studies-<study-id>-summary`
 - `case-studies-<study-id>-headline-card`
