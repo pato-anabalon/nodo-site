@@ -75,6 +75,7 @@ describe('page templates', () => {
     expect(screen.getByTestId('case-studies-page-main')).toBeInTheDocument();
     expect(screen.getAllByText(/PlasterPro Solution/i).length).toBeGreaterThan(0);
     expect(screen.getByTestId('case-studies-old-brush-title')).toHaveTextContent('Old Brush');
+    expect(screen.getByTestId('case-studies-life-painting-title')).toHaveTextContent('Life Painting & Decorating');
   });
 
   it('should switch between case studies with tabs', () => {
