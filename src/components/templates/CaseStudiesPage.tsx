@@ -35,6 +35,7 @@ function BrowserSlot({
   imageAlt,
   videoSrc,
   kind = 'browser',
+  backdropColor,
   tone,
   studyId
 }: CaseStudyBrowserSlot & {
@@ -43,6 +44,8 @@ function BrowserSlot({
 }) {
   const isAfter = tone !== 'before';
   const isLinkPreview = kind === 'linkPreview';
+  const isBrandBoard = kind === 'brandBoard';
+  const isContained = isLinkPreview || isBrandBoard;
 
   return (
     <article
@@ -65,6 +68,7 @@ function BrowserSlot({
           isAfter ? 'border-nodo-lavender/30' : 'border-white/10',
           isLinkPreview ? 'bg-nodo-black' : isAfter ? 'bg-white' : 'bg-white/[0.035]'
         ].join(' ')}
+        style={backdropColor ? { backgroundColor: backdropColor } : undefined}
       >
         {videoSrc ? (
           <video
@@ -86,10 +90,10 @@ function BrowserSlot({
             alt={imageAlt}
             fill
             sizes="(min-width: 1024px) 46vw, 92vw"
-            className={isLinkPreview ? 'object-contain' : 'object-cover object-top'}
+            className={isContained ? 'object-contain' : 'object-cover object-top'}
           />
         )}
-        {isLinkPreview ? null : (
+        {isContained ? null : (
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_68%,rgba(5,5,5,0.42))]" />
         )}
       </div>
@@ -568,12 +572,7 @@ function FeaturedCaseStudySwitcher({ studies }: { studies: FeaturedCaseStudy[] }
                     className={cn('h-full w-full object-contain', study.logo.className)}
                   />
                 </span>
-                <span className="flex flex-col">
-                  <span className="text-base font-black leading-tight">{study.client}</span>
-                  <span className={cn('mt-1 text-xs font-semibold', isActive ? 'text-white/80' : 'text-white/60')}>
-                    {study.kicker}
-                  </span>
-                </span>
+                <span className="text-base font-black leading-tight">{study.client}</span>
               </button>
             );
           })}
