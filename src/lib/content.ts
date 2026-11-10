@@ -407,7 +407,8 @@ export type CaseStudyBrowserSlot = {
   imageSrc: string;
   imageAlt: string;
   videoSrc?: string;
-  kind?: 'browser' | 'linkPreview';
+  kind?: 'browser' | 'linkPreview' | 'brandBoard';
+  backdropColor?: string;
 };
 
 type FeaturedCaseStudyBase = {
@@ -561,7 +562,7 @@ const libertySecurityCaseStudy: ShowcaseCaseStudy = {
 
 const oldBrushCaseStudy: ShowcaseCaseStudy = {
   id: 'old-brush',
-  eyebrow: 'New case study',
+  eyebrow: 'Featured case study',
   kicker: 'Brand, landing page, and lead integration',
   client: 'Old Brush',
   logo: { src: '/case-studies/oldbrush-logo.png', width: 1563, height: 1563, className: 'scale-[1.35]' },
@@ -614,15 +615,77 @@ const oldBrushCaseStudy: ShowcaseCaseStudy = {
   ]
 };
 
+const lifePaintingCaseStudy: ShowcaseCaseStudy = {
+  id: 'life-painting',
+  eyebrow: 'New case study',
+  kicker: 'Brand identity and website from scratch',
+  client: 'Life Painting & Decorating',
+  logo: { src: '/case-studies/lifepainting-logo.png', width: 1563, height: 1563, className: 'scale-[1.3]' },
+  href: 'https://lifepaintingdec.co.nz/',
+  industry: 'Interior, exterior, and decorative painting across Auckland',
+  headline: 'A full brand identity and a website, built from zero.',
+  summary:
+    'Life Painting & Decorating is an Auckland painting business working on interior, exterior, and decorative finishes. It had no website and no defined brand. Nodo created the full identity, from logo to colour palette, typography, and brand applications, and designed and built the website from scratch.',
+  tags: ['Brand identity', 'Logo design', 'Website from scratch', 'Copywriting'],
+  challenge: {
+    title: 'The brief',
+    description:
+      'An established painting business needed a brand people would remember and a website to send them to. The identity had to feel warm and local rather than corporate, work everywhere from a shopfront sign to a profile picture, and the site had to explain a wide range of painting services and make asking for a quote simple.'
+  },
+  work: {
+    title: 'What we built',
+    points: [
+      'A complete brand identity: a primary badge logo, a horizontal version, and an L monogram for small spaces.',
+      'A defined colour palette and typography system, so every touchpoint uses the same teal, gold, and deep green.',
+      'Brand applications and graphic elements, including the painted brush-stroke textures used across the website and every brand application.',
+      'A website designed from scratch around the Good preparations. Better finishes. promise, covering interior, exterior, decorative, and preparation work.',
+      'Clear quote paths, an FAQ, and local SEO structure for the North Shore, Auckland Central, and West Auckland.'
+    ]
+  },
+  outcomes: [
+    'A recognisable brand from day one',
+    'Three logo versions for every use',
+    'Eight services clearly explained',
+    'A free-quote path on every screen'
+  ],
+  showcase: [
+    {
+      label: 'Live site',
+      title: 'Website from scratch',
+      description:
+        'A bright, welcoming opening built around the Good preparations. Better finishes. line, with project photography and a free-quote action visible before any scrolling.',
+      imageSrc: '/case-studies/lifepainting-hero.png',
+      imageAlt:
+        'Life Painting & Decorating website homepage designed by Nodo, showing the Good preparations. Better finishes. hero with project photography.'
+    },
+    {
+      label: 'Brand identity',
+      title: 'Logo system and brand',
+      description:
+        'A primary badge, a horizontal logo, and an L monogram, supported by a defined palette, typography, and painted brush-stroke graphic elements.',
+      imageSrc: '/case-studies/lifepainting-branding.png',
+      imageAlt:
+        'Life Painting & Decorating logo system created by Nodo: primary badge logo, horizontal logo, and L monogram on a cream background with brush strokes.',
+      kind: 'brandBoard',
+      backdropColor: '#f8f0da'
+    }
+  ]
+};
+
 export const caseStudiesPageContent = {
   hero: {
     eyebrow: 'Selected work',
     title: 'Work that gets businesses chosen.',
-    copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to sites designed from scratch for Liberty Security and Old Brush.',
+    copy: 'Selected website redesigns, new website builds, social media work, and content pieces for New Zealand businesses, from a full website transformation for PlasterPro Solution to brands and sites built from scratch for Liberty Security, Old Brush, and Life Painting.',
     highlights: ['Website redesign', 'Social media', 'Video content']
   },
   featured: plasterProCaseStudy,
-  featuredCaseStudies: [plasterProCaseStudy, libertySecurityCaseStudy, oldBrushCaseStudy] as FeaturedCaseStudy[],
+  featuredCaseStudies: [
+    plasterProCaseStudy,
+    libertySecurityCaseStudy,
+    oldBrushCaseStudy,
+    lifePaintingCaseStudy
+  ] as FeaturedCaseStudy[],
   selectedWork: {
     eyebrow: 'Ongoing client work',
     title: 'The social media work that keeps clients visible between projects.',
@@ -669,6 +732,11 @@ const homeProofCopy: Record<string, Pick<HomeProofSlide, 'headline' | 'copy' | '
       'Five services clearly explained',
       'Leads captured in Trello automatically'
     ]
+  },
+  'life-painting': {
+    headline: 'A full brand and website, from zero.',
+    copy: 'Life Painting & Decorating had no website and no defined brand. Nodo created the identity, from logo to palette, typography, and brand applications, and built the website from scratch.',
+    points: ['Complete brand identity', 'Three logo versions for every use', 'Eight services clearly explained']
   }
 };
 
